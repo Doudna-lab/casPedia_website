@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Webpage</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+      }
+      header {
+        background-color: #f2f2f2;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #logo {
+        width: 150px;
+        height: auto;
+      }
+      #search-container {
+        position: relative;
+        left: -100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+      #search-box {
+        width: 70%;
+        height: 50px; /* change this value */
+        padding: 10px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 18px;
+        background-color: #f8f8f8;
+      }
+      #main {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .column {
+        width: 30%;
+        padding: 10px;
+      }
+      .column img {
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: auto;
+      }
+      footer {
+        background-color: #f2f2f2;
+        padding: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img id="logo" src="https://vcresearch.berkeley.edu/sites/default/files/inline-images/IGI-Logo-300x135.png" alt="Logo">
+      <form id="search-container">
+        <label for="search">Search:</label>
+        <input type="text" id="search-box" name="search">
+        <label for="mode_1">Mode 1</label>
+        <input type="checkbox" id="mode_1" name="mode" value="1">
+        <label for="mode_2">Mode 2</label>
+        <input type="checkbox" id="mode_2" name="mode" value="1">
+        <label for="mode_3">Mode 3</label>
+        <input type="checkbox" id="mode_3" name="mode" value="1">
+        <button type="submit">Search</button><br><br><br>
+      </form>
+    </header>
+    <main id="main">
+      <div class="column">
+        <a href="page1.html">
+          <img src="image1.jpg" alt="Image 1">
+        </a>
+      </div>
+      <div class="column">
+        <a href="page2.html">
+          <img src="image2.jpg" alt="Image 2">
+        </a>
+      </div>
+      <div class="column">
+        <a href="page3.html">
+          <img src="image3.jpg" alt="Image 3">
+        </a>
+      </div>
+    </main>
+    <footer>
+      <p>Copyright © 2023
+        <a href="https://www.example.com">Example</a>
+      </p>
+    </footer>
+  </body>
+</html>
