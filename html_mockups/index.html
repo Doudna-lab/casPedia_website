@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Page</title>
+  <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: roboto,verdana,sans-serif;
+        font-size: 16px;
+      }
+    header {
+      background-color: #f2f2f2;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #logo {
+      width: 150px;
+      height: auto;
+    }
+    #search-container {
+      height: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2px;
+      margin-bottom: 2px;
+    }
+    #search-box {
+      width: 90%;
+      height: auto;
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      font-size: 18px;
+      background-color: #f8f8f8;
+      margin-left: -500px;
+      resize: vertical; /* or "vertical" */
+    }
+    #main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .column {
+      width: 30%;
+      padding: 10px;
+    }
+    .column img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: auto;
+    }
+    .column img:hover {
+      transform: scale(1.2);
+      transition: transform 0.7s ease-in-out;
+    }
+    footer {
+      background-color: #f2f2f2;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+      <!-- Add a logo here -->
+  <img id="logo" src="/img/ph_logo.png" alt="">
+  </header>
+
+  <!-- Add a search box here -->
+  <div id="search-container">
+    <form action="/search" method="GET">
+      <br><br>
+      <label for="search-box"></label><textarea id="search-box" rows="3" cols="50" placeholder="input sequence or term"></textarea>
+        <label for="mode_1">Sequence Input</label>
+          <input type="radio" id="mode_1" name="mode" >
+        <label for="mode_2">File Upload</label>
+          <input type="radio" id="mode_2" name="mode" >
+        <label for="mode_3">Text Search</label>
+          <input type="radio" id="mode_3" name="mode" >
+      <input type="submit" value="Submit">
+        <br><br/>
+    </form>
+  </div>
+  
+  <!-- Add three clickable images here -->
+  <div>
+    <main id="main">
+      <div class="column">
+        <a href="page1.html">
+          <img src="/img/ph_tree1.png" alt="Image 1">
+        </a>
+      </div>
+      <div class="column">
+        <a href="page2.html">
+          <img src="/img/ph_tree1.png" alt="Image 2">
+        </a>
+      </div>
+      <div class="column">
+        <a href="page3.html">
+          <img src="/img/ph_tree1.png" alt="Image 3">
+        </a>
+      </div>
+    </main>
+  </div>
+  <!-- Add a footnote here -->
+  <footer>
+      <p>Copyright © 2023
+        <a href="https://www.example.com">Example</a>
+      </p>
+    </footer>
+</body>
+</html>

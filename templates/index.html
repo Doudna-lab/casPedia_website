@@ -21,6 +21,11 @@
       width: 150px;
       height: auto;
     }
+    #main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
     #search-container {
       height: auto;
       display: flex;
@@ -39,11 +44,6 @@
       background-color: #f8f8f8;
       margin-left: -500px;
       resize: vertical; /* or "vertical" */
-    }
-    #main {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
     }
     .column {
       width: 30%;
@@ -68,48 +68,42 @@
 </head>
 <body>
   <header>
-      <!-- Add a logo here -->
-  <img id="logo" src="img/ph_logo.png" alt="">
+      <!-- logo -->
+  <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
   </header>
 
-  <!-- Add a search box here -->
+  <!-- search box -->
   <div id="search-container">
-    <form action="/form/submit" method="GET">
-      <!--label id="search-container"></label-->
+    <form action="{{ url_for("gfg")}}" method="POST">
       <br><br>
-      <label for="search-box"></label><textarea id="search-box" name="text" rows="3" cols="50" placeholder="input sequence or term"></textarea>
-        <label for="mode_1">Mode 1</label>
-          <input type="radio" id="mode_1" name="mode" >
-        <label for="mode_2">Mode 2</label>
-          <input type="radio" id="mode_2" name="mode" >
-        <label for="mode_3">Mode 3</label>
-          <input type="radio" id="mode_3" name="mode" >
+      <label for="search-box"></label><textarea id="search-box" name="search-box" rows="3" cols="50" placeholder="input sequence or term"></textarea>
       <input type="submit" value="Submit">
-        <br><br/>
+      <input type="file">
+    <br><br/>
     </form>
   </div>
   
-  <!-- Add three clickable images here -->
+  <!-- clickable images -->
   <div>
     <main id="main">
       <div class="column">
         <a href="page1.html">
-          <img src="img/ph_tree1.png" alt="Image 1">
+          <img src="{{url_for('static', filename='img/ph_tree1.png')}}" alt="Image 1">
         </a>
       </div>
       <div class="column">
         <a href="page2.html">
-          <img src="img/ph_tree1.png" alt="Image 2">
+          <img src="{{url_for('static', filename='img/ph_tree1.png')}}" alt="Image 2">
         </a>
       </div>
       <div class="column">
         <a href="page3.html">
-          <img src="img/ph_tree1.png" alt="Image 3">
+          <img src="{{url_for('static', filename='img/ph_tree1.png')}}" alt="Image 2">
         </a>
       </div>
     </main>
   </div>
-  <!-- Add a footnote here -->
+  <!-- footnote -->
   <footer>
       <p>Copyright © 2023
         <a href="https://www.example.com">Example</a>
@@ -117,3 +111,5 @@
     </footer>
 </body>
 </html>
+
+
