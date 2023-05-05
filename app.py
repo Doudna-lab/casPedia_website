@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-
+from py.seq_search import run as seq_search
 app = Flask(__name__)
 
 # ph_seq = [
