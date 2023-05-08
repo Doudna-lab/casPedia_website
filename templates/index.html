@@ -27,23 +27,27 @@
       justify-content: center;
     }
     #search-container {
+      position: sticky;
+      top: 0;
       height: auto;
-      display: flex;
       justify-content: center;
       align-items: center;
       margin-top: 2px;
       margin-bottom: 2px;
+      margin-left: 30px;
     }
     #search-box {
-      width: 90%;
-      height: auto;
+      position: sticky;
+      top: 0;
+      width: 35%;
+      margin-left: 30px;
       padding: 10px;
       border: 2px solid #ccc;
       border-radius: 10px;
       font-size: 18px;
       background-color: #f8f8f8;
-      margin-left: -500px;
-      resize: vertical; /* or "vertical" */
+      resize: both; /* or "vertical" */
+      height: auto;
     }
     .column {
       width: 30%;
@@ -77,8 +81,8 @@
     <form action="{{ url_for("gfg")}}" method="POST">
       <br><br>
       <label for="search-box"></label><textarea id="search-box" name="search-box" rows="3" cols="50" placeholder="input sequence or term"></textarea>
-      <input type="submit" value="Submit">
-      <input type="file">
+      <input type="submit" value="Submit" name="seq-input">
+      <!--input type="file" name="file-input"-->
     <br><br/>
     </form>
   </div>

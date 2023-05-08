@@ -21,7 +21,16 @@
       width: 150px;
       height: auto;
     }
+    #main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
     #search-container {
+      position: sticky;
+      top: 0;
+      left: -1990px;
+      right: 1000px;
       height: auto;
       display: flex;
       justify-content: center;
@@ -30,20 +39,26 @@
       margin-bottom: 2px;
     }
     #search-box {
-      width: 90%;
+      position: sticky;
+      top: 0;
+      left: -1990px;
+      right: 1000px;
       height: auto;
+      width: 60%;
       padding: 10px;
       border: 2px solid #ccc;
       border-radius: 10px;
       font-size: 18px;
       background-color: #f8f8f8;
-      margin-left: -500px;
       resize: vertical; /* or "vertical" */
     }
-    #main {
+    .search-box-container {
+      top: 0;
+      left: -1990px;
+      right: 1000px;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-direction: column;
+      align-items: baseline;
     }
     .column {
       width: 30%;
@@ -68,47 +83,45 @@
 </head>
 <body>
   <header>
-      <!-- Add a logo here -->
-  <img id="logo" src="/img/ph_logo.png" alt="">
+      <!-- logo -->
+  <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
   </header>
 
-  <!-- Add a search box here -->
+  <!-- search box -->
   <div id="search-container">
-    <form action="/search" method="GET">
-      <br><br>
-      <label for="search-box"></label><textarea id="search-box" rows="3" cols="50" placeholder="input sequence or term"></textarea>
-        <label for="mode_1">Sequence Input</label>
-          <input type="radio" id="mode_1" name="mode" >
-        <label for="mode_2">File Upload</label>
-          <input type="radio" id="mode_2" name="mode" >
-        <label for="mode_3">Text Search</label>
-          <input type="radio" id="mode_3" name="mode" >
-      <input type="submit" value="Submit">
-        <br><br/>
+    <form action="{{ url_for("gfg")}}" method="POST">
+    <br><br>
+      <div class="search-box-container">
+        <label for="search-box"></label>
+        <textarea id="search-box" name="search-box" rows="3" cols="50" placeholder="input sequence or term"></textarea>
+        <input type="submit" value="Submit">
+        <input type="file">
+      </div>
+    <br><br/>
     </form>
   </div>
-  
-  <!-- Add three clickable images here -->
+
+  <!-- clickable images -->
   <div>
     <main id="main">
       <div class="column">
         <a href="page1.html">
-          <img src="/img/ph_tree1.png" alt="Image 1">
+          <img src="{{url_for('static', filename='img/ph_tree1.png')}}" alt="Image 1">
         </a>
       </div>
       <div class="column">
         <a href="page2.html">
-          <img src="/img/ph_tree1.png" alt="Image 2">
+          <img src="{{url_for('static', filename='img/ph_tree1.png')}}" alt="Image 2">
         </a>
       </div>
       <div class="column">
         <a href="page3.html">
-          <img src="/img/ph_tree1.png" alt="Image 3">
+          <img src="{{url_for('static', filename='img/ph_tree1.png')}}" alt="Image 2">
         </a>
       </div>
     </main>
   </div>
-  <!-- Add a footnote here -->
+  <!-- footnote -->
   <footer>
       <p>Copyright © 2023
         <a href="https://www.example.com">Example</a>
@@ -116,3 +129,5 @@
     </footer>
 </body>
 </html>
+
+

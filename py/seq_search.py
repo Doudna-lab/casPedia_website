@@ -8,8 +8,9 @@ import yaml
 
 
 def run(fasta_seq):
-	with open("config.yaml", "r") as f:
+	with open("config/seq_search.yaml", "r") as f:
 		config = yaml.load(f, Loader=yaml.FullLoader)
+
 	def check_format(filename):
 		# Checks whether the fasta input is valid or not
 		try:
@@ -32,13 +33,13 @@ def run(fasta_seq):
 	prefix = ''.join(random.choices(string.ascii_letters +
 	                             string.digits, k=n))
 	timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-	outfile = f"/jobs/temp_{prefix}_{timestamp}.html"
+	path_outfile = f"templates/temp_{prefix}_{timestamp}.html"
+	outfile = f"temp_{prefix}_{timestamp}.html"
+	# outfile = f"jobs/temp_{prefix}_{timestamp}.xml"
 
 	# Run deltablast
-	subprocess.run(f""" deltablast 
-	-show_domain_hits 
-	-query {fasta_seq} 
-	-db {config["blast_db"]} 
-	-rpsdb {config["cdd_delta"]}
-	-outfmt -html > {outfile}
-	""")
+	# HTML output for testing
+	subprocess.call(f"deltablast -show_domain_hits -query {fasta_seq} -db {config['blast_db']} -rpsdb {config['cdd_delta']} -html > {path_outfile}", shell=True)
+	# XML output
+	# subprocess.call(f"deltablast -show_domain_hits -query {fasta_seq} -db {config['blast_db']} -rpsdb {config['cdd_delta']} -outfmt 5 -out {outfile}", shell=True)
+	return outfile
