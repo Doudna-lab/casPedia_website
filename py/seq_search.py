@@ -5,6 +5,7 @@ import random
 import datetime
 import os
 import yaml
+from Bio.Blast import NCBIXML
 
 
 def run(fasta_seq):
@@ -12,19 +13,32 @@ def run(fasta_seq):
 		config = yaml.load(f, Loader=yaml.FullLoader)
 
 	def check_format(filename):
-		# Checks whether the fasta input is valid or not
-		try:
-			with open(filename, "r") as handle:
-				fasta_check = SeqIO.parse(handle, "fasta")
-				check = any(fasta_check)
-		except FileNotFoundError:
+		# Check whether the fasta input is valid or not
+		if not os.path.isfile(filename):
 			print(f"The file <{filename}> could not be found.\nTerminating application")
 			exit(0)
+		# Validate fasta format
+		with open(filename, "r") as handle:
+			fasta_check = SeqIO.parse(handle, "fasta")
+			check = any(fasta_check)
 		# Report the outcome depending on the verbosity
 		if check:
 			print("Input format validated")
 		if not check:
 			raise Exception("\nInvalid input format.\nPlease provide a valid FASTA input")
+
+	def blast_result_parser(xml_temp_path):
+		report_dict = {}
+		for record in NCBIXML.parse(open(xml_temp_path)):
+			if record.alignments:
+				for align in record.alignments:
+					for hsp in align.hsps:
+						hit_id = align.hit_def
+						report_dict.setdefault(record.query, {}).setdefault(hit_id, {
+							"blastp_alignment_len": align.length, "e-value": hsp.expect})
+		filtered_report_dict, hit_id_list = report_dict
+		return filtered_report_dict, hit_id_list
+
 	# Validate fasta format
 	check_format(fasta_seq)
 
@@ -39,7 +53,23 @@ def run(fasta_seq):
 
 	# Run deltablast
 	# HTML output for testing
-	subprocess.call(f"deltablast -show_domain_hits -query {fasta_seq} -db {config['blast_db']} -rpsdb {config['cdd_delta']} -html > {path_outfile}", shell=True)
+	# subprocess.call(
+	# 	f"deltablast -show_domain_hits -query {fasta_seq} "
+	# 	f"-db {config['blast_db']} "
+	# 	f"-rpsdb {config['cdd_delta']} "
+	# 	f"-html > {path_outfile}",
+	# 	shell=True
+	# )
 	# XML output
-	# subprocess.call(f"deltablast -show_domain_hits -query {fasta_seq} -db {config['blast_db']} -rpsdb {config['cdd_delta']} -outfmt 5 -out {outfile}", shell=True)
+	subprocess.call(
+		f"deltablast -show_domain_hits "
+		f"-query {fasta_seq} "
+		f"-db {config['blast_db']} "
+		f"-rpsdb {config['cdd_delta']} "
+		f"-outfmt 5 -out {outfile}",
+		shell=True
+	)
+
+
+
 	return outfile

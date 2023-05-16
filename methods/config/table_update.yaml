@@ -1,0 +1,13 @@
+
+# Database login instructions
+username: "bellieny"
+passwd: "CrispRBlue99!"
+hostname: "localhost"
+database_name: "caspedia"
+port: 5432
+schema: "root"
+
+# Default path to source tables
+source_metadata_path: ['',
+                       '',
+                       '']
