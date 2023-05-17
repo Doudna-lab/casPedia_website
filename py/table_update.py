@@ -2,6 +2,7 @@
 import pandas as pd
 from pandas.errors import ParserError
 import numpy as np
+import passpy
 import re
 # Installed modules
 import yaml
@@ -11,18 +12,21 @@ from sqlalchemy.schema import CreateSchema as cschema
 from psycopg2 import errors
 
 # Load config file
-with open("config/table_update.yaml.yaml", "r") as f:
+with open("../config/table_update.yaml", "r") as f:
 	config = yaml.safe_load(f)
 
 
 def psql_connect(config_handle):
+	database_name = config_handle['database_name']
+	store = passpy.Store()
+	passwd = store.get_key(database_name)
+
 	# Uses the parameters in the YAML config file to setup the DB connection string
 	conn_string = 'postgresql://{}:{}@{}:{}/{}'.format(
 		config_handle['username'],
-		config_handle['passwd'],
 		config_handle['hostname'],
 		config_handle['port'],
-		config_handle['database_name']
+		database_name
 	)
 	return conn_string
 
