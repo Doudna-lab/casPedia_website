@@ -2,8 +2,8 @@
 import pandas as pd
 from pandas.errors import ParserError
 import numpy as np
-import passpy
 import re
+import os
 # Installed modules
 import yaml
 import psycopg2
@@ -12,18 +12,17 @@ from sqlalchemy.schema import CreateSchema as cschema
 from psycopg2 import errors
 
 # Load config file
-with open("../config/table_update.yaml", "r") as f:
+with open("config/table_update.yaml", "r") as f:
 	config = yaml.safe_load(f)
 
 
 def psql_connect(config_handle):
 	database_name = config_handle['database_name']
-	store = passpy.Store()
-	passwd = store.get_key(database_name)
 
 	# Uses the parameters in the YAML config file to setup the DB connection string
 	conn_string = 'postgresql://{}:{}@{}:{}/{}'.format(
 		config_handle['username'],
+		os.environ['PSQL_PASS'],
 		config_handle['hostname'],
 		config_handle['port'],
 		database_name
@@ -95,7 +94,15 @@ def load_tables_db(df_dict, conn_string, schema_name):
 	print("Commited changes to DB")
 
 
-tables_dict = import_csv_list(input_list, tag_list)
+def main():
+	source_metadata_list = config["source_metadata_path"]
+	source_tag_list = config["metadata_file_tags"]
+	schema = 'test'
+
+	tables_dict = import_csv_list(source_metadata_list, source_tag_list)
+	conn_string = psql_connect(config)
+	load_tables_db(tables_dict, conn_string, schema)
 
 
-load_tables_db(round_table_dict, conn_string, schema)
+if __name__ == "__main__":
+	main()

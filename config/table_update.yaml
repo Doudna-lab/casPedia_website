@@ -1,13 +1,14 @@
 
 # Database login instructions
 username: "bellieny"
-passwd: "CrispRBlue99!"
 hostname: "localhost"
 database_name: "caspedia"
 port: 5432
 schema: "root"
 
 # Default path to source tables
-source_metadata_path: ['',
-                       '',
-                       '']
+source_metadata_path: ['background_data/2023_03_28_Cas_family_tree_Naming.csv']
+
+# In-Database names of source tables
+metadata_file_tags: ['master']
+
