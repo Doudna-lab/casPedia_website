@@ -1,7 +1,6 @@
 # Native modules
 import pandas as pd
 from pandas.errors import ParserError
-import numpy as np
 import re
 import os
 # Installed modules
@@ -59,7 +58,8 @@ def import_csv_list(file_list, name_list):
 			r'.*bioproject.*', 'bioproject', x, flags=re.IGNORECASE
 		))
 		df_loop = df_loop.dropna(how='all', axis=1)
-		dict_imported.setdefault(csv_file, []).append(df_loop   )
+		df_loop = df_loop.replace('>', '', regex=True)
+		dict_imported.setdefault(csv_file, []).append(df_loop)
 		dict_imported.setdefault(csv_file, []).append(file_dict[csv_file])
 	return dict_imported
 
