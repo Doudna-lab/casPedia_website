@@ -6,17 +6,17 @@ import datetime
 # External modules
 from Bio import SeqIO
 import os
-import yaml
 from Bio.Blast import NCBIXML
 
 
+# fasta_seq = "jobs/seqIN_RAcgDxyK03Y5RLYscMyl_2023-05-12-13-02-41.fasta"
 def random_name_gen():
 	# Generate Unique filename to store blastouts
-	n = 20
+	n = 30
 	prefix = ''.join(random.choices(string.ascii_letters +
 	                                string.digits, k=n))
 	timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-	return f"{prefix}_{timestamp}"
+	return f"temp_{prefix}_{timestamp}"
 
 
 def check_format(filename):
@@ -58,11 +58,14 @@ def blast_result_parser(xml_temp_path):
 	return report_dict, hit_id_list
 
 
-def run(fasta_seq):
+# # DEBUG INPUTS
+# fasta_seq = "jobs/seqIN_RAcgDxyK03Y5RLYscMyl_2023-05-12-13-02-41.fasta"
+# #   -> Sequence search config
+# import yaml
+# with open("config/seq_search.yaml", "r") as f:
+# 	config = yaml.load(f, Loader=yaml.FullLoader)
 
-	with open("config/seq_search.yaml", "r") as f:
-		config = yaml.load(f, Loader=yaml.FullLoader)
-
+def run(fasta_seq, config, random_file_prefix):
 	# Assumes there will be no output
 	blastout_report_dict = None
 
@@ -71,36 +74,22 @@ def run(fasta_seq):
 
 	# Proceeds with a Delta Blast if the input is a valid FASTA
 	if valid_fasta_check:
-		# Generate Unique filename to store blastouts
-		n = 30
-		prefix = ''.join(random.choices(string.ascii_letters +
-		                             string.digits, k=n))
-		timestamp = datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
-
-		# In the presence of a valid fasta input, assigns a temp path to outfile
-		outfile = f"temp_{prefix}_{timestamp}.xml"
-		# outfile = f"jobs/temp_{prefix}_{timestamp}.xml"
-
-		# Run deltablast
-		# HTML output for testing
-		# subprocess.call(
-		# 	f"deltablast -show_domain_hits -query {fasta_seq} "
-		# 	f"-db {config['blast_db']} "
-		# 	f"-rpsdb {config['cdd_delta']} "
-		# 	f"-html > {path_outfile}",
-		# 	shell=True
-		# )
+		# In the presence of a valid fasta input, assigns a randomized temp path to outfile
+		outfile = f"{config['temp_fasta_dir']}{os.sep}{random_file_prefix}.xml"
 		# XML output
 		# Run Delta Blast
-		subprocess.call(
-			f"deltablast -show_domain_hits "
-			f"-query {fasta_seq} "
-			f"-db {config['blast_db']} "
-			f"-rpsdb {config['cdd_delta']} "
-			f"-outfmt 5 -out {outfile}",
-			shell=True
-		)
+		subprocess.run(f"deltablast -num_threads 5 -show_domain_hits -query {fasta_seq} -db {config['blast_db']} -rpsdb {config['cdd_delta']} -outfmt 5 -out {outfile}", shell=True)
+
+		with open("UM_FDP.txt", 'w') as file:
+			file.write(outfile)
+
 		(blastout_report_dict, blast_hit_list) = blast_result_parser(outfile)
+
+		with open("DOIS_FDP.txt", 'w') as file:
+			file.write(outfile)
+
+		# 	Clean up temps
+		# os.remove(outfile)
 
 	# The return value is either a blastout report or None
 	return blastout_report_dict

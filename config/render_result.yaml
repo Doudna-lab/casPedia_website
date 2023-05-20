@@ -1,1 +1,12 @@
+
+# The column in the blastout report to be used as
 linked_column: "Hit_name"
+
+# Temporary blastout table path
+temp_blastout_dir: "jobs/"
+
+# Path to search page template
+search_template_path: "templates/search_out_page.html"
+
+# Path to output search html page
+search_output_path: "templates/"
