@@ -1,6 +1,7 @@
+# Native modules
 import pandas as pd
+import re
 import os
-from py.seq_search import random_name_gen
 
 
 # Define a function to generate HTML links
@@ -31,6 +32,14 @@ def dynamic_blastout_html(blastout_df_html, html_template_path):
     template = template.replace('<table border="1" class="dataframe">', '<table border="1" id="table">')
     template = template.replace('<thead>', '<thead id="thead">')
     template = template.replace('<tbody>', '<tbody id="tbody">')
+
+    # TODO: Finalizar bloco de adicao de class='num' aos itens numericos da tabela HTML
+    # Assign class='num' to numeric cells of the HTML table
+    # for line in template:
+    #     try:
+    #         line_item = float(re.split("<\/?td>", line)[1])
+    #     except (IndexError, ValueError):
+    #         pass
     return template
 
 

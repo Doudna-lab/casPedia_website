@@ -45,15 +45,13 @@ def blast_result_parser(xml_temp_path):
 			for align in record.alignments:
 				for hsp in align.hsps:
 					hit_id = align.hit_def
-					query_alignment_cov = (hsp.align_length * 100) / record.query_length
 					query_positives_cov = (hsp.positives * 100) / record.query_length
 					report_dict.setdefault(record.query, {}).setdefault(hit_id, {
-						"Query_length": record.query_length,
-						"Hit_length": align.length,
-						"Blastp_alignment_length": hsp.align_length,
-						"Query_alignment_cov_perc": "{:.1f}%".format(query_alignment_cov),
-						"Query_positives_cov_perc": "{:.1f}%".format(query_positives_cov),
-						"E-value": hsp.expect})
+						"Query_length": int(record.query_length),
+						"Hit_length": int(align.length),
+						"Blastp_alignment_length": int(hsp.align_length),
+						"Query_positives_cov_perc": float("{:.1f}%".format(query_positives_cov)),
+						"E-value": float(hsp.expect)})
 					hit_id_list.append(hit_id)
 	return report_dict, hit_id_list
 
@@ -67,7 +65,7 @@ def blast_result_parser(xml_temp_path):
 
 def run(fasta_seq, config, random_file_prefix):
 	# Assumes there will be no output
-	blastout_report_dict = None
+	blastout_report_dict = {}
 
 	# Validate fasta format
 	valid_fasta_check = check_format(fasta_seq)
@@ -80,16 +78,10 @@ def run(fasta_seq, config, random_file_prefix):
 		# Run Delta Blast
 		subprocess.run(f"deltablast -num_threads 5 -show_domain_hits -query {fasta_seq} -db {config['blast_db']} -rpsdb {config['cdd_delta']} -outfmt 5 -out {outfile}", shell=True)
 
-		with open("UM_FDP.txt", 'w') as file:
-			file.write(outfile)
-
 		(blastout_report_dict, blast_hit_list) = blast_result_parser(outfile)
 
-		with open("DOIS_FDP.txt", 'w') as file:
-			file.write(outfile)
-
 		# 	Clean up temps
-		# os.remove(outfile)
+		os.remove(outfile)
 
 	# The return value is either a blastout report or None
 	return blastout_report_dict

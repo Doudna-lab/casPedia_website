@@ -21,7 +21,7 @@ with open("config/render_result.yaml", "r") as f:
 def gfg():
     if request.method == "POST":
         # Generate a random file identifier for the job
-        file_dynamic_prefix = seq_search.random_name_gen()
+        file_dynamic_prefix: str = seq_search.random_name_gen()
 
         # Get input from search box
         fasta_sequence = request.form["search-box"]
@@ -29,7 +29,7 @@ def gfg():
         with open(seq_path, 'w') as temp_fasta:
             temp_fasta.write(fasta_sequence)
 
-        print("Try BLastp Run")
+        print("Try BlastP Run")
         # Test sequence format and perform sequence search if applicable
         blast_result = seq_search.run(seq_path, sq_search_config, file_dynamic_prefix)
 
@@ -42,7 +42,7 @@ def gfg():
             os.remove(seq_path)
             # Create search output page
             html_blastout_tbl = render_blastout_table(blast_result, tbl_render_config, file_dynamic_prefix)
-            # Create output page path/name
+            # Create search output page path/name
             html_tbl_template_path = f"{tbl_render_config['search_output_path']}{os.sep}{file_dynamic_prefix}.html"
             # Export search output page
             with open(html_tbl_template_path, 'w') as blastout_template:
