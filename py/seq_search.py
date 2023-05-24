@@ -11,7 +11,7 @@ from Bio.Blast import NCBIXML
 
 # fasta_seq = "jobs/seqIN_RAcgDxyK03Y5RLYscMyl_2023-05-12-13-02-41.fasta"
 def random_name_gen():
-	# Generate Unique filename to store blastouts
+	"""Generate Unique filename featuring date, time, and a 30-char long random string"""
 	n = 30
 	prefix = ''.join(random.choices(string.ascii_letters +
 	                                string.digits, k=n))
@@ -20,7 +20,7 @@ def random_name_gen():
 
 
 def check_format(filename):
-	# Check whether the fasta input is valid or not
+	"""Check whether the fasta input is valid. Return: bool"""
 	if not os.path.isfile(filename):
 		print(f"The file <{filename}> could not be found.\nTerminating application")
 		return False # Validate fasta format
@@ -36,10 +36,13 @@ def check_format(filename):
 
 
 def blast_result_parser(xml_temp_path):
+	"""
+	Parses a BlastP XML output to extract
+	specific information about the hits and alignments:
+	xml_temp_path -- path to xml output from blastP
+	"""
 	report_dict = {}
 	hit_id_list = []
-	align = ''
-	record = ''
 	for record in NCBIXML.parse(open(xml_temp_path)):
 		if record.alignments:
 			for align in record.alignments:
@@ -76,7 +79,14 @@ def run(fasta_seq, config, random_file_prefix):
 		outfile = f"{config['temp_fasta_dir']}{os.sep}{random_file_prefix}.xml"
 		# XML output
 		# Run Delta Blast
-		subprocess.run(f"deltablast -num_threads 5 -show_domain_hits -query {fasta_seq} -db {config['blast_db']} -rpsdb {config['cdd_delta']} -outfmt 5 -out {outfile}", shell=True)
+		subprocess.run(f"deltablast "
+		               f"-num_threads {config['threads']}"
+		               f" -show_domain_hits"
+		               f" -query {fasta_seq}"
+		               f" -db {config['blast_db']}"
+		               f" -rpsdb {config['cdd_delta']}"
+		               f" -outfmt 5 -out {outfile}",
+		               shell=True)
 
 		(blastout_report_dict, blast_hit_list) = blast_result_parser(outfile)
 

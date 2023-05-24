@@ -29,11 +29,8 @@ def gfg():
         with open(seq_path, 'w') as temp_fasta:
             temp_fasta.write(fasta_sequence)
 
-        print("Try BlastP Run")
         # Test sequence format and perform sequence search if applicable
         blast_result = seq_search.run(seq_path, sq_search_config, file_dynamic_prefix)
-
-        print("Check if blastP went alright")
 
         # Deliver search output result
         if blast_result:
@@ -41,9 +38,9 @@ def gfg():
             # Clean up temp sequence
             os.remove(seq_path)
             # Create search output page
-            html_blastout_tbl = render_blastout_table(blast_result, tbl_render_config, file_dynamic_prefix)
+            html_blastout_tbl = render_blastout_table(blast_result, tbl_render_config)
             # Create search output page path/name
-            html_tbl_template_path = f"{tbl_render_config['search_output_path']}{os.sep}{file_dynamic_prefix}.html"
+            html_tbl_template_path = f'{tbl_render_config["root_template_dir_path"]}{os.sep}{file_dynamic_prefix}.html'
             # Export search output page
             with open(html_tbl_template_path, 'w') as blastout_template:
                 blastout_template.write(html_blastout_tbl)
@@ -52,6 +49,9 @@ def gfg():
 
     else:
         return render_template("index.html")
+
+    # Clean up temp html page
+    os.remove(f"{file_dynamic_prefix}.html")
 
 
 if __name__ == '__main__':

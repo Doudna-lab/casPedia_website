@@ -9,4 +9,7 @@ temp_blastout_dir: "jobs/"
 search_template_path: "templates/search_out_page.html"
 
 # Path to output search html page
-search_output_path: "templates/"
+root_template_dir_path: "templates"
+
+# Internal temp directory for html templates
+temp_html_dir_path: "temp"
