@@ -22,24 +22,43 @@ def order_df_columns(df):
     return df_out
 
 
-def dynamic_blastout_html(blastout_df_html, html_template_path):
+def replace_func(match):
+    "Check for integers or floats in a replacement operation"
+    group1 = match.group(1)
+    numeric_type_bool = True
+    try:
+        int(group1)
+    except ValueError:
+        try:
+            float(group1)
+        except ValueError:
+            return group1  # No replacement, return the original match
+    if numeric_type_bool:
+        return f"<td class=\"num\">{group1}</td>"
+
+
+def dynamic_blastout_html(blastout_df_html, html_template_path, sequence_id):
     # Read the template file
     with open(html_template_path, 'r') as f:
         template = f.read()
 
     # Replace the placeholder with the table HTML
     template = template.replace('<div id="table"></div>', blastout_df_html)
-    template = template.replace('<table border="1" class="dataframe">', '<table border="1" id="table">')
+    # Header adjustments
+    template = template.replace('<table border="1" class="dataframe">',
+                                f"<div class='table-wrap'>\n<table class='sortable'>\n"
+                                f"<caption>\nDeltablast results for {sequence_id}"
+                                f"\n<span class='sr-only'>\n</span></caption>")
+    template = template.replace('</table>', '</table>\n</div>')
     template = template.replace('<thead>', '<thead id="thead">')
     template = template.replace('<tbody>', '<tbody id="tbody">')
 
-    # TODO: Finalizar bloco de adicao de class='num' aos itens numericos da tabela HTML
+    # Adjust table headers to include buttons
+    template = re.sub("<\/?th>(\S+)<\/?th>", r"<th>\n\t<button>\n\t\t\1\n\t\t<span aria-hidden='true'></span>\n\t\t</button>\n\t</th>", template)
+
     # Assign class='num' to numeric cells of the HTML table
-    # for line in template:
-    #     try:
-    #         line_item = float(re.split("<\/?td>", line)[1])
-    #     except (IndexError, ValueError):
-    #         pass
+    template = re.sub("<\/?td>(\S+)<\/?td>", replace_func, template)
+
     return template
 
 
@@ -48,6 +67,8 @@ def dynamic_blastout_html(blastout_df_html, html_template_path):
 # with open("config/render_result.yaml", "r") as f:
 #     config = yaml.load(f, Loader=yaml.FullLoader)
 def run(blastout_dict, config, random_file_prefix):
+    # Grab input sequence ID
+    query_sequence_id = list(blastout_dict.keys())[0]
     # Import blastout parsed dictionary into pandas dataframe
     df = pd.DataFrame.from_dict(blastout_dict[list(blastout_dict.keys())[0]], orient='index')
 
@@ -62,6 +83,6 @@ def run(blastout_dict, config, random_file_prefix):
     df_blastout_html = df.to_html(escape=False, index=False)
 
     # Create and save a modified template to a new file
-    blastout_html_template = dynamic_blastout_html(df_blastout_html, config["search_template_path"])
+    blastout_html_template = dynamic_blastout_html(df_blastout_html, config["search_template_path"], query_sequence_id)
 
     return blastout_html_template

@@ -50,7 +50,7 @@ def blast_result_parser(xml_temp_path):
 						"Query_length": int(record.query_length),
 						"Hit_length": int(align.length),
 						"Blastp_alignment_length": int(hsp.align_length),
-						"Query_positives_cov_perc": float("{:.1f}%".format(query_positives_cov)),
+						"Query_positives_cov_%": float("{:.1f}".format(query_positives_cov)),
 						"E-value": float(hsp.expect)})
 					hit_id_list.append(hit_id)
 	return report_dict, hit_id_list

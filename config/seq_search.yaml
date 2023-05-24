@@ -1,5 +1,5 @@
-blast_db: "/home/ubuntu/casPedia_website/background_data/toy_db"
-cdd_delta: "/home/ubuntu/db/cdd_delta" #"/home/ubuntu/db/cdd_delta"
+blast_db: "background_data/toy_db"
+cdd_delta: "/Users/bellieny/db/cdd_delta" #"/home/ubuntu/db/cdd_delta"
 
 # Temporary user-input FASTA sequence path
 temp_fasta_dir: "jobs"
