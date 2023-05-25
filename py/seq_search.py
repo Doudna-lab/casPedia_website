@@ -9,7 +9,7 @@ import os
 from Bio.Blast import NCBIXML
 
 
-# fasta_seq = "jobs/seqIN_RAcgDxyK03Y5RLYscMyl_2023-05-12-13-02-41.fasta"
+# seq_path = "jobs/seqIN_RAcgDxyK03Y5RLYscMyl_2023-05-12-13-02-41.fasta"
 def random_name_gen():
 	"""Generate Unique filename featuring date, time, and a 30-char long random string"""
 	n = 30
@@ -60,18 +60,18 @@ def blast_result_parser(xml_temp_path):
 
 
 # # DEBUG INPUTS
-# fasta_seq = "jobs/seqIN_RAcgDxyK03Y5RLYscMyl_2023-05-12-13-02-41.fasta"
+# seq_path = "jobs/seqIN_RAcgDxyK03Y5RLYscMyl_2023-05-12-13-02-41.fasta"
 # #   -> Sequence search config
 # import yaml
 # with open("config/seq_search.yaml", "r") as f:
 # 	config = yaml.load(f, Loader=yaml.FullLoader)
 
-def run(fasta_seq, config, random_file_prefix):
+def run(seq_path, config, random_file_prefix):
 	# Assumes there will be no output
 	blastout_report_dict = {}
 
 	# Validate fasta format
-	valid_fasta_check = check_format(fasta_seq)
+	valid_fasta_check = check_format(seq_path)
 
 	# Proceeds with a Delta Blast if the input is a valid FASTA
 	if valid_fasta_check:
@@ -82,7 +82,7 @@ def run(fasta_seq, config, random_file_prefix):
 		subprocess.run(f"deltablast "
 		               f"-num_threads {config['threads']}"
 		               f" -show_domain_hits"
-		               f" -query {fasta_seq}"
+		               f" -query {seq_path}"
 		               f" -db {config['blast_db']}"
 		               f" -rpsdb {config['cdd_delta']}"
 		               f" -outfmt 5 -out {outfile}",
