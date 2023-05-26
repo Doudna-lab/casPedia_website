@@ -1,7 +1,11 @@
-
+# BLASTP SPECIFIC CONFIGS
 # The column in the blastout report to be used as
 linked_column: "Hit_name"
 
+# WORD-SEARCH SPECIFIC CONFIGS
+
+
+# GENERAL RESULTS PAGE CONFIGS
 # Temporary blastout table path
 temp_blastout_dir: "jobs/"
 

@@ -11,7 +11,7 @@ from sqlalchemy.schema import CreateSchema as cschema
 from psycopg2 import errors
 
 # Load config file
-with open("config/table_update.yaml", "r") as f:
+with open("config/db_interaction.yaml", "r") as f:
 	config = yaml.safe_load(f)
 
 
@@ -97,7 +97,7 @@ def load_tables_db(df_dict, conn_string, schema_name):
 def main():
 	source_metadata_list = config["source_metadata_path"]
 	source_tag_list = config["metadata_file_tags"]
-	schema = 'test'
+	schema = config["schema"]
 
 	tables_dict = import_csv_list(source_metadata_list, source_tag_list)
 	conn_string = psql_connect(config)

@@ -12,3 +12,5 @@ source_metadata_path: ['background_data/2023_03_28_Cas_family_tree_Naming.csv']
 # In-Database names of source tables
 metadata_file_tags: ['master']
 
+# Default database table for user input search
+default_search_table: "master"
