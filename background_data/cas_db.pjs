@@ -1,0 +1,22 @@
+{
+  "version": "1.2",
+  "dbname": "cas_db",
+  "dbtype": "Protein",
+  "db-version": 5,
+  "description": "cas_db",
+  "number-of-letters": 17332,
+  "number-of-sequences": 21,
+  "last-updated": "2023-05-26T17:30:00",
+  "number-of-volumes": 1,
+  "bytes-total": 56315,
+  "bytes-to-cache": 17610,
+  "files": [
+    "cas_db.pdb",
+    "cas_db.phr",
+    "cas_db.pin",
+    "cas_db.pot",
+    "cas_db.psq",
+    "cas_db.ptf",
+    "cas_db.pto"
+  ]
+}
