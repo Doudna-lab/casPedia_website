@@ -5,9 +5,9 @@ import os
 
 
 # Define a function to generate HTML links
-def generate_link(row, config):
+def generate_link(row, linked_column):
     """Generates an HTML href pointer to a template associated with the search result"""
-    link = f'<a href="{row[config["linked_column"]]}.html">{row[config["linked_column"]]}</a>'
+    link = f'<a href="{row[linked_column]}.html">{row[linked_column]}</a>'
     return link
 
 
@@ -36,7 +36,7 @@ def replace_func(match):
         except ValueError:
             return group1  # No replacement, return the original match
     if numeric_type_bool:
-        return f"<td class=\"num\">{group1}</td>"
+        return f"<td class=\"num\">{group1}</td>\n"
 
 
 def dynamic_blastout_html(blastout_df_html, html_template_path, sequence_id):
@@ -64,13 +64,13 @@ def dynamic_blastout_html(blastout_df_html, html_template_path, sequence_id):
     template = template.replace('<tbody>', '<tbody id="tbody">')
 
     # Adjust table headers to include buttons
-    template = re.sub("<th>(\S+)<\/?th>",
+    template = re.sub(r"<th>(.*?)<\/?th>\n",
                       r"<th>\n\t<button>\n\t\t\1\n"
                       r"\t\t<span aria-hidden='true'></span>\n"
-                      r"\t\t</button>\n\t</th>", template)
+                      r"\t\t</button>\n\t</th>\n", template)
 
     # Assign class='num' to numeric cells of the HTML table
-    template = re.sub("<\/?td>(\S+)<\/?td>", replace_func, template)
+    template = re.sub(r"<td>(.*?)<\/?td\n>", replace_func, template)
 
     return template
 
@@ -86,11 +86,12 @@ def run(blastout_dict, config):
     df = pd.DataFrame.from_dict(blastout_dict[list(blastout_dict.keys())[0]], orient='index')
 
     # Create a column for hit IDs
-    df[config["linked_column"]] = df.index
+    df[config["linked_column_sequence_search"]] = df.index
     # Reorder the dataframe so the hit IDs are placed first
     df = last_df_col_to_first(df)
     # Apply the function to links to the hit ID columns
-    df[config["linked_column"]] = df.apply(lambda row: generate_link(row, config), axis=1)
+    df[config["linked_column_sequence_search"]] = df.apply(lambda row: generate_link(
+        row, config["linked_column_sequence_search"]), axis=1)
 
     # Convert the DataFrame to HTML table
     df_blastout_html = df.to_html(escape=False, index=False)

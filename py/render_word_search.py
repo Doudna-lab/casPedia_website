@@ -2,12 +2,11 @@
 import re
 import pandas as pd
 # Installed modules
-import psycopg2
+# import psycopg2
 import sqlalchemy as sa
-import yaml
 # Project modules
 from py.db_loadNupdate import psql_connect
-from py.render_search_result import dynamic_blastout_html
+from py.render_search_result import dynamic_blastout_html, generate_link
 
 
 def sql_table_to_df(conn_string, table_name):
@@ -25,7 +24,8 @@ def sql_table_to_df(conn_string, table_name):
 	return sql_query
 
 
-# DEBUG INPUTS
+# #DEBUG INPUTS
+# import yaml
 # with open("config/db_interaction.yaml", "r") as f:
 # 	config_db = yaml.safe_load(f)
 #
@@ -33,22 +33,25 @@ def sql_table_to_df(conn_string, table_name):
 # 	config_render = yaml.safe_load(f)
 
 
-def run(user_input_path, config_render, config_db):
+def run(user_raw_input, config_render, config_db):
 	# Establish database connection
 	conn = psql_connect(config_db)
 
 	default_search_df = sql_table_to_df(conn, config_db['default_search_table'])
 
 	# Perform regex search across all columns
-	search_term = re.compile(rf'{user_input_path}', flags=re.IGNORECASE)
+	search_term = re.compile(rf'{user_raw_input}', flags=re.IGNORECASE)
 	mask = default_search_df.applymap(lambda x: re.search(search_term, str(x)) is not None)
 	default_search_df = default_search_df[mask.any(axis=1)]
+
+	default_search_df[config_render["linked_column_word_search"]] = default_search_df.apply(
+		lambda row: generate_link(row, config_render["linked_column_word_search"]), axis=1)
 
 	df_wordsearch_html = default_search_df.to_html(escape=False, index=False)
 
 	wordsearch_html_template = dynamic_blastout_html(df_wordsearch_html,
-	                                               config_render["search_template_path"],
-	                                               user_input_path)
+	                                                 config_render["search_template_path"],
+	                                                 user_raw_input)
 
 	return wordsearch_html_template
 #

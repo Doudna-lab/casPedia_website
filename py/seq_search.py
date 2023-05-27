@@ -9,7 +9,7 @@ import os
 from Bio.Blast import NCBIXML
 
 
-# user_input_path = "jobs/seqIN_RAcgDxyK03Y5RLYscMyl_2023-05-12-13-02-41.fasta"
+# user_raw_input = "jobs/seqIN_RAcgDxyK03Y5RLYscMyl_2023-05-12-13-02-41.fasta"
 def random_name_gen():
 	"""Generate Unique filename featuring date, time, and a 30-char long random string"""
 	n = 30
@@ -60,7 +60,7 @@ def blast_result_parser(xml_temp_path):
 
 
 # # DEBUG INPUTS
-# user_input_path = "jobs/seqIN_RAcgDxyK03Y5RLYscMyl_2023-05-12-13-02-41.fasta"
+# user_raw_input = "jobs/seqIN_RAcgDxyK03Y5RLYscMyl_2023-05-12-13-02-41.fasta"
 # #   -> Sequence search config
 # import yaml
 # with open("config/seq_search.yaml", "r") as f:
@@ -81,7 +81,6 @@ def run(user_input_path, config, random_file_prefix):
 		# Run Delta Blast
 		subprocess.run(f"deltablast "
 		               f"-num_threads {config['threads']}"
-		               f" -show_domain_hits"
 		               f" -query {user_input_path}"
 		               f" -db {config['blast_db']}"
 		               f" -rpsdb {config['cdd_delta']}"

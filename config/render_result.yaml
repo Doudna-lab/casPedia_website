@@ -1,19 +1,20 @@
 # BLASTP SPECIFIC CONFIGS
 # The column in the blastout report to be used as
-linked_column: "Hit_name"
+linked_column_sequence_search: "Hit_name"
+linked_column_word_search: "Type Protein"
 
 # WORD-SEARCH SPECIFIC CONFIGS
 
 
 # GENERAL RESULTS PAGE CONFIGS
 # Temporary blastout table path
-temp_blastout_dir: "jobs/"
+temp_blastout_dir: "jobs"
 
 # Path to search page template
 search_template_path: "templates/search_out_page.html"
 
 # Path to output search html page
-root_template_dir_path: "templates"
+dir_root_template_path: "templates"
 
 # Internal temp directory for html templates
 temp_html_dir_path: "temp"

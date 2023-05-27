@@ -1,5 +1,5 @@
-blast_db: "background_data/toy_db"
-cdd_delta: "/Users/bellieny/db/cdd_delta" #"/home/ubuntu/db/cdd_delta" #
+blast_db: "background_data/cas_db"
+cdd_delta: "/home/ubuntu/db/cdd_delta" # "/Users/bellieny/db/cdd_delta" #
 threads: 1
 
 # Temporary user-input FASTA sequence path

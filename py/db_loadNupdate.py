@@ -17,7 +17,6 @@ with open("config/db_interaction.yaml", "r") as f:
 
 def psql_connect(config_handle):
 	database_name = config_handle['database_name']
-
 	# Uses the parameters in the YAML config file to setup the DB connection string
 	conn_string = 'postgresql://{}:{}@{}:{}/{}'.format(
 		config_handle['username'],
@@ -26,6 +25,7 @@ def psql_connect(config_handle):
 		config_handle['port'],
 		database_name
 	)
+
 	return conn_string
 
 
