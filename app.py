@@ -43,6 +43,11 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/wiki/<page>')
+def wiki_page(page):
+    return render_template(f'wiki/{page}')
+
+
 @app.route('/', methods=["POST", "GET"])
 def gfg():
     if request.method == "POST":

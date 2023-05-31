@@ -82,7 +82,8 @@ def run(user_input_path, config, random_file_prefix):
 		outfile = f"{config['temp_fasta_dir']}{os.sep}{random_file_prefix}.xml"
 		# XML output
 		# Run Delta Blast
-		subprocess.run(f"deltablast "
+		subprocess.run(f"nice -n 10 "
+		               f"deltablast "
 		               f"-num_threads {config['threads']}"
 		               f" -query {user_input_path}"
 		               f" -db {config['blast_db']}"

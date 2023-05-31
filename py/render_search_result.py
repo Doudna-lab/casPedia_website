@@ -7,10 +7,10 @@ import os
 # Define a function to generate HTML links
 def generate_link(row, linked_column):
     """Generates an HTML href pointer to a template associated with the search result"""
-    link = f'<a href="{row[linked_column]}.html">{row[linked_column]}</a>'
+    link = f'<a href = "templates/{row[linked_column]}.html">{row[linked_column]}</a>'
     return link
-
-
+    # href = "templates/{row[linked_column]}.html"
+    # src="{{url_for('static', filename='templates/wiki/{row[linked_column]}.html')}}"
 def last_df_col_to_first(df):
     """Brings a pandas dataframe last column to the first position"""
     # Get the column names and pop the last column

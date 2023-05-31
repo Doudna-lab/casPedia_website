@@ -1,8 +1,88 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: roboto, verdana, sans-serif;
+  font-size: 16px;
+}
+
+/* Header */
+header {
+  background-color: #fcfcfc;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#logo,
+#second-logo {
+  width: 120px;
+  height: auto;
+}
+
+/* Main */
+#main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Search Container */
+#search-container {
+  position: sticky;
+  top: 0;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  margin: 2px 30px;
+}
+
+#search-box {
+  position: sticky;
+  top: 0;
+  width: 35%;
+  margin-left: 30px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  font-size: 18px;
+  background-color: #f8f8f8;
+  resize: both;
+  height: auto;
+}
+
+/* Column */
+.column {
+  width: 30%;
+  padding: 10px;
+}
+
+.column img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: auto;
+}
+
+.column img:hover {
+  transform: scale(1.05);
+  transition: transform 0.7s ease-in-out;
+}
+
+/* Footer */
+footer {
+  background-color: #f2f2f2;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Accessibility */
 .sr-only {
   position: absolute;
   top: -30em;
 }
 
+/* Table Sorting */
 table.sortable td,
 table.sortable th {
   padding: 2em 0.8em;
@@ -75,11 +155,10 @@ table.sortable td.num {
 }
 
 table.sortable tbody tr:nth-child(odd) {
-  background-color: #ddd;
+  background-color: #f7f9fa;
 }
 
 /* Focus and hover styling */
-
 table.sortable th button:focus,
 table.sortable th button:hover {
   padding: 2px;
