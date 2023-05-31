@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Page</title>
+  <title>CasPedia - pre-Alpha</title>
   <style>
     body {
         margin: 0;
@@ -18,7 +18,11 @@
       align-items: center;
     }
     #logo {
-      width: 150px;
+      width: 220px;
+      height: auto;
+    }
+    #second-logo {
+      width: 220px;
       height: auto;
     }
     #main {
@@ -60,7 +64,7 @@
       margin: auto;
     }
     .column img:hover {
-      transform: scale(1.2);
+      transform: scale(1.05);
       transition: transform 0.7s ease-in-out;
     }
     footer {
@@ -73,14 +77,22 @@
 <body>
   <header>
       <!-- logo -->
-  <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+    <a href="index.html">
+      <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+    </a>
+    <!-- second logo -->
+    <a href="https://innovativegenomics.org/" target="_blank">
+      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
+    </a>
   </header>
 
   <!-- search box -->
   <div id="search-container">
     <form action="{{ url_for("gfg")}}" method="POST">
       <br><br>
-      <label for="search-box"></label><textarea id="search-box" name="search-box" rows="3" cols="50" placeholder="input sequence or term"></textarea>
+      <label for="search-box"></label><textarea
+          id="search-box" name="search-box" rows="3" cols="50"
+          placeholder="available search formats:&#10; 1- FASTA-formatted sequence&#10; 2- Word search (e.g. Cas name or accession)"></textarea>
       <input type="submit" value="Submit" name="seq-input">
       <!--input type="file" name="file-input"-->
     <br><br/>

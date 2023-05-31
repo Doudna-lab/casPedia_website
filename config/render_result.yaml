@@ -4,7 +4,9 @@ linked_column_sequence_search: "Hit_name"
 linked_column_word_search: "Type Protein"
 
 # WORD-SEARCH SPECIFIC CONFIGS
-
+wordsearch_display_cols: ['Type Protein', 'Number',
+                          'Type Protein Accession', 'Nuclease Activity',
+                          'Targeting Context', 'PAM', 'Citation']
 
 # GENERAL RESULTS PAGE CONFIGS
 # Temporary blastout table path

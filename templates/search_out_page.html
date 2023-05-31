@@ -20,7 +20,11 @@
       align-items: center;
     }
     #logo {
-      width: 150px;
+      width: 220px;
+      height: auto;
+    }
+    #second-logo {
+      width: 220px;
       height: auto;
     }
     #table{
@@ -84,9 +88,15 @@
 <body>
   <header>
       <!-- logo -->
-  <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+    <a href="index.html">
+      <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+    </a>
+    <!-- second logo -->
+    <a href="https://innovativegenomics.org/" target="_blank">
+      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
+    </a>
   </header>
-  <div id="table"></div>
+    <div id="table"> <p>The sequence search yielded no result. <a href="index.html">Click here</a> to try a different sequence</p></div>
   <!-- footnote -->
   <footer>
       <p>Copyright © 2023

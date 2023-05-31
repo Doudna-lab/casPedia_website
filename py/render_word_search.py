@@ -31,9 +31,10 @@ def sql_table_to_df(conn_string, table_name):
 #
 # with open("config/render_result.yaml", "r") as f:
 # 	config_render = yaml.safe_load(f)
-
+# user_raw_input = 'cas13'
 
 def run(user_raw_input, config_render, config_db):
+
 	# Establish database connection
 	conn = psql_connect(config_db)
 
@@ -44,16 +45,19 @@ def run(user_raw_input, config_render, config_db):
 	mask = default_search_df.applymap(lambda x: re.search(search_term, str(x)) is not None)
 	default_search_df = default_search_df[mask.any(axis=1)]
 
+	# Select columns to display on page
+	default_search_df = default_search_df[config_render["wordsearch_display_cols"]]
+
+	# Create HTML links to the target page based on protein name
 	default_search_df[config_render["linked_column_word_search"]] = default_search_df.apply(
 		lambda row: generate_link(row, config_render["linked_column_word_search"]), axis=1)
 
+	# Convert pandas dataframe to HTML markup
 	df_wordsearch_html = default_search_df.to_html(escape=False, index=False)
 
+	# Format final page based on the search template page
 	wordsearch_html_template = dynamic_blastout_html(df_wordsearch_html,
 	                                                 config_render["search_template_path"],
 	                                                 user_raw_input)
 
 	return wordsearch_html_template
-#
-# with open('test.html', 'w') as f:
-# 	f.write(blastout_html_template)

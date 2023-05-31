@@ -43,20 +43,23 @@ def blast_result_parser(xml_temp_path):
 	"""
 	report_dict = {}
 	hit_id_list = []
-	for record in NCBIXML.parse(open(xml_temp_path)):
-		if record.alignments:
-			for align in record.alignments:
-				for hsp in align.hsps:
-					hit_id = align.hit_def
-					query_positives_cov = (hsp.positives * 100) / record.query_length
-					report_dict.setdefault(record.query, {}).setdefault(hit_id, {
-						"Query_length": int(record.query_length),
-						"Hit_length": int(align.length),
-						"Blastp_alignment_length": int(hsp.align_length),
-						"Query_positives_cov_%": float("{:.1f}".format(query_positives_cov)),
-						"E-value": float(hsp.expect)})
-					hit_id_list.append(hit_id)
-	return report_dict, hit_id_list
+	try:
+		for record in NCBIXML.parse(open(xml_temp_path)):
+			if record.alignments:
+				for align in record.alignments:
+					for hsp in align.hsps:
+						hit_id = align.hit_def
+						query_positives_cov = (hsp.positives * 100) / record.query_length
+						report_dict.setdefault(record.query, {}).setdefault(hit_id, {
+							"Query_length": int(record.query_length),
+							"Hit_length": int(align.length),
+							"Blastp_alignment_length": int(hsp.align_length),
+							"Query_positives_cov_%": float("{:.1f}".format(query_positives_cov)),
+							"E-value": float(hsp.expect)})
+						hit_id_list.append(hit_id)
+		return report_dict, hit_id_list
+	except ValueError:
+		return report_dict, hit_id_list
 
 
 # # DEBUG INPUTS
@@ -93,4 +96,4 @@ def run(user_input_path, config, random_file_prefix):
 		os.remove(outfile)
 
 	# The return value is either a blastout report or None
-	return blastout_report_dict
+	return blastout_report_dict, valid_fasta_check

@@ -38,6 +38,11 @@ class DynamicHtmlTemplate:
         return self.internal_path
 
 
+@app.route('/index.html')
+def index():
+    return render_template('index.html')
+
+
 @app.route('/', methods=["POST", "GET"])
 def gfg():
     if request.method == "POST":
@@ -46,17 +51,18 @@ def gfg():
 
         # GET INPUT from the search box
         user_raw_input = request.form["search-box"]
-        # FASTA temp file handling
-        temp_fasta_path = f"{sq_search_config['temp_fasta_dir']}{os.sep}"
-        user_input_path = f"{temp_fasta_path}{dynamic_html_toolbox.dynamic_file_prefix}.fasta"
+        # User input temp file handling
+        temp_input_path = f"{sq_search_config['temp_fasta_dir']}{os.sep}"
+        user_input_path = f"{temp_input_path}{dynamic_html_toolbox.dynamic_file_prefix}.in"
         # Create temp file to hold the user input
         with open(user_input_path, 'w') as temp_user_input:
             temp_user_input.write(user_raw_input)
 
         # INPUT ASSESSMENT: Test sequence format and proceed accordingly
-        blastout_report_dict = seq_search.run(user_input_path,
-                                              sq_search_config,
-                                              dynamic_html_toolbox.dynamic_file_prefix)
+        blastout_report_dict, format_check = seq_search.run(user_input_path,
+                                                            sq_search_config,
+                                                            dynamic_html_toolbox.dynamic_file_prefix)
+
         # SCENARIO 1: User input IS a sequence:
         #   Deliver sequence search output result
         if blastout_report_dict:
@@ -71,11 +77,19 @@ def gfg():
             # Export blastP search output page
             html_template_path = dynamic_html_toolbox.export_html_template(html_blastout_tbl)
             # Render page
+            print("Render blastout HTML result")
             return render_template(html_template_path)
 
         # SCENARIO 2: User input IS NOT a sequence:
         #   Deliver word search output result
         if not blastout_report_dict:
+            print("No results found in BlastP")
+            # Check if the FASTA format was validated
+            #   Validated FASTAs with no report means: The sequence yielded no results
+            if format_check:
+                print("BlastP yielded no results")
+                return render_template("search_out_page.html")
+
             print("Format word search")
             # Create word search output page
             html_word_search_tbl = render_word_search(
