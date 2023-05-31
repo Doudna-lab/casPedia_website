@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title >SpyCas9</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}">
+</head>
+
+<body>
+<!-- Logo -->
+  <header>
+  <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+  </header>
+
+  <!-- Search Box -->
+  <div id="search-container">
+    <form action="{{ url_for("gfg")}}" method="POST">
+      <label for="search-box"></label><textarea id="search-box" name="search-box" rows="1" cols="50" placeholder="input sequence or term"></textarea>
+      <input type="submit" value="Submit" name="seq-input">
+    </form>
+  </div>
+
+<!-- Page Title -->
+  <div style="background-color: #202123;">
+  <h1><span style="color:#FFFFFF">SpyCas9</span></h1>
+
+<!-- Essential Info -->
+  <div class="wiki-row-padding wiki-center wiki-margin-top" >
+  <div class="wiki-third" >
+    <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
+    <h2>CLASSIFICATION</h2>
+    <ul class="wiki-ul">
+        <li><span style="color: #5758ff;font-weight: bold;">Cas ID&nbsp;</span> 1.1.1</li>
+        <span style="color: #5758ff;font-weight: bold;">Nuclease Activity&nbsp;</span>
+        <li>Blunt cut. Targets dsDNA. No trans-activity.</li>
+        <li><span style="color: #5758ff;font-weight: bold;">Targeting Context&nbsp;</span> 3' PAM</li>
+        <li><span style="color: #5758ff;font-weight: bold;">Multiplexability&nbsp;</span> crRNA + tracr + endogenous</li>
+    </ul>
+    </div>
+  </div>
+
+  <div class="wiki-third">
+    <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
+    <h2>PROPERTIES</h2>
+    <ul class="wiki-ul">
+      <li><span style="color: #5758ff;font-weight: bold;">Protospacer Length</span> 20 bp</li>
+      <li><span style="color: #5758ff;font-weight: bold;">PAM</span> NGG</li>
+      <li><span style="color: #5758ff;font-weight: bold;">Protein Weight</span> 158.4 kDa</li>
+      <li><span style="color: #5758ff;font-weight: bold;">RNP Weight</span> 191.5 kDa </li>
+      <li><span style="color: #5758ff;font-weight: bold;">Scaffold Length</span> 97 bp</li>
+      <li><span style="color: #5758ff;font-weight: bold;">CDS Length </span> 4.2 kbp</li>
+      <li><span style="color: #5758ff;font-weight: bold;">Amino Acids&nbsp;</span>1368</li>
+    </ul>
+    </div>
+  </div>
+
+  <div class="wiki-third">
+    <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
+    <h2>RESOURCES</h2>
+    <ul class="wiki-ul">
+        <li><span style="color: #5758ff;font-weight:bold;">Species&nbsp;</span><a href="https://www.uniprot.org/taxonomy/301447">Streptococcus pyogenes serotype M1</a></li>
+        <li><span style="color: #5758ff;font-weight:bold;">NCBI RefSeq Assembly&nbsp;</span><a href="https://www.ncbi.nlm.nih.gov/nuccore/NZ_LS483338.1">NZ_LS483338.1</a></li>
+        <li><span style="color: #5758ff;font-weight: bold;">Gene ID&nbsp;</span><a href="https://www.ncbi.nlm.nih.gov/gene/?term=69900935">69900935</a></li>
+        <li><span style="color: #5758ff;font-weight: bold;">NCBI Protein RefSeq&nbsp;</span><a href="https://www.ncbi.nlm.nih.gov/protein/WP_010922251.1">WP_010922251.1</a></li>
+        <li><span style="color: #5758ff;font-weight: bold;">UniProtKB&nbsp;</span><a href="https://www.uniprot.org/uniprotkb/Q99ZW2/entry">Q99ZW2</a></li>
+        <li><span style="color: #5758ff;font-weight: bold;">CDD&nbsp;</span><a href="https://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=cd09643">cd09643</a></li>
+    </ul>
+    </div>
+  </div>
+  </div>
+  <br><br>
+  </div>
+
+  <!-- Description -->
+  <br>
+  <h2 class="section_header" style="text-align:center;font-weight:bold">DESCRIPTION</h2>
+  <div class="grid-container">
+    <div class="section">
+      <h3 class="section-header">SUMMARY</h3>
+      <p class="section-content">The discovery of <a href="https://doi.org/10.1126/science.1225829">SpyCas9</a> from Streptococcus pyogenes, and consequent demonstration of its <a href="https://doi.org/10.1126/science.1232033">mammalian genome editing</a>, initiated a revolution in fundamental biology and therapeutic development. SpyCas9 is the most broadly utilized and validated CRISPR editor and has been shown to be highly adept at modifying the genome of many organisms, ranging from phage to humans.   </p>
+      <h5 class="section-header">APPLICATIONS</h5>
+      <p class="section-content">Administrating Cas9 with a guide, either as a sgRNA or crRNA bound to a tracrRNA, has a number of biotechnological applications. CRISPR-based treatments are currently under investigation in human clinical trials, including ex vivo edited cell therapies and systemic in vivo editing in patients. Additionally, by leveraging CRISPR-Cas9’s ability to introduce targeted genetic disruptions, scientists have built successful platforms for the rapid creation of knockout animal models, genetic screening, multiplexed editing and diagnostic testing. CRISPR-Cas9 has also been harnessed for agricultural purposes, improving the plant immunity and nutrition content in for staple crops like wheat and rice. </p> 
+      <p class="section-content">
+      Engineers have also developed new variants for Cas9 with expanded properties, including novel PAMs, higher efficacy and improved thermostability. A number of fusion proteins have also been generated with CRISPR-Cas9, including base-editors and prime editors, which are capabale of generating site-specific mutations without the introduction of double-stranded breaks.</p>
+
+          <button onclick="myAccFunc('GeneEditing')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Gene Editing&nbsp;</span></button>
+          <div id="GeneEditing" class="wiki-hide">
+            <div class="wiki-container">
+            <h5>Human Clinical Trials</h5>
+            <ul> 
+            <li class="ul-ul">In vivo:</li>
+              <ul> 
+                <li><span>Systemic: NTLA-2001 Phase 1 treatment of hereditary Transthyretin Amyloidosis (ATTR) with lipid nanoparticle (LNP) formulation. NCT: NCT04601051 Responsible party: Intellia Therapeutics&nbsp;</span></li>
+                <li><span>Systemic: VERVE-101 Phase 1b treatment of Heterozygous familial hypercholesterolemia with LNP base editor formulation. NCT: NCT05398029 Responsible party: Verve Therapeutics, Inc.&nbsp;</span></li>        
+                <li><span>Systemic: NTLA-2002 Phase 1/2 treatment of hereditary angioedema with lipid nanoparticle formulation. NCT: NCT05120830 Responsible party: Intellia Therapeutics&nbsp;</span></li>                
+              </ul>
+
+            <li class="ul-ul">Ex vivo:</li>
+            <ul> 
+              <li><span> CTX001: Phase 3 treatment of Beta-Thalassemic and related hemoglobinopathies by modifying hemopoietic stem cells at BCL11a enhancer. NCT: NCT05356195 Responsible party: Vertex Pharmaceuticals Incorporated&nbsp;</span></li>
+              <li><span> EDIT-301: Phase 1/2 treatment of Beta-Thalassemic and related hemoglobinopathies by modifying hemopoietic stem cells. NCT: NCT05444894 Responsible party: Editas Medicine, Inc.&nbsp;</span></li>
+              <li><span> VCTX210: Phase 1 treatment of type I diabetes NCT: NCT05210530 Responsible party: CRISPR Therapeutics&nbsp;</span></li> 
+              <li><span> BEAM-101 Phase 1/2 treatment of severe Sickle Cell Disease. NCT: NCT05456880 Responsible party: Beam Therapeutics Inc.</span></li> 
+            </ul>
+            </ul>
+
+            <h5>Prokaryotes</h5>
+            <ul> 
+              <li class="ul-ul"><a href="https://doi.org/10.1016/j.cell.2013.02.022">CRISPR interference</a> in Escherichia coli</li>
+              <li class="ul-ul"><a href="https://doi.org/10.1038/nbt.2508">Gene editing</a> in Streptococcus pneumoniae and Escherichia coli</li>
+            </ul>
+            <h5>Agriculture</h5>
+            <ul> 
+              <li class="ul-ul">Staple crops: <a href="https://doi.org/10.1038/ncomms14261"> Wheat</a>,
+              <a href="https://doi.org/10.1016/j.jgg.2017.02.002">Maize</a>,
+              <a href="https://doi.org/10.1104/pp.18.00200">Sorghum</a>,Rice, Soybean, Potato
+              </li>
+              <li class="ul-ul">Fruits and Vegetables: <a href="https://doi.org/10.1038/nbt.4273">Tomato</a>, Cucumber, Grapefruit, Oranges, <a href="https://doi.org/10.3389/fpls.2016.01904">Grapes</a>, <a href="https://10.3389/fpls.2016.01904">Apples</a>, <a href="https://doi.org/10.1007/s11248-018-0083-0">Cavendish Banana</a></li>
+            </ul>
+            <h5>Other Model Organisms</h5>
+            <ul> 
+              <li class="ul-ul"><a href="https://doi.org/10.1038/10.1126/science.aad5725"> Mouse</a>, Non-Human Primates,  Zebrafish, Yeast, Arabidopsis Thaliana
+              </li>
+            </ul>
+
+            </div>
+          </div>
+          <hr>
+          <button onclick="myAccFunc('Tools')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Tools and Diagnostics</span></button>
+          
+          <div id="Tools" class="wiki-hide">
+            <h5>Genetic Perturbation Screening</h5>
+            <ul class="ul-ul"> 
+                <li><a href="https://doi.org/10.1016/j.cell.2016.11.038">Perturb-seq</a></li>
+                <li><a href="https://doi.org/10.1126/science.1247005">CRISPR KO: GeCKO</a> and Brunello</li>        
+                <li><a href="https://doi.org/10.7554/eLife.19760">CRISPR interference (CRISPRi)</a></li>                
+                <li><a href="https://doi.org/10.7554/eLife.19760">CRISPR activation (CRISPRa)</a></li>
+            </ul>
+            <h5>Diagnostic Testing</h5>
+            <ul class="ul-ul"> 
+                <li><a href="https://doi.org/10.3390/bioengineering8020023 ">CRISPR/Cas9-based Lateral Flow and Fluorescence Diagnostics</a></li>
+                <li><a href="https://doi.org/10.1126/10.1038/s41598-018-32329-x">ctPCR</a>: CRISPR-typing PC for DNA detection</li>        
+            </ul>
+          </div>
+          <hr>
+          <button onclick="myAccFunc('Variants')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Engineered Variants</span></button>
+          <div id="Variants" class="wiki-hide wiki-black">
+            <h5>Improved Speficity</h5>
+            <ul class="ul-ul"> 
+                <li><a href="https://doi.org/10.1126/science.aad5227"> eSpyCas9 1.1</a></li>
+                <li><a href="https://doi.org/10.1038/nature16526"> SpyCas9-HF1</a></li>        
+                <li><a href="https://doi.org/10.1038/nbt.4066">EvoCas9</a></li>                
+                <li><a href="https://doi.org/10.1038/s41467-018-05477-x">Sniper-Cas9</a></li>
+                <li><a href="https://doi.org/10.1038/nature26155">HypaCas9</a></li>
+                <li><a href="https://doi.org/10.1038/nature26155">xCas9</a></li>
+            </ul>
+            <h5>PAM Variants</h5>
+            <ul class="ul-ul"> 
+                <li><a href="https://doi.org/10.1126/science.aba8853"> SpG (NGN) and SpRY (NRN)</a></li>
+                <li><a href="https://doi.org/10.1038/nature14592">ctPCR</a>: Spy VQR (NGAN) and EQR (NGNG)</a></li> 
+                <li><a href="https://doi.org/10.1126/science.aas9129">SpyCas9-NG (NG)</a>: </li>
+            </ul>
+          </div>
+          </div>
+
+
+    </div>
+
+  </div>
+
+
+  <!-- Sequence -->
+  <h2 class="section_header" style="text-align:center;font-weight:bold">NUCLEOTIDE SEQUENCE</h2>
+  <div id="container" style="padding-top: 1px;padding-bottom: 10px; height: auto"></div>
+  <script type="module">
+
+      import igv from "https://cdn.jsdelivr.net/npm/igv@2.15.8/dist/igv.esm.min.js"
+
+      const options = {
+          locus: 'NZ_LS483338.1:981357-990000',
+          reference: {
+              "id": "NZ_LS483338",
+              "name": "NZ_LS483338",
+              "fastaURL": "https://igvtest.s3.us-west-1.amazonaws.com/NZ_LS483338.fasta",
+              "indexURL": "https://igvtest.s3.us-west-1.amazonaws.com/NZ_LS483338.fasta.fai",
+              "tracks": [
+                {
+                  "name": "Refseq Genes",
+                  "url": "https://igvtest.s3.us-west-1.amazonaws.com/NZ_LS483338.gff3",
+                  "indexed": false,
+                  "format": 'gff3',
+                  "displayMode": "SQUISHED" 
+                }
+              ]
+            },
+          roi:
+              [
+                {
+                  name: "Array",
+                  color: "rgba(3,52,249,0.25)",
+                  features: [
+                          {
+                              chr: "NZ_LS483338.1",
+                              start: 983954,
+                              end: 988060
+                          },
+                          ]
+                }
+              ]
+
+      };
+      igv.createBrowser(document.getElementById('container'), options);
+  </script>
+
+  <!-- Structure -->
+  <h2 class="section_header" style="text-align:center;font-weight:bold">PROTEIN STRUCTURE</h2>
+  <div class="grid-container">
+    <div class="section">
+      <h9 class="section-header">DOMAINS</h9>
+      <br><br>
+      <div class="wiki-container">
+        <div class="wiki-responsive wiki-card-4">
+        <table class="wiki-table wiki-striped wiki-bordered">
+        <thead>
+        <tr class="wiki-theme">
+          <th>Type</th>
+          <th>Amino Acid Position(s)</th>
+          <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Region</td>
+          <td>1-62</td>
+          <td>RuvC-I</td>
+        </tr>
+        <tr class="wiki-white">
+          <td>Region</td>
+          <td>56-73</td>
+          <td>ARM</td>
+        </tr>
+        <tr>
+          <td>Region</td>
+          <td>56-718</td>
+          <td>Recognition lobe</td>
+        </tr>
+        <tr>
+          <td>Region</td>
+          <td>718-765</td>
+          <td>RuvC-II</td>
+        </tr>
+        <tr>
+          <td>Domain</td>
+          <td>770-921</td>
+          <td>HNH Cas9-type</td>
+        </tr>
+        <tr>
+          <td>Region</td>
+          <td>925-1102</td>
+          <td>RuvC-III</td>
+        </tr>
+        <tr>
+          <td>Region</td>
+          <td>1099-1368</td>
+          <td>PAM-interacting domain (PI)</td>
+        </tr>
+        <tr>
+          <td>Motif</td>
+          <td>1333-1335</td>
+          <td>PAM substrate-binding</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+      </div>
+      </div>
+    <br>
+    <div class="section">
+      <h9 class="section-header">PFAMS</h9>
+      <br><br>
+      <div class="wiki-container">
+        <div class="wiki-responsive wiki-card-4">
+        <table class="wiki-table wiki-striped wiki-bordered">
+        <thead>
+        <tr class="wiki-theme">
+          <th>Pfam</th>
+          <th>Short Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16593">PF16593</a></td>
+          <td>Cas9-BH</td>
+        </tr>
+        <tr class="wiki-white">
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16595">PF16595</a></td>
+          <td>Cas9_PI</td>
+        </tr>
+        <tr>
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16592">PF16592</a></td>
+          <td>Cas9_REC</td>
+        </tr>
+        <tr>
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF13395">PF13395</a></td>
+          <td>HNH_4</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+      </div>
+  </div>
+  <div> 
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>     
+    <script src="https://3Dmol.org/build/3Dmol.ui-min.js"></script>
+    <div style="height: 400px; width: 100%; position: relative;" data-ui='true' class='viewer_3Dmoljs' data-pdb='6K4Q' 
+         data-select1='chain:B' data-style1='cartoon:color=spectrum' data-surface1='opacity:.8;color:white' data-select2='chain:A' data-style2='stick' data-surface2='opacity:.9;color:red'
+         data-select3='chain:C' data-style3='stick' data-surface3='opacity:.9;color:purple'
+         data-select4='chain:D' data-style4='stick' data-surface4='opacity:.7;color:purple'></div>
+  </div>
+
+
+  <br><br>
+  <!-- footnote -->
+  <footer>
+    <p>Copyright © 2023
+      <a href="https://www.example.com">Example</a>
+    </p>
+  </footer>
+
+  <!-- Scripts -->
+<!-- Script for Accordions-->
+<script>
+
+var mybtn = document.getElementsByClassName("testbtn")[0];
+mybtn.click();
+
+// Accordions
+function myAccFunc(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("wiki-show") == -1) {
+    x.className += " wiki-show";
+  } else { 
+    x.className = x.className.replace(" wiki-show", "");
+  }
+}
+
+// Slideshows
+var slideIndex = 1;
+
+function plusDivs(n) {
+  slideIndex = slideIndex + n;
+  showDivs(slideIndex);
+}
+
+function showDivs(n) {
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length} ;
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
+
+showDivs(1);
+
+</script>
+</body>
+
+</html>
+
+
