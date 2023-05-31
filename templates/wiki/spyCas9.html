@@ -178,6 +178,7 @@
       import igv from "https://cdn.jsdelivr.net/npm/igv@2.15.8/dist/igv.esm.min.js"
 
       const options = {
+          locus: 'NZ_LS483338.1:981357-990000',
           reference: {
               "id": "NZ_LS483338",
               "name": "NZ_LS483338",
@@ -188,7 +189,8 @@
                   "name": "Refseq Genes",
                   "url": "https://igvtest.s3.us-west-1.amazonaws.com/NZ_LS483338.gff3",
                   "indexed": false,
-                  "format": 'gff3'
+                  "format": 'gff3',
+                  "displayMode": "SQUISHED" 
                 }
               ]
             },
