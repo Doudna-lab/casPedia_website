@@ -40,11 +40,13 @@ class DynamicHtmlTemplate:
 
 @app.route('/index.html')
 def index():
+    """Define route to the front page"""
     return render_template('index.html')
 
 
 @app.route('/wiki/<page>')
 def wiki_page(page):
+    """Define route to individual protein wiki pages"""
     return render_template(f'wiki/{page}')
 
 
