@@ -26,15 +26,16 @@ def sql_table_to_df(conn_string, table_name):
 
 # #DEBUG INPUTS
 # import yaml
-# with open("config/db_interaction.yaml", "r") as f:
+# with open("config_render/db_interaction.yaml", "r") as f:
 # 	config_db = yaml.safe_load(f)
 #
-# with open("config/render_result.yaml", "r") as f:
+# with open("config_render/render_result.yaml", "r") as f:
 # 	config_render = yaml.safe_load(f)
 # user_raw_input = 'cas13'
 
 def run(user_raw_input, config_render, config_db):
-
+	# Set the user-directed message for the user
+	message_to_user = f"{config_render['word_search_message']} {user_raw_input}"
 	# Establish database connection
 	conn = psql_connect(config_db)
 
@@ -58,6 +59,6 @@ def run(user_raw_input, config_render, config_db):
 	# Format final page based on the search template page
 	wordsearch_html_template = dynamic_blastout_html(df_wordsearch_html,
 	                                                 config_render["search_template_path"],
-	                                                 user_raw_input)
+	                                                 message_to_user)
 
 	return wordsearch_html_template

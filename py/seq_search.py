@@ -64,10 +64,10 @@ def blast_result_parser(xml_temp_path):
 
 # # DEBUG INPUTS
 # user_raw_input = "jobs/seqIN_RAcgDxyK03Y5RLYscMyl_2023-05-12-13-02-41.fasta"
-# #   -> Sequence search config
+# #   -> Sequence search config_render
 # import yaml
-# with open("config/seq_search.yaml", "r") as f:
-# 	config = yaml.load(f, Loader=yaml.FullLoader)
+# with open("config_render/seq_search.yaml", "r") as f:
+# 	config_render = yaml.load(f, Loader=yaml.FullLoader)
 
 def run(user_input_path, config, random_file_prefix):
 	# Assumes there will be no output

@@ -10,14 +10,14 @@ import yaml
 # Flask setup
 app = Flask(__name__)
 
-# Import config files
-#   -> Sequence search config
+# Import config_render files
+#   -> Sequence search config_render
 with open("config/seq_search.yaml", "r") as f:
     sq_search_config = yaml.load(f, Loader=yaml.FullLoader)
-#   -> Table rendering config
+#   -> Table rendering config_render
 with open("config/render_result.yaml", "r") as f:
     tbl_render_config: object = yaml.safe_load(f)
-#   -> PostgreSQL DB interaction config
+#   -> PostgreSQL DB interaction config_render
 with open("config/db_interaction.yaml", "r") as f:
     psql_config = yaml.safe_load(f)
 

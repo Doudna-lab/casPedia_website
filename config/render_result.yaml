@@ -20,3 +20,7 @@ dir_root_template_path: "templates"
 
 # Internal temp directory for html templates
 temp_html_dir_path: "temp"
+
+# Set the user-directed message for the user
+sequence_search_message: "Deltablast results for"
+word_search_message: "Word search results for"

@@ -10,14 +10,14 @@ from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateSchema as cschema
 from psycopg2 import errors
 
-# Load config file
+# Load config_render file
 with open("config/db_interaction.yaml", "r") as f:
 	config = yaml.safe_load(f)
 
 
 def psql_connect(config_handle):
 	database_name = config_handle['database_name']
-	# Uses the parameters in the YAML config file to setup the DB connection string
+	# Uses the parameters in the YAML config_render file to setup the DB connection string
 	conn_string = 'postgresql://{}:{}@{}:{}/{}'.format(
 		config_handle['username'],
 		os.environ['PSQL_PASS'],
