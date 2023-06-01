@@ -4,13 +4,21 @@
   <title >SpyCas9</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}" >
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png" >
 </head>
 
 <body>
 <!-- Logo -->
   <header>
-  <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+      <!-- logo -->
+    <a href="/index.html">
+      <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+    </a>
+    <!-- second logo -->
+    <a href="https://innovativegenomics.org/" target="_blank">
+      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
+    </a>
   </header>
 
   <!-- Search Box -->
@@ -59,12 +67,12 @@
     <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
     <h2>RESOURCES</h2>
     <ul class="wiki-ul">
-        <li><span style="color: #5758ff;font-weight:bold;">Species&nbsp;</span><a href="https://www.uniprot.org/taxonomy/301447">Streptococcus pyogenes serotype M1</a></li>
-        <li><span style="color: #5758ff;font-weight:bold;">NCBI RefSeq Assembly&nbsp;</span><a href="https://www.ncbi.nlm.nih.gov/nuccore/NZ_LS483338.1">NZ_LS483338.1</a></li>
-        <li><span style="color: #5758ff;font-weight: bold;">Gene ID&nbsp;</span><a href="https://www.ncbi.nlm.nih.gov/gene/?term=69900935">69900935</a></li>
-        <li><span style="color: #5758ff;font-weight: bold;">NCBI Protein RefSeq&nbsp;</span><a href="https://www.ncbi.nlm.nih.gov/protein/WP_010922251.1">WP_010922251.1</a></li>
-        <li><span style="color: #5758ff;font-weight: bold;">UniProtKB&nbsp;</span><a href="https://www.uniprot.org/uniprotkb/Q99ZW2/entry">Q99ZW2</a></li>
-        <li><span style="color: #5758ff;font-weight: bold;">CDD&nbsp;</span><a href="https://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=cd09643">cd09643</a></li>
+        <li><span style="color: #5758ff;font-weight:bold;">Species&nbsp;</span><a href="https://www.uniprot.org/taxonomy/301447" target="_blank">Streptococcus pyogenes serotype M1</a></li>
+        <li><span style="color: #5758ff;font-weight:bold;">NCBI RefSeq Assembly&nbsp;</span><a href="https://www.ncbi.nlm.nih.gov/nuccore/NZ_LS483338.1" target="_blank">NZ_LS483338.1</a></li>
+        <li><span style="color: #5758ff;font-weight: bold;">Gene ID&nbsp;</span><a href="https://www.ncbi.nlm.nih.gov/gene/?term=69900935" target="_blank">69900935</a></li>
+        <li><span style="color: #5758ff;font-weight: bold;">NCBI Protein RefSeq&nbsp;</span><a href="https://www.ncbi.nlm.nih.gov/protein/WP_010922251.1" target="_blank">WP_010922251.1</a></li>
+        <li><span style="color: #5758ff;font-weight: bold;">UniProtKB&nbsp;</span><a href="https://www.uniprot.org/uniprotkb/Q99ZW2/entry" target="_blank">Q99ZW2</a></li>
+        <li><span style="color: #5758ff;font-weight: bold;">CDD&nbsp;</span><a href="https://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=cd09643" target="_blank">cd09643</a></li>
     </ul>
     </div>
   </div>
@@ -78,7 +86,7 @@
   <div class="grid-container">
     <div class="section">
       <h3 class="section-header">SUMMARY</h3>
-      <p class="section-content">The discovery of <a href="https://doi.org/10.1126/science.1225829">SpyCas9</a> from Streptococcus pyogenes, and consequent demonstration of its <a href="https://doi.org/10.1126/science.1232033">mammalian genome editing</a>, initiated a revolution in fundamental biology and therapeutic development. SpyCas9 is the most broadly utilized and validated CRISPR editor and has been shown to be highly adept at modifying the genome of many organisms, ranging from phage to humans.   </p>
+      <p class="section-content">The discovery of <a href="https://doi.org/10.1126/science.1225829">SpyCas9</a> from Streptococcus pyogenes, and consequent demonstration of its <a href="https://doi.org/10.1126/science.1232033" target="_blank">mammalian genome editing</a>, initiated a revolution in fundamental biology and therapeutic development. SpyCas9 is the most broadly utilized and validated CRISPR editor and has been shown to be highly adept at modifying the genome of many organisms, ranging from phage to humans.   </p>
       <h5 class="section-header">APPLICATIONS</h5>
       <p class="section-content">Administrating Cas9 with a guide, either as a sgRNA or crRNA bound to a tracrRNA, has a number of biotechnological applications. CRISPR-based treatments are currently under investigation in human clinical trials, including ex vivo edited cell therapies and systemic in vivo editing in patients. Additionally, by leveraging CRISPR-Cas9’s ability to introduce targeted genetic disruptions, scientists have built successful platforms for the rapid creation of knockout animal models, genetic screening, multiplexed editing and diagnostic testing. CRISPR-Cas9 has also been harnessed for agricultural purposes, improving the plant immunity and nutrition content in for staple crops like wheat and rice. </p> 
       <p class="section-content">
@@ -107,20 +115,20 @@
 
             <h5>Prokaryotes</h5>
             <ul> 
-              <li class="ul-ul"><a href="https://doi.org/10.1016/j.cell.2013.02.022">CRISPR interference</a> in Escherichia coli</li>
-              <li class="ul-ul"><a href="https://doi.org/10.1038/nbt.2508">Gene editing</a> in Streptococcus pneumoniae and Escherichia coli</li>
+              <li class="ul-ul"><a href="https://doi.org/10.1016/j.cell.2013.02.022" target="_blank">CRISPR interference</a> in Escherichia coli</li>
+              <li class="ul-ul"><a href="https://doi.org/10.1038/nbt.2508" target="_blank">Gene editing</a> in Streptococcus pneumoniae and Escherichia coli</li>
             </ul>
             <h5>Agriculture</h5>
             <ul> 
-              <li class="ul-ul">Staple crops: <a href="https://doi.org/10.1038/ncomms14261"> Wheat</a>,
-              <a href="https://doi.org/10.1016/j.jgg.2017.02.002">Maize</a>,
-              <a href="https://doi.org/10.1104/pp.18.00200">Sorghum</a>,Rice, Soybean, Potato
+              <li class="ul-ul">Staple crops: <a href="https://doi.org/10.1038/ncomms14261" target="_blank"> Wheat</a>,
+              <a href="https://doi.org/10.1016/j.jgg.2017.02.002" target="_blank">Maize</a>,
+              <a href="https://doi.org/10.1104/pp.18.00200" target="_blank">Sorghum</a>,Rice, Soybean, Potato
               </li>
-              <li class="ul-ul">Fruits and Vegetables: <a href="https://doi.org/10.1038/nbt.4273">Tomato</a>, Cucumber, Grapefruit, Oranges, <a href="https://doi.org/10.3389/fpls.2016.01904">Grapes</a>, <a href="https://10.3389/fpls.2016.01904">Apples</a>, <a href="https://doi.org/10.1007/s11248-018-0083-0">Cavendish Banana</a></li>
+              <li class="ul-ul">Fruits and Vegetables: <a href="https://doi.org/10.1038/nbt.4273">Tomato</a>, Cucumber, Grapefruit, Oranges, <a href="https://doi.org/10.3389/fpls.2016.01904">Grapes</a>, <a href="https://10.3389/fpls.2016.01904">Apples</a>, <a href="https://doi.org/10.1007/s11248-018-0083-0" target="_blank">Cavendish Banana</a></li>
             </ul>
             <h5>Other Model Organisms</h5>
             <ul> 
-              <li class="ul-ul"><a href="https://doi.org/10.1038/10.1126/science.aad5725"> Mouse</a>, Non-Human Primates,  Zebrafish, Yeast, Arabidopsis Thaliana
+              <li class="ul-ul"><a href="https://doi.org/10.1038/10.1126/science.aad5725" target="_blank"> Mouse</a>, Non-Human Primates,  Zebrafish, Yeast, Arabidopsis Thaliana
               </li>
             </ul>
 
@@ -132,15 +140,15 @@
           <div id="Tools" class="wiki-hide">
             <h5>Genetic Perturbation Screening</h5>
             <ul class="ul-ul"> 
-                <li><a href="https://doi.org/10.1016/j.cell.2016.11.038">Perturb-seq</a></li>
-                <li><a href="https://doi.org/10.1126/science.1247005">CRISPR KO: GeCKO</a> and Brunello</li>        
-                <li><a href="https://doi.org/10.7554/eLife.19760">CRISPR interference (CRISPRi)</a></li>                
-                <li><a href="https://doi.org/10.7554/eLife.19760">CRISPR activation (CRISPRa)</a></li>
+                <li><a href="https://doi.org/10.1016/j.cell.2016.11.038" target="_blank">Perturb-seq</a></li>
+                <li><a href="https://doi.org/10.1126/science.1247005" target="_blank">CRISPR KO: GeCKO</a> and Brunello</li>        
+                <li><a href="https://doi.org/10.7554/eLife.19760" target="_blank">CRISPR interference (CRISPRi)</a></li>                
+                <li><a href="https://doi.org/10.7554/eLife.19760" target="_blank">CRISPR activation (CRISPRa)</a></li>
             </ul>
             <h5>Diagnostic Testing</h5>
             <ul class="ul-ul"> 
-                <li><a href="https://doi.org/10.3390/bioengineering8020023 ">CRISPR/Cas9-based Lateral Flow and Fluorescence Diagnostics</a></li>
-                <li><a href="https://doi.org/10.1126/10.1038/s41598-018-32329-x">ctPCR</a>: CRISPR-typing PC for DNA detection</li>        
+                <li><a href="https://doi.org/10.3390/bioengineering8020023 " target="_blank">CRISPR/Cas9-based Lateral Flow and Fluorescence Diagnostics</a></li>
+                <li><a href="https://doi.org/10.1126/10.1038/s41598-018-32329-x" target="_blank">ctPCR</a>: CRISPR-typing PC for DNA detection</li>        
             </ul>
           </div>
           <hr>
@@ -148,18 +156,18 @@
           <div id="Variants" class="wiki-hide wiki-black">
             <h5>Improved Speficity</h5>
             <ul class="ul-ul"> 
-                <li><a href="https://doi.org/10.1126/science.aad5227"> eSpyCas9 1.1</a></li>
-                <li><a href="https://doi.org/10.1038/nature16526"> SpyCas9-HF1</a></li>        
-                <li><a href="https://doi.org/10.1038/nbt.4066">EvoCas9</a></li>                
-                <li><a href="https://doi.org/10.1038/s41467-018-05477-x">Sniper-Cas9</a></li>
-                <li><a href="https://doi.org/10.1038/nature26155">HypaCas9</a></li>
-                <li><a href="https://doi.org/10.1038/nature26155">xCas9</a></li>
+                <li><a href="https://doi.org/10.1126/science.aad5227" target="_blank"> eSpyCas9 1.1</a></li>
+                <li><a href="https://doi.org/10.1038/nature16526" target="_blank"> SpyCas9-HF1</a></li>        
+                <li><a href="https://doi.org/10.1038/nbt.4066" target="_blank">EvoCas9</a></li>                
+                <li><a href="https://doi.org/10.1038/s41467-018-05477-x" target="_blank">Sniper-Cas9</a></li>
+                <li><a href="https://doi.org/10.1038/nature26155" target="_blank">HypaCas9</a></li>
+                <li><a href="https://doi.org/10.1038/nature26155" target="_blank">xCas9</a></li>
             </ul>
             <h5>PAM Variants</h5>
             <ul class="ul-ul"> 
-                <li><a href="https://doi.org/10.1126/science.aba8853"> SpG (NGN) and SpRY (NRN)</a></li>
-                <li><a href="https://doi.org/10.1038/nature14592">ctPCR</a>: Spy VQR (NGAN) and EQR (NGNG)</a></li> 
-                <li><a href="https://doi.org/10.1126/science.aas9129">SpyCas9-NG (NG)</a>: </li>
+                <li><a href="https://doi.org/10.1126/science.aba8853" target="_blank"> SpG (NGN) and SpRY (NRN)</a></li>
+                <li><a href="https://doi.org/10.1038/nature14592" target="_blank">ctPCR</a>: Spy VQR (NGAN) and EQR (NGNG)</a></li> 
+                <li><a href="https://doi.org/10.1126/science.aas9129" target="_blank">SpyCas9-NG (NG)</a>: </li>
             </ul>
           </div>
           </div>
@@ -290,19 +298,19 @@
         </thead>
         <tbody>
         <tr>
-          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16593">PF16593</a></td>
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16593" target="_blank">PF16593</a></td>
           <td>Cas9-BH</td>
         </tr>
         <tr class="wiki-white">
-          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16595">PF16595</a></td>
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16595" target="_blank">PF16595</a></td>
           <td>Cas9_PI</td>
         </tr>
         <tr>
-          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16592">PF16592</a></td>
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16592" target="_blank">PF16592</a></td>
           <td>Cas9_REC</td>
         </tr>
         <tr>
-          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF13395">PF13395</a></td>
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF13395" target="_blank">PF13395</a></td>
           <td>HNH_4</td>
         </tr>
         </tbody>
@@ -324,7 +332,7 @@
   <!-- footnote -->
   <footer>
     <p>Copyright © 2023
-      <a href="https://www.example.com">Example</a>
+      <a href="https://www.example.com" target="_blank">Example</a>
     </p>
   </footer>
 
