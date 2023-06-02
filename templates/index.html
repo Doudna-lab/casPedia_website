@@ -102,19 +102,24 @@
     </form>
   </div>
   
-  <!-- clickable images -->
+  <!-- Caspedia Summary -->
 <main id="main" class="drop-shadow">
   <div class="abstract">
-    <h2> <b>What is CasPedia? [Placeholder section title]</b></h2>
-    <h3>All cas enzymes in CasPedia were uniformly processed and annotated based on biochemical properties relevant to their diverse uses across biotechnology. These criteria describe the following properties central to all Class 2 Cas enzymes: <a href="#section_nuclease">nuclease activity</a>, <a href="#section_targeting">targeting context</a>, and <a href="#section_multiplx">guide RNA (gRNA) design</a> constraints.</h3>
+    <h2> <b>WHAT IS CASPEDIA?</b></h2>
+    <h3>All cas enzymes in CasPedia were uniformly processed and annotated based on biochemical properties relevant to their diverse uses across biotechnology. These criteria describe the following properties central to all Class 2 Cas enzymes: <a href="#section_nuclease">nuclease activity</a>, <a href="#section_targeting">targeting context</a>, and <a href="#section_multiplx">guide RNA (gRNA) design</a> constraints. We present a formalized nomenclature to summarize these properties entitled Cas ID, an identification number comprised of three digits, one for each of the aforementioned characteristics.</h3>
   </div>
+</main>
+
+<!-- Cas ID Definitions -->
+<main id="main" class="drop-shadow">
   <!-- column 1 -->
   <div class="column">
     <div class="column-container">
       <div id="section_nuclease">
+        <h2><b>DEFINING CAS IDs</b></h2>
         <h2><b>Nuclease Activity</b></h2>
       </div>
-      <h3>Enzymes from the Class II cas superfamily have diverse nuclease activities, both in an RNA-guided manner on a targeted sequence (in <i>cis-</i>) and sometimes on non-targeted nucleic acids upon binding (in <i>trans-</i>). The numerical annotation for nuclease activity relates to the known nucleic acid substrates for both the <i>cis-</i> and <i>trans-</i> activities of these enzymes.</h3>
+      <h3>Enzymes from the Class II cas superfamily have diverse nuclease activities, both in an RNA-guided manner on a targeted sequence (in <i>cis-</i>) and sometimes on non-targeted nucleic acids upon binding (in <i>trans-</i>). The numerical annotation for nuclease activity relates to the known nucleic acid substrates for both the <i>cis-</i> and <i>trans-</i> activities of these enzymes.  Nuclease activity is reported as the first digit in the Cas ID.</h3>
       <a href="page1.html">
         <img src="{{url_for('static', filename='img/nuc_activity.svg')}}" alt="Image 1">
       </a>
@@ -124,9 +129,9 @@
   <div class="column">
     <div class="column-container">
       <div id="section_targeting">
-        <h2><b>Targeting Context</b></h2>
+        <h2><b>Targeting Requirement</b></h2>
       </div>
-      <h3>Targeting context refers to the orientation of the cas enzyme relative to its RNA-guided target substrate, as dictated by its protospacer adjacent motif (PAM), for DNA substrates, and protospacer flanking site (PFS), for RNA. The numerical annotation shows the orientation of the PAM, or PFS, relative to the protospacer and dictates the orientation of the ribonucleoprotein (RNP) relative to targeted substrate.</h3>
+      <h3>Targeting requirement refers to the orientation of the cas enzyme relative to its RNA-guided target substrate, as dictated by its protospacer adjacent motif (PAM), for DNA substrates, and protospacer flanking site (PFS), for RNA. The numerical annotation shows the orientation of the PAM, or PFS, relative to the protospacer and dictates the orientation of the ribonucleoprotein (RNP) relative to targeted substrate. Targeting requirement is reported as the second digit in the Cas ID.</h3>
       <a href="page2.html">
         <img src="{{url_for('static', filename='img/targeting.svg')}}" alt="Image 2">
       </a>
@@ -138,7 +143,7 @@
       <div id="section_multiplx">
         <h2><b>Guide RNA (gRNA) design + Multiplexing</b></h2>
       </div>
-      <h3>Guide RNA (gRNA) design illustrates the process bridging CRISPR native context through synthetic gRNA scaffold design. The numerical annotation describes the relevant guide requirements in relevant several contexts: within the native CRISPR, the minimal synthetic guide design for multiplexing, and the sgRNA design for multiplexing.</h3>
+      <h3>Guide RNA (gRNA) design illustrates the process bridging CRISPR native context through synthetic gRNA scaffold design. The numerical annotation describes the relevant guide requirements in relevant several contexts: within the native CRISPR, the minimal synthetic guide design for multiplexing, and the sgRNA design for multiplexing. Multiplexability is reported as the third digit in the Cas ID.</h3>
       <a href="page3.html">
         <img src="{{url_for('static', filename='img/multiplex.svg')}}" alt="Image 3">
       </a>
