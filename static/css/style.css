@@ -3,11 +3,12 @@ body {
   padding: 0;
   font-family: roboto, verdana, sans-serif;
   font-size: 16px;
+  background-color: #DDDDDD8F;
 }
 
 /* Header */
 header {
-  background-color: #fcfcfc;
+  background-color: #f8f8f8;
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -29,32 +30,53 @@ header {
 
 /* Search Container */
 #search-container {
-  position: sticky;
+  position: relative;
   top: 0;
-  height: auto;
+  height: 100px;
   justify-content: center;
   align-items: center;
-  margin: 2px 30px;
+  margin: 30px 30px;
+  z-index: 1;
 }
 
 #search-box {
-  position: sticky;
-  top: 0;
-  width: 35%;
-  margin-left: 30px;
+  position: relative;
+  width: 45%;
+  margin-left: 25px;
   padding: 10px;
   border: 2px solid #ccc;
   border-radius: 10px;
   font-size: 18px;
   background-color: #f8f8f8;
   resize: both;
+  height: 100px;
+}
+
+#main {
+  background-color: #f8f8f8;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
   height: auto;
+  margin: 100px 30px 30px 50px;
+}
+
+#column-container h2 {
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.drop-shadow {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 /* Column */
 .column {
-  width: 30%;
-  padding: 10px;
+  width: 75%;
+  padding: 70px;
 }
 
 .column img {
@@ -65,15 +87,8 @@ header {
 }
 
 .column img:hover {
-  transform: scale(1.05);
+  transform: scale(1.02);
   transition: transform 0.7s ease-in-out;
-}
-
-/* Footer */
-footer {
-  background-color: #f2f2f2;
-  padding: 10px;
-  text-align: center;
 }
 
 /* Accessibility */
@@ -163,7 +178,7 @@ table.sortable th button:focus,
 table.sortable th button:hover {
   padding: 2px;
   border: 2px solid currentcolor;
-  background-color: #5757ff;
+  background-color: #B4B4FF8F;
 }
 
 table.sortable th button:focus span,
@@ -177,4 +192,16 @@ table.sortable th:not([aria-sort]) button:hover span::after {
   color: currentcolor;
   font-size: 100%;
   top: 0;
+}
+
+/* Footer */
+footer {
+  background-color: #f8f8f8;
+  padding: 10px;
+  text-align: center;
+}
+
+.footer-link {
+  color: inherit;
+  text-decoration: none;
 }

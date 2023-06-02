@@ -12,5 +12,11 @@ source_metadata_path: ['background_data/2023_03_28_Cas_family_tree_Naming.csv']
 # In-Database names of source tables
 metadata_file_tags: ['master']
 
-# Default database table for user input search
+# Main database table for user input search
 default_search_table: "master"
+
+# Column in the main database that contains aa sequence
+sequence_col: "Protein sequence"
+
+# Column in the main database that contains unique protein identifiers
+unique_id_col: "Type Protein"

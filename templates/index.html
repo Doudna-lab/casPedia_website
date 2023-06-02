@@ -94,7 +94,7 @@
       <br><br>
       <label for="search-box"></label><textarea
           id="search-box" name="search-box" rows="3" cols="50"
-          placeholder="available search formats:&#10; 1- FASTA-formatted sequence&#10; 2- Word search (e.g. Cas name or accession)"></textarea>
+          placeholder="CAS protein search&#10;available search formats:&#10; 1- FASTA-formatted sequence&#10; 2- Word search (e.g. Cas name or accession)"></textarea>
       <input type="submit" value="Submit" name="seq-input">
       <!--input type="file" name="file-input"-->
     <br><br/>
@@ -102,29 +102,40 @@
   </div>
   
   <!-- clickable images -->
-  <div>
-    <main id="main">
-      <div class="column">
-        <a href="page1.html">
-          <img src="{{url_for('static', filename='img/ph_tree1.png')}}" alt="Image 1">
-        </a>
-      </div>
-      <div class="column">
-        <a href="page2.html">
-          <img src="{{url_for('static', filename='img/ph_tree1.png')}}" alt="Image 2">
-        </a>
-      </div>
-      <div class="column">
-        <a href="page3.html">
-          <img src="{{url_for('static', filename='img/ph_tree1.png')}}" alt="Image 2">
-        </a>
-      </div>
-    </main>
+<main id="main" class="drop-shadow">
+  <!-- column 1 -->
+  <div class="column">
+    <div class="column-container">
+      <h2>Title 1</h2>
+      <a href="page1.html">
+        <img src="{{url_for('static', filename='img/nuc_activity.svg')}}" alt="Image 1">
+      </a>
+    </div>
   </div>
+  <!-- column 2 -->
+  <div class="column">
+    <div class="column-container">
+      <h2>Title 2</h2>
+      <a href="page2.html">
+        <img src="{{url_for('static', filename='img/targeting.svg')}}" alt="Image 2">
+      </a>
+    </div>
+  </div>
+  <!-- column 3 -->
+  <div class="column">
+    <div class="column-container">
+      <h2>Title 3</h2>
+      <a href="page3.html">
+        <img src="{{url_for('static', filename='img/multiplex.svg')}}" alt="Image 3">
+      </a>
+    </div>
+  </div>
+</main>
+
   <!-- footnote -->
   <footer>
-      <p>Copyright © 2023
-        <a href="https://www.example.com">Example</a>
+      <p><a class="footer-link" href="https://doudnalab.org/">Doudna Lab</a>
+        - Innovative Genomics Institute - Berkeley, California
       </p>
     </footer>
 </body>

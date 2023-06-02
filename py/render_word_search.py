@@ -26,10 +26,10 @@ def sql_table_to_df(conn_string, table_name):
 
 # #DEBUG INPUTS
 # import yaml
-# with open("config_render/db_interaction.yaml", "r") as f:
+# with open("config/db_interaction.yaml", "r") as f:
 # 	config_db = yaml.safe_load(f)
 #
-# with open("config_render/render_result.yaml", "r") as f:
+# with open("config/render_result.yaml", "r") as f:
 # 	config_render = yaml.safe_load(f)
 # user_raw_input = 'cas13'
 

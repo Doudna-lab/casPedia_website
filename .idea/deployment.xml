@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="On explicit save action" serverName="aws_ec2" remoteFilesAllowedToDisappearOnAutoupload="false" showEqualInSync="true">
+  <component name="PublishConfigData" autoUpload="On explicit save action" serverName="aws_ec2" remoteFilesAllowedToDisappearOnAutoupload="false" showEqualInSync="true" showNewOnTargetInSync="false">
     <serverData>
       <paths name="aws">
         <serverdata>

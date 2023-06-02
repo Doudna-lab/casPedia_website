@@ -1,5 +1,6 @@
 # Native modules
 import os
+import re
 # External modules
 from flask import Flask, request, render_template
 # Project modules
@@ -10,14 +11,14 @@ import yaml
 # Flask setup
 app = Flask(__name__)
 
-# Import config_render files
-#   -> Sequence search config_render
+# Import config files
+#   -> Sequence search config
 with open("config/seq_search.yaml", "r") as f:
     sq_search_config = yaml.load(f, Loader=yaml.FullLoader)
-#   -> Table rendering config_render
+#   -> Table rendering config
 with open("config/render_result.yaml", "r") as f:
     tbl_render_config: object = yaml.safe_load(f)
-#   -> PostgreSQL DB interaction config_render
+#   -> PostgreSQL DB interaction config
 with open("config/db_interaction.yaml", "r") as f:
     psql_config = yaml.safe_load(f)
 
@@ -58,6 +59,7 @@ def gfg():
 
         # GET INPUT from the search box
         user_raw_input = request.form["search-box"]
+        user_clean_input = re.sub(r'\s+', '', user_raw_input).strip()
         # User input temp file handling
         temp_input_path = f"{sq_search_config['temp_fasta_dir']}{os.sep}"
         user_input_path = f"{temp_input_path}{dynamic_html_toolbox.dynamic_file_prefix}.in"
@@ -100,7 +102,7 @@ def gfg():
             print("Format word search")
             # Create word search output page
             html_word_search_tbl = render_word_search(
-                str(user_raw_input.strip("\s+").rstrip("\s+")),
+                str(user_clean_input),
                 tbl_render_config, psql_config
             )
             # Export and render word search output page
