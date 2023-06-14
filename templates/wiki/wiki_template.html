@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}" >
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png" >
+</head>
+
+<body>
+<!-- Logo -->
+  <header>
+      <!-- logo -->
+    <a href="/index.html">
+      <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+    </a>
+    <!-- second logo -->
+    <a href="https://innovativegenomics.org/" target="_blank">
+      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
+    </a>
+  </header>
+
+  <!-- Search Box -->
+  <div id="search-container">
+    <form action="{{ url_for("gfg")}}" method="POST">
+      <label for="search-box"></label><textarea id="search-box" name="search-box" rows="1" cols="50" placeholder="input sequence or term"></textarea>
+      <input type="submit" value="Submit" name="seq-input">
+    </form>
+  </div>
+
+<!-- Page Title -->
+  <div style="background-color: #202123;">
+  <h1><span style="color:#FFFFFF">SpyCas9</span></h1>
+
+<!-- Essential Info -->
+  <div class="wiki-row-padding wiki-center wiki-margin-top" >
+  <div class="wiki-third" >
+    <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
+    <h2>CLASSIFICATION</h2>
+    <ul class="wiki-ul">
+        <li><span style="color: #5758ff;font-weight: bold;">Cas ID&nbsp;</span></li>
+        <span style="color: #5758ff;font-weight: bold;">Nuclease Activity&nbsp;</span>
+        <li></li>
+        <li><span style="color: #5758ff;font-weight: bold;">Target Requirement&nbsp;</span></li>
+        <li><span style="color: #5758ff;font-weight: bold;">Multiplexability&nbsp;</span></li>
+    </ul>
+    </div>
+  </div>
+
+  <div class="wiki-third">
+    <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
+    <h2>PROPERTIES</h2>
+    <ul class="wiki-ul">
+      <li><span style="color: #5758ff;font-weight: bold;">Protospacer Length</span></li>
+      <li><span style="color: #5758ff;font-weight: bold;">PAM</span></li>
+      <li><span style="color: #5758ff;font-weight: bold;">Protein Weight</span></li>
+      <li><span style="color: #5758ff;font-weight: bold;">RNP Weight</span></li>
+      <li><span style="color: #5758ff;font-weight: bold;">Scaffold Length</span></li>
+      <li><span style="color: #5758ff;font-weight: bold;">CDS Length </span></li>
+      <li><span style="color: #5758ff;font-weight: bold;">Amino Acids&nbsp;</span></li>
+    </ul>
+    </div>
+  </div>
+
+  <div class="wiki-third">
+    <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
+    <h2>RESOURCES</h2>
+    <ul class="wiki-ul">
+        <li><span style="color: #5758ff;font-weight:bold;">Species&nbsp;</span></li>
+        <li><span style="color: #5758ff;font-weight:bold;">NCBI RefSeq Assembly&nbsp;</span></li>
+        <li><span style="color: #5758ff;font-weight: bold;">Gene ID&nbsp;</span></li>
+        <li><span style="color: #5758ff;font-weight: bold;">NCBI Protein RefSeq&nbsp;</span></li>
+        <li><span style="color: #5758ff;font-weight: bold;">UniProtKB&nbsp;</span></li>
+        <li><span style="color: #5758ff;font-weight: bold;">CDD&nbsp;</span></li>
+    </ul>
+    </div>
+  </div>
+  </div>
+  <br><br>
+  </div>
+
+  <!-- Description -->
+  <br>
+  <h2 class="section_header" style="text-align:center;font-weight:bold">DESCRIPTION</h2>
+  <div class="grid-container">
+    <div class="section">
+      <h3 class="section-header">SUMMARY</h3>
+      <p class="section-content"></p>
+      <h5 class="section-header">APPLICATIONS</h5>
+      <p class="section-content"></p>
+
+        <button onclick="myAccFunc('GeneEditing')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Gene Editing&nbsp;</span></button>
+        <div id="GeneEditing" class="wiki-hide">
+          <div class="wiki-container">
+          <h5>Human Clinical Trials</h5>
+            <ul>
+              <li class="ul-ul">In vivo:</li>
+              <ul>
+                <li><span></span></li>
+              </ul>
+
+          <li class="ul-ul">Ex vivo:</li>
+            <ul>
+              <li><span></span></li>
+            </ul>
+          </ul>
+          <h5>Prokaryotes</h5>
+            <ul>
+              <li class="ul-ul"></li>
+            </ul>
+
+          <h5>Agriculture</h5>
+            <ul>
+              <li class="ul-ul"></li>
+            </ul>
+
+          <h5>Other Model Organisms</h5>
+            <ul>
+              <li class="ul-ul"></li>
+            </ul>
+          </div>
+        </div>
+
+          <hr>
+          <button onclick="myAccFunc('Tools')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Tools and Diagnostics</span></button>
+          
+          <div id="Tools" class="wiki-hide">
+            <h5>Genetic Perturbation Screening</h5>
+            <ul class="ul-ul"> 
+                <li></li>
+            </ul>
+            <h5>Diagnostic Testing</h5>
+            <ul class="ul-ul"> 
+                <li></li>
+            </ul>
+          </div>
+          <hr>
+          <button onclick="myAccFunc('Variants')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Engineered Variants</span></button>
+          <div id="Variants" class="wiki-hide wiki-black">
+            <h5>Improved Specificity</h5>
+            <ul class="ul-ul"> 
+                <li></li>
+            </ul>
+            <h5>PAM Variants</h5>
+            <ul class="ul-ul"> 
+                <li></li>
+            </ul>
+          </div>
+        </div>
+    </div>
+
+  <!-- Sequence -->
+  <h2 class="section_header" style="text-align:center;font-weight:bold">NUCLEOTIDE SEQUENCE</h2>
+  <div id="container" style="padding-top: 1px;padding-bottom: 10px; height: auto"></div>
+  <script type="module">
+
+      import igv from "https://cdn.jsdelivr.net/npm/igv@2.15.8/dist/igv.esm.min.js"
+
+      const options = {
+          locus: 'NZ_LS483338.1:981357-990000',
+          reference: {
+              "id": "NZ_LS483338",
+              "name": "NZ_LS483338",
+              "fastaURL": "https://igvtest.s3.us-west-1.amazonaws.com/NZ_LS483338.fasta",
+              "indexURL": "https://igvtest.s3.us-west-1.amazonaws.com/NZ_LS483338.fasta.fai",
+              "tracks": [
+                {
+                  "name": "Refseq Genes",
+                  "url": "https://igvtest.s3.us-west-1.amazonaws.com/NZ_LS483338.gff3",
+                  "indexed": false,
+                  "format": 'gff3',
+                  "displayMode": "SQUISHED" 
+                }
+              ]
+            },
+          roi:
+              [
+                {
+                  name: "Array",
+                  color: "rgba(3,52,249,0.25)",
+                  features: [
+                          {
+                              chr: "NZ_LS483338.1",
+                              start: 983954,
+                              end: 988060
+                          },
+                          ]
+                }
+              ]
+
+      };
+      igv.createBrowser(document.getElementById('container'), options);
+  </script>
+
+  <!-- Structure -->
+  <h2 class="section_header" style="text-align:center;font-weight:bold">PROTEIN STRUCTURE</h2>
+  <div class="grid-container">
+    <div class="section">
+      <h3 class="section-header">DOMAINS</h3>
+      <br><br>
+      <div class="wiki-container">
+        <div class="wiki-responsive wiki-card-4">
+        <table class="wiki-table wiki-striped wiki-bordered">
+        <thead>
+        <tr class="wiki-theme">
+          <th>Type</th>
+          <th>Amino Acid Position(s)</th>
+          <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Region</td>
+          <td>1-62</td>
+          <td>RuvC-I</td>
+        </tr>
+        <tr class="wiki-white">
+          <td>Region</td>
+          <td>56-73</td>
+          <td>ARM</td>
+        </tr>
+        <tr>
+          <td>Region</td>
+          <td>56-718</td>
+          <td>Recognition lobe</td>
+        </tr>
+        <tr>
+          <td>Region</td>
+          <td>718-765</td>
+          <td>RuvC-II</td>
+        </tr>
+        <tr>
+          <td>Domain</td>
+          <td>770-921</td>
+          <td>HNH Cas9-type</td>
+        </tr>
+        <tr>
+          <td>Region</td>
+          <td>925-1102</td>
+          <td>RuvC-III</td>
+        </tr>
+        <tr>
+          <td>Region</td>
+          <td>1099-1368</td>
+          <td>PAM-interacting domain (PI)</td>
+        </tr>
+        <tr>
+          <td>Motif</td>
+          <td>1333-1335</td>
+          <td>PAM substrate-binding</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+      </div>
+      </div>
+    <br>
+    <div class="section">
+      <h3 class="section-header">PFAMS</h3>
+      <br><br>
+      <div class="wiki-container">
+        <div class="wiki-responsive wiki-card-4">
+        <table class="wiki-table wiki-striped wiki-bordered">
+        <thead>
+        <tr class="wiki-theme">
+          <th>Pfam</th>
+          <th>Short Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16593" target="_blank">PF16593</a></td>
+          <td>Cas9-BH</td>
+        </tr>
+        <tr class="wiki-white">
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16595" target="_blank">PF16595</a></td>
+          <td>Cas9_PI</td>
+        </tr>
+        <tr>
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16592" target="_blank">PF16592</a></td>
+          <td>Cas9_REC</td>
+        </tr>
+        <tr>
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF13395" target="_blank">PF13395</a></td>
+          <td>HNH_4</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+      </div>
+  </div>
+  <div> 
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>     
+    <script src="https://3Dmol.org/build/3Dmol.ui-min.js"></script>
+    <div style="height: 400px; width: 100%; position: relative;" data-ui='true' class='viewer_3Dmoljs' data-pdb='6K4Q' 
+         data-select1='chain:B' data-style1='cartoon:color=spectrum' data-surface1='opacity:.8;color:white' data-select2='chain:A' data-style2='stick' data-surface2='opacity:.9;color:red'
+         data-select3='chain:C' data-style3='stick' data-surface3='opacity:.9;color:purple'
+         data-select4='chain:D' data-style4='stick' data-surface4='opacity:.7;color:purple'></div>
+  </div>
+
+
+  <br><br>
+  <!-- footnote -->
+  <footer>
+    <p>Copyright © 2023
+      <a href="https://www.example.com" target="_blank">Example</a>
+    </p>
+  </footer>
+
+  <!-- Scripts -->
+<!-- Script for Accordions-->
+<script>
+
+var mybtn = document.getElementsByClassName("testbtn")[0];
+mybtn.click();
+
+// Accordions
+function myAccFunc(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("wiki-show") == -1) {
+    x.className += " wiki-show";
+  } else { 
+    x.className = x.className.replace(" wiki-show", "");
+  }
+}
+
+// Slideshows
+var slideIndex = 1;
+
+function plusDivs(n) {
+  slideIndex = slideIndex + n;
+  showDivs(slideIndex);
+}
+
+function showDivs(n) {
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length} ;
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
+
+showDivs(1);
+
+</script>
+</body>
+
+</html>
+
+
