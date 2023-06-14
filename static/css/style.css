@@ -3,7 +3,7 @@ body {
   padding: 0;
   font-family: roboto, verdana, sans-serif;
   font-size: 16px;
-  background-color: #DDDDDD8F;
+  background-color: #f8f8f8;
 }
 
 /* Header */
@@ -13,6 +13,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
 
 #logo,
@@ -28,7 +29,7 @@ header {
   height: 100px;
   justify-content: center;
   align-items: center;
-  margin: 0 20px;
+  margin: 1px 2px 100px 50px;
   z-index: 1;
 }
 
@@ -36,16 +37,15 @@ header {
   font-size: 20px;
   color: #333;
   text-align: left;
-  margin-bottom: -20px;
-  margin-left: 25px;
+  margin-bottom: 10px;
+  margin-left: 1px;
 }
 
 #search-box {
   position: relative;
   width: 45%;
-  margin-left: 25px;
   padding: 10px;
-  border: 2px solid #ccc;
+  border: 2px solid #DDDDDD8F;
   border-radius: 10px;
   font-size: 18px;
   background-color: #f8f8f8;
@@ -53,8 +53,10 @@ header {
   height: 100px;
 }
 
-#head-summary {
-  background-color: #dbd9d9;
+.summary {
+  background-color: #e8e8e8;
+  border: 3px solid #DDDDDD8F;
+  border-radius: 10px;
   font-family: 'Graphik',Arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   position: relative;
@@ -62,22 +64,7 @@ header {
   align-items: center;
   width: 80%;
   height: auto;
-  margin: 90px 3px 30px 50px;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-/* Main */
-#main {
-  background-color: #dbd9d9;
-  font-family: 'Graphik',Arial,sans-serif;
-  -webkit-font-smoothing: antialiased;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  height: auto;
-  margin: 40px 30px 30px 50px;
+  margin: 50px 100px 1px 50px;
   display: flex;
   flex-wrap: wrap;
 }
@@ -88,7 +75,7 @@ h2 {
 
 h3 {
   font-size: 18px;
-
+  padding: 10px;
 }
 
 .abstract {
@@ -128,10 +115,6 @@ h3 {
   margin-top: 0;
 }
 
-.drop-shadow {
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-}
-
 /* Column */
 .column {
   width: 85%;
@@ -160,7 +143,7 @@ h3 {
 /* Table Sorting */
 table.sortable td,
 table.sortable th {
-  padding: 2em 0.8em;
+  padding: 2em 1.8em;
   width: 20em;
 }
 

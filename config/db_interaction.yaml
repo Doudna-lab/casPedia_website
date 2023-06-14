@@ -4,13 +4,20 @@ username: "bellieny"
 hostname: "localhost"
 database_name: "caspedia"
 port: 5432
-schema: "root"
 
-# Default path to source tables
+# ********* GLOBAL CONFIGURATION *********
+# Master table
 source_metadata_path: ['background_data/2023_03_28_Cas_family_tree_Naming.csv']
+# Wiki manifest containing URL for each and every wiki intake forms
+wiki_manifest_path: "background_data/wiki_manifest.csv"
 
+# Column in the main database that contains unique protein identifiers
+unique_id_col: "Type Protein"
+
+# ********* MASTER TABLE CONFIGURATION *********
 # In-Database names of source tables
 metadata_file_tags: ['master']
+schema: "root"
 
 # Main database table for user input search
 default_search_table: "master"
@@ -18,5 +25,8 @@ default_search_table: "master"
 # Column in the main database that contains aa sequence
 sequence_col: "Protein sequence"
 
-# Column in the main database that contains unique protein identifiers
-unique_id_col: "Type Protein"
+# ********* WIKI CONFIGURATION *********
+# Wiki Sheets manifest
+links_column: "Curation_Link"
+wiki_schema_prefix: "wiki"
+

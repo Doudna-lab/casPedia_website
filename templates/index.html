@@ -77,6 +77,7 @@
   </style-->
 </head>
 <body>
+
   <header>
       <!-- logo -->
     <a href="index.html">
@@ -92,18 +93,16 @@
   <div id="search-container">
     <h2>CAS protein search</h2>
     <form action="{{ url_for("gfg")}}" method="POST">
-      <br><br>
       <label for="search-box"></label><textarea
           id="search-box" name="search-box" rows="3" cols="50"
           placeholder="Available search formats:&#10; 1- FASTA-formatted sequence&#10; 2- Word search (e.g. Cas name or accession)"></textarea>
       <input type="submit" value="Submit" name="seq-input">
       <!--input type="file" name="file-input"-->
-    <br><br/>
     </form>
   </div>
   
   <!-- Caspedia Summary -->
-<main id="head-summary" class="drop-shadow">
+<main id="head-summary" class="summary">
   <div class="abstract">
     <h2> <b>WHAT IS CASPEDIA?</b></h2>
     <h3>CasPedia is a web portal that compiles established uses of individual enzymes, equipping users with valuable resources to enhance future engineering and foster broader applications. All cas enzymes in CasPedia were uniformly processed and annotated based on biochemical properties relevant to their diverse uses across biotechnology. These criteria describe the following properties central to all Class 2 Cas enzymes: <a href="#section_nuclease">nuclease activity</a>, <a href="#section_targeting">target requirement</a>, and <a href="#section_multiplx">guide RNA (gRNA) design</a> constraints. We present a formalized nomenclature to summarize these properties entitled Cas ID, an identification number comprised of three digits, one for each of the aforementioned characteristics.</h3>
@@ -111,7 +110,7 @@
 </main>
 
 <!-- Cas ID Definitions -->
-<main id="main" class="drop-shadow">
+<main id="body-summary" class="summary">
   <!-- column 1 -->
   <div class="column">
     <div class="column-container">

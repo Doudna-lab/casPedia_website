@@ -64,7 +64,7 @@ def import_csv_list(file_list, name_list):
 	return dict_imported
 
 
-def load_tables_db(df_dict, conn_string, schema_name):
+def load_master_table2db(df_dict, conn_string, schema_name):
 	print("Create DB engine")
 	db_engine = create_engine(conn_string, echo=True)
 	db_connection = db_engine.connect()
@@ -101,8 +101,15 @@ def main():
 
 	tables_dict = import_csv_list(source_metadata_list, source_tag_list)
 	conn_string = psql_connect(config)
-	load_tables_db(tables_dict, conn_string, schema)
+	load_master_table2db(tables_dict, conn_string, schema)
 
 
 if __name__ == "__main__":
 	main()
+
+cols = []
+for tb in id_to_sheets_dict['SpyCas9a']:
+	for col in id_to_sheets_dict['SpyCas9a'][tb].columns.tolist():
+		if col in cols:
+			print(col)
+	cols.extend()
