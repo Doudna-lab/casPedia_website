@@ -147,12 +147,21 @@
                 <li></li>
             </ul>
           </div>
+      <hr>
+      <h5 class="section-header">EXPERIMENTAL DETAILS</h5>
+        <p class="section-content"></p>
+        <button onclick="myAccFunc('Delivery')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Delivery and Expression</span></button>
+          <div id="Delivery" class="wiki-hide wiki-black"></div>
+          <hr>
+          <button onclick="myAccFunc('Guides')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Guide Design</span></button>
+          <div id="Guides" class="wiki-hide wiki-black"></div>
         </div>
     </div>
 
   <!-- Sequence -->
+  <br>
   <h2 class="section_header" style="text-align:center;font-weight:bold">NUCLEOTIDE SEQUENCE</h2>
-  <div id="container" style="padding-top: 1px;padding-bottom: 10px; height: auto"></div>
+  <div id="grid-container" style="padding-top: 1px;padding-bottom: 10px; height: auto"></div>
   <script type="module">
 
       import igv from "https://cdn.jsdelivr.net/npm/igv@2.15.8/dist/igv.esm.min.js"
@@ -194,6 +203,7 @@
   </script>
 
   <!-- Structure -->
+  <br>
   <h2 class="section_header" style="text-align:center;font-weight:bold">PROTEIN STRUCTURE</h2>
   <div class="grid-container">
     <div class="section">
@@ -290,15 +300,29 @@
         </div>
       </div>
   </div>
+  <!-- PDB Structure -->
   <div> 
     <script src="https://3Dmol.org/build/3Dmol-min.js"></script>     
     <script src="https://3Dmol.org/build/3Dmol.ui-min.js"></script>
-    <div style="height: 400px; width: 100%; position: relative;" data-ui='true' class='viewer_3Dmoljs' data-pdb='6K4Q' 
-         data-select1='chain:B' data-style1='cartoon:color=spectrum' data-surface1='opacity:.8;color:white' data-select2='chain:A' data-style2='stick' data-surface2='opacity:.9;color:red'
-         data-select3='chain:C' data-style3='stick' data-surface3='opacity:.9;color:purple'
-         data-select4='chain:D' data-style4='stick' data-surface4='opacity:.7;color:purple'></div>
+    <div style="height: 400px; width: 100%; position: relative;" class='viewer_3Dmoljs' data-pdb='6K4Q'
+         data-select1='chain:B' data-style1='cartoon:color=yellow'
+         data-select2='chain:A' data-style2='cartoon:color=red'
+         data-select3='chain:C' data-style3='cartoon:color=purple'
+         data-select4='chain:D' data-style4='cartoon:color=purple'>
+    </div>
   </div>
 
+ <div class="grid-container">
+   <div class="section">
+     <button onclick="myAccFunc('Cite')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#000000;font-weight:bold;font-size:24px;">REFERENCES</span></button>
+     <div id="Cite" class="wiki-hide wiki-black">
+       <ul class="ul-ul">
+         <hr>
+         <li></li>
+       </ul>
+     </div>
+   </div>
+ </div>
 
   <br><br>
   <!-- footnote -->
@@ -309,45 +333,44 @@
   </footer>
 
   <!-- Scripts -->
-<!-- Script for Accordions-->
-<script>
+  <!-- Script for Accordions-->
+  <script>
 
-var mybtn = document.getElementsByClassName("testbtn")[0];
-mybtn.click();
+  var mybtn = document.getElementsByClassName("testbtn")[0];
+  mybtn.click();
 
-// Accordions
-function myAccFunc(id) {
-  var x = document.getElementById(id);
-  if (x.className.indexOf("wiki-show") == -1) {
-    x.className += " wiki-show";
-  } else { 
-    x.className = x.className.replace(" wiki-show", "");
+  // Accordions
+  function myAccFunc(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("wiki-show") == -1) {
+      x.className += " wiki-show";
+    } else {
+      x.className = x.className.replace(" wiki-show", "");
+    }
   }
-}
 
-// Slideshows
-var slideIndex = 1;
+  // Slideshows
+  var slideIndex = 1;
 
-function plusDivs(n) {
-  slideIndex = slideIndex + n;
-  showDivs(slideIndex);
-}
-
-function showDivs(n) {
-  var x = document.getElementsByClassName("mySlides");
-  if (n > x.length) {slideIndex = 1}    
-  if (n < 1) {slideIndex = x.length} ;
-  for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
+  function plusDivs(n) {
+    slideIndex = slideIndex + n;
+    showDivs(slideIndex);
   }
-  x[slideIndex-1].style.display = "block";  
-}
 
-showDivs(1);
+  function showDivs(n) {
+    var x = document.getElementsByClassName("mySlides");
+    if (n > x.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = x.length} ;
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    x[slideIndex-1].style.display = "block";
+  }
 
-</script>
+  showDivs(1);
+
+  </script>
 </body>
-
 </html>
 
 
