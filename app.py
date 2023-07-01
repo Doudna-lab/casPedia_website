@@ -2,12 +2,16 @@
 import os
 import re
 # External modules
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify
+import yaml
 # Project modules
 import py.seq_search as seq_search
 from py.render_search_result import run as render_blastout_table
 from py.render_word_search import run as render_word_search
-import yaml
+from py.render_wiki import run as render_wiki_data
+from py.render_word_search import sql_table_to_df
+from py.db_loadNupdate import psql_connect, get_absolute_path
+
 # Flask setup
 app = Flask(__name__)
 
@@ -39,6 +43,22 @@ class DynamicHtmlTemplate:
         return self.internal_path
 
 
+@app.route('/buffet.html')
+def buffet():
+    """Define route to buffet.html"""
+    return render_template('buffet.html')
+
+
+@app.route('/cas_buffet', methods=['POST'])
+def process_choices():
+    data = request.form
+    choices = {}
+    for key, value in data.items():
+        choices[key] = value
+    # Process the choices as needed
+    return f'Choices processed successfully {choices}'
+
+
 @app.route('/index.html')
 def index():
     """Define route to the front page"""
@@ -48,7 +68,19 @@ def index():
 @app.route('/wiki/<page>')
 def wiki_page(page):
     """Define route to individual protein wiki pages"""
+    wiki_entry = render_wiki_data(page, psql_config)
     return render_template(f'wiki/{page}')
+    # TODO: Figure out how to best handle dynamic wiki HTML generation
+    # return render_template(f'wiki/{page}',
+    #                        properties=wiki_entry.properties,
+    #                        resources=wiki_entry.resources,
+    #                        text_summaries=wiki_entry.text_summaries,
+    #                        gene_editing_human=wiki_entry.gene_editing_human,
+    #                        gene_editing=wiki_entry.gene_editing,
+    #                        tools=wiki_entry.tools,
+    #                        variants=wiki_entry.variants,
+    #                        exp_details=wiki_entry.variants
+    #                        )
 
 
 @app.route('/', methods=["POST", "GET"])

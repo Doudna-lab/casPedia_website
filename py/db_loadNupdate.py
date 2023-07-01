@@ -3,6 +3,7 @@ import pandas as pd
 from pandas.errors import ParserError
 import re
 import os
+from pathlib import Path
 # Installed modules
 import yaml
 import psycopg2
@@ -10,9 +11,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateSchema as cschema
 from psycopg2 import errors
 
-# Load config_render file
-with open("config/db_interaction.yaml", "r") as f:
-	config = yaml.safe_load(f)
+
+def get_absolute_path(name):
+    for root, dirs, files in os.walk(Path.home()):
+        for item in dirs + files:
+            if re.search(fr"\b{name}\b", item):
+                return os.path.abspath(os.path.join(root, item))
 
 
 def psql_connect(config_handle):
@@ -34,8 +38,9 @@ def import_csv_list(file_list, name_list):
 	file_dict = {file_list[index]: name_list[index] for index in range(0, (len(file_list)))}
 	print(f"Importing data: {file_dict}")
 	for csv_file in file_dict:
+		csv_path = get_absolute_path(csv_file)
 		try:
-			df_loop = pd.read_csv(csv_file,
+			df_loop = pd.read_csv(csv_path,
 			                      skiprows=lambda x: re.match(r'^\s*#', str(x)),
 			                      comment='#',
 			                      low_memory=False)
@@ -52,7 +57,7 @@ def import_csv_list(file_list, name_list):
 				                      header=None,
 				                      engine="python")
 		except UnicodeDecodeError:
-			df_loop = pd.read_excel(csv_file)
+			df_loop = pd.read_excel(csv_path)
 
 		df_loop = df_loop.rename(columns=lambda x: re.sub(
 			r'.*bioproject.*', 'bioproject', x, flags=re.IGNORECASE
@@ -94,6 +99,10 @@ def load_master_table2db(df_dict, conn_string, schema_name):
 	print("Commited changes to DB")
 
 
+# Load config_render file
+with open(get_absolute_path('db_interaction.yaml'), "r") as f:
+	config = yaml.safe_load(f)
+
 def main():
 	source_metadata_list = config["source_metadata_path"]
 	source_tag_list = config["metadata_file_tags"]
@@ -106,10 +115,3 @@ def main():
 
 if __name__ == "__main__":
 	main()
-
-cols = []
-for tb in id_to_sheets_dict['SpyCas9a']:
-	for col in id_to_sheets_dict['SpyCas9a'][tb].columns.tolist():
-		if col in cols:
-			print(col)
-	cols.extend()

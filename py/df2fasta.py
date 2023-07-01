@@ -38,7 +38,7 @@ def create_SeqRecord(sequence_dict):
 def main():
 	# Connect to DB and convert main table into Pandas DF
 	conn = psql_connect(config_db)
-	source_df = sql_table_to_df(conn, config_db['default_search_table'])
+	source_df = sql_table_to_df(conn, config["schema"], config_db['default_search_table'])
 
 	# Extract sequence information from dataframe
 	sequence_dict = capture_fasta_from_df(source_df, config_db["sequence_col"], config_db["unique_id_col"])

@@ -1,0 +1,19 @@
+replacement_directive:
+  "Properties":
+    "Property":
+      "target": '<li><span></span>'
+      "replacement": '<li><span style="color: #5758ff;font-weight: bold;">|row|&nbsp;</span>'
+    "Info":
+      "target": '</li>'
+      "replacement": '|row|</li>'
+
+  "Resources":
+    "Resource":
+      "target": '<li><span></span>'
+      "replacement": '<li><span style="color: #5758ff;font-weight:bold;">|row|&nbsp;</span>'
+    "Value":
+      "target": ''
+      "replacement": ''
+    "Link":
+      "target": '</span>'
+      "replacement": '</span><a href="|row| target="_blank">'

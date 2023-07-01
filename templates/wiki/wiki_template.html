@@ -13,7 +13,7 @@
   <header>
       <!-- logo -->
     <a href="/index.html">
-      <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+      <img id="logo" src="{{url_for('static', filename='img/ph_logo.svg')}}" alt="IGI logo">
     </a>
     <!-- second logo -->
     <a href="https://innovativegenomics.org/" target="_blank">
@@ -31,7 +31,7 @@
 
 <!-- Page Title -->
   <div style="background-color: #202123;">
-  <h1><span style="color:#FFFFFF">SpyCas9</span></h1>
+  <h1><span style="color:#FFFFFF"></span></h1>
 
 <!-- Essential Info -->
   <div class="wiki-row-padding wiki-center wiki-margin-top" >
@@ -52,13 +52,7 @@
     <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
     <h2>PROPERTIES</h2>
     <ul class="wiki-ul">
-      <li><span style="color: #5758ff;font-weight: bold;">Protospacer Length</span></li>
-      <li><span style="color: #5758ff;font-weight: bold;">PAM</span></li>
-      <li><span style="color: #5758ff;font-weight: bold;">Protein Weight</span></li>
-      <li><span style="color: #5758ff;font-weight: bold;">RNP Weight</span></li>
-      <li><span style="color: #5758ff;font-weight: bold;">Scaffold Length</span></li>
-      <li><span style="color: #5758ff;font-weight: bold;">CDS Length </span></li>
-      <li><span style="color: #5758ff;font-weight: bold;">Amino Acids&nbsp;</span></li>
+      {{ properties }}
     </ul>
     </div>
   </div>
@@ -67,12 +61,7 @@
     <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
     <h2>RESOURCES</h2>
     <ul class="wiki-ul">
-        <li><span style="color: #5758ff;font-weight:bold;">Species&nbsp;</span></li>
-        <li><span style="color: #5758ff;font-weight:bold;">NCBI RefSeq Assembly&nbsp;</span></li>
-        <li><span style="color: #5758ff;font-weight: bold;">Gene ID&nbsp;</span></li>
-        <li><span style="color: #5758ff;font-weight: bold;">NCBI Protein RefSeq&nbsp;</span></li>
-        <li><span style="color: #5758ff;font-weight: bold;">UniProtKB&nbsp;</span></li>
-        <li><span style="color: #5758ff;font-weight: bold;">CDD&nbsp;</span></li>
+        {{ resources }}
     </ul>
     </div>
   </div>
@@ -83,80 +72,51 @@
   <!-- Description -->
   <br>
   <h2 class="section_header" style="text-align:center;font-weight:bold">DESCRIPTION</h2>
-  <div class="grid-container">
+  <div-- class="grid-container">
     <div class="section">
-      <h3 class="section-header">SUMMARY</h3>
-      <p class="section-content"></p>
-      <h5 class="section-header">APPLICATIONS</h5>
-      <p class="section-content"></p>
+      {{ text_summaries }}
 
         <button onclick="myAccFunc('GeneEditing')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Gene Editing&nbsp;</span></button>
         <div id="GeneEditing" class="wiki-hide">
           <div class="wiki-container">
-          <h5>Human Clinical Trials</h5>
-            <ul>
-              <li class="ul-ul">In vivo:</li>
-              <ul>
-                <li><span></span></li>
-              </ul>
+          {{ gene_editing_human }}
+          {{ gene_editing }}
+          </div>
+        </div>
+      <hr>
 
-          <li class="ul-ul">Ex vivo:</li>
-            <ul>
-              <li><span></span></li>
-            </ul>
-          </ul>
-          <h5>Prokaryotes</h5>
-            <ul>
-              <li class="ul-ul"></li>
-            </ul>
+        <button onclick="myAccFunc('Tools')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Tools and Diagnostics</span></button>
+        <div id="Tools" class="wiki-hide">
+          <!-- OBS: Some headers from the static SpyCas9a model wiki do not match the terms found in the workbook  -->
+          <!-- e.g. "Diagnostic Testing" in the model page translates to "Diagnostic" in the workbook  -->
+          {{ tools }}
+        </div>
+      <hr>
 
-          <h5>Agriculture</h5>
-            <ul>
-              <li class="ul-ul"></li>
-            </ul>
+        <button onclick="myAccFunc('Variants')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Engineered Variants</span></button>
+        <div id="Variants" class="wiki-hide wiki-black">
+          {{ variants }}
+        </div>
+      <hr>
 
-          <h5>Other Model Organisms</h5>
-            <ul>
-              <li class="ul-ul"></li>
-            </ul>
+      <button onclick="myAccFunc('Delivery')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Experimental Details</span></button>
+        <div id="Delivery" class="wiki-hide wiki-black">
+          <div class="wiki-hide wiki-black">
+          {{ exp_details }}
           </div>
         </div>
 
-          <hr>
-          <button onclick="myAccFunc('Tools')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Tools and Diagnostics</span></button>
-          
-          <div id="Tools" class="wiki-hide">
-            <h5>Genetic Perturbation Screening</h5>
-            <ul class="ul-ul"> 
-                <li></li>
-            </ul>
-            <h5>Diagnostic Testing</h5>
-            <ul class="ul-ul"> 
-                <li></li>
-            </ul>
-          </div>
-          <hr>
-          <button onclick="myAccFunc('Variants')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Engineered Variants</span></button>
-          <div id="Variants" class="wiki-hide wiki-black">
-            <h5>Improved Specificity</h5>
-            <ul class="ul-ul"> 
-                <li></li>
-            </ul>
-            <h5>PAM Variants</h5>
-            <ul class="ul-ul"> 
-                <li></li>
-            </ul>
-          </div>
-      <hr>
-      <h5 class="section-header">EXPERIMENTAL DETAILS</h5>
+
+      <!--h5 class="section-header">EXPERIMENTAL DETAILS</h5>
         <p class="section-content"></p>
         <button onclick="myAccFunc('Delivery')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Delivery and Expression</span></button>
-          <div id="Delivery" class="wiki-hide wiki-black"></div>
+          <div id="Delivery" class="wiki-hide wiki-black">
+          </div>
           <hr>
           <button onclick="myAccFunc('Guides')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Guide Design</span></button>
           <div id="Guides" class="wiki-hide wiki-black"></div>
         </div>
-    </div>
+    </div-->
 
   <!-- Sequence -->
   <br>
@@ -327,9 +287,12 @@
   <br><br>
   <!-- footnote -->
   <footer>
-    <p>Copyright © 2023
-      <a href="https://www.example.com" target="_blank">Example</a>
-    </p>
+      <!-- footnote -->
+  <footer>
+      <p><a class="footer-link" href="https://doudnalab.org/" target="_blank">Doudna Lab</a>
+        - Innovative Genomics Institute - Berkeley, California
+      </p>
+    </footer>
   </footer>
 
   <!-- Scripts -->

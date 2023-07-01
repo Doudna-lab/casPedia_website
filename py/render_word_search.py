@@ -9,24 +9,25 @@ from py.db_loadNupdate import psql_connect
 from py.render_search_result import dynamic_blastout_html, generate_link
 
 
-def sql_table_to_df(conn_string, table_name):
+def sql_table_to_df(conn_string, schema_name, table_name):
 	"""
 	Retrieves one table in the database and
 	returns its converted pandas dataframe
+	:param schema_name:
 	"""
 	engine = sa.create_engine(conn_string, echo=True)
 	conn = engine.connect()
 	sql_query = pd.read_sql_query('''
 	SELECT
 	*
-	FROM root.{}
-	'''.format(table_name), conn).convert_dtypes().infer_objects()
+	FROM "{}"."{}"
+	'''.format(schema_name, table_name), conn).convert_dtypes().infer_objects()
 	return sql_query
 
 
 # #DEBUG INPUTS
 # import yaml
-# with open("config/db_interaction.yaml", "r") as f:
+# with open("config/db_interaction.yaml", "r") as f:w
 # 	config_db = yaml.safe_load(f)
 #
 # with open("config/render_result.yaml", "r") as f:
@@ -39,7 +40,7 @@ def run(user_raw_input, config_render, config_db):
 	# Establish database connection
 	conn = psql_connect(config_db)
 
-	default_search_df = sql_table_to_df(conn, config_db['default_search_table'])
+	default_search_df = sql_table_to_df(conn, config_db["schema"], config_db['default_search_table'])
 
 	# Perform regex search across all columns
 	search_term = re.compile(rf'{user_raw_input}', flags=re.IGNORECASE)

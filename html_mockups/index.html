@@ -1,133 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png">
+  <script src="{{ url_for('static', filename='js/cas_buffet.js') }}"></script>
   <meta charset="UTF-8">
-  <title>My Page</title>
-  <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: roboto,verdana,sans-serif;
-        font-size: 16px;
-      }
-    header {
-      background-color: #f2f2f2;
-      padding: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    #logo {
-      width: 150px;
-      height: auto;
-    }
-    #main {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    #search-container {
-      position: sticky;
-      top: 0;
-      left: -1990px;
-      right: 1000px;
-      height: auto;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 2px;
-      margin-bottom: 2px;
-    }
-    #search-box {
-      position: sticky;
-      top: 0;
-      left: -1990px;
-      right: 1000px;
-      height: auto;
-      width: 60%;
-      padding: 10px;
-      border: 2px solid #ccc;
-      border-radius: 10px;
-      font-size: 18px;
-      background-color: #f8f8f8;
-      resize: vertical; /* or "vertical" */
-    }
-    .search-box-container {
-      top: 0;
-      left: -1990px;
-      right: 1000px;
-      display: flex;
-      flex-direction: column;
-      align-items: baseline;
-    }
-    .column {
-      width: 30%;
-      padding: 10px;
-    }
-    .column img {
-      display: block;
-      width: 100%;
-      height: auto;
-      margin: auto;
-    }
-    .column img:hover {
-      transform: scale(1.2);
-      transition: transform 0.7s ease-in-out;
-    }
-    footer {
-      background-color: #f2f2f2;
-      padding: 10px;
-      text-align: center;
-    }
-  </style>
+  <title>CasPedia - pre-Alpha</title>
 </head>
 <body>
+
   <header>
       <!-- logo -->
-  <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+    <a href="index.html">
+      <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+    </a>
+    <!-- second logo -->
+    <a href="https://innovativegenomics.org/" target="_blank">
+      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
+    </a>
   </header>
 
-  <!-- search box -->
-  <div id="search-container">
-    <form action="{{ url_for("gfg")}}" method="POST">
-    <br><br>
-      <div class="search-box-container">
-        <label for="search-box"></label>
-        <textarea id="search-box" name="search-box" rows="3" cols="50" placeholder="input sequence or term"></textarea>
-        <input type="submit" value="Submit">
-        <input type="file">
-      </div>
-    <br><br/>
-    </form>
+  <!-- Flowchart Questions -->
+<div id="flowchart-questions">
+  <div id="question1" class="question">
+    <h2>Question 1</h2>
+    <ul id="choices1" class="choices">
+      <li><button class="choice">Choice 1</button></li>
+      <li><button class="choice">Choice 2</button></li>
+      <!-- Add more choices as needed -->
+    </ul>
   </div>
 
-  <!-- clickable images -->
-  <div>
-    <main id="main">
-      <div class="column">
-        <a href="page1.html">
-          <img src="{{url_for('static', filename='img/ph_tree1.png')}}" alt="Image 1">
-        </a>
-      </div>
-      <div class="column">
-        <a href="page2.html">
-          <img src="{{url_for('static', filename='img/ph_tree1.png')}}" alt="Image 2">
-        </a>
-      </div>
-      <div class="column">
-        <a href="page3.html">
-          <img src="{{url_for('static', filename='img/ph_tree1.png')}}" alt="Image 2">
-        </a>
-      </div>
-    </main>
+  <div id="question2" class="question">
+    <h2>Question 2</h2>
+    <ul id="choices2" class="choices">
+      <!-- Choices for question 2 will be populated dynamically -->
+    </ul>
   </div>
+
+  <div id="question3" class="question">
+    <h2>Question 3</h2>
+    <ul id="choices3" class="choices">
+      <!-- Choices for question 3 will be populated dynamically -->
+    </ul>
+  </div>
+</div>
+
+
+
   <!-- footnote -->
   <footer>
-      <p>Copyright © 2023
-        <a href="https://www.example.com">Example</a>
+      <p><a class="footer-link" href="https://doudnalab.org/" target="_blank">Doudna Lab</a>
+        - Innovative Genomics Institute - Berkeley, California
       </p>
     </footer>
 </body>
 </html>
-
-

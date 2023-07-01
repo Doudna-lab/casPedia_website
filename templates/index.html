@@ -81,7 +81,7 @@
   <header>
       <!-- logo -->
     <a href="index.html">
-      <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+      <img id="logo" src="{{url_for('static', filename='img/ph_logo.svg')}}" alt="IGI logo">
     </a>
     <!-- second logo -->
     <a href="https://innovativegenomics.org/" target="_blank">
@@ -91,7 +91,7 @@
 
   <!-- search box -->
   <div id="search-container">
-    <h2>CAS protein search</h2>
+    <h2>Cas protein search</h2>
     <form action="{{ url_for("gfg")}}" method="POST">
       <label for="search-box"></label><textarea
           id="search-box" name="search-box" rows="3" cols="50"
@@ -104,8 +104,8 @@
   <!-- Caspedia Summary -->
 <main id="head-summary" class="summary">
   <div class="abstract">
-    <h2> <b>WHAT IS CASPEDIA?</b></h2>
-    <h3>CasPedia is a web portal that compiles established uses of individual enzymes, equipping users with valuable resources to enhance future engineering and foster broader applications. All cas enzymes in CasPedia were uniformly processed and annotated based on biochemical properties relevant to their diverse uses across biotechnology. These criteria describe the following properties central to all Class 2 Cas enzymes: <a href="#section_nuclease">nuclease activity</a>, <a href="#section_targeting">target requirement</a>, and <a href="#section_multiplx">guide RNA (gRNA) design</a> constraints. We present a formalized nomenclature to summarize these properties entitled Cas ID, an identification number comprised of three digits, one for each of the aforementioned characteristics.</h3>
+    <h2> <b>WHAT IS CasPEDIA?</b></h2>
+    <h3>CasPedia is a web portal that compiles established uses of individual enzymes, equipping users with valuable resources to enhance future engineering and foster broader applications. All Cas enzymes in CasPedia were uniformly processed and annotated based on biochemical properties relevant to their diverse uses across biotechnology. These criteria describe the following properties central to all Class 2 Cas enzymes: <a href="#section_nuclease">nuclease activity</a>, <a href="#section_targeting">target requirement</a>, and <a href="#section_multiplx">guide RNA (gRNA) design</a> constraints. We present a formalized nomenclature to summarize these properties entitled Cas ID, an identification number comprised of three digits, one for each of the aforementioned characteristics.</h3>
   </div>
 </main>
 
@@ -115,10 +115,10 @@
   <div class="column">
     <div class="column-container">
       <div id="section_nuclease">
-        <h2><b>DEFINING CAS IDs</b></h2>
+        <h2><b>DEFINING Cas IDs</b></h2>
         <h2><b>Nuclease Activity</b></h2>
       </div>
-      <h3>Enzymes from the Class II cas superfamily have diverse nuclease activities, both in an RNA-guided manner on a targeted sequence (in <i>cis-</i>) and sometimes on non-targeted nucleic acids upon binding (in <i>trans-</i>). The numerical annotation for nuclease activity relates to the known nucleic acid substrates for both the <i>cis-</i> and <i>trans-</i> activities of these enzymes.  Nuclease activity is reported as the first digit in the Cas ID.</h3>
+      <h3>Enzymes from the Class II Cas superfamily have diverse nuclease activities, both in an RNA-guided manner on a targeted sequence (in <i>cis-</i>) and sometimes on non-targeted nucleic acids upon binding (in <i>trans-</i>). The numerical annotation for nuclease activity relates to the known nucleic acid substrates for both the <i>cis-</i> and <i>trans-</i> activities of these enzymes.  Nuclease activity is reported as the first digit in the Cas ID.</h3>
       <a href="page1.html">
         <img src="{{url_for('static', filename='img/nuc_activity.svg')}}" alt="Image 1">
       </a>
@@ -130,7 +130,7 @@
       <div id="section_targeting">
         <h2><b>Target Requirement</b></h2>
       </div>
-      <h3>Target requirement refers to the orientation of the cas enzyme relative to its RNA-guided target substrate, as dictated by its protospacer adjacent motif (PAM), for DNA substrates, and protospacer flanking site (PFS), for RNA. The numerical annotation shows the orientation of the PAM, or PFS, relative to the protospacer and dictates the orientation of the ribonucleoprotein (RNP) relative to targeted substrate. Targeting requirement is reported as the second digit in the Cas ID.</h3>
+      <h3>Target requirement refers to the orientation of the Cas enzyme relative to its RNA-guided target substrate, as dictated by its protospacer adjacent motif (PAM), for DNA substrates, and protospacer flanking site (PFS), for RNA. The numerical annotation shows the orientation of the PAM, or PFS, relative to the protospacer and dictates the orientation of the ribonucleoprotein (RNP) relative to targeted substrate. Targeting requirement is reported as the second digit in the Cas ID.</h3>
       <a href="page2.html">
         <img src="{{url_for('static', filename='img/targeting.svg')}}" alt="Image 2">
       </a>

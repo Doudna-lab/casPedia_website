@@ -7,7 +7,7 @@ port: 5432
 
 # ********* GLOBAL CONFIGURATION *********
 # Master table
-source_metadata_path: ['background_data/2023_03_28_Cas_family_tree_Naming.csv']
+source_metadata_path: ['2023_03_28_Cas_family_tree_Naming.csv']
 # Wiki manifest containing URL for each and every wiki intake forms
 wiki_manifest_path: "background_data/wiki_manifest.csv"
 
@@ -26,7 +26,65 @@ default_search_table: "master"
 sequence_col: "Protein sequence"
 
 # ********* WIKI CONFIGURATION *********
+# Wiki page formatting
+wiki_template_path: "wiki_template.html"
 # Wiki Sheets manifest
 links_column: "Curation_Link"
 wiki_schema_prefix: "wiki"
-
+# Wiki association of table names between PSQL and intake forms
+properties:
+  tbl_name: "Properties"
+  format: '<li><span style="color: #5758ff;font-weight: bold;">{{ Property }}</span><a href="{{ Citation(s) }}" target="_blank">{{ Info }}</a></li>'
+resources:
+  tbl_name: "Resources"
+  format: '<li><span style="color: #5758ff;font-weight: bold;">{{ Resource }}</span><a href="{{ Link }}" target="_blank">{{ Value }}</a></li>'
+structure:
+  tbl_name: "Structural"
+  format:
+text_summaries:
+  tbl_name: "Text_Summaries"
+  format: '<h3 class="section-header">{{ SECTION }}</h3>
+  <p class="section-content">{{ CONTENT }}</p>'
+tools:
+  tbl_name: "Tools_And_Diagnostics"
+  format: '<h5>{{ Tool_Type }}</h5>
+            <ul>
+                <li><span><a href="{{ Citation }}" target="_blank">{{ Tool_Name }}</a> </span></li>
+              <ul>
+                <li class="ul-ul"> Description:</li>
+                <span>{{ Description }}</span>
+              </ul>
+            </ul>'
+gene_editing_human:
+  tbl_name: "Gene_Editing_Examples"
+  format: '<h5>{{ Application_Type }}</h5>
+            <ul>
+              <li class="ul-ul"> <i>In vivo</i> or <i>Ex vivo</i> Editing: <i>{{ In_Vivo_or_Ex_Vivo_Editing }}</i></li>
+              <li class="ul-ul"> Pharmaceutical or Product Name: {{ Pharmaceutical_or_Product_Name }}</li>
+              <li class="ul-ul"> NCT: {{ NCT }}</li>
+              <li class="ul-ul"> Responsible Party: {{ Responsible_Party }}</li>
+              <li class="ul-ul"> Description:</li>
+              <span>{{ Description }}</span>
+          </ul>'
+gene_editing:
+  tbl_name: "Gene_Editing_Examples"
+  format: '<h5>{{ Application_Type }}</h5>
+                <li class="ul-ul"> Description:</li>
+                <span>{{ Description }}</span>
+              </ul>
+          </ul>'
+exp_details:
+  tbl_name: "Experimental_Details"
+  format: '<h5>{{ Tool_Type }}</h5>
+            <ul>
+              <li class="ul-ul"> Tool: {{ Tool }}</li>
+              <li class="ul-ul"> Is the tool applicable: {{ Is_Tool_Applicable }}</li>
+              <li class="ul-ul"> Notes: {{ Notes }}</li>
+              <li class="ul-ul"> Citation: {{ Citation }}</li>
+            </ul>'
+variants:
+  tbl_name: "Engineered_Variants"
+  format: '<h5>{{ Variant_Name }}</h5>
+            <ul>
+              <li class="ul-ul"> Description: {{ Description }}</li>
+            </ul>'

@@ -10,22 +10,11 @@ from psycopg2 import errors
 from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateSchema as cschema
 # Project Imports
-from py.db_loadNupdate import psql_connect
-
-
-# Load config_render file
-with open("config/db_interaction.yaml", "r") as f:
-	config = yaml.safe_load(f)
-
-
-def get_absolute_path(relative_path):
-	current_dir = os.path.dirname(os.path.abspath(__file__))
-	absolute_path = os.path.join(current_dir, relative_path)
-	return absolute_path
+from db_loadNupdate import psql_connect, get_absolute_path
 
 
 def get_col_as_list(csv_path, target_col):
-	list_of_links = pd.read_csv(get_absolute_path(csv_path))[target_col].tolist()
+	list_of_links = pd.read_csv(csv_path)[target_col].tolist()
 	return list_of_links
 
 
@@ -35,7 +24,8 @@ def get_excel_from_google_drive(url_list, id_list, start_tab_index=1):
 	for idx in range(len(url_list)):
 		sheets_dict = {}
 		url = url_list[idx]
-		output_file = get_absolute_path('jobs/temp.xlsx')
+		output_dir = get_absolute_path("jobs")
+		output_file = f'{output_dir}temp.xlsx'
 
 		gdown.download(url, output_file, quiet=False, fuzzy=True)  # Download the file using gdown
 		xl = pd.read_excel(output_file, sheet_name=None, engine='openpyxl')
@@ -99,13 +89,20 @@ def load_wiki_tables2db(association_dict, conn_string, schema_prefix):
 	print("Commited changes to DB")
 
 
+# Load config_render file
+with open(get_absolute_path("db_interaction.yaml"), "r") as f:
+	config = yaml.safe_load(f)
+
+
 def main():
-	# Consolidate
+	# Consolidate Cloud links and identifiers
 	wiki_links_list = get_col_as_list(config["wiki_manifest_path"], config["links_column"])
 	uniq_id_list = get_col_as_list(config["wiki_manifest_path"], config["unique_id_col"])
 
+	# Download forms from Google-drive
 	id_to_sheets_dict = get_excel_from_google_drive(wiki_links_list, uniq_id_list)
 
+	# Load forms into the Database
 	schema = config["wiki_schema_prefix"]
 	conn_string = psql_connect(config)
 	load_wiki_tables2db(id_to_sheets_dict, conn_string, schema)
