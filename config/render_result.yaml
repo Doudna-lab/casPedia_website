@@ -14,12 +14,16 @@ temp_blastout_dir: "jobs"
 
 # Path to search page template
 search_template_path: "templates/search_out_page.html"
+# Path to search page template
+wiki_template_path: "templates/wiki_template.html"
 
 # Path to output search html page
 dir_root_template_path: "templates"
 
-# Internal temp directory for html templates
+# Internal temp directory for general html templates
 temp_html_dir_path: "temp"
+# Internal temp directory for wiki html templates
+temp_wiki_dir_path: "wiki"
 
 # Set the user-directed message for the user
 sequence_search_message: "Deltablast results for"

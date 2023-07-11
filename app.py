@@ -1,6 +1,8 @@
 # Native modules
 import os
 import re
+import shutil
+from pathlib import Path
 # External modules
 from flask import Flask, request, render_template, jsonify
 import yaml
@@ -33,8 +35,10 @@ class DynamicHtmlTemplate:
         self.dynamic_file_prefix = seq_search.random_name_gen()
         # Page templates path
         self.root_path = f"{render_config['dir_root_template_path']}{os.sep}"
+        self.wiki_template_path = f'{render_config["wiki_template_path"]}'
         # Create search output page internal  path/name
         self.internal_path = f'{render_config["temp_html_dir_path"]}{os.sep}{self.dynamic_file_prefix}.html'
+        self.wiki_dir_path = f'{render_config["temp_wiki_dir_path"]}{os.sep}'
 
     def export_html_template(self, table_content):
         with open(f"{self.root_path}{self.internal_path}", 'w') as html_template:
@@ -67,20 +71,29 @@ def index():
 
 @app.route('/wiki/<page>')
 def wiki_page(page):
-    """Define route to individual protein wiki pages"""
+    # Get the page name associated with a given Wiki entry and set a filepath
+    new_wiki_path = f'{tbl_render_config["dir_root_template_path"]}{os.sep}{tbl_render_config["temp_wiki_dir_path"]}{os.sep}{page}'
+    # Check whether that wiki entry exists or not. And create a new page if necessary
+    wiki_path_obj = Path(new_wiki_path)
+    if not wiki_path_obj.is_file():
+        shutil.copy(tbl_render_config["wiki_template_path"], new_wiki_path)
+
+    # Pull the relevant information from the PSQL Database and create a DynamicWiki object
+    #   Within this object all the information is formatted to be incorporated into the wiki HTML template
     wiki_entry = render_wiki_data(page, psql_config)
-    return render_template(f'wiki/{page}')
-    # TODO: Figure out how to best handle dynamic wiki HTML generation
-    # return render_template(f'wiki/{page}',
-    #                        properties=wiki_entry.properties,
-    #                        resources=wiki_entry.resources,
-    #                        text_summaries=wiki_entry.text_summaries,
-    #                        gene_editing_human=wiki_entry.gene_editing_human,
-    #                        gene_editing=wiki_entry.gene_editing,
-    #                        tools=wiki_entry.tools,
-    #                        variants=wiki_entry.variants,
-    #                        exp_details=wiki_entry.variants
-    #                        )
+
+    # return render_template(f'wiki/{page}')
+    return render_template(f'wiki/{page}',
+                           page_name=wiki_entry.entry_id,
+                           properties=wiki_entry.properties,
+                           resources=wiki_entry.resources,
+                           text_summaries=wiki_entry.text_summaries,
+                           gene_editing_human=wiki_entry.gene_editing_human,
+                           gene_editing=wiki_entry.gene_editing,
+                           tools=wiki_entry.tools,
+                           variants=wiki_entry.variants,
+                           exp_details=wiki_entry.exp_details
+                           )
 
 
 @app.route('/', methods=["POST", "GET"])

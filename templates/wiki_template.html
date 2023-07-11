@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title></title>
+  <title>{{ page_name|safe }}</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}" >
@@ -31,7 +31,7 @@
 
 <!-- Page Title -->
   <div style="background-color: #202123;">
-  <h1><span style="color:#FFFFFF"></span></h1>
+  <h1><span style="color:#FFFFFF">{{ page_name|safe }}</span></h1>
 
 <!-- Essential Info -->
   <div class="wiki-row-padding wiki-center wiki-margin-top" >
@@ -52,7 +52,7 @@
     <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
     <h2>PROPERTIES</h2>
     <ul class="wiki-ul">
-      {{ properties }}
+      {{ properties|safe }}
     </ul>
     </div>
   </div>
@@ -61,7 +61,7 @@
     <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
     <h2>RESOURCES</h2>
     <ul class="wiki-ul">
-        {{ resources }}
+        {{ resources|safe }}
     </ul>
     </div>
   </div>
@@ -72,38 +72,42 @@
   <!-- Description -->
   <br>
   <h2 class="section_header" style="text-align:center;font-weight:bold">DESCRIPTION</h2>
-  <div-- class="grid-container">
+  <div class="grid-container">
     <div class="section">
-      {{ text_summaries }}
+      {{ text_summaries|safe }}
 
         <button onclick="myAccFunc('GeneEditing')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Gene Editing&nbsp;</span></button>
         <div id="GeneEditing" class="wiki-hide">
           <div class="wiki-container">
-          {{ gene_editing_human }}
-          {{ gene_editing }}
+          {{ gene_editing_human|safe }}
+          {{ gene_editing|safe }}
           </div>
         </div>
       <hr>
 
         <button onclick="myAccFunc('Tools')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Tools and Diagnostics</span></button>
         <div id="Tools" class="wiki-hide">
+          <div class="wiki-container">
           <!-- OBS: Some headers from the static SpyCas9a model wiki do not match the terms found in the workbook  -->
           <!-- e.g. "Diagnostic Testing" in the model page translates to "Diagnostic" in the workbook  -->
-          {{ tools }}
+          {{ tools|safe }}
+          </div>
         </div>
       <hr>
 
         <button onclick="myAccFunc('Variants')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Engineered Variants</span></button>
         <div id="Variants" class="wiki-hide wiki-black">
-          {{ variants }}
+          <div class="wiki-container">
+          {{ variants|safe }}
+          </div>
         </div>
       <hr>
 
       <button onclick="myAccFunc('Delivery')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Experimental Details</span></button>
         <div id="Delivery" class="wiki-hide wiki-black">
-          <div class="wiki-hide wiki-black">
-          {{ exp_details }}
-          </div>
+            <div class="wiki-container">
+              {{ exp_details|safe }}
+            </div>
         </div>
 
 
