@@ -2,6 +2,7 @@
 import os
 import re
 import shutil
+import pickle
 from pathlib import Path
 # External modules
 from flask import Flask, request, render_template, jsonify
@@ -10,9 +11,9 @@ import yaml
 import py.seq_search as seq_search
 from py.render_search_result import run as render_blastout_table
 from py.render_word_search import run as render_word_search
-from py.render_wiki import run as render_wiki_data
-from py.render_word_search import sql_table_to_df
-from py.db_loadNupdate import psql_connect, get_absolute_path
+from py.render_wiki import run as load_wiki_data
+# from py.render_word_search import sql_table_to_df
+# from py.db_loadNupdate import psql_connect, get_absolute_path
 
 # Flask setup
 app = Flask(__name__)
@@ -47,6 +48,14 @@ class DynamicHtmlTemplate:
         return self.internal_path
 
 
+# Register a custom filter to treat None as empty string
+@app.template_filter('empty_string')
+def empty_string(value):
+    if value is None:
+        return ''
+    return value
+
+
 @app.route('/buffet.html')
 def buffet():
     """Define route to buffet.html"""
@@ -71,32 +80,47 @@ def index():
 
 @app.route('/wiki/<page>')
 def wiki_page(page):
+    # Infer the entry identifier from the HTML page route
     entry_id = re.sub(fr"\b.html\b", '', page)
 
     # Get the page name associated with a given Wiki entry and set a filepath
     new_wiki_path = f'{tbl_render_config["dir_root_template_path"]}{os.sep}' \
                     f'{tbl_render_config["temp_wiki_dir_path"]}{os.sep}{page}'
+
     # Check whether that wiki entry exists or not. And create a new page if necessary
     wiki_path_obj = Path(new_wiki_path)
     if not wiki_path_obj.is_file():
         shutil.copy(tbl_render_config["wiki_template_path"], new_wiki_path)
 
-    # Pull the relevant information from the PSQL Database and create a DynamicWiki object
-    #   Within this object all the information is formatted to be incorporated into the wiki HTML template
-    wiki_entry = render_wiki_data(page, psql_config)
+    # Get the wiki pickles path associated with a given Wiki entry and set a filepath
+    pickles_path = f'{psql_config["pickles_path"]}{os.sep}{entry_id}.pkl'
+    pickle_path_obj = Path(pickles_path)
 
-    # return render_template(f'wiki/{page}')
+    # Check whether that wiki pickle entry exists or not. And create a new page if necessary
+    # The pickles are created from the information stored in the PSQL Database
+    # This is leveraged to create a DynamicWiki object
+    #   Within this object all the information is formatted to be incorporated into the wiki HTML template
+    if not pickle_path_obj.is_file():
+        wiki_entry = load_wiki_data(page, psql_config)
+    if pickle_path_obj.is_file():
+        with open(pickles_path, "rb") as wiki_pickle:
+            wiki_entry = pickle.load(wiki_pickle)
+    # In case there's no content for a given entry render an error page
+    if not wiki_entry.content_check:
+        return render_template('wiki/ERROR_MESSAGE.html')
+
+    # Render the Wiki page and apply the empty_string filter to avoid ugly 'None's in the page
     return render_template(f'wiki/{page}',
-                           page_name=wiki_entry.entry_id,
-                           properties=wiki_entry.properties,
-                           resources=wiki_entry.resources,
-                           text_summaries=wiki_entry.text_summaries,
-                           gene_editing_human=wiki_entry.gene_editing_human,
-                           gene_editing=wiki_entry.gene_editing,
-                           tools=wiki_entry.tools,
-                           variants=wiki_entry.variants,
-                           exp_details=wiki_entry.exp_details,
-                           references=wiki_entry.formatted_references
+                           page_name=wiki_entry.entry_id or empty_string,
+                           properties=wiki_entry.properties or empty_string,
+                           resources=wiki_entry.resources or empty_string,
+                           text_summaries=wiki_entry.text_summaries or empty_string,
+                           gene_editing_human=wiki_entry.gene_editing_human or empty_string,
+                           gene_editing=wiki_entry.gene_editing or empty_string,
+                           tools=wiki_entry.tools or empty_string,
+                           variants=wiki_entry.variants or empty_string,
+                           exp_details=wiki_entry.exp_details or empty_string,
+                           references=wiki_entry.formatted_references or empty_string
                            )
 
 

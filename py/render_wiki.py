@@ -8,6 +8,8 @@ import requests
 import psycopg2
 from sqlalchemy.schema import CreateSchema as cschema
 from sqlalchemy import create_engine, inspect
+from requests.exceptions import HTTPError
+from sqlalchemy.exc import ProgrammingError
 # Project Modules
 from py.render_word_search import sql_table_to_df
 from py.db_loadNupdate import psql_connect, get_absolute_path
@@ -71,6 +73,7 @@ def remove_empty_rows(df, n_col_skip):
 def resolve_citation_link(df):
 	# Iterate over columns and rows of the DataFrame
 	for column in df.columns:
+
 		# if not re.match(r'citation', column, re.IGNORECASE):
 		# Replace pattern with 'https://doi.org/pattern'
 		df[column] = df[column].apply(lambda x: re.sub(r'(?:https?://)?doi\.org/', '', str(x)))
@@ -89,7 +92,7 @@ def resolve_citation_link(df):
 
 def reference_catalog(html_string, reference_list):
 	loop_html_string = html_string
-	for reference_hit in re.findall(r'"?:https?://?doi\.org/(\S+)" target="_blank">\|reference_idx\|</a>', html_string):
+	for reference_hit in re.findall(r'"(?:https?://)?doi\.org/(\S+)" target="_blank">\|reference_idx\|</a>', html_string):
 		current_reference_idx = len(reference_list) + 1
 
 		if reference_hit in set(reference_list):
@@ -97,9 +100,15 @@ def reference_catalog(html_string, reference_list):
 		if reference_hit not in set(reference_list):
 			reference_list.append(reference_hit)
 
-		loop_html_string = re.sub(r'"?:https?://?doi\.org/{}" target="_blank">(\|reference_idx\|)</a>'.format(reference_hit),
-		                          r'"https://doi.org/{}" target="_blank"><sup>{}</sup></a>'.format(reference_hit, current_reference_idx),
-		                          loop_html_string)
+		try:
+			loop_html_string = re.sub(
+				r'"(?:https?://)?doi\.org/{}" target="_blank">(\|reference_idx\|)</a>'.format(reference_hit),
+				r'"https://doi.org/{}" target="_blank"><sup>{}</sup></a>'.format(reference_hit, current_reference_idx),
+				loop_html_string
+			)
+		except re.error:
+			# This is caused by a typo in the intake forms
+			pass
 
 	# print(loop_html_string)
 	return loop_html_string, reference_list
@@ -142,12 +151,12 @@ def format_references(reference_list, config_db):
 			if doi not in set(existing_rows['doi']):
 				try:
 					citation = cn.content_negotiation(ids=doi, format="text")
-				except (TypeError, requests.exceptions.HTTPError):
+				except (TypeError, AttributeError, HTTPError):
+					print("DOI link not found. Likely caused by pattern typo in the intake forms")
 					# Handle the HTTP error
-					if requests.exceptions.HTTPError.response.status_code == 404:
-						target_replacement = re.sub(r"\{\{ Reference \}\}", citation_ordered, target_replacement)
-						citations_list.append(target_replacement)
-						continue
+					target_replacement = re.sub(r"\{\{ Reference \}\}", citation_ordered, target_replacement)
+					citations_list.append(target_replacement)
+					continue
 		# Second: If not, fetch it online using the habanero module
 		if not table_exists:
 			try:
@@ -230,6 +239,7 @@ class DynamicWiki:
 		self.db_conn = psql_connect(config_db)
 		self.schema_name = f'{config_db["wiki_schema_prefix"]}.{self.entry_id}'
 		self.references_list = []
+		self.content_check = False
 		self.formatted_references = ''
 		self.properties = None
 		self.resources = None
@@ -245,9 +255,20 @@ class DynamicWiki:
 			section_title = list(config_db["wiki_sections"][section_idx].keys())[0]
 			section = config_db["wiki_sections"][section_idx][section_title]
 
-			section_df = resolve_citation_link(
-				sql_table_to_df(self.db_conn, self.schema_name, section["tbl_name"]))
-			no_empty_rows_section_df = remove_empty_rows(section_df, section["n_of_index_cols"])
+			# Try to import dataframe from PSQL Database and resolve links during import
+			try:
+				section_df = resolve_citation_link(
+					sql_table_to_df(self.db_conn, self.schema_name, section["tbl_name"]))
+				no_empty_rows_section_df = remove_empty_rows(section_df, section["n_of_index_cols"])
+				self.content_check = True
+			except ProgrammingError:
+				# If the entry does not exist in the PSQL Database, generate an empty dataframe
+				no_empty_rows_section_df = pd.DataFrame()
+
+			# If there's no information in a given section, set it to None
+			if len(no_empty_rows_section_df.index) == 0:
+				setattr(self, str(section_title), None)
+				continue
 
 			if re.search(r'^gene_editing$', section_title):
 				no_empty_rows_section_df = no_empty_rows_section_df[
@@ -263,8 +284,12 @@ class DynamicWiki:
 
 			setattr(self, str(section_title), formatted_html_content)
 
+		# Load references to PSQL
 		(self.formatted_references, self.doi_dict) = format_references(self.references_list, config_db)
 
+		# At this point, if an entry has no summary, it is considered to be incomplete
+		if not self.text_summaries:
+			self.content_check = False
 		#
 		# # PROPERTIES
 		# self.properties_df = resolve_citation_link(sql_table_to_df(self.db_conn, self.schema_name, config_db["properties"]["tbl_name"]))
@@ -307,9 +332,8 @@ class DynamicWiki:
 def run(entry_path, psql_config):
 	"""Generate Wiki Entry Object"""
 	wiki_entry = DynamicWiki(psql_config, entry_path)
-	# wiki_entry = DynamicWiki(config, 'SpyCas9a.html')
+	# wiki_entry = DynamicWiki(config, 'Cas13b.html')
 
 	save_references(wiki_entry.doi_dict, psql_config)
 	# save_references(wiki_entry.doi_dict, config)
 	return wiki_entry
-
