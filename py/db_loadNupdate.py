@@ -69,7 +69,7 @@ def import_csv_list(file_list, name_list):
 	return dict_imported
 
 
-def load_master_table2db(df_dict, conn_string, schema_name):
+def load_table2db(df_dict, conn_string, schema_name):
 	print("Create DB engine")
 	db_engine = create_engine(conn_string, echo=True)
 	db_connection = db_engine.connect()
@@ -103,6 +103,7 @@ def load_master_table2db(df_dict, conn_string, schema_name):
 with open(get_absolute_path('db_interaction.yaml'), "r") as f:
 	config = yaml.safe_load(f)
 
+
 def main():
 	source_metadata_list = config["source_metadata_path"]
 	source_tag_list = config["metadata_file_tags"]
@@ -110,7 +111,7 @@ def main():
 
 	tables_dict = import_csv_list(source_metadata_list, source_tag_list)
 	conn_string = psql_connect(config)
-	load_master_table2db(tables_dict, conn_string, schema)
+	load_table2db(tables_dict, conn_string, schema)
 
 
 if __name__ == "__main__":

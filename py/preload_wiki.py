@@ -1,0 +1,54 @@
+# Native modules
+import pickle
+import os
+import sys
+# Installed modules
+import yaml
+# Get the current script's directory
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Set the parent directory as the new module search path
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
+# Project modules
+from py.render_wiki import DynamicWiki as dw
+from py.render_wiki import save_references
+from py.db_loadNupdate import psql_connect, get_absolute_path
+from py.render_word_search import sql_table_to_df
+
+
+# Load config_render file
+with open(get_absolute_path("db_interaction.yaml"), "r") as f:
+	psql_config = yaml.safe_load(f)
+
+
+def main():
+	# Set variables imported from the config file
+	db_conn = psql_connect(psql_config)
+	schema_name = psql_config['schema']
+	picke_dir = psql_config['pickles_path']
+
+	# Import master table from the PSQL Database
+	df_master = sql_table_to_df(db_conn,
+	                            schema_name,
+	                            psql_config['default_search_table'])
+	print("\n\n\n***** SQL IMPORT DONE******\n\n\n")
+	# Loop through all entries in the database
+	for entry in list(df_master[psql_config['unique_id_col']]):
+		# Generate DynamicWiki object
+		wiki_entry = dw(psql_config, entry)
+		print("\nREFERENCE LIST\n", wiki_entry.references_list)
+		print("\n\nDOI DICT\n", wiki_entry.doi_dict)
+		# Save references on the PSQL Database
+		save_references(wiki_entry.doi_dict, psql_config)
+
+		# Set the currrent wiki pickle path
+		pickle_path = f"{picke_dir}{os.sep}{entry}.pkl"
+
+		# Save wiki pickles
+		with open(pickle_path, "wb") as file:
+			pickle.dump(wiki_entry, file)
+
+
+if __name__ == "__main__":
+	main()

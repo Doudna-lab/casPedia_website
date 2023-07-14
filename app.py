@@ -71,8 +71,11 @@ def index():
 
 @app.route('/wiki/<page>')
 def wiki_page(page):
+    entry_id = re.sub(fr"\b.html\b", '', page)
+
     # Get the page name associated with a given Wiki entry and set a filepath
-    new_wiki_path = f'{tbl_render_config["dir_root_template_path"]}{os.sep}{tbl_render_config["temp_wiki_dir_path"]}{os.sep}{page}'
+    new_wiki_path = f'{tbl_render_config["dir_root_template_path"]}{os.sep}' \
+                    f'{tbl_render_config["temp_wiki_dir_path"]}{os.sep}{page}'
     # Check whether that wiki entry exists or not. And create a new page if necessary
     wiki_path_obj = Path(new_wiki_path)
     if not wiki_path_obj.is_file():
@@ -92,7 +95,8 @@ def wiki_page(page):
                            gene_editing=wiki_entry.gene_editing,
                            tools=wiki_entry.tools,
                            variants=wiki_entry.variants,
-                           exp_details=wiki_entry.exp_details
+                           exp_details=wiki_entry.exp_details,
+                           references=wiki_entry.formatted_references
                            )
 
 

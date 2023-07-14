@@ -11,6 +11,9 @@ source_metadata_path: ['2023_03_28_Cas_family_tree_Naming.csv']
 # Wiki manifest containing URL for each and every wiki intake forms
 wiki_manifest_path: "background_data/wiki_manifest.csv"
 
+# DOI Internal database information
+doi_table_name: 'doi_citation'
+
 # Column in the main database that contains unique protein identifiers
 unique_id_col: "Type Protein"
 
@@ -26,6 +29,8 @@ default_search_table: "master"
 sequence_col: "Protein sequence"
 
 # ********* WIKI CONFIGURATION *********
+# Wiki Pickle Directory path
+pickles_path: "static/pkl"
 # Wiki page formatting
 wiki_template_path: "wiki_template.html"
 # Wiki Sheets manifest
@@ -82,7 +87,7 @@ wiki_sections:
       format: '<h5>{{ Variant_Name }}</h5>
               <ul>
                 <li class="ul-ul"> Description:</li>
-                <span>{{ Description }} {{ Citation }}</span>
+                <span>{{ Description }}</span>
               </ul>'
       n_of_index_cols: 1
   - exp_details:
@@ -98,3 +103,8 @@ wiki_sections:
       tbl_name: "Structural"
       format: '<li><span style="color: #5758ff;font-weight: bold;">{{ Resource }}</span><a href="{{ Link }}" target="_blank"> {{ Value }}</a></li>'
       n_of_index_cols: 0
+references:
+  format: '<ul>
+  <li class="ul-ul">{{ Reference }}</li>
+  </ul>'
+  n_of_index_cols: 1
