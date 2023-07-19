@@ -5,8 +5,8 @@ linked_column_word_search: "Type Protein"
 
 # WORD-SEARCH SPECIFIC CONFIGS
 wordsearch_display_cols: ['Type Protein', 'Number',
-                          'Type Protein Accession', 'Nuclease Activity',
-                          'Target Requirement', 'Multiplexability', 'PAM', 'Citation']
+                          'Type Protein Accession', 'Nuclease Activity Description',
+                          'Targeting Requirement Description', 'Multiplexability Description', 'PAM']
 
 # GENERAL RESULTS PAGE CONFIGS
 # Temporary blastout table path

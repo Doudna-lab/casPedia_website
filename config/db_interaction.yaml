@@ -17,6 +17,17 @@ doi_table_name: 'doi_citation'
 # Column in the main database that contains unique protein identifiers
 unique_id_col: "Type Protein"
 
+# ********* TOOL FINDER CONFIGURATION *********
+# Translates the options available in the tool finder HTML to
+#  column names found in the PSQL database
+match_question_to_db:
+  "target_molecule": "Nuclease Activity Description"
+  "trans_activity": "Nuclease Activity Description"
+  "target_requirement": "Targeting Requirement Description"
+  "multiplex": "Multiplexability Description"
+
+wildcard_search: "Any"
+
 # ********* MASTER TABLE CONFIGURATION *********
 # In-Database names of source tables
 metadata_file_tags: ['master']

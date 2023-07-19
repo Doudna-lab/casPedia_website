@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png">
+  <meta charset="UTF-8">
+  <title>CasPedia - pre-Alpha</title>
+</head>
+<body>
+  <header>
+    <!-- logo -->
+    <a href="index.html">
+      <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+    </a>
+    <!-- second logo -->
+    <a href="https://innovativegenomics.org/" target="_blank">
+      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
+    </a>
+  </header>
+
+  <!-- Tool Finder -->
+  <section id="flowchart-questions">
+    <form action="/cas_buffet" method="POST">
+      <div id="target_molecule" class="tool-finder-header">
+        <h3>Target molecule</h3>
+        <select name="target_molecule" class="tool-finder-header">
+          <option value="Target RNA">Target RNA</option>
+          <option value="Choice 2">Choice 2</option>
+          <option value="Choice 3">Choice 3</option>
+        </select>
+      </div>
+      <div id="trans_activity" class="tool-finder-header">
+        <h3>Trans activity</h3>
+        <select name="trans_activity" class="tool-finder-menu">
+          <option value="trans-RNA activity">trans-RNA activity</option>
+          <option value="Choice 2">Choice 2</option>
+          <option value="Choice 3">Choice 3</option>
+        </select>
+      </div>
+      <div id="target_requirement" class="tool-finder-header">
+        <h3>Target requirement</h3>
+        <select name="target_requirement" class="tool-finder-menu">
+          <option value="5' No constraints">5' No constraints</option>
+          <option value="Choice 2">Choice 2</option>
+          <option value="Choice 3">Choice 3</option>
+        </select>
+      </div>
+      <div id="multiplex" class="tool-finder-header">
+        <h3>Multiplexability</h3>
+        <select name="multiplex" class="tool-finder-menu">
+          <option value="crRNA">crRNA</option>
+          <option value="Choice 2">Choice 2</option>
+          <option value="Choice 3">Choice 3</option>
+        </select>
+      </div>
+      <button type="submit">Search!</button>
+    </form>
+  </section>
+
+  <!-- footnote -->
+  <footer>
+    <p>
+      <a class="footer-link" href="https://doudnalab.org/" target="_blank">Doudna Lab</a>
+      - Innovative Genomics Institute - Berkeley, California
+    </p>
+  </footer>
+</body>
+</html>

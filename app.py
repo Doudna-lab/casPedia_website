@@ -11,6 +11,7 @@ import yaml
 import py.seq_search as seq_search
 from py.render_search_result import run as render_blastout_table
 from py.render_word_search import run as render_word_search
+from py.tool_finder_search import run as tool_finder
 from py.render_wiki import run as load_wiki_data
 # from py.render_word_search import sql_table_to_df
 # from py.db_loadNupdate import psql_connect, get_absolute_path
@@ -64,12 +65,20 @@ def buffet():
 
 @app.route('/cas_buffet', methods=['POST'])
 def process_choices():
+    dynamic_html_toolbox = DynamicHtmlTemplate(tbl_render_config)
     data = request.form
-    choices = {}
+    tool_features_input = {}
     for key, value in data.items():
-        choices[key] = value
+        tool_features_input[str(key)] = str(value)
+
+    print("Format Tool Finder search")
+    # Create word search output page
+    html_word_search_tbl = tool_finder(tool_features_input, tbl_render_config, psql_config)
+    # Export and render word search output page
+    html_template_path = dynamic_html_toolbox.export_html_template(html_word_search_tbl)
+    # Render page
+    return render_template(html_template_path)
     # Process the choices as needed
-    return f'Choices processed successfully {choices}'
 
 
 @app.route('/index.html')
