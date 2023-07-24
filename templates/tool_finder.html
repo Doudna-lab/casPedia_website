@@ -19,38 +19,30 @@
   </header>
 
   <!-- Tool Finder -->
-  <section id="flowchart-questions">
-    <form action="/cas_buffet" method="POST">
-      <div id="target_molecule" class="tool-finder-header">
-        <h3>Target molecule</h3>
-        <select name="target_molecule" class="tool-finder-header">
-          <option value="Target RNA">Target RNA</option>
-          <option value="Choice 2">Choice 2</option>
-          <option value="Choice 3">Choice 3</option>
+  <section id="tool-finder-questions">
+    <form action="/tool_finder" method="POST">
+      <div id="target_type" class="tool-finder-header">
+        <h3>Target type</h3>
+        <select name="target_type" class="tool-finder-header">
+          {{ targe_type|safe }}
         </select>
       </div>
       <div id="trans_activity" class="tool-finder-header">
         <h3>Trans activity</h3>
         <select name="trans_activity" class="tool-finder-menu">
-          <option value="trans-RNA activity">trans-RNA activity</option>
-          <option value="Choice 2">Choice 2</option>
-          <option value="Choice 3">Choice 3</option>
+          {{ trans_activity|safe }}
         </select>
       </div>
-      <div id="target_requirement" class="tool-finder-header">
-        <h3>Target requirement</h3>
-        <select name="target_requirement" class="tool-finder-menu">
-          <option value="5' No constraints">5' No constraints</option>
-          <option value="Choice 2">Choice 2</option>
-          <option value="Choice 3">Choice 3</option>
+      <div id="targeting_requirement" class="tool-finder-header">
+        <h3>Targeting requirement</h3>
+        <select name="targeting_requirement" class="tool-finder-menu">
+          {{ targeting_requirement|safe }}
         </select>
       </div>
       <div id="multiplex" class="tool-finder-header">
         <h3>Multiplexability</h3>
         <select name="multiplex" class="tool-finder-menu">
-          <option value="crRNA">crRNA</option>
-          <option value="Choice 2">Choice 2</option>
-          <option value="Choice 3">Choice 3</option>
+          {{ multiplex|safe }}
         </select>
       </div>
       <button type="submit">Search!</button>

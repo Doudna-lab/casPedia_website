@@ -21,12 +21,30 @@ unique_id_col: "Type Protein"
 # Translates the options available in the tool finder HTML to
 #  column names found in the PSQL database
 match_question_to_db:
-  "target_molecule": "Nuclease Activity Description"
+  "target_type": "Nuclease Activity Description"
   "trans_activity": "Nuclease Activity Description"
-  "target_requirement": "Targeting Requirement Description"
+  "targeting_requirement": "Targeting Requirement Description"
   "multiplex": "Multiplexability Description"
 
 wildcard_search: "Any"
+
+tool_finder_sections:
+  - target_type:
+      separator: "+"
+      field: 0
+      format: '<option value="{{ target_type }}">{{ target_type }}</option>'
+  - trans_activity:
+      separator: "+"
+      field: 1
+      format: '<option value="{{ trans_activity }}">{{ trans_activity }}</option>'
+  - targeting_requirement:
+      separator: ""
+      field: 0
+      format: '<option value="{{ targeting_requirement }}">{{ targeting_requirement }}</option>'
+  - multiplex:
+      separator: ""
+      field: 0
+      format: '<option value="{{ multiplex }}">{{ multiplex }}</option>'
 
 # ********* MASTER TABLE CONFIGURATION *********
 # In-Database names of source tables

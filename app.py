@@ -13,6 +13,7 @@ from py.render_search_result import run as render_blastout_table
 from py.render_word_search import run as render_word_search
 from py.tool_finder_search import run as tool_finder
 from py.render_wiki import run as load_wiki_data
+from py.render_tool_finder import run as load_tool_finder
 # from py.render_word_search import sql_table_to_df
 # from py.db_loadNupdate import psql_connect, get_absolute_path
 
@@ -48,6 +49,11 @@ class DynamicHtmlTemplate:
         # Apply Flask method to render the search output page
         return self.internal_path
 
+@app.route('/index.html')
+def index():
+    """Define route to the front page"""
+    return render_template('index.html')
+
 
 # Register a custom filter to treat None as empty string
 @app.template_filter('empty_string')
@@ -57,13 +63,22 @@ def empty_string(value):
     return value
 
 
-@app.route('/buffet.html')
+@app.route('/tool_finder.html')
 def buffet():
-    """Define route to buffet.html"""
-    return render_template('buffet.html')
+    """Define route to tool_finder.html"""
+
+    # Load tool finder options from PSQL Database
+    tool_finder_menu = load_tool_finder(psql_config)
+    # Render the Wiki page and apply the empty_string filter to avoid ugly 'None's in the page
+    return render_template(f'tool_finder.html',
+                           targe_type=tool_finder_menu.target_type or empty_string,
+                           trans_activity=tool_finder_menu.trans_activity or empty_string,
+                           targeting_requirement=tool_finder_menu.targeting_requirement or empty_string,
+                           multiplex=tool_finder_menu.multiplex or empty_string
+                           )
 
 
-@app.route('/cas_buffet', methods=['POST'])
+@app.route('/tool_finder', methods=['POST'])
 def process_choices():
     dynamic_html_toolbox = DynamicHtmlTemplate(tbl_render_config)
     data = request.form
@@ -79,12 +94,6 @@ def process_choices():
     # Render page
     return render_template(html_template_path)
     # Process the choices as needed
-
-
-@app.route('/index.html')
-def index():
-    """Define route to the front page"""
-    return render_template('index.html')
 
 
 @app.route('/wiki/<page>')

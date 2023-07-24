@@ -1,7 +1,8 @@
+# Native modules
+import re
 # Installed modules
 import pandas as pd
 import yaml
-import re
 import numpy as np
 from habanero import cn
 import requests
@@ -36,9 +37,6 @@ def wiki_format_db2html(df, format_instructions):
 			target_replacement = format_instructions.replace("'", "")
 			for db_column_name in input_dict.keys():
 				# Use column names directly from PSQL to replace the patterns written on the associated config file
-
-				# if re.search(r'\|\|', input_dict[db_column_name][db_content_idx]):
-
 				try:
 					target_replacement = re.sub(r"{{{{ {} }}}}".format(db_column_name),
 					                             input_dict[db_column_name][db_content_idx], target_replacement)
