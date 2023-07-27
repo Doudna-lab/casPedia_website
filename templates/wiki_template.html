@@ -76,6 +76,14 @@
     <div class="section">
       {{ text_summaries|safe }}
 
+        <button onclick="myAccFunc('Delivery')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Experimental Details</span></button>
+        <div id="Delivery" class="wiki-hide wiki-black">
+            <div class="wiki-container">
+              {{ exp_details|safe }}
+            </div>
+        </div>
+      <hr>
+
         <button onclick="myAccFunc('GeneEditing')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Gene Editing&nbsp;</span></button>
         <div id="GeneEditing" class="wiki-hide">
           <div class="wiki-container">
@@ -101,14 +109,9 @@
           {{ variants|safe }}
           </div>
         </div>
-      <hr>
 
-      <button onclick="myAccFunc('Delivery')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Experimental Details</span></button>
-        <div id="Delivery" class="wiki-hide wiki-black">
-            <div class="wiki-container">
-              {{ exp_details|safe }}
-            </div>
-        </div>
+
+
 
 
       <!--h5 class="section-header">EXPERIMENTAL DETAILS</h5>

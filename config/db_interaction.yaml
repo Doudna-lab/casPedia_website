@@ -80,6 +80,15 @@ wiki_sections:
       format: '<h3 class="section-header">{{ SECTION }}</h3>
     <p class="section-content">{{ CONTENT }}</p>'
       n_of_index_cols: 1
+  - exp_details:
+      tbl_name: "Experimental_Details"
+      format: '<h5>{{ Tool_Type }}</h5>
+              <ul>
+                <li class="ul-ul"> Tool: {{ Tool }}</li>
+                <li class="ul-ul"> Is the tool applicable: {{ Is_Tool_Applicable }}</li>
+                <li class="ul-ul"> Notes: {{ Notes }} {{ Citation }}</li>
+              </ul>'
+      n_of_index_cols: 2
   - gene_editing_human:
       tbl_name: "Gene_Editing_Examples"
       format: '<h5>{{ Application_Type }}</h5>
@@ -119,15 +128,6 @@ wiki_sections:
                 <span>{{ Description }}</span>
               </ul>'
       n_of_index_cols: 1
-  - exp_details:
-      tbl_name: "Experimental_Details"
-      format: '<h5>{{ Tool_Type }}</h5>
-              <ul>
-                <li class="ul-ul"> Tool: {{ Tool }}</li>
-                <li class="ul-ul"> Is the tool applicable: {{ Is_Tool_Applicable }}</li>
-                <li class="ul-ul"> Notes: {{ Notes }} {{ Citation }}</li>
-              </ul>'
-      n_of_index_cols: 2
   - structure:
       tbl_name: "Structural"
       format: '<li><span style="color: #5758ff;font-weight: bold;">{{ Resource }}</span><a href="{{ Link }}" target="_blank"> {{ Value }}</a></li>'

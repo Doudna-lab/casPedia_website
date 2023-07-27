@@ -1,5 +1,6 @@
 # Native modules
 import re
+import html
 # Installed modules
 import pandas as pd
 import yaml
@@ -101,7 +102,7 @@ def reference_catalog(html_string, reference_list):
 		try:
 			loop_html_string = re.sub(
 				r'"(?:https?://)?doi\.org/{}" target="_blank">(\|reference_idx\|)</a>'.format(reference_hit),
-				r'"https://doi.org/{}" target="_blank"><sup>{}</sup></a>'.format(reference_hit, current_reference_idx),
+				r'"https://doi.org/{}" target="_blank"><sup>{} </sup></a>'.format(reference_hit, current_reference_idx),
 				loop_html_string
 			)
 		except re.error:
@@ -267,17 +268,32 @@ class DynamicWiki:
 			if len(no_empty_rows_section_df.index) == 0:
 				setattr(self, str(section_title), None)
 				continue
-
+			# The gene_editing section of the wiki is the 1st exception in the PSQL->HTML processing
 			if re.search(r'^gene_editing$', section_title):
 				no_empty_rows_section_df = no_empty_rows_section_df[
 					no_empty_rows_section_df.loc[:, "Application_Type"] != 'Human_Clinical_Trial']
 				self.df_example = no_empty_rows_section_df
-
 			if re.search(r'^gene_editing_human$', section_title):
 				no_empty_rows_section_df = no_empty_rows_section_df[
 					no_empty_rows_section_df.loc[:, "Application_Type"] == 'Human_Clinical_Trial']
 
+			# Generate an HTML string following the format instructions defined in the config file
 			html_content = wiki_format_db2html(no_empty_rows_section_df, section["format"])
+
+			# The 2nd formatting exception is exp_details -> the html_content is modified
+			#  to generate a table from the pandas DF
+			if re.search(r'^exp_details$', section_title):
+				html_content = str(no_empty_rows_section_df.to_html(index=False))
+				# Header adjustments
+				html_content = html_content.replace('<table border="1" class="dataframe">',
+				                            f"<div class='table-wrap'>\n<table class='sortable'>\n"
+				                            f"\n<span class='sr-only'>\n</span></caption>")
+				html_content = html_content.replace('</table>', '</table>\n</div>')
+				# Replace &lt; with <
+				html_content = html_content.replace('&lt;', '<')
+				# Replace &gt; with >
+				html_content = html_content.replace('&gt;', '>')
+
 			(formatted_html_content, self.references_list) = reference_catalog(html_content, self.references_list)
 
 			setattr(self, str(section_title), formatted_html_content)
