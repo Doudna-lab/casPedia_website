@@ -1,6 +1,5 @@
 # Native modules
 import re
-import html
 # Installed modules
 import pandas as pd
 import yaml
@@ -240,6 +239,7 @@ class DynamicWiki:
 		self.references_list = []
 		self.content_check = False
 		self.formatted_references = ''
+		self.classification = None
 		self.properties = None
 		self.resources = None
 		self.structure = None
@@ -258,7 +258,10 @@ class DynamicWiki:
 			try:
 				section_df = resolve_citation_link(
 					sql_table_to_df(self.db_conn, self.schema_name, section["tbl_name"]))
+				section_df = section_df.loc[:, ~section_df.columns.str.contains(r'unnamed', case=False)]
 				no_empty_rows_section_df = remove_empty_rows(section_df, section["n_of_index_cols"])
+				# Remove any 'unnamed' columns from the DF
+
 				self.content_check = True
 			except ProgrammingError:
 				# If the entry does not exist in the PSQL Database, generate an empty dataframe
@@ -286,7 +289,7 @@ class DynamicWiki:
 				html_content = str(no_empty_rows_section_df.to_html(index=False))
 				# Header adjustments
 				html_content = html_content.replace('<table border="1" class="dataframe">',
-				                            f"<div class='table-wrap'>\n<table class='sortable'>\n"
+				                            f"<div class='table-wrap'>\n<table class='wiki-table'>\n"
 				                            f"\n<span class='sr-only'>\n</span></caption>")
 				html_content = html_content.replace('</table>', '</table>\n</div>')
 				# Replace &lt; with <
@@ -297,6 +300,7 @@ class DynamicWiki:
 			(formatted_html_content, self.references_list) = reference_catalog(html_content, self.references_list)
 
 			setattr(self, str(section_title), formatted_html_content)
+			setattr(self, str(section_title), formatted_html_content)
 
 		# Load references to PSQL
 		(self.formatted_references, self.doi_dict) = format_references(self.references_list, config_db)
@@ -304,43 +308,6 @@ class DynamicWiki:
 		# At this point, if an entry has no summary, it is considered to be incomplete
 		if not self.text_summaries:
 			self.content_check = False
-		#
-		# # PROPERTIES
-		# self.properties_df = resolve_citation_link(sql_table_to_df(self.db_conn, self.schema_name, config_db["properties"]["tbl_name"]))
-		# self.properties = wiki_format_db2html(remove_empty_rows(self.properties_df), config_db["properties"]["format"])
-
-		# # RESOURCES
-		# self.resources_df = resolve_citation_link(sql_table_to_df(self.db_conn, self.schema_name, config_db["resources"]["tbl_name"]))
-		# self.resources = wiki_format_db2html(remove_empty_rows(self.resources_df), config_db["resources"]["format"])
-		#
-		# # STRUCTURE
-		# self.structure_df = resolve_citation_link(sql_table_to_df(self.db_conn, self.schema_name, config_db["structure"]["tbl_name"]))
-		# # self.structure = wiki_format_db2html(structure_df, config_db["structure"]["format"])
-		#
-		# # TEXT SUMMARIES
-		# self.text_summaries_df = resolve_citation_link(sql_table_to_df(self.db_conn, self.schema_name, config_db["text_summaries"]["tbl_name"]))
-		# self.text_summaries = wiki_format_db2html(remove_empty_rows(self.text_summaries_df), config_db["text_summaries"]["format"])
-		#
-		# # TOOLS
-		# self.tools_df = resolve_citation_link(sql_table_to_df(self.db_conn, self.schema_name, config_db["tools"]["tbl_name"]))
-		# self.tools = wiki_format_db2html(remove_empty_rows(self.tools_df), config_db["tools"]["format"])
-		#
-		# # GENE EDITING TABLE -> NOT HUMAN
-		# self.gene_editing_df = resolve_citation_link(sql_table_to_df(self.db_conn, self.schema_name, config_db["gene_editing"]["tbl_name"]))
-		# self.gene_editing_df = self.gene_editing_df[self.gene_editing_df.loc[:, "Application_Type"] != 'Human_Clinical_Trial']
-		# self.gene_editing = wiki_format_db2html(remove_empty_rows(self.gene_editing_df), config_db["gene_editing"]["format"])
-		# # GENE EDITING TABLE -> ONLY HUMAN
-		# self.gene_editing_human_df = resolve_citation_link(sql_table_to_df(self.db_conn, self.schema_name, config_db["gene_editing_human"]["tbl_name"]))
-		# self.gene_editing_human_df = self.gene_editing_human_df[self.gene_editing_human_df.loc[:, "Application_Type"] == 'Human_Clinical_Trial']
-		# self.gene_editing_human = wiki_format_db2html(remove_empty_rows(self.gene_editing_human_df), config_db["gene_editing_human"]["format"])
-		#
-		# # EXPERIMENTAL DETAILS
-		# self.exp_details_df = resolve_citation_link(sql_table_to_df(self.db_conn, self.schema_name, config_db["exp_details"]["tbl_name"]))
-		# self.exp_details = wiki_format_db2html(remove_empty_rows(self.exp_details_df), config_db["exp_details"]["format"])
-		#
-		# # VARIANTS
-		# self.variants_df = resolve_citation_link(sql_table_to_df(self.db_conn, self.schema_name, config_db["variants"]["tbl_name"]))
-		# self.variants = wiki_format_db2html(remove_empty_rows(self.variants_df), config_db["variants"]["format"])
 
 
 def run(entry_path, psql_config):

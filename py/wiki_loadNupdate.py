@@ -7,10 +7,29 @@ import gdown
 import pandas as pd
 import psycopg2
 from psycopg2 import errors
+import sqlalchemy as sa
 from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateSchema as cschema
 # Project Imports
 from db_loadNupdate import psql_connect, get_absolute_path
+
+
+def sql_table_to_df(conn_string, schema_name, table_name):
+	"""
+	Retrieves one table in the database and
+	returns its converted pandas dataframe
+	:param table_name:
+	:param conn_string:
+	:param schema_name:
+	"""
+	engine = sa.create_engine(conn_string, echo=True)
+	conn = engine.connect()
+	sql_query = pd.read_sql_query('''
+	SELECT
+	*
+	FROM "{}"."{}"
+	'''.format(schema_name, table_name), conn).convert_dtypes().infer_objects()
+	return sql_query
 
 
 def get_col_as_list(csv_path, target_col):
@@ -89,12 +108,34 @@ def load_wiki_tables2db(association_dict, conn_string, schema_prefix):
 	print("Commited changes to DB")
 
 
+# def parse_casID_sprites():
+
+
+def format_master_table2wiki(id_to_df_dict, master_tbl, config_db):
+	master_to_wiki_handle = config_db["master_to_wiki_handle"]
+	master_search_col = config_db["unique_id_col"]
+	master_col_names = config_db["master_to_wiki_col_names"]
+	master_row_names = config_db["master_to_wiki_col_format"]
+	out_dict = id_to_df_dict
+	for entry_id in id_to_df_dict:
+
+		master_df = master_tbl[master_tbl[master_search_col] == entry_id][list(master_row_names.keys())].T
+		master_df = master_df.rename(index=master_row_names).reset_index()
+		master_df.columns = master_col_names
+		out_dict[entry_id].setdefault(master_to_wiki_handle, master_df)
+	return out_dict
+
+
 # Load config_render file
 with open(get_absolute_path("db_interaction.yaml"), "r") as f:
 	config = yaml.safe_load(f)
 
 
 def main():
+	schema = config["wiki_schema_prefix"]
+	conn_string = psql_connect(config)
+	master_table = sql_table_to_df(conn_string, config["schema"], config["default_search_table"])
+
 	# Consolidate Cloud links and identifiers
 	wiki_links_list = get_col_as_list(config["wiki_manifest_path"], config["links_column"])
 	uniq_id_list = get_col_as_list(config["wiki_manifest_path"], config["unique_id_col"])
@@ -102,10 +143,11 @@ def main():
 	# Download forms from Google-drive
 	id_to_sheets_dict = get_excel_from_google_drive(wiki_links_list, uniq_id_list)
 
+	# Account for master table addition to wiki schemas
+	id_to_sheets_dict_updated = format_master_table2wiki(id_to_sheets_dict, master_table, config)
+
 	# Load forms into the Database
-	schema = config["wiki_schema_prefix"]
-	conn_string = psql_connect(config)
-	load_wiki_tables2db(id_to_sheets_dict, conn_string, schema)
+	load_wiki_tables2db(id_to_sheets_dict_updated, conn_string, schema)
 
 
 if __name__ == "__main__":

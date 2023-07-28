@@ -140,6 +140,41 @@ h3 {
   top: -30em;
 }
 
+/* Wiki Tables */
+table.wiki-table {
+  width: 100%;
+  /* You can also set a fixed width like: width: 800px; */
+  /* Or set a percentage width like: width: 80%; */
+  /* Adjust the value as per your requirement */
+}
+
+/* Allow text wrapping inside table cells */
+table.wiki-table td,
+table.wiki-table th {
+  white-space: normal;
+  word-wrap: break-word;
+  /* You can also use 'word-break: break-all;' for more aggressive wrapping */
+}
+
+/* Add more styles to the table cells if needed */
+table.wiki-table td,
+table.wiki-table th {
+  /* Add any other styles you want here */
+}
+
+/* Add border and spacing to the table */
+table.wiki-table {
+  border-collapse: collapse;
+  /* You can also use 'separate' for separated borders */
+  border: 1px solid #ccc;
+}
+table.wiki-table th,
+table.wiki-table td {
+  border: 1px solid #ccc;
+  padding: 2px; /* Adjust the padding as needed */
+}
+
+
 /* Table Sorting */
 table.sortable td,
 table.sortable th {

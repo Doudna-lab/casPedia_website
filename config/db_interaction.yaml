@@ -28,6 +28,7 @@ match_question_to_db:
 
 wildcard_search: "Any"
 
+# ********* TOOL FINDER CONFIGURATION *********
 tool_finder_sections:
   - target_type:
       separator: "+"
@@ -54,10 +55,26 @@ schema: "root"
 # Main database table for user input search
 default_search_table: "master"
 
-# Column in the main database that contains aa sequence
+# Column in the master table that contains the CAS ID
+cas_id_col: "Number"
+# Column in the master table that contains aa sequence
 sequence_col: "Protein sequence"
 
 # ********* WIKI CONFIGURATION *********
+# The master table is sliced and formatted as an additional table in
+#  the Wiki schemas. This is the table name to be used in this import
+master_to_wiki_handle: "Classification"
+# These are columns that will be imported in the process mentioned above
+#   with their respective renaming instructions
+master_to_wiki_col_format:
+  "Number": "Cas ID"
+  "Nuclease Activity Description": "Nuclease Activity"
+  "Targeting Requirement Description": "Targeting Requirement"
+  "Multiplexability Description": "Multiplexability"
+
+# The column names for the newly imported master table in the PSQL wiki schemas
+master_to_wiki_col_names: ["Property", "Info"]
+
 # Wiki Pickle Directory path
 pickles_path: "static/pkl"
 # Wiki page formatting
@@ -67,6 +84,10 @@ links_column: "Curation_Link"
 wiki_schema_prefix: "wiki"
 # Wiki association of table names between PSQL and intake forms
 wiki_sections:
+  - classification:
+      tbl_name: "Classification"
+      format: '<li><span style="color: #5758ff;font-weight: bold;">{{ Property }} </span>{{ Info }}</li>'
+      n_of_index_cols: 1
   - properties:
       tbl_name: "Properties"
       format: '<li><span style="color: #5758ff;font-weight: bold;">{{ Property }} </span>{{ Info }} {{ Citations }}</li>'
