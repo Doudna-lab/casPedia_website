@@ -28,7 +28,6 @@ match_question_to_db:
 
 wildcard_search: "Any"
 
-# ********* TOOL FINDER CONFIGURATION *********
 tool_finder_sections:
   - target_type:
       separator: "+"
@@ -60,6 +59,9 @@ cas_id_col: "Number"
 # Column in the master table that contains aa sequence
 sequence_col: "Protein sequence"
 
+# CasID name order
+cas_id_order: ['Nuclease Activity', 'Targeting Requirement', 'Multiplexability']
+
 # ********* WIKI CONFIGURATION *********
 # The master table is sliced and formatted as an additional table in
 #  the Wiki schemas. This is the table name to be used in this import
@@ -87,6 +89,11 @@ wiki_sections:
   - classification:
       tbl_name: "Classification"
       format: '<li><span style="color: #5758ff;font-weight: bold;">{{ Property }} </span>{{ Info }}</li>'
+      n_of_index_cols: 1
+  - classification_sprites:
+      tbl_name: "Classification_CasID_Sprites"
+      format: |
+        <img title="{{ Property }}" class="casID_sprite" src="/static/img/cas_id_sprites/{{ Info }}">
       n_of_index_cols: 1
   - properties:
       tbl_name: "Properties"

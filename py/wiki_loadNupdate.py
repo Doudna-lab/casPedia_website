@@ -12,6 +12,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.schema import CreateSchema as cschema
 # Project Imports
 from db_loadNupdate import psql_connect, get_absolute_path
+# from py.db_loadNupdate import psql_connect, get_absolute_path
 
 
 def sql_table_to_df(conn_string, schema_name, table_name):
@@ -108,21 +109,41 @@ def load_wiki_tables2db(association_dict, conn_string, schema_prefix):
 	print("Commited changes to DB")
 
 
-# def parse_casID_sprites():
+def parse_casID_sprites(master_tbl_entry_slice, casID_col_name, casID_name_order):
+	slice_series = pd.Series()
+	cas_ID = master_tbl_entry_slice[casID_col_name].to_string(header=False, index=False)
+	for idx in range(len(casID_name_order)):
+		cas_id_slot = idx + 1
+		casID_digit = cas_ID.split(".")[idx]
+		slice_series[casID_name_order[idx]] = f'slot{cas_id_slot}_{casID_digit}.svg'
+
+	return slice_series
 
 
 def format_master_table2wiki(id_to_df_dict, master_tbl, config_db):
 	master_to_wiki_handle = config_db["master_to_wiki_handle"]
+	master_sprites_wiki_handle = f'{master_to_wiki_handle}_CasID_Sprites'
 	master_search_col = config_db["unique_id_col"]
 	master_col_names = config_db["master_to_wiki_col_names"]
 	master_row_names = config_db["master_to_wiki_col_format"]
-	out_dict = id_to_df_dict
+	out_dict = id_to_df_dict.copy()
 	for entry_id in id_to_df_dict:
-
-		master_df = master_tbl[master_tbl[master_search_col] == entry_id][list(master_row_names.keys())].T
+		# Slice the master table to select the relevant columns for further processing
+		master_slice_df = master_tbl[master_tbl[master_search_col] == entry_id][list(master_row_names.keys())]
+		# Process the Cas_ID sprites tables
+		master_slice_sprites_df = parse_casID_sprites(master_slice_df,
+		                                              config_db["cas_id_col"],
+		                                              config_db['cas_id_order'])
+		master_slice_sprites_df = master_slice_sprites_df.T
+		master_slice_sprites_df = master_slice_sprites_df.reset_index()
+		master_slice_sprites_df.columns = master_col_names
+		# Process the Classification (current table name) table based on the master table
+		master_df = master_slice_df.T
 		master_df = master_df.rename(index=master_row_names).reset_index()
 		master_df.columns = master_col_names
+		# Organize output dictionary to return
 		out_dict[entry_id].setdefault(master_to_wiki_handle, master_df)
+		out_dict[entry_id].setdefault(master_sprites_wiki_handle, master_slice_sprites_df)
 	return out_dict
 
 

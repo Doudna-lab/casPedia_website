@@ -272,6 +272,7 @@ table.sortable th:not([aria-sort]) button:hover span::after {
   top: 0;
 }
 
+
 /* Footer */
 footer {
   background-color: #f8f8f8;

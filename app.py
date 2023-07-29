@@ -49,6 +49,7 @@ class DynamicHtmlTemplate:
         # Apply Flask method to render the search output page
         return self.internal_path
 
+
 @app.route('/index.html')
 def index():
     """Define route to the front page"""
@@ -131,6 +132,7 @@ def wiki_page(page):
     return render_template(f'wiki/{page}',
                            page_name=wiki_entry.entry_id or empty_string,
                            classification=wiki_entry.classification or empty_string,
+                           classification_sprites=wiki_entry.classification_sprites or empty_string,
                            properties=wiki_entry.properties or empty_string,
                            resources=wiki_entry.resources or empty_string,
                            text_summaries=wiki_entry.text_summaries or empty_string,
