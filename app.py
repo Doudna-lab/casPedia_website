@@ -56,6 +56,12 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/Coming_Soon_Page.html')
+def coming():
+    """Define route to the coming soon page"""
+    return render_template('Coming_Soon_Page.html')
+
+
 # Register a custom filter to treat None as empty string
 @app.template_filter('empty_string')
 def empty_string(value):

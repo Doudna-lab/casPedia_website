@@ -70,9 +70,9 @@ master_to_wiki_handle: "Classification"
 #   with their respective renaming instructions
 master_to_wiki_col_format:
   "Number": "Cas ID"
-  "Nuclease Activity Description": "Nuclease Activity"
-  "Targeting Requirement Description": "Targeting Requirement"
-  "Multiplexability Description": "Multiplexability"
+  "Nuclease_Activity": "Nuclease Activity"
+  "Targeting_Requirement": "Targeting Requirement"
+  "gRNA_Design_and_Multiplexability": "gRNA Design and Multiplexability"
 
 # The column names for the newly imported master table in the PSQL wiki schemas
 master_to_wiki_col_names: ["Property", "Info"]

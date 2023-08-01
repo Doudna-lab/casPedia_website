@@ -113,7 +113,7 @@ def reference_catalog(html_string, reference_list):
 
 
 def format_references(reference_list, config_db):
-	# Educate Pandas to do the right thing
+	# DEBUG HELPER: Educate Pandas to do the right thing
 	pd.set_option('display.max_colwidth', None)
 	#  Set HTML formatting instructions
 	format_instructions = config_db['references']['format']

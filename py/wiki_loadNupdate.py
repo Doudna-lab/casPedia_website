@@ -8,7 +8,7 @@ import pandas as pd
 import psycopg2
 from psycopg2 import errors
 import sqlalchemy as sa
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.schema import CreateSchema as cschema
 # Project Imports
 from db_loadNupdate import psql_connect, get_absolute_path
@@ -31,6 +31,32 @@ def sql_table_to_df(conn_string, schema_name, table_name):
 	FROM "{}"."{}"
 	'''.format(schema_name, table_name), conn).convert_dtypes().infer_objects()
 	return sql_query
+
+
+def purge_wiki_schemas(conn_string, schema_prefix):
+	print("Create DB engine")
+	db_engine = create_engine(conn_string, echo=True)
+	# Replace this with the prefix you want to drop (e.g., 'wiki.')
+	prefix = schema_prefix
+	# SQL command to drop schemas with a specific prefix using a parameterized query
+	sql_command = """
+	    DO $$ 
+	    DECLARE 
+	        sname TEXT;
+	    BEGIN
+	        FOR sname IN (SELECT schema_name FROM information_schema.schemata WHERE schema_name LIKE :prefix) LOOP
+	            EXECUTE 'DROP SCHEMA IF EXISTS ' || quote_ident(sname) || ' CASCADE';
+	        END LOOP;
+	    END $$;
+	    """
+
+	try:
+		# Execute the SQL command with the 'prefix' variable as a parameter
+		with db_engine.begin() as connection:
+			connection.execute(text(sql_command), prefix=prefix + '%')
+		print(f"All schemas with the prefix '{prefix}' have been dropped.")
+	except Exception as e:
+		print("Error:", e)
 
 
 def get_col_as_list(csv_path, target_col):
@@ -113,10 +139,12 @@ def parse_casID_sprites(master_tbl_entry_slice, casID_col_name, casID_name_order
 	slice_series = pd.Series()
 	cas_ID = master_tbl_entry_slice[casID_col_name].to_string(header=False, index=False)
 	for idx in range(len(casID_name_order)):
-		cas_id_slot = idx + 1
-		casID_digit = cas_ID.split(".")[idx]
-		slice_series[casID_name_order[idx]] = f'slot{cas_id_slot}_{casID_digit}.svg'
-
+		try:
+			cas_id_slot = idx + 1
+			casID_digit = cas_ID.split(".")[idx]
+			slice_series[casID_name_order[idx]] = f'slot{cas_id_slot}_{casID_digit}.svg'
+		except IndexError:
+			pass
 	return slice_series
 
 
@@ -126,17 +154,29 @@ def format_master_table2wiki(id_to_df_dict, master_tbl, config_db):
 	master_search_col = config_db["unique_id_col"]
 	master_col_names = config_db["master_to_wiki_col_names"]
 	master_row_names = config_db["master_to_wiki_col_format"]
-	out_dict = id_to_df_dict.copy()
+	out_dict = id_to_df_dict
 	for entry_id in id_to_df_dict:
-		# Slice the master table to select the relevant columns for further processing
-		master_slice_df = master_tbl[master_tbl[master_search_col] == entry_id][list(master_row_names.keys())]
+		print(f"\n\n****{entry_id}****\n\n")
+		try:
+			# Slice the master table to select the relevant columns for further processing
+			master_slice_df = master_tbl[master_tbl[master_search_col] == entry_id][list(master_row_names.keys())]
+			if len(master_slice_df.index) < 1:
+				print("SLICE INCOMPLETE: ")
+				print(master_slice_df)
+				continue
+		except KeyError:
+			print(f"Entry {entry_id} does not have one or more of the required columns in its form {master_search_col}")
+			print(master_search_col)
+			continue
 		# Process the Cas_ID sprites tables
+		print(f"PRE PROCESSING OF {entry_id}:\n\n{master_slice_df}")
 		master_slice_sprites_df = parse_casID_sprites(master_slice_df,
 		                                              config_db["cas_id_col"],
 		                                              config_db['cas_id_order'])
 		master_slice_sprites_df = master_slice_sprites_df.T
 		master_slice_sprites_df = master_slice_sprites_df.reset_index()
 		master_slice_sprites_df.columns = master_col_names
+		print(f"POST PROCESSING OF {entry_id}:\n\n{master_slice_sprites_df}")
 		# Process the Classification (current table name) table based on the master table
 		master_df = master_slice_df.T
 		master_df = master_df.rename(index=master_row_names).reset_index()
@@ -155,6 +195,7 @@ with open(get_absolute_path("db_interaction.yaml"), "r") as f:
 def main():
 	schema = config["wiki_schema_prefix"]
 	conn_string = psql_connect(config)
+	purge_wiki_schemas(conn_string, schema)
 	master_table = sql_table_to_df(conn_string, config["schema"], config["default_search_table"])
 
 	# Consolidate Cloud links and identifiers
@@ -165,7 +206,8 @@ def main():
 	id_to_sheets_dict = get_excel_from_google_drive(wiki_links_list, uniq_id_list)
 
 	# Account for master table addition to wiki schemas
-	id_to_sheets_dict_updated = format_master_table2wiki(id_to_sheets_dict, master_table, config)
+	pre_sheets_dict = id_to_sheets_dict.copy()
+	id_to_sheets_dict_updated = format_master_table2wiki(pre_sheets_dict, master_table, config)
 
 	# Load forms into the Database
 	load_wiki_tables2db(id_to_sheets_dict_updated, conn_string, schema)

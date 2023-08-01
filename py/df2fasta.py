@@ -1,11 +1,12 @@
 # Native modules
 import sys
+import subprocess
 # External modules
 from Bio import SeqIO
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-from py.render_word_search import sql_table_to_df
-from py.db_loadNupdate import psql_connect
+from preload_wiki import sql_table_to_df
+from db_loadNupdate import psql_connect
 import yaml
 
 # Import config files
@@ -38,7 +39,7 @@ def create_SeqRecord(sequence_dict):
 def main():
 	# Connect to DB and convert main table into Pandas DF
 	conn = psql_connect(config_db)
-	source_df = sql_table_to_df(conn, config["schema"], config_db['default_search_table'])
+	source_df = sql_table_to_df(conn, config_db["schema"], config_db['default_search_table'])
 
 	# Extract sequence information from dataframe
 	sequence_dict = capture_fasta_from_df(source_df, config_db["sequence_col"], config_db["unique_id_col"])
@@ -46,6 +47,15 @@ def main():
 
 	# Write the fasta output to user-provided path
 	SeqIO.write(sequence_records, "background_data/cas_db", "fasta")
+
+	# Create blast database from the newly created fasta sequences
+	# Run Delta Blast
+	subprocess.run(f"nice -n 10 "
+	               f"makeblastdb "
+	               f" -dbtype 'prot'"
+	               f" -in background_data/cas_db"
+	               f" -title cas_db",
+	               shell=True)
 
 
 if __name__ == "__main__":
