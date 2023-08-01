@@ -42,7 +42,7 @@ def main():
 	source_df = sql_table_to_df(conn, config_db["schema"], config_db['default_search_table'])
 
 	# Extract sequence information from dataframe
-	sequence_dict = capture_fasta_from_df(source_df, config_db["sequence_col"], config_db["unique_id_col"])
+	sequence_dict = capture_fasta_from_df(source_df, config_db["master_sequence_col"], config_db["unique_id_col"])
 	sequence_records = create_SeqRecord(sequence_dict)
 
 	# Write the fasta output to user-provided path

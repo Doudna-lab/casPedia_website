@@ -176,6 +176,17 @@ table.wiki-table td {
 
 
 /* Table Sorting */
+/* Set a max-width for the table to fit the screen */
+table.sortable {
+  max-width: 100%;
+  border-collapse: collapse;
+}
+
+/* Add horizontal scroll if the table content overflows */
+table.sortable {
+  overflow-x: auto;
+}
+
 table.sortable td,
 table.sortable th {
   padding: 2em 1.8em;

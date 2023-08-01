@@ -5,7 +5,7 @@ import shutil
 import pickle
 from pathlib import Path
 # External modules
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, send_from_directory
 import yaml
 # Project modules
 import py.seq_search as seq_search
@@ -56,10 +56,10 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/Coming_Soon_Page.html')
+@app.route('/wiki/Coming_Soon.html')
 def coming():
     """Define route to the coming soon page"""
-    return render_template('Coming_Soon_Page.html')
+    return render_template('wiki/Coming_Soon.html')
 
 
 # Register a custom filter to treat None as empty string
@@ -141,6 +141,7 @@ def wiki_page(page):
                            classification_sprites=wiki_entry.classification_sprites or empty_string,
                            properties=wiki_entry.properties or empty_string,
                            resources=wiki_entry.resources or empty_string,
+                           sequences=wiki_entry.sequences or empty_string,
                            text_summaries=wiki_entry.text_summaries or empty_string,
                            gene_editing_human=wiki_entry.gene_editing_human or empty_string,
                            gene_editing=wiki_entry.gene_editing or empty_string,
@@ -149,6 +150,22 @@ def wiki_page(page):
                            exp_details=wiki_entry.exp_details or empty_string,
                            references=wiki_entry.formatted_references or empty_string
                            )
+
+
+@app.route('/static/fasta/<filename>')
+def render_file(filename):
+    # Get the absolute path of the file in the /fasta/ folder
+    file_path = os.path.join('static/fasta', filename)
+
+    # Check if the file exists
+    if os.path.exists(file_path):
+        # Send the file as download
+        # return send_file(file_path, as_attachment=True)
+        # Pop file on the browser
+        return send_from_directory('static/fasta', filename, mimetype='text/plain')
+    else:
+        # File not found, return an error response
+        return f"File not found: {filename}", 404
 
 
 @app.route('/', methods=["POST", "GET"])

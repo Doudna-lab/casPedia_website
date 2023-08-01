@@ -14,6 +14,7 @@ from sqlalchemy.exc import ProgrammingError
 # Project Modules
 from py.render_word_search import sql_table_to_df
 from py.db_loadNupdate import psql_connect, get_absolute_path
+from py.render_search_result import generate_link
 
 
 # Load config_render file
@@ -71,8 +72,6 @@ def remove_empty_rows(df, n_col_skip):
 def resolve_citation_link(df):
 	# Iterate over columns and rows of the DataFrame
 	for column in df.columns:
-
-		# if not re.match(r'citation', column, re.IGNORECASE):
 		# Replace pattern with 'https://doi.org/pattern'
 		df[column] = df[column].apply(lambda x: re.sub(r'(?:https?://)?doi\.org/', '', str(x)))
 
@@ -81,11 +80,55 @@ def resolve_citation_link(df):
 			lambda x: re.sub(r'(\(\(([^)]+)\)\))', r'<a href="https://doi.org/\2" target="_blank">|reference_idx|</a>',
 			                 str(x)))
 		# Add href tag to external database links
-
 		df[column] = df[column].apply(
 			lambda x: re.sub(r'\[\[([^]]+)\]\]', r'<a href="\1" target="_blank"><sup>link</sup></a>', str(x)))
 
 	return df
+
+
+def export_fasta_from_df(row):
+	filename = row["Export_FASTA"]
+	fastq_seq = row["Sequence_FASTA"]
+	try:
+		if len(fastq_seq) >= 1:
+			with open(filename, 'w') as fasta:
+				fasta.write(fastq_seq)
+	except TypeError:
+		print("Empty sequence. Nothing to be processed")
+
+
+def resolve_fasta_seq(df, seq_col_name, entry, export_path):
+	cols_list = list(df.columns)
+	if seq_col_name not in set(cols_list):
+		return df
+	df_formatted = df.copy()
+	additional_id_col = f'{cols_list[cols_list.index(seq_col_name) - 1]}'
+
+
+
+	# df_formatted[additional_id_col] = df_formatted[additional_id_col].apply(lambda x: re.sub(r'\W+|_', ' ', str(x)))
+
+	# Format the FASTA-related column
+	df_formatted[seq_col_name] = df_formatted[seq_col_name].apply(
+		lambda x: re.sub(r'\W+', '', str(x)))
+	df_formatted["Sequence_FASTA"] = ">" + entry + '|' + df_formatted[additional_id_col] + "\n" + df_formatted[seq_col_name]
+	df_formatted["Export_FASTA"] = export_path + entry + '_' + df_formatted[additional_id_col] + ".fasta"
+
+	df_formatted["Export_FASTA"] = df_formatted["Export_FASTA"].apply(
+		lambda x: re.sub(r'\s+', r'_', str(x)))
+
+	df_formatted["Export_FASTA"] = df_formatted["Export_FASTA"].apply(
+		lambda x: x.strip("/"))
+
+	# Apply the function to links to the hit ID columns
+	# df["Export_FASTA"] = df.apply(lambda row: generate_link(row, "Export_FASTA", 'plain_fasta'), axis=1)
+	df_formatted["Link_FASTA"] = '<a href="/' + df_formatted["Export_FASTA"] + '" target="_blank">FASTA</a>'
+	df_formatted["Link_FASTA"] = df_formatted["Link_FASTA"].apply(
+		lambda x: re.sub(r'/templates', r'_', str(x)))
+	# Apply the export_to_file function to each row in the DataFrame
+	df_formatted.apply(export_fasta_from_df, axis=1)
+
+	return df_formatted
 
 
 def reference_catalog(html_string, reference_list):
@@ -231,7 +274,16 @@ def save_references(doi_to_citation_dict, config_db):
 
 
 class DynamicWiki:
+	
 	def __init__(self, config_db, page_path):
+		"""
+		A DynamicWiki object is a container that stores HTML formatted blocks for every
+		entry in casPEDIA that is ultimately rendered to the web pages. The class parses
+		the content initially stored in the PostgreSQL database with the support of formatting
+		instructions found on /config/db_interaction.yaml
+		:param config_db: '/config/db_interaction.yaml'
+		:param page_path: '<type_protein>.html'
+		"""
 		self.entry_id = re.sub(fr"\b.html\b", '', page_path)
 		self.template_page = get_absolute_path(config_db["wiki_template_path"])
 		self.db_conn = psql_connect(config_db)
@@ -242,6 +294,7 @@ class DynamicWiki:
 		self.classification = None
 		self.properties = None
 		self.resources = None
+		self.sequences = None
 		self.structure = None
 		self.text_summaries = None
 		self.tools = None
@@ -256,12 +309,16 @@ class DynamicWiki:
 
 			# Try to import dataframe from PSQL Database and resolve links during import
 			try:
+				# Import table from PSQL and resolve citation links
 				section_df = resolve_citation_link(
 					sql_table_to_df(self.db_conn, self.schema_name, section["tbl_name"]))
-				section_df = section_df.loc[:, ~section_df.columns.str.contains(r'unnamed', case=False)]
-				no_empty_rows_section_df = remove_empty_rows(section_df, section["n_of_index_cols"])
 				# Remove any 'unnamed' columns from the DF
-
+				section_df = section_df.loc[:, ~section_df.columns.str.contains(r'unnamed', case=False)]
+				# Discard any empty rows
+				no_empty_rows_section_df = remove_empty_rows(section_df, section["n_of_index_cols"])
+				# Check if there are any dedicated FASTA sequences in the table and resolve them accordingly
+				no_empty_rows_section_df = resolve_fasta_seq(no_empty_rows_section_df, config_db['wiki_sequence_col_name'],
+				                                             self.entry_id, config_db['raw_fasta_path'])
 				self.content_check = True
 			except ProgrammingError:
 				# If the entry does not exist in the PSQL Database, generate an empty dataframe
@@ -313,7 +370,7 @@ class DynamicWiki:
 def run(entry_path, psql_config):
 	"""Generate Wiki Entry Object"""
 	wiki_entry = DynamicWiki(psql_config, entry_path)
-	# wiki_entry = DynamicWiki(config, 'Cas13b.html')
+	# wiki_entry = DynamicWiki(config, 'LbCas12g.html')
 
 	save_references(wiki_entry.doi_dict, psql_config)
 	# save_references(wiki_entry.doi_dict, config)

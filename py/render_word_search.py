@@ -41,7 +41,7 @@ def pre_format_df_to_html(df, display_cols, url_cols):
 	df_display = df[display_cols]
 	# Create HTML links to the target page based on protein name
 	df_display.loc[:, url_cols] = df_display.apply(
-		lambda row: generate_link(row, url_cols), axis=1)
+		lambda row: generate_link(row, url_cols, 'wiki_page'), axis=1)
 
 	return df_display
 

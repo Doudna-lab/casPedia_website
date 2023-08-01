@@ -50,15 +50,14 @@ tool_finder_sections:
 # In-Database names of source tables
 metadata_file_tags: ['master']
 schema: "root"
-
 # Main database table for user input search
 default_search_table: "master"
-
 # Column in the master table that contains the CAS ID
 cas_id_col: "Number"
 # Column in the master table that contains aa sequence
-sequence_col: "Protein sequence"
-
+master_sequence_col: "Protein sequence"
+# The column names for the newly imported master table in the PSQL wiki schemas
+master_to_wiki_col_names: ["Property", "Info"]
 # CasID name order
 cas_id_order: ['Nuclease Activity', 'Targeting Requirement', 'Multiplexability']
 
@@ -74,8 +73,10 @@ master_to_wiki_col_format:
   "Targeting_Requirement": "Targeting Requirement"
   "gRNA_Design_and_Multiplexability": "gRNA Design and Multiplexability"
 
-# The column names for the newly imported master table in the PSQL wiki schemas
-master_to_wiki_col_names: ["Property", "Info"]
+# Column name in the wiki forms that denotes raw fasta sequences
+wiki_sequence_col_name: "Sequence"
+# Path where raw FASTA files will be stored
+raw_fasta_path: "/static/fasta/"
 
 # Wiki Pickle Directory path
 pickles_path: "static/pkl"
@@ -84,6 +85,8 @@ wiki_template_path: "wiki_template.html"
 # Wiki Sheets manifest
 links_column: "Curation_Link"
 wiki_schema_prefix: "wiki"
+#
+
 # Wiki association of table names between PSQL and intake forms
 wiki_sections:
   - classification:
@@ -102,6 +105,10 @@ wiki_sections:
   - resources:
       tbl_name: "Resources"
       format: '<li><span style="color: #5758ff;font-weight: bold;">{{ Resource }} </span>{{ Value }}</li>'
+      n_of_index_cols: 1
+  - sequences:
+      tbl_name: "Sequences"
+      format: '<li><span style="color: #5758ff;font-weight: bold;">{{ Property }} </span>{{ Link_FASTA }} {{ Citation }}</li>'
       n_of_index_cols: 1
   - text_summaries:
       tbl_name: "Text_Summaries"

@@ -5,9 +5,9 @@ import os
 
 
 # Define a function to generate HTML links
-def generate_link(row, linked_column):
+def generate_link(row, linked_column, app_function):
     """Generates an HTML href pointer to a template associated with the search result"""
-    link = f"<a href='{{{{ url_for('wiki_page', page=\'{row[linked_column]}.html\') }}}}'>{row[linked_column]}</a>"
+    link = f"<a href='{{{{ url_for('{app_function}', page=\'{row[linked_column]}.html\') }}}}'>{row[linked_column]}</a>"
     return link
 
 
@@ -90,7 +90,7 @@ def run(blastout_dict, config_render):
     df = last_df_col_to_first(df)
     # Apply the function to links to the hit ID columns
     df[config_render["linked_column_sequence_search"]] = df.apply(lambda row: generate_link(
-        row, config_render["linked_column_sequence_search"]), axis=1)
+        row, config_render["linked_column_sequence_search"], 'wiki_page'), axis=1)
 
     # Convert the DataFrame to HTML table
     df_blastout_html = df.to_html(escape=False, index=False)
