@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>FAQ</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png" >
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}" >
+</head>
+
+<body>
+<!-- Logo -->
+  <header>
+  <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+  </header>
+
+  <!-- Search Box -->
+  <div id="search-container">
+    <form action="{{ url_for("gfg")}}" method="POST">
+      <label for="search-box"></label><textarea id="search-box" name="search-box" rows="1" cols="50" placeholder="input sequence or term"></textarea>
+      <input type="submit" value="Submit" name="seq-input">
+    </form>
+  </div>
+
+<!-- Page Title -->
+  <div style="background-color: #202123;">
+    <h1><span style="color:#FFFFFF">FAQ</span></h1>
+  </div>
+
+<!-- Contents -->
+  <br>
+  <div class="grid-container">
+    <div class="section">
+    <br>
+      <h3 class="section-header">GENERAL INFORMATION</h3>
+        <button onclick="myAccFunc('Info1')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">What is casPEDIA?&nbsp;</span></button>
+          <div id="Info1" class="wiki-hide">
+            <p class="section-content">casPEDIA is a community project that organizes Class II CRISPR-associated proteins by their functional properties. This effort is motivated by the rapid discovery of new cas nucleases, whose systematic documentation is required to accelerate biotechnological innovation. As an encyclopedia of single-enzyme effectors, casPEDIA provides comprehensive descriptions of enzyme activities, structures and sequences, complete with a literature review covering each nuclease's discovery, experimental applications and engineering efforts. Information presented in casPEDIA includes citations from peer-reviewed publications.
+ 
+            casPEDIA is a living database and construction is ongoing! If you would like to contribute to casPEDIA (i.e. moderate/update content, suggest new entries and features, etc.), please see the FAQ section entitled "Contribute to casPEDIA" as well as the "Contact Us" page of the website for more information. Additionally, casPEDIA exists in tandem with CRISPRpedia <a href="https://innovativegenomics.org/crisprpedia/" target="_blank">crisprpedia</a>, a free resource created by The Innnovative Genomics Institute that describes general principles of CRISPR technology.</p>
+          </div>
+        <hr>
+        <button onclick="myAccFunc('Info2')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">I'm new to the field and seeking assistance in learning CRISPR terminology--where can I get help?&nbsp;</span></button>
+          <div id="Info2" class="wiki-hide">
+            <p class="section-content">While established CRISPR experimentalists are casPEDIA's primary audience, we endeavor to support molecular biologists who are new to CRISPR. If you are seeking information on CRISPR terminology and would like to familiarize yourself with the field, we recommend CRISPRpedia <a href="https://innovativegenomics.org/crisprpedia/" target="_blank">crisprpedia</a>, hosted by The Innnovative Genomics Institute.</p>
+          </div>
+        <hr>
+        <button onclick="myAccFunc('Info3')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">What data is organized in casPEDIA?&nbsp;</span></button>
+          <div id="Info3" class="wiki-hide">
+            <p class="section-content">As a centralized repository of Class II Cas systems, casPEDIA is organized in wiki format, with detailed summaries of each nuclease. Additional resources exist, such as "Advanced Tool Search" and BLASTP-based sequence search, to assist users in searching for enzymes relevant to their experimental and discovery needs. The website also details the phylogenetic classifications of Class II systems, complimenting similar efforts in the CRISPR community. When information is available, wiki entries contain the following sections:
+
+            - Quick Links: Three summary panels are available at the top of the website to enable rapid access to information about the nuclease. The three panels include: Classification (CasID information), Properties (Essential details, including: protospacer length, PAM/PFS sequence, CDS Length, Number of Amino acids, etc.) and Resources (External links to: RefSeq Genome Assembly for the species of origin, RefSeq Gene ID, RefSeq Protein ID, UniProtKB ID, Conserved Domains Database ID(s), etc. )
+            - Summary: Brief summary of the nuclease, Including: its species of origin, context of its discovery, common uses, novel properties, etc.
+            - Applications: Description of how the cas nuclease is utilized by scientists. This section contains literature reviews and subheaders for Gene Editing, Tools and Diagnostics, and Engineered Variants, associated with the effector.
+            - Experimental Considerations: A high-level introduction on how to perform and design experiments with a specific Cas system. This section contains subheadings for "Delivery" (i.e. How to deliver a cas nuclease into a system or model organism using different modalities.) and "Design" (i.e. How to design guides against a target sequence with established rules or algorithms, create an expression construct for the nuclease, and other relevant notes to kickstart experimentation.).
+            - Nucleotide Sequence: A genome-browser view of the nuclease's sequence and architecture of its CRISPR Array. Both the nucleotide sequence and genomic coordinates are available for download.
+            - Protein Structure: A summary of domain and residue information from UNIPROT ((REF)) and Pfam ((REF)), with a crystal structure form PDB ((REF)) or AlphaFold2((REF)).
+            - Phylogeny: An interactive phylogenetic tree (i.e. leaf names are clickable and redirect to other wiki entries) provides evolutionary context and subtype classification details for the enzyme.
+            - Citations: Information in casPEDIA is cited. The citations for each wiki are indexed at the bottom of the page in APA style.</p>
+          </div>
+        <hr>
+        <button onclick="myAccFunc('Info3')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">How was data collected for casPEDIA?&nbsp;</span></button>
+          <div id="Info3" class="wiki-hide">
+            <p class="section-content">All wiki content was curated by an expert panel CRISPR enthusiasts. KOLs (Key Opinion Leaders) for each nuclease were contacted to contribute content and moderate entries. However, casPEDIA is a community resource and we are seeking volunteers! If you would like to contribute to casPEDIA (i.e. moderate/update content, suggest new entries and features, etc.), please see the FAQ section entitled "Update or contribute to casPEDIA" as well as the "Contact Us" page of the website for more information.</p>
+          </div>
+        <hr>
+        <button onclick="myAccFunc('Info3')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Is casPEDIA peer-reviewed and is there a corresponding publication?&nbsp;</span></button>
+          <div id="Info3" class="wiki-hide">
+            <p class="section-content">Yes, the release of casPEDIA was accompanied by an upcoming publication in the NAR Database issue in January of 2024 ((DOI pending)). The paper is currently under review.</p>
+          </div>
+        <hr>
+        <button onclick="myAccFunc('Info3')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">How do I cite casPEDIA?&nbsp;</span></button>
+          <div id="Info3" class="wiki-hide">
+            <p class="section-content">The casPEDIA manuscript is currently under review at NAR. We hope the paper is released in the January 2024 NAR Database issue. ((citation/DOI pending))</p>
+          </div>
+        <hr>
+    <br>
+
+
+    <br>
+      <h3 class="section-header">CasID: Classifying enzymes by function with identification numbers</h3>
+        <button onclick="myAccFunc('CasID1')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">What is a CasID?&nbsp;</span></button>
+          <div id="CasID1" class="wiki-hide">
+            <p class="section-content">The <a href="http://caspedia.org/" target="_blank">homepage of the website </a> provides a detailed walkthrough of the CasID system. CasIDs are identification numbers that demarcate the functional properties of each nuclease. Inspired by the EC system (<a href="https://en.wikipedia.org/wiki/enzyme_commission_nUmber" Target="_blank">enzyme Commission numbers</a>), CasIDs are comprised of 3 digits. Briefly, the first digit represents Nucelase Activity, the second value indicates the Targeting Requirements of the RNA-guided enzyme, and the third digit summarizes the Guide RNA (gRNA) Design and Multiplexing properties of a nuclease. Across Class II systems, there are 9 distinct forms of Nucelase Activity, 7 different Targeting Requirements and 5 unique classes of gRNA Design and Multiplexing considerations.</p>
+          </div>
+        <hr>
+        <button onclick="myAccFunc('CasID2')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">How do I interpret a CasID?&nbsp;</span></button>
+          <div id="CasID2" class="wiki-hide">
+            <p class="section-content">CasIDs can be interpreted using the lookup table on the <a href="http://caspedia.org/" target="_blank">homepage of the website </a>. Assessing the three constituent digits of an ID, reveals the nuclease's function. The first integer describes the Nuclease Activity of the enzyme, of which there are 9 distinct types, covering both cis and trans properties. The second value indicates the Targeting Requirements of the RNA-guided enzyme, spanning 7 different types. The third digit summarizes 5 unique classes of Guide RNA (gRNA) Design and Multiplexing properties for Class II systems. 
+
+            To better understand CasIDs, consider SpyCas9a, with a CasID of 1.1.1 . The Nuclease Activity for this enzyme falls under category 1, implying it has blunt double-stranded cis nuclease-activity, and no trans nuclease-activity ((https://doi.org/10.1016/j.molcel.2018.11.021)). The Targeting Requirements for ShomepyCas9a fit category 1, meaning it requires a 3' protospacer-adjacent motif (PAM). Finally, the Guide RNA (gRNA) Design and Multiplexing properties for this enzyme fall under category 1, such that the Native CRISPR Array for SpyCas9a requires a CRISPR RNA (crRNA) for targeting + Trans-acting crRNA (tracrRNA) for multiplexing to the protein backbone of the effector + additional factors for processing the array into mature guides. However, as described by the CasID nomenclature, SpyCas9a can also be engineered to utilize a minimal array containing different single-guide RNAs (sgRNAs), represented as a contiguous, all-in-one crRNA+tracrRNA sequence ((10.1038/nature09886; https://doi.org/10.1146/annurev-biophys-062215-010822)).</p>
+          </div>
+        <hr>
+        <button onclick="myAccFunc('CasID3')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">How do I construct a CasID?&nbsp;</span></button>
+          <div id="CasID3" class="wiki-hide">
+            <p class="section-content">Using the website navigation menu, select "Advanced Tool Search". This redirects to a new page that guides users through a series of drop-down menus, which ultimately generate a table of all Class II systems that possess the experimentalist's properties of choice. To elaborate, Advanced Tool Search requires four user-inputted selections: Cis-Activity Substrate, Trans-Activity Substrate, Targeting Requirements and gRNA Design and Multiplexability. Dropdown panels exist for each of the 4 categories and their contents mirror the functional categories allotted to CasIDs. From each dropdown menu, users click which properties they desire and also have the option to select "Any" for categories where an enzyme's functions is flexible.
+
+            If no entries in casPEDIA fit the user's criteria, it returns "No tools fit query." A lack of results is intended to signal innovation opportunities where casPEDIA users can engineer or discover new classes of editing tools.</p>
+          </div>
+        <hr>
+    <br>
+
+      <h3 class="section-header">NAVIGATION: Searching for enzymes and tools </h3>
+        <button onclick="myAccFunc('Search1')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Advanced Tool Search: How do I find a Cas nuclease whose properties fit my experiment?</span></button>
+          <div id="Search1" class="wiki-hide">
+            <p class="section-content">Using the website navigation menu, select "Advanced Tool Search". This redirects to a new page that guides users through a series of drop-down menus, which ultimately generate a table of all Class II systems that possess the experimentalist's properties of choice. To elaborate, Advanced Tool Search requires four user-inputted selections: Cis-Activity Substrate, Trans-Activity Substrate, Targeting Requirements and gRNA Design and Multiplexability. Dropdown panels exist for each of the 4 categories and their contents mirror the functional categories allotted to CasIDs. From each dropdown menu, users click which properties they desire and also have the option to select "Any" for categories where an enzyme's functions is flexible.
+
+            If no entries in casPEDIA fit the user's criteria, it returns "No tools fit query." A lack of results is intended to signal innovation opportunities where casPEDIA users can engineer or discover new classes of editing tools.</p>
+          </div>
+        <hr>
+
+        <button onclick="myAccFunc('Search2')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Term Search: Can I search a Cas enzyme by name?</span></button>
+          <div id="Search2" class="wiki-hide">
+            <p class="section-content">The casPEDIA search bar can be used to search for cas enzymes by name (e.g. SpySas9a, Cas9, Cas13, etc.) or RefSeq Protein ID (e.g. WP_010922251.1). Searches are not case-sensitive, but typos are discouraged for accurate results. Additionally, only one enzyme name can be searched at a time. 
+
+            For instance, typing "SpyCas9a" into the search bar and clicking "Search" (Note: "Enter" is not a keyboard shortcut), returns a results table containing SpyCas9a and 7 columns of metadata including: Type Protein, CasID, Type Protein Accession (RefSeq protein ID, when available), Nuclease Activity, Targeting Requirement, gRNA Design and Multiplexability, and PAM. Click the text under the "Type Protein" column(i.e. SpyCas9a) to redirect to the wiki page. Broad and ambiguous searches, like "Cas13" are also allowed, and will return a results table with the 7 aforementioned columns, but multiple type proteins, in different rows, for the user to choose from.
+
+            Search results can be downloaded as a table by clicking the "Download" button, such that users can store results or continue processing data for other means.</p>
+          </div>
+        <hr>
+
+        <button onclick="myAccFunc('Search4')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">CasID Search: Can I search for all Cas enzymes with a specific function?</span></button>
+          <div id="Search4" class="wiki-hide wiki-black">
+            <p class="section-content">The casPEDIA search bar can be used to search for cas enzymes by CasID (e.g. 1.1.1, ), and thereby function. Although error-handling for whitespaces is provided, please follow the required syntax for CasIDs (3 digits separated by periods). Additionally, only one CasID can be searched at a time.
+
+            For example, typing "1.1.1" into the search bar and clicking "Search" (Note: "Enter" is not a keyboard shortcut), returns a results table containing all proteins with a functional characterization of 1.1.1 (e.g. SpyCas9a, Cas9b, Cas9c, SauCas9, etc.) as rows and 7 columns of metadata including: Type Protein, CasID, Type Protein Accession (RefSeq protein ID, when available), Nuclease Activity, Targeting Requirement, gRNA Design and Multiplexability, and PAM. Click the text under the "Type Protein" column (e.g. SpyCas9a) to redirect to the wiki page associated with any row/entry in the  table.
+
+            Search results can be downloaded as a table by clicking the "Download" button, such that users can store results or continue processing data for other means.</p>
+          </div>
+        <hr>
+
+        <button onclick="myAccFunc('Search4')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">How do I locate engineered variants and fusion proteins?</span></button>
+          <div id="Search4" class="wiki-hide wiki-black">
+            <p class="section-content">casPEDIA wiki entries are organized by Type Protein, or rather by nuclease name and its corresponding species. However, the CRISPR community is rapidly engineering sequences from nature into new variants with novel or optimized properties. All fusion proteins and engineered variants are discussed in the "Engineered Variants" section of the parental Type Protein. While a verbatim term-search for engineered variants is unsupported at this time, a broad term search  [[link to term-search FAQ]] for the parental cas enzyme can be used, then engineered variants are enumerated in the "Engineered Variants" section of the parental sequence's wiki entry. Furthermore, a designated page on fusion proteins is also available [[future link]]. If you engineered a new variant or tool and would like to add it to casPEDIA, please see the FAQ section entitled "Update or contribute to casPEDIA" as well as the "Contact Us" page of the website for more information.</p>
+          </div>
+        <hr>
+    
+        <button onclick="myAccFunc('Search3')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">BLASTP Search: Can I search a Cas enzyme by Sequence?</span></button>
+          <div id="Search3" class="wiki-hide wiki-black">
+            <p class="section-content">The casPEDIA search bar can be used to search for cas enzymes by protein sequence (e.g. SpySas9a, Cas9, Cas13, etc.), using an underlying BLASTP function that queries against all sequences deposited in casPEDIA. All sequence-searches most follow fasta syntax (i.e. > sequenceName\n seqeuncestr)Searches are not case-sensitive, and, aside from the that must proceed each sequence, search strings should exclude special characters (e.g. *, white space, line-breaks and punctuation marks). Currently, only one sequence can be inputted at a single time. Currently, the BLASTP parameters for the search tool are fixed (cannot be edited during runtime) and set to <insert params>. If you would like to perform extended BLAST searches, all protein sequences in casPEDIA can be [[downloaded here]] for external searches
+
+            Sequence searches redirect to a search results table, where each row is a unique Type Protein (aka. Nuclease and species) with 6 columns: Hit Name (type protein), Query Length, Hit Length, BLASTP Alignment Length, Query Coverage (%) and PAM. The table is sortable (both ascending and descending ) by all fields in the table, include E-value, to assist users in finding their desired nuclease.
+
+            If a BLASTP search does not yield any hits, the sequence did not satisfy our minimum e-value threshold (e-value < <insert>) against the casPEDIA database, or the input did not adhere to fasta format (please check the input). If the formatting for a failed search was correct and you discovered an entry you'd like to add to casPEDIA, we'd be happy to help--please see the FAQ section entitled "Update or contribute to casPEDIA" as well as the "Contact Us" page of the website for more information.
+
+            Valid search examples:
+            - Fasta format:
+            > MyCas
+            MDKKYSIGLDIGTNSVGWAVITDEYKVPSKKFKVLGNTDRHSIKKNLIGALLFDSGETAEATRLKRTARRRYTRRKNRICYLQEIFSNEMAKVDDSFFHRLEESFLVEEDKKHERHPIFGNIVDEVAYHEKYPTIYHLR
+
+            Invalid searches examples:
+            - Incorrect Fasta formatting (No right caret or sequence name followed by line-break before sequence string):
+            MDKKYSIGLDIGTNSVGWAVITDEYKVPSKKFKVLGNTDRHSIKKNLIGALLFDSGETAEATRLKRTARRRYTRRKNRICYLQEIFSNEMAKVDDSFFHRLEESFLVEEDKKHERHPIFGNIVDEVAYHEKYPTIYHLR
+            - Incorrect Fasta formatting (No sequence name followed by line-break before sequence string):
+            > MDKKYSIGLDIGTNSVGWAVITDEYKVPSKKFKVLGNTDRHSIKKNLIGALLFDSGETAEATRLKRTARRRYTRRKNRICYLQEIFSNEMAKVDDSFFHRLEESFLVEEDKKHERHPIFGNIVDEVAYHEKYPTIYHLR
+            - Nucleotide Sequences:
+            > MyCasNucleotideSequence
+            ATGGATAAGAAATACTCAATAGGCTTAGATATCGGCACAAATAGCGTCGGATGGGCGGTGATCACTGATGATTATAAGGTTCCGTCTAAAAAGTTCAAGGTTCTGGGAAATACAGACCGCCACAGTATC
+            AGGTATACACGTCGGAAGAATCGTATTTGTTATCTACAGGAGATTTTTTCAAATGAGATGGCGAAAGTAG</p>
+          </div>
+        <hr>
+
+        <button onclick="myAccFunc('Search3')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Phylogeny and BLASTP Search: If I have an uncharacterized Cas enzyme, can I infer it's properties using the database?</span></button>
+          <div id="Search3" class="wiki-hide wiki-black">
+            <p class="section-content">Scientists with novel cas nucleases can utilize casPEDIA, even if their enzymes are undocumented. While sequence similarity between protiens does not guarantee equivalent enzymatic function, it is a reasonable proxy and serves as a putative indicator of a novel enzyme's properties. To this end, scientists can leverage the BLASTP search engine to identify the casPEDIA entry with the highest sequence-similarity (lowest e-value) to their novel protein. The top BALSTP hit may have similar function to the candidate protein and the functional information embedded in its CasID can be used to inform a preliminary set of experiments to efficiently characterize the true nature of the novel nuclease. In addition to BLASTP, sequence lists from all phylogenetic trees in casPEDIA may be downloaded [[link]] for further analysis, by including the novel nuclease in a new phylogenetic reconstruction, to identify the most closely-related entry in casPEDIA for functional clues.</p>
+          </div>
+        <hr>
+
+    <br>
+      <h3 class="section-header">CURATION AND FUTURE DEVELOPMENTS: New entries and becoming a curator</h3>
+        <button onclick="myAccFunc('Future1')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Phylogeny and BLASTP Search: If I have an uncharacterized Cas enzyme, how can I infer it's properties using the database?</span></button>
+          <div id="Future1" class="wiki-hide wiki-black">
+            <p class="section-content">We are grateful for your interest--casPEDIA is a community resource and your participation is welcome! If you would like to contribute to casPEDIA (i.e. moderate/update content, suggest new entries and features, etc.), please visit the "Contact Us" page of the website for detailed information. 
+
+            Briefly, anyone can contribute to the database. casPEDIA content is managed through a series of forms, which are shared amongst curators/moderators for completion. All information in casPEDIA must be citable through peer-reviewed publications and/or external databases with rigorous curation standards. 
+
+            If you would like to suggest a new casPEDIA entry, contact [[Add contact]] with the subject line "Request for new casPEDIA Entry: <New Entry Name>." Novel cas nucleases will be considered for the wiki if its function has been described in 1 or more peer-reviewed publications and there is sufficient information to complete the webpage. We are also happy to work with CRISPR pioneers with papers under submission/revision and are willing to contribute to the curation process themselves. If you are unable to curate content for the entry you suggest, please identify a minimum of 5 scientist who'd be able to assist with the entry. The casPEDIA Consortium will review all potential wiki content to maintain the database's curation standards.
+
+            If you are interested in updating a preexisting entry, contact [[Add contact]] with the subject line "Request for to update <Entry Name> Wiki." Please describe the reason for the update and any citations from literature that are relevant. Our team will review your message and reach out with details regarding next steps or the results of the update. If you find an error in an entry, please include a description, citation supporting your requested amendment and relevant screenshots of the issue.
+
+            Bugs can be reported by contacting the team with the subject header "Bug Report." A screenshot of any errors is strongly encouraged, along with a description on any user-activity that elicited the error.
+
+            Other inquiries, like new feature requests or feature updates, can also be sent to the casPEDIA team.</p>
+          </div>
+        <hr>
+        <button onclick="myAccFunc('Future2')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">How often is casPEDIA updated?</span></button>
+          <div id="Future2" class="wiki-hide wiki-black">
+            <p class="section-content">At minimum, casPEDIA is updated quarterly (every 3 months) to maintain the accuracy of the database by including emergent publications and tools. However, errors or typos identified by the users will be corrected immediately.</p>
+          </div>
+        <hr>
+        <button onclick="myAccFunc('Future3')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">What can we expect in future casPEDIA releases?</span></button>
+          <div id="Future3" class="wiki-hide wiki-black">
+            <p class="section-content">casPEDIA is a living database. The wiki contents and functionality of the site will expand and evolve over time. Users can expect new wiki entries as community engagement increases and novel editing tools emerge. We also anticipate an expansion to Class I CRISPR systems and fusion proteins in the future. If you have recommendations for improving casPEDIA, please see the FAQ section entitled "Update or contribute to casPEDIA" as well as the "Contact Us" page of the website for more information.</p>
+          </div>
+        <hr>
+  </div>
+
+
+
+  <br><br>
+  <!-- footnote -->
+  <footer>
+    <p>Copyright © 2023
+      <a href="https://www.example.com">Example</a>
+    </p>
+  </footer>
+
+  <!-- Scripts -->
+<!-- Script for Accordions-->
+<script>
+
+var mybtn = document.getElementsByClassName("testbtn")[0];
+mybtn.click();
+
+// Accordions
+function myAccFunc(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("wiki-show") == -1) {
+    x.className += " wiki-show";
+  } else { 
+    x.className = x.className.replace(" wiki-show", "");
+  }
+}
+
+// Slideshows
+var slideIndex = 1;
+
+function plusDivs(n) {
+  slideIndex = slideIndex + n;
+  showDivs(slideIndex);
+}
+
+function showDivs(n) {
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = x.length} ;
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
+
+showDivs(1);
+
+</script>
+</body>
+
+</html>
+
+
