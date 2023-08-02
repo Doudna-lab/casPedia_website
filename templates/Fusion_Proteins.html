@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Fusion Proteins</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}" >
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png" >
+  <style>
+    .section {
+      background-color: #ffffff;
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+      border: 1px solid #dddddd;
+    }
+    .svg-container {
+      width: 85%;
+      height: 85%;
+      border: 3px solid #cccccc;
+      overflow: hidden; 
+      cursor: grab;
+      margin: 0 auto;
+      box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) 
+    }
+    /* Styles for the hoverable popup panel */
+    .popup-panel {
+      position: absolute;
+      display: none;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      z-index: 999;
+    }
+    /* Styles for the hoverable text */
+    .hoverable-text {
+      cursor: pointer;
+      color: transparent;
+    }
+
+    /* Style for the link inside the popup panel */
+    .popup-link {
+      color: #007bff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <!-- Logo -->
+  <header>
+    <!-- logo -->
+    <a href="/index.html">
+      <img id="logo" src="{{url_for('static', filename='img/ph_logo.svg')}}" alt="IGI logo">
+    </a>
+    <!-- second logo -->
+    <a href="https://innovativegenomics.org/" target="_blank">
+      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
+    </a>
+  </header>
+
+  <!-- Search Box -->
+  <div id="search-container">
+    <form action='{{ url_for("gfg")}}' method="POST">
+      <label for="search-box"></label><textarea id="search-box" name="search-box" rows="1" cols="50" placeholder="input sequence or term"></textarea>
+      <input type="submit" value="Submit" name="seq-input">
+    </form>
+  </div>
+
+  <!-- Page Title -->
+  <div style="background-color: #202123;">
+    <h1><span style="color:#FFFFFF">FUSION PROTEINS AND TOOLS</span></h1>
+  </div>
+
+  <!-- Summary -->
+  <h2 class="section_header" style="text-align:center;font-weight:bold">SUMMARY</h2>
+  <div class="grid-container">
+    <div class="section">
+      CRISPR-cas gene editors can be utilized directly for their nuclease activity, but many emerging alternative strategies for genome modification utilize a cas effector fused to an additonal protein(s). The RNA-guiding targeting capablities guide the cas fusion to the desired edit location, and the fused protein, edits the targeted locus. Fusion proteins can not only alter the DNA sequence, but also regulate transcription and translation by recruiting gene expression machinery or instilling DNA and histone modifications. These CRISPR-cas gene editor fusions can offer several advantages over the CRISPR nuclease in certain therapeutic applications, and several of these fusions have moved rapidly into the clinic. Extensive engineering efforts <sup><a href="https://doi.org/10.1038/s41587-020-0561-9" target="_blank">1</a></sup> have improved these fusions editing capablities. 
+    </div>
+  </div>
+  <br>
+
+  <!-- Types of Fusion -->
+  <h2 class="section_header" style="text-align:center;font-weight:bold">TYPES OF FUSIONS</h2>
+  <div class="grid-container">
+    <div class="section">
+      <table border="1" class="dataframe wiki-table wiki-striped wiki-border">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Fusion Name</th>
+      <th>Fusion Description</th>
+      <th>dsDNA Nuclease, Nickase, or dCas?</th>
+      <th>Representative Fusion Partners</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>CRISPR interference (CRISPRi)</b></td>
+      <td>CRISPRi utilizes a deactivated Cas9 (dCas9) protein fused with transcriptional repressors (e.g. KRAB) to inhibit gene expression, allowing precise control over gene function and investigation of gene regulatory mechanisms. <sup><a href="https://doi.org/10.7554/eLife.19760" target="_blank">2</a></sup></td>
+      <td>dCas</td>
+      <td>KRAB, ZIM3 KRAB,DLN144, DLS, MIX</td>
+    </tr>
+    <tr>
+      <td><b>CRISPR activation (CRISPRa) /CRISPR-on</b></td>
+      <td>CRISPRa employs a modified Cas9 protein (dCas9) fused with transcriptional activators to enhance gene expression, enabling targeted upregulation of specific genes for functional studies and therapeutic applications. <sup><a href="https://doi.org/10.7554/eLife.19760" target="_blank">2</a></sup></td>
+      <td>dCas</td>
+      <td>VP16, VP64, Rta (VPR), SunTag (GCN4-VP64)</td>
+    </tr>
+    <tr>
+      <td><b>CRISPRoff</b></td>
+      <td><b>CRISPRoff</b> is a programmable epigenetic memory writer composed of a deactivated Cas9 (dCas9) fused to chromatin modifiers that establish DNA methylation and repressive histone modifications.  <sup><a href="https://doi.org/10.1016/j.cell.2021.03.025" target="_blank">3</a></sup></td>
+      <td>dCas</td>
+      <td>ZNF10 KRAB, Dnmt3A (D3A), Dnmt3L (D3L)</td>
+    </tr>
+    <tr>
+      <td><b>CRISPRon</b></td>
+      <td><b>CRISPRon</b> is a programmable epigenetic memory modifier which both removed DNA methylation and recruits transcriptional machinery <sup><a href="https://doi.org/10.1016/j.cell.2021.03.025" target="_blank">3</a></sup>. The same term, CRISPR-on has been used to describe transient transcriptional activation as well, which is detailed under CRISPRa/CRISPR-on <sup><a href="https://doi.org/10.1016/j.ymthe.2023.03.024" target="_blank">4</a></sup>.</td>
+      <td>dCas</td>
+      <td>VP64, p65-AD, and Rta</td>
+    </tr>
+    <tr>
+      <td>Adenine Base Editors (ABE)</td>
+      <td>Adenine base editors refer to a deactivated Cas9 (dCas9) fused to an adenine base editor, typiclly an engineered TadA deaminase. This fusion is capable of making targeted base transitions from A to G (or T to C on the opposite stand). <sup><a href="https://doi.org/10.1038/s41551-019-0501-5" target="_blank">5</a></sup> <sup><a href="https://doi.org/10.1126/science.abb1390" target="_blank">6</a></sup>. To expand this technology to targeted base transversions (A to C/T), Cas9 nickase is fused to TadA along with and alkyladenine DNA glycosylase <sup><a href="https://doi.org/10.1038/s41587-023-01821-9" target="_blank">7</a></sup>.</td>
+      <td>nCas (Cas9 D10A) or dCas</td>
+      <td>TadA, mAAG</td>
+    </tr>
+    <tr>
+      <td>Cytosine Base Editors (CBE)</td>
+      <td>Cytosine base editors refer to a deactivated Cas9 (dCas9) fused to a cytosine deaminase. This fusion is capable of making targeted base transitions from C to T (or G to A on the opposite strand). <sup><a href="https://doi.org/10.1038/s41551-019-0501-5" target="_blank">5</a></sup>. To prevent cytosine transversion side products, Cas9 nickase can be fused to cytosine deaminase along with a uracil glycosylase inhibitor; fidelity is further improved by a fusion with Gam from bacterphage Mu <sup><a href="https://doi.org/10.1126/sciadv.aao4774" target="_blank">8</a></sup>. To expand this technology to targeted base transversions (C to G), Cas9 nickase can be fused to a uracil DNA N-glycosylase (eUNG) and a cytodine deaminase (APOBEC1) <sup><a href="https://doi.org/10.1038/s41587-020-0609-x" target="_blank">9</a></sup>.</td>
+      <td>nCas (Cas9 D10A) or dCas</td>
+      <td>APOBEC3A, CDA, APOBEC1, AID, AIDx  with or without UGI and Mu Gam</td>
+    </tr>
+    <tr>
+      <td><b>RNA Deaminases</b></td>
+      <td>In these fusion systems, sometimes referred to as REPAIR (RNA editing for programmable A to I (G) replacement) and RESCUE (RNA Editing for Specific C to U Exchange) or CURE (C to U RNA Editor), deaminases that act on double stranded RNA  are fused to deactivated Cas13b to enable targeted base modifications from C to T or A to G. <sup><a href="https://doi.org/10.3389/fcell.2022.903812" target="_blank">10</a></sup></td>
+      <td>dCas</td>
+      <td>ADAR1, ADAR2, APOBEC3A</td>
+    </tr>
+    <tr>
+      <td>Prime Editors</td>
+      <td>Prime editors refer to a modifed nickase Cas9 fused to a reverse transcriptase. This fusion, guided by a prime editing guide (pegRNA), is able to make targeted deletions, insertions and point mutations; the pegRNA consists of a gRNA sequence at the 5' end and a primer binding site + template for reverse transcription at the 3' end, the product of which will be incorporated into the nicked strand as edited DNA <sup><a href="https://doi.org/10.1038/s41586-019-1711-4" target="_blank">11</a></sup></td>
+      <td>nCas (Cas9 H840A)</td>
+      <td>MMLV, MMLVΔRH</td>
+    </tr>
+    <tr>
+      <td><b>Recombinase</b></td>
+      <td>The RecCas9 system employs a Cas-recombinase fusion to recombine DNA sites flanked by guide RNA-specified sequences <sup><a href="https://doi.org/10.1093/nar/gkw707" target="_blank">12</a></sup></td>
+      <td>dCas</td>
+      <td>Gin</td>
+    </tr>
+    <tr>
+      <td><b>Transposase</b></td>
+      <td>These fusions, CasTn, employ DNA insertion mechanisms from transposons to direct the targeted integration of DNA into the genome. <sup><a href="https://doi.org/10.1089/crispr.2019.0030" target="_blank">13</a>,<a href="https://doi.org/10.1126/science.aax9181" target="_blank">14</a></sup></td>
+      <td>dCas, nCas</td>
+      <td>Himar1,TnpA</td>
+    </tr>
+    <tr>
+      <td>Integrase</td>
+      <td>Programmable addition via site-specific targeting elements (PASTE), uses a fusion protein of Cas9 nickase with a reverse transcriptase and serine integrase for targeted genomic recruitment and integration of large DNA sequences. <sup><a href="https://doi.org/10.1038/s41587-022-01527-4" target="_blank">15</a></sup></td>
+      <td>nCas</td>
+      <td>Bxb1, TP901, phiBT1</td>
+    </tr>
+    <tr>
+      <td><b>APEX2 Proximity Labeling</b></td>
+      <td>By fusing catalytically-dead Cas systems with the engineered peroxidase APEX2, proteins proximal to a gRNA-defined DNA or RNA locus can be labeled with Biotin, thus identifying putative protein-nucleotide interaction partners. Cas13d-based <sup><a href="https://doi.org/10.1073/pnas.2006617117" target="_blank">16</a></sup> and Cas9-based <sup><a href="https://doi.org/10.1038/s41592-018-0007-1" target="_blank">17</a></sup> systems have been developed to identify RNA and DNA interaction partners, respectively.</td>
+      <td>dCas</td>
+      <td>APEX2</td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+  </div>
+  <br>
+
+  <!-- Fusion Tool Table -->
+  <h2 class="section_header" style="text-align:center;font-weight:bold">TOOLS</h2>
+  <div class="grid-container">
+    <div class="section">
+      <table border="1" class="dataframe wiki-table wiki-striped wiki-border">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Enzyme</th>
+      <th>CRISPRi</th>
+      <th>CRISPRa/CRISPR-on</th>
+      <th>CRISPRoff</th>
+      <th>CRISPRon</th>
+      <th>Adenine Base Editors (ABE)</th>
+      <th>Cytosine Base Editors (CBE)</th>
+      <th>RNA Deaminases</th>
+      <th>Prime Editors</th>
+      <th>Recombinases</th>
+      <th>Transposases</th>
+      <th>Integrases</th>
+      <th>APEX2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>SpyCas9</b></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1016/j.cell.2013.06.044" target="_blank">18</a>,<a href="https://doi.org/10.1016/j.cell.2014.09.029" target="_blank">19</a>,<a href="https://doi.org/10.7554/eLife.19760" target="_blank">2</a>,<a href="https://doi.org/10.1016/j.gene.2022.146967" target="_blank">20</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.7554/eLife.19760" target="_blank">2</a>,<a href="https://doi.org/10.1016/j.cell.2014.09.029" target="_blank">19</a>,<a href="https://doi.org/10.1038/gt.2016.28" target="_blank">21</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1016/j.cell.2021.03.025" target="_blank">3</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1016/j.cell.2021.03.025" target="_blank">3</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41551-019-0501-5" target="_blank">5</a>,<a href="https://doi.org/10.1038/s41587-023-01821-9" target="_blank">7</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41551-019-0501-5" target="_blank">5</a>,<a href="https://doi.org/10.1126/sciadv.aao4774" target="_blank">8</a>,<a href="https://doi.org/10.1038/s41587-020-0609-x" target="_blank">9</a></sup></td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41586-019-1711-4" target="_blank">11</a>,<a href="https://doi.org/10.1038/s41587-022-01473-1" target="_blank">22</a>,<a href="https://doi.org/10.1016/j.tibtech.2023.03.004" target="_blank">23</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1093/nar/gkw707" target="_blank">12</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1089/crispr.2019.0030" target="_blank">13</a>,<a href="https://doi.org/10.1126/science.aax9181" target="_blank">14</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41587-022-01527-4" target="_blank">15</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1016/bs.mie.2018.10.030" target="_blank">24</a>,<a href="https://doi.org/10.1038/s41592-018-0007-1" target="_blank">17</a></sup></td>
+    </tr>
+    <tr>
+      <td><b>SauCas9</b></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41592-021-01207-2" target="_blank">25</a>,<a href="https://doi.org/10.1021/acssynbio.2c00156" target="_blank">26</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1021/acssynbio.2c00156" target="_blank">26</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41587-020-0453-z" target="_blank">27</a>,<a href="https://doi.org/10.1038/s41587-020-0491-6" target="_blank">28</a>,<a href="https://doi.org/10.1016/j.molp.2018.02.007" target="_blank">29</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/nbt.3803" target="_blank">30</a>,<a href="https://doi.org/10.1016/j.molcel.2018.09.002" target="_blank">31</a></sup></td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41467-021-22295-w" target="_blank">32</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>AsCas12a</b></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1021/acssynbio.2c00156" target="_blank">26</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41587-018-0011-0" target="_blank">33</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41587-020-0453-z" target="_blank">27</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41587-018-0011-0" target="_blank">33</a></sup><sup><a href="https://doi.org/10.1038/s41591-018-0209-1" target="_blank">,34</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>LbCas12a</b></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1021/acssynbio.2c00156" target="_blank">26</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1021/acssynbio.2c00156" target="_blank">26</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s42003-022-04152-8" target="_blank">35</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s42003-022-04152-8" target="_blank">35</a></sup><sup><a href="https://doi.org/10.1038/s41591-018-0209-1" target="_blank">,34</a></sup><sup><a href="https://doi.org/10.1038/s41591-018-0209-1" target="_blank">,36</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Un1Cas12f</b></td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1016/j.molcel.2021.08.008" target="_blank">37</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1016/j.molcel.2021.08.008" target="_blank">37</a></sup>Tool Exists<sup><a href="https://doi.org/10.1038/s41589-022-01077-5" target="_blank">38</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Nme2Cas9</b></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1101/2023.04.14.536905" target="_blank">39</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>ScCas9</b></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1126/sciadv.aau0766" target="_blank">40</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1126/sciadv.aau0766" target="_blank">40</a></sup><sup><a href="https://doi.org/10.1038/s41591-018-0209-1" target="_blank">,41</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>SauriCas9</b></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1371/journal.pbio.3000686" target="_blank">42</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1371/journal.pbio.3000686" target="_blank">42</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>CjeCas9</b></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1089/crispr.2021.0143" target="_blank">43</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1089/crispr.2021.0143" target="_blank">43</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>CWCas12f</b></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41589-022-01077-5" target="_blank">38</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>FnCas9</b></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1186/s13059-022-02644-8" target="_blank">44</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>GBSCas9</b></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>DpbCas12e</b></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1021/acssynbio.2c00156" target="_blank">26</a></sup><sup><a href="https://doi.org/10.1038/s41591-018-0209-1" target="_blank">,45</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1021/acssynbio.2c00156" target="_blank">26</a></sup><sup><a href="https://doi.org/10.1038/s41591-018-0209-1" target="_blank">,45</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>PlmCas12e</b></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1021/acssynbio.2c00156" target="_blank">26</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1021/acssynbio.2c00156" target="_blank">26</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Cas12j2/3</b></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1021/acssynbio.2c00156" target="_blank">26</a></sup><sup><a href="https://doi.org/10.1038/s41591-018-0209-1" target="_blank">,46</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1021/acssynbio.2c00156" target="_blank">26</a></sup><sup><a href="https://doi.org/10.1038/s41591-018-0209-1" target="_blank">,46</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Cas13b</b></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.15252/embj.2020104741" target="_blank">47</a>,<a href="https://doi.org/10.1126/science.aaq0180" target="_blank">48</a>,<a href="https://doi.org/10.1126/science.aax7063" target="_blank">49</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>HEARO</b></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41467-022-35257-7" target="_blank">50</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Cas9d</b></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41467-022-35257-7" target="_blank">50</a></sup></td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1038/s41467-022-35257-7" target="_blank">50</a></sup></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td><b>Cas13d</b></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td>Tool Exists<sup><a href="https://doi.org/10.1073/pnas.2006617117" target="_blank">16</a></sup></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+  </div>
+  <br>
+
+  <!-- References -->
+  <div class="grid-container">
+   <div class="section">
+     <button onclick="myAccFunc('Cite')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#000000;font-weight:bold;font-size:24px;">REFERENCES</span></button>
+     <div id="Cite" class="wiki-hide wiki-black">
+      <hr>
+       <ol><li>1. Anzalone, A. V., Koblan, L. W., & Liu, D. R. (2020). Genome editing with CRISPR–Cas nucleases, base editors, transposases and prime editors. Nature Biotechnology, 38(7), 824–844. https://doi.org/10.1038/s41587-020-0561-9
+</li><li>2. Horlbeck, M. A., Gilbert, L. A., Villalta, J. E., Adamson, B., Pak, R. A., Chen, Y., Fields, A. P., Park, C. Y., Corn, J. E., Kampmann, M., & Weissman, J. S. (2016). Compact and highly active next-generation libraries for CRISPR-mediated gene repression and activation. ELife, 5. CLOCKSS. https://doi.org/10.7554/elife.19760
+</li><li>3. Nuñez, J. K., Chen, J., Pommier, G. C., Cogan, J. Z., Replogle, J. M., Adriaens, C., Ramadoss, G. N., Shi, Q., Hung, K. L., Samelson, A. J., Pogson, A. N., Kim, J. Y. S., Chung, A., Leonetti, M. D., Chang, H. Y., Kampmann, M., Bernstein, B. E., Hovestadt, V., Gilbert, L. A., & Weissman, J. S. (2021). Genome-wide programmable transcriptional memory by CRISPR-based epigenome editing. Cell, 184(9), 2503-2519.e17. https://doi.org/10.1016/j.cell.2021.03.025
+</li><li>4. Bendixen, L., Jensen, T. I., & Bak, R. O. (2023). CRISPR-Cas-mediated transcriptional modulation: The therapeutic promises of CRISPRa and CRISPRi. Molecular Therapy, 31(7), 1920–1937. https://doi.org/10.1016/j.ymthe.2023.03.024
+</li><li>5. Levy, J. M., Yeh, W.-H., Pendse, N., Davis, J. R., Hennessey, E., Butcher, R., Koblan, L. W., Comander, J., Liu, Q., & Liu, D. R. (2020). Cytosine and adenine base editing of the brain, liver, retina, heart and skeletal muscle of mice via adeno-associated viruses. Nature Biomedical Engineering, 4(1), 97–110. https://doi.org/10.1038/s41551-019-0501-5
+</li><li>6. Lapinaite, A., Knott, G. J., Palumbo, C. M., Lin-Shiao, E., Richter, M. F., Zhao, K. T., Beal, P. A., Liu, D. R., & Doudna, J. A. (2020). DNA capture by a CRISPR-Cas9–guided adenine base editor. Science, 369(6503), 566–571. https://doi.org/10.1126/science.abb1390
+</li><li>7. Chen, L., Hong, M., Luan, C., Gao, H., Ru, G., Guo, X., Zhang, D., Zhang, S., Li, C., Wu, J., Randolph, P. B., Sousa, A. A., Qu, C., Zhu, Y., Guan, Y., Wang, L., Liu, M., Feng, B., Song, G., … Li, D. (2023). Adenine transversion editors enable precise, efficient A•T-to-C•G base editing in mammalian cells and embryos. Nature Biotechnology. https://doi.org/10.1038/s41587-023-01821-9
+</li><li>8. Komor, A. C., Zhao, K. T., Packer, M. S., Gaudelli, N. M., Waterbury, A. L., Koblan, L. W., Kim, Y. B., Badran, A. H., & Liu, D. R. (2017). Improved base excision repair inhibition and bacteriophage Mu Gam protein yields C:G-to-T:A base editors with higher efficiency and product purity. Science Advances, 3(8). https://doi.org/10.1126/sciadv.aao4774
+</li><li>9. Kurt, I. C., Zhou, R., Iyer, S., Garcia, S. P., Miller, B. R., Langner, L. M., Grünewald, J., & Joung, J. K. (2020). CRISPR C-to-G base editors for inducing targeted DNA transversions in human cells. Nature Biotechnology, 39(1), 41–46. https://doi.org/10.1038/s41587-020-0609-x
+</li><li>10. Reshetnikov, V. V., Chirinskaite, A. V., Sopova, J. V., Ivanov, R. A., & Leonova, E. I. (2022). Cas-Based Systems for RNA Editing in Gene Therapy of Monogenic Diseases: In Vitro and in Vivo Application and Translational Potential. Frontiers in Cell and Developmental Biology, 10. https://doi.org/10.3389/fcell.2022.903812
+</li><li>11. Anzalone, A. V., Randolph, P. B., Davis, J. R., Sousa, A. A., Koblan, L. W., Levy, J. M., Chen, P. J., Wilson, C., Newby, G. A., Raguram, A., & Liu, D. R. (2019). Search-and-replace genome editing without double-strand breaks or donor DNA. Nature, 576(7785), 149–157. https://doi.org/10.1038/s41586-019-1711-4
+</li><li>12. Chaikind, B., Bessen, J. L., Thompson, D. B., Hu, J. H., & Liu, D. R. (2016). A programmable Cas9-serine recombinase fusion protein that operates on DNA sequences in mammalian cells. Nucleic Acids Research, gkw707. https://doi.org/10.1093/nar/gkw707
+</li><li>13. Chen, S. P., & Wang, H. H. (2019). An Engineered Cas-Transposon System for Programmable and Site-Directed DNA Transpositions. The CRISPR Journal, 2(6), 376–394. https://doi.org/10.1089/crispr.2019.0030
+</li><li>14. Strecker, J., Ladha, A., Gardner, Z., Schmid-Burgk, J. L., Makarova, K. S., Koonin, E. V., & Zhang, F. (2019). RNA-guided DNA insertion with CRISPR-associated transposases. Science, 365(6448), 48–53. https://doi.org/10.1126/science.aax9181
+</li><li>15. Yarnall, M. T. N., Ioannidi, E. I., Schmitt-Ulms, C., Krajeski, R. N., Lim, J., Villiger, L., Zhou, W., Jiang, K., Garushyants, S. K., Roberts, N., Zhang, L., Vakulskas, C. A., Walker, J. A., Kadina, A. P., Zepeda, A. E., Holden, K., Ma, H., Xie, J., Gao, G., … Gootenberg, J. S. (2022). Drag-and-drop genome insertion of large sequences without double-strand DNA cleavage using CRISPR-directed integrases. Nature Biotechnology, 41(4), 500–512. https://doi.org/10.1038/s41587-022-01527-4
+</li><li>16. Han, S., Zhao, B. S., Myers, S. A., Carr, S. A., He, C., & Ting, A. Y. (2020). RNA–protein interaction mapping via MS2- or Cas13-based APEX targeting. Proceedings of the National Academy of Sciences, 117(36), 22068–22079. https://doi.org/10.1073/pnas.2006617117
+</li><li>17. Myers, S. A., Wright, J., Peckner, R., Kalish, B. T., Zhang, F., & Carr, S. A. (2018). Discovery of proteins associated with a predefined genomic locus via dCas9–APEX-mediated proximity labeling. Nature Methods, 15(6), 437–439. https://doi.org/10.1038/s41592-018-0007-1
+</li><li>18. Gilbert, L. A., Larson, M. H., Morsut, L., Liu, Z., Brar, G. A., Torres, S. E., Stern-Ginossar, N., Brandman, O., Whitehead, E. H., Doudna, J. A., Lim, W. A., Weissman, J. S., & Qi, L. S. (2013). CRISPR-Mediated Modular RNA-Guided Regulation of Transcription in Eukaryotes. Cell, 154(2), 442–451. https://doi.org/10.1016/j.cell.2013.06.044
+</li><li>19. Gilbert, L. A., Horlbeck, M. A., Adamson, B., Villalta, J. E., Chen, Y., Whitehead, E. H., Guimaraes, C., Panning, B., Ploegh, H. L., Bassik, M. C., Qi, L. S., Kampmann, M., & Weissman, J. S. (2014). Genome-Scale CRISPR-Mediated Control of Gene Repression and Activation. Cell, 159(3), 647–661. https://doi.org/10.1016/j.cell.2014.09.029
+</li><li>20. Xu, L., Sun, B., Liu, S., Gao, X., Zhou, H., Li, F., & Li, Y. (2023). The evaluation of active transcriptional repressor domain for CRISPRi in plants. Gene, 851, 146967. https://doi.org/10.1016/j.gene.2022.146967
+</li><li>21. Giménez, C. A., Ielpi, M., Mutto, A., Grosembacher, L., Argibay, P., & Pereyra-Bonnet, F. (2016). CRISPR-on system for the activation of the endogenous human INS gene. Gene Therapy, 23(6), 543–547. https://doi.org/10.1038/gt.2016.28
+</li><li>22. Grünewald, J., Miller, B. R., Szalay, R. N., Cabeceiras, P. K., Woodilla, C. J., Holtz, E. J. B., Petri, K., & Joung, J. K. (2022). Engineered CRISPR prime editors with compact, untethered reverse transcriptases. Nature Biotechnology, 41(3), 337–343. https://doi.org/10.1038/s41587-022-01473-1
+</li><li>23. Zhao, Z., Shang, P., Mohanraju, P., & Geijsen, N. (2023). Prime editing: advances and therapeutic applications. Trends in Biotechnology, 41(8), 1000–1012. https://doi.org/10.1016/j.tibtech.2023.03.004
+</li><li>24. Gao, X. D., Rodríguez, T. C., & Sontheimer, E. J. (2019). Adapting dCas9-APEX2 for subnuclear proteomic profiling. CRISPR-Cas Enzymes, 365–383. https://doi.org/10.1016/bs.mie.2018.10.030
+</li><li>25. Gemberling, M. P., Siklenka, K., Rodriguez, E., Tonn-Eisinger, K. R., Barrera, A., Liu, F., Kantor, A., Li, L., Cigliola, V., Hazlett, M. F., Williams, C. A., Bartelt, L. C., Madigan, V. J., Bodle, J. C., Daniels, H., Rouse, D. C., Hilton, I. B., Asokan, A., Ciofani, M., … Gersbach, C. A. (2021). Transgenic mice for in vivo epigenome editing with CRISPR-based systems. Nature Methods, 18(8), 965–974. https://doi.org/10.1038/s41592-021-01207-2
+</li><li>26. Escobar, M., Li, J., Patel, A., Liu, S., Xu, Q., & Hilton, I. B. (2022). Quantification of Genome Editing and Transcriptional Control Capabilities Reveals Hierarchies among Diverse CRISPR/Cas Systems in Human Cells. ACS Synthetic Biology, 11(10), 3239–3250. https://doi.org/10.1021/acssynbio.2c00156
+</li><li>27. Richter, M. F., Zhao, K. T., Eton, E., Lapinaite, A., Newby, G. A., Thuronyi, B. W., Wilson, C., Koblan, L. W., Zeng, J., Bauer, D. E., Doudna, J. A., & Liu, D. R. (2020). Phage-assisted evolution of an adenine base editor with improved Cas domain compatibility and activity. Nature Biotechnology, 38(7), 883–891. https://doi.org/10.1038/s41587-020-0453-z
+</li><li>28. Gaudelli, N. M., Lam, D. K., Rees, H. A., Solá-Esteves, N. M., Barrera, L. A., Born, D. A., Edwards, A., Gehrke, J. M., Lee, S.-J., Liquori, A. J., Murray, R., Packer, M. S., Rinaldi, C., Slaymaker, I. M., Yen, J., Young, L. E., & Ciaramella, G. (2020). Directed evolution of adenine base editors with increased activity and therapeutic application. Nature Biotechnology, 38(7), 892–900. https://doi.org/10.1038/s41587-020-0491-6
+</li><li>29. Hua, K., Tao, X., Yuan, F., Wang, D., & Zhu, J.-K. (2018). Precise A·T to G·C Base Editing in the Rice Genome. Molecular Plant, 11(4), 627–630. https://doi.org/10.1016/j.molp.2018.02.007
+</li><li>30. Kim, Y. B., Komor, A. C., Levy, J. M., Packer, M. S., Zhao, K. T., & Liu, D. R. (2017). Increasing the genome-targeting scope and precision of base editing with engineered Cas9-cytidine deaminase fusions. Nature Biotechnology, 35(4), 371–376. https://doi.org/10.1038/nbt.3803
+</li><li>31. Yuan, J., Ma, Y., Huang, T., Chen, Y., Peng, Y., Li, B., Li, J., Zhang, Y., Song, B., Sun, X., Ding, Q., Song, Y., & Chang, X. (2018). Genetic Modulation of RNA Splicing with a CRISPR-Guided Cytidine Deaminase. Molecular Cell, 72(2), 380-394.e7. https://doi.org/10.1016/j.molcel.2018.09.002
+</li><li>32. Liu, P., Liang, S.-Q., Zheng, C., Mintzer, E., Zhao, Y. G., Ponnienselvan, K., Mir, A., Sontheimer, E. J., Gao, G., Flotte, T. R., Wolfe, S. A., & Xue, W. (2021). Improved prime editors enable pathogenic allele correction and cancer modelling in adult mice. Nature Communications, 12(1). https://doi.org/10.1038/s41467-021-22295-w
+</li><li>33. Kleinstiver, B. P., Sousa, A. A., Walton, R. T., Tak, Y. E., Hsu, J. Y., Clement, K., Welch, M. M., Horng, J. E., Malagon-Lopez, J., Scarfò, I., Maus, M. V., Pinello, L., Aryee, M. J., & Joung, J. K. (2019). Engineered CRISPR–Cas12a variants with increased activities and improved targeting ranges for gene, epigenetic and base editing. Nature Biotechnology, 37(3), 276–282. https://doi.org/10.1038/s41587-018-0011-0
+</li><li>34. Li, X., Wang, Y., Liu, Y., Yang, B., Wang, X., Wei, J., Lu, Z., Zhang, Y., Wu, J., Huang, X., Yang, L., & Chen, J. (2018). Base editing with a Cpf1–cytidine deaminase fusion. Nature Biotechnology, 36(4), 324–327. https://doi.org/10.1038/nbt.4102
+</li><li>35. Chen, F., Lian, M., Ma, B., Gou, S., Luo, X., Yang, K., Shi, H., Xie, J., Ge, W., Ouyang, Z., Lai, C., Li, N., Zhang, Q., Jin, Q., Liang, Y., Chen, T., Wang, J., Zhao, X., Li, L., … Lai, L. (2022). Multiplexed base editing through Cas12a variant-mediated cytosine and adenine base editors. Communications Biology, 5(1). https://doi.org/10.1038/s42003-022-04152-8
+</li><li>36. Villiger, L., Grisch-Chan, H. M., Lindsay, H., Ringnalda, F., Pogliano, C. B., Allegri, G., Fingerhut, R., Häberle, J., Matos, J., Robinson, M. D., Thöny, B., & Schwank, G. (2018). Treatment of a metabolic liver disease by in vivo genome base editing in adult mice. Nature Medicine, 24(10), 1519–1525. https://doi.org/10.1038/s41591-018-0209-1
+</li><li>37. Xu, X., Chemparathy, A., Zeng, L., Kempton, H. R., Shang, S., Nakamura, M., & Qi, L. S. (2021). Engineered miniature CRISPR-Cas system for mammalian genome regulation and editing. Molecular Cell, 81(20), 4333-4345.e4. https://doi.org/10.1016/j.molcel.2021.08.008
+</li><li>38. Kim, D. Y., Chung, Y., Lee, Y., Jeong, D., Park, K.-H., Chin, H. J., Lee, J. M., Park, S., Ko, S., Ko, J.-H., & Kim, Y.-S. (2022). Hypercompact adenine base editors based on a Cas12f variant guided by engineered RNA. Nature Chemical Biology, 18(9), 1005–1013. https://doi.org/10.1038/s41589-022-01077-5
+</li><li>39. Bamidele, N., Zhang, H., Dong, X., Gaston, N., Cheng, H., Kelly, K., Watts, J. K., Xie, J., Gao, G., & Sontheimer, E. J. (2023). Engineering Nme2Cas9 Adenine Base Editors with Improved Activity and Targeting Scope. https://doi.org/10.1101/2023.04.14.536905
+</li><li>40. Chatterjee, P., Jakimo, N., & Jacobson, J. M. (2018). Minimal PAM specificity of a highly similar SpCas9 ortholog. Science Advances, 4(10). https://doi.org/10.1126/sciadv.aau0766
+</li><li>41. Chatterjee, P., Jakimo, N., & Jacobson, J. M. (2019). Robust Genome Editing of Single-Base PAM Targets with Engineered ScCas9 Variants. https://doi.org/10.1101/620351
+</li><li>42. Hu, Z., Wang, S., Zhang, C., Gao, N., Li, M., Wang, D., Wang, D., Liu, D., Liu, H., Ong, S.-G., Wang, H., & Wang, Y. (2020). A compact Cas9 ortholog from Staphylococcus Auricularis (SauriCas9) expands the DNA targeting scope. PLOS Biology, 18(3), e3000686. https://doi.org/10.1371/journal.pbio.3000686
+</li><li>43. Chen, S., Liu, Z., Xie, W., Yu, H., Lai, L., & Li, Z. (2022). Compact Cje3Cas9 for Efficient In Vivo Genome Editing and Adenine Base Editing. The CRISPR Journal, 5(3), 472–486. https://doi.org/10.1089/crispr.2021.0143
+</li><li>44. Oh, Y., Lee, W., Hur, J. K., Song, W. J., Lee, Y., Kim, H., Gwon, L. W., Kim, Y.-H., Park, Y.-H., Kim, C. H., Lim, K.-S., Song, B.-S., Huh, J.-W., Kim, S.-U., Jun, B.-H., Jung, C., & Lee, S. H. (2022). Expansion of the prime editing modality with Cas9 from Francisella novicida. Genome Biology, 23(1). https://doi.org/10.1186/s13059-022-02644-8
+</li><li>45. Cao, C., Yao, L., Li, A., Zhang, Q., Zhang, Z., Wang, X., Gan, Y., Liu, Y., & Zhang, Q. (2021). A CRISPR/dCasX‐mediated transcriptional programming system for inhibiting the progression of bladder cancer cells by repressing c‐MYC or activating TP53. Clinical and Translational Medicine, 11(9). Portico. https://doi.org/10.1002/ctm2.537
+</li><li>46. Liu, S., Sretenovic, S., Fan, T., Cheng, Y., Li, G., Qi, A., Tang, X., Xu, Y., Guo, W., Zhong, Z., He, Y., Liang, Y., Han, Q., Zheng, X., Gu, X., Qi, Y., & Zhang, Y. (2022). Hypercompact CRISPR–Cas12j2 (CasΦ) enables genome editing, gene activation, and epigenome editing in plants. Plant Communications, 3(6), 100453. https://doi.org/10.1016/j.xplc.2022.100453
+</li><li>47. Huang, X., Lv, J., Li, Y., Mao, S., Li, Z., Jing, Z., Sun, Y., Zhang, X., Shen, S., Wang, X., Di, M., Ge, J., Huang, X., Zuo, E., & Chi, T. (2020). Programmable C‐to‐U
+            <scp>RNA</scp>
+            editing using the human
+            <scp>APOBEC</scp>
+            3A deaminase. The EMBO Journal, 39(22). Portico. https://doi.org/10.15252/embj.2020104741
+</li><li>48. Cox, D. B. T., Gootenberg, J. S., Abudayyeh, O. O., Franklin, B., Kellner, M. J., Joung, J., & Zhang, F. (2017). RNA editing with CRISPR-Cas13. Science, 358(6366), 1019–1027. https://doi.org/10.1126/science.aaq0180
+</li><li>49. Abudayyeh, O. O., Gootenberg, J. S., Franklin, B., Koob, J., Kellner, M. J., Ladha, A., Joung, J., Kirchgatterer, P., Cox, D. B. T., & Zhang, F. (2019). A cytosine deaminase for programmable single-base RNA editing. Science, 365(6451), 382–386. https://doi.org/10.1126/science.aax7063
+</li><li>50. Aliaga Goltsman, D. S., Alexander, L. M., Lin, J.-L., Fregoso Ocampo, R., Freeman, B., Lamothe, R. C., Perez Rivas, A., Temoche-Diaz, M. M., Chadha, S., Nordenfelt, N., Janson, O. P., Barr, I., Devoto, A. E., Cost, G. J., Butterfield, C. N., Thomas, B. C., & Brown, C. T. (2022). Compact Cas9d and HEARO enzymes for genome editing discovered from uncultivated microbes. Nature Communications, 13(1). https://doi.org/10.1038/s41467-022-35257-7
+</li></ol>
+     </div>
+   </div>
+  </div>
+
+
+  <!-- Hoverable popup panel -->
+  <div class="popup-panel" id="popupPanel">
+    <!-- Add content to the popup panel -->
+    <a class="popup-link" id="popupLink" href="#" target="_blank">Content to show in the popup panel.</a>
+  </div>
+  
+  <script>
+    let popupTimer;
+    const popupPanel = document.getElementById("popupPanel");
+
+    // Function to show the hover panel with custom content and link
+    function showHoverPanel(content, link, event) {
+      const popupLink = document.getElementById("popupLink");
+      popupLink.textContent = content;
+      popupLink.href = link;
+
+      popupPanel.style.display = "block";
+
+      // Get the mouse position relative to the page
+      const mouseX = event.pageX;
+      const mouseY = event.pageY;
+
+      // Adjust the position of the popup panel
+      popupPanel.style.left = `${mouseX}px`;
+      popupPanel.style.top = `${mouseY - popupPanel.clientHeight - 5}px`; // Show above the text
+
+      clearTimeout(popupTimer);
+    }
+
+    // Function to hide the hover panel
+    function hideHoverPanel() {
+      popupPanel.style.display = "none";
+    }
+
+    // Function to initialize the hoverable popup panels
+    function initHoverablePopups() {
+      const hoverableTexts = document.querySelectorAll(".hoverable-text");
+
+      hoverableTexts.forEach((hoverableText) => {
+        hoverableText.addEventListener("mouseenter", function (event) {
+          const content = this.getAttribute("data-content");
+          const link = this.getAttribute("data-link");
+          showHoverPanel(content, link, event);
+        });
+
+        hoverableText.addEventListener("mouseleave", function () {
+          popupTimer = setTimeout(hideHoverPanel, 500);
+        });
+      });
+
+      popupPanel.addEventListener("mouseenter", function () {
+        clearTimeout(popupTimer);
+      });
+
+      popupPanel.addEventListener("mouseleave", function () {
+        hideHoverPanel();
+      });
+    }
+
+    // Initialize the hoverable popup panels when the page is fully loaded
+    window.onload = function () {
+      initHoverablePopups();
+
+      const svgContainer = document.getElementById("svgContainer");
+      let scaleFactor = 1;
+      let offsetX = 0;
+      let offsetY = 0;
+      let isDragging = false;
+
+      svgContainer.addEventListener("wheel", function (event) {
+        event.preventDefault();
+        const scaleDelta = event.deltaY * -0.01;
+
+        // Calculate the new scale factor while keeping the container's aspect ratio
+        scaleFactor = Math.min(Math.max(0.2, scaleFactor + scaleDelta), 5);
+
+        // Apply the scale transformation to the svg content
+        svgContainer.querySelector("svg").style.transform = `scale(${scaleFactor})`;
+
+        // Get the container size and the svg content size
+        const containerWidth = svgContainer.clientWidth;
+        const containerHeight = svgContainer.clientHeight;
+        const svgContentWidth = svgContainer.scrollWidth;
+        const svgContentHeight = svgContainer.scrollHeight;
+
+        // Calculate the difference in size between the container and the svg content
+        const widthDiff = svgContentWidth - containerWidth;
+        const heightDiff = svgContentHeight - containerHeight;
+
+        // Get the mouse position relative to the container
+        const mouseX = event.clientX - svgContainer.getBoundingClientRect().left;
+        const mouseY = event.clientY - svgContainer.getBoundingClientRect().top;
+
+        // Calculate the new scroll position based on the mouse position
+        const newScrollLeft = svgContainer.scrollLeft + mouseX * (widthDiff / svgContentWidth);
+        const newScrollTop = svgContainer.scrollTop + mouseY * (heightDiff / svgContentHeight);
+
+        // Adjust the scroll position to zoom from the mouse position
+        svgContainer.scrollLeft = newScrollLeft;
+        svgContainer.scrollTop = newScrollTop;
+      });
+
+      svgContainer.addEventListener("mousedown", function (event) {
+        isDragging = true;
+        offsetX = event.clientX - svgContainer.getBoundingClientRect().left;
+        offsetY = event.clientY - svgContainer.getBoundingClientRect().top;
+        svgContainer.style.cursor = "grabbing";
+      });
+
+      svgContainer.addEventListener("mouseup", function () {
+        isDragging = false;
+        svgContainer.style.cursor = "grab";
+      });
+
+      svgContainer.addEventListener("mousemove", function (event) {
+        if (isDragging) {
+          const currentX = event.clientX - svgContainer.getBoundingClientRect().left;
+          const currentY = event.clientY - svgContainer.getBoundingClientRect().top;
+
+          const deltaX = currentX - offsetX;
+          const deltaY = currentY - offsetY;
+
+          offsetX = currentX;
+          offsetY = currentY;
+
+          svgContainer.scrollLeft += deltaX;
+          svgContainer.scrollTop += deltaY;
+        }
+      });
+    };
+
+    // Accordions
+    function myAccFunc(id) {
+      var x = document.getElementById(id);
+      if (x.className.indexOf("wiki-show") == -1) {
+        x.className += " wiki-show";
+      } else { 
+        x.className = x.className.replace(" wiki-show", "");
+      }
+    }
+  </script>
+</body>
+</html>
