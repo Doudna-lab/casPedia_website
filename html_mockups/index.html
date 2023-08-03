@@ -3,16 +3,84 @@
 <head>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png">
-  <script src="{{ url_for('static', filename='js/cas_buffet.js') }}"></script>
   <meta charset="UTF-8">
   <title>CasPedia - pre-Alpha</title>
+  <!--style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: roboto,verdana,sans-serif;
+        font-size: 16px;
+      }
+    header {
+      background-color: #f2f2f2;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #logo {
+      width: 220px;
+      height: auto;
+    }
+    #second-logo {
+      width: 220px;
+      height: auto;
+    }
+    #main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    #search-container {
+      position: sticky;
+      top: 0;
+      height: auto;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2px;
+      margin-bottom: 2px;
+      margin-left: 30px;
+    }
+    #search-box {
+      position: sticky;
+      top: 0;
+      width: 35%;
+      margin-left: 30px;
+      padding: 10px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      font-size: 18px;
+      background-color: #f8f8f8;
+      resize: both; /* or "vertical" */
+      height: auto;
+    }
+    .column {
+      width: 30%;
+      padding: 10px;
+    }
+    .column img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: auto;
+    }
+    .column img:hover {
+      transform: scale(1.05);
+      transition: transform 0.7s ease-in-out;
+    }
+    footer {
+      background-color: #f2f2f2;
+      padding: 10px;
+      text-align: center;
+    }
+  </style-->
 </head>
 <body>
-
   <header>
       <!-- logo -->
     <a href="index.html">
-      <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="IGI logo">
+      <img id="logo" src="{{url_for('static', filename='img/ph_logo.svg')}}" alt="IGI logo">
     </a>
     <!-- second logo -->
     <a href="https://innovativegenomics.org/" target="_blank">
@@ -20,39 +88,72 @@
     </a>
   </header>
 
-  <!-- Flowchart Questions -->
-<div id="flowchart-questions">
-  <div id="question1" class="question">
-    <h2>Question 1</h2>
-    <ul id="choices1" class="choices">
-      <li><button class="choice">Choice 1</button></li>
-      <li><button class="choice">Choice 2</button></li>
-      <!-- Add more choices as needed -->
-    </ul>
+  <!-- search box -->
+  <div id="search-container">
+    <h2>Cas protein search</h2>
+    <form action="{{ url_for("gfg")}}" method="POST">
+      <label for="search-box"></label><textarea
+          id="search-box" name="search-box" rows="3" cols="50"
+          placeholder="Available search formats:&#10; 1- FASTA-formatted sequence&#10; 2- Word search (e.g. Cas name or accession)"></textarea>
+      <input type="submit" value="Search" name="seq-input">
+      <!--input type="file" name="file-input"-->
+    </form>
   </div>
 
-  <div id="question2" class="question">
-    <h2>Question 2</h2>
-    <ul id="choices2" class="choices">
-      <!-- Choices for question 2 will be populated dynamically -->
-    </ul>
+  <!-- Caspedia Summary -->
+  <main id="head-summary" class="summary">
+  <div class="abstract">
+    <h2> <b>WHAT IS CasPEDIA?</b></h2>
+    <h3>CasPedia is a web portal that compiles established uses of individual enzymes, equipping users with valuable resources to enhance future engineering and foster broader applications. All Cas enzymes in CasPedia were uniformly processed and annotated based on biochemical properties relevant to their diverse uses across biotechnology. These criteria describe the following properties central to all Class 2 Cas enzymes: <a href="#section_nuclease">nuclease activity</a>, <a href="#section_targeting">target requirement</a>, and <a href="#section_multiplx">guide RNA (gRNA) design</a> constraints. We present a formalized nomenclature to summarize these properties entitled Cas ID, an identification number comprised of three digits, one for each of the aforementioned characteristics.</h3>
   </div>
+</main>
 
-  <div id="question3" class="question">
-    <h2>Question 3</h2>
-    <ul id="choices3" class="choices">
-      <!-- Choices for question 3 will be populated dynamically -->
-    </ul>
+  <!-- Cas ID Definitions -->
+  <main id="body-summary" class="summary">
+  <!-- column 1 -->
+  <div class="column">
+    <div class="column-container">
+      <div id="section_nuclease">
+        <h2><b>DEFINING Cas IDs</b></h2>
+        <h2><b>Nuclease Activity</b></h2>
+      </div>
+      <h3>Enzymes from the Class II Cas superfamily have diverse nuclease activities, both in an RNA-guided manner on a targeted sequence (in <i>cis-</i>) and sometimes on non-targeted nucleic acids upon binding (in <i>trans-</i>). The numerical annotation for nuclease activity relates to the known nucleic acid substrates for both the <i>cis-</i> and <i>trans-</i> activities of these enzymes.  Nuclease activity is reported as the first digit in the Cas ID.</h3>
+      <a href="page1.html">
+        <img src="{{url_for('static', filename='img/nuc_activity.svg')}}" alt="Image 1">
+      </a>
+    </div>
   </div>
-</div>
+  <!-- column 2 -->
+  <div class="column">
+    <div class="column-container">
+      <div id="section_targeting">
+        <h2><b>Target Requirement</b></h2>
+      </div>
+      <h3>Target requirement refers to the orientation of the Cas enzyme relative to its RNA-guided target substrate, as dictated by its protospacer adjacent motif (PAM), for DNA substrates, and protospacer flanking site (PFS), for RNA. The numerical annotation shows the orientation of the PAM, or PFS, relative to the protospacer and dictates the orientation of the ribonucleoprotein (RNP) relative to targeted substrate. Targeting requirement is reported as the second digit in the Cas ID.</h3>
+      <a href="page2.html">
+        <img src="{{url_for('static', filename='img/targeting.svg')}}" alt="Image 2">
+      </a>
+    </div>
+  </div>
+  <!-- column 3 -->
+  <div class="column">
+    <div class="column-container">
+      <div id="section_multiplx">
+        <h2><b>Guide RNA (gRNA) design + Multiplexing</b></h2>
+      </div>
+      <h3>Guide RNA (gRNA) design illustrates the process bridging CRISPR native context through synthetic gRNA scaffold design. The numerical annotation describes the relevant guide requirements in relevant several contexts: within the native CRISPR, the minimal synthetic guide design for multiplexing, and the sgRNA design for multiplexing. Multiplexability is reported as the third digit in the Cas ID.</h3>
+      <a href="page3.html">
+        <img src="{{url_for('static', filename='img/multiplex.svg')}}" alt="Image 3">
+      </a>
+    </div>
+  </div>
+</main>
 
-
-
-  <!-- footnote -->
-  <footer>
-      <p><a class="footer-link" href="https://doudnalab.org/" target="_blank">Doudna Lab</a>
-        - Innovative Genomics Institute - Berkeley, California
-      </p>
-    </footer>
+<!-- footnote -->
+<footer>
+    <p><a class="footer-link" href="https://doudnalab.org/" target="_blank">Doudna Lab</a>
+      - Innovative Genomics Institute - Berkeley, California
+    </p>
+</footer>
 </body>
 </html>

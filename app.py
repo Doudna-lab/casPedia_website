@@ -62,6 +62,24 @@ def coming():
     return render_template('wiki/Coming_Soon.html')
 
 
+@app.route('/philogeny_viewer.html')
+def phylo_viewer():
+    """Define route to the coming soon page"""
+    return render_template('casPEDIA_Phylogeny_Viewer.html')
+
+
+@app.route('/fusion_proteins.html')
+def phylo_viewer():
+    """Define route to the coming soon page"""
+    return render_template('Fusion_Proteins.html')
+
+
+@app.route('/faq.html')
+def phylo_viewer():
+    """Define route to the coming soon page"""
+    return render_template('FAQ.html')
+
+
 # Register a custom filter to treat None as empty string
 @app.template_filter('empty_string')
 def empty_string(value):

@@ -1,25 +1,146 @@
+#logo,
+#second-logo {
+  width: 120px;
+  height: auto;
+}
+
+:root {
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+  --transition-speed: 500ms;
+  --text-primary: #b6b6b6;
+  --text-secondary: #464a57;
+  --bg-primary: #282a31;
+  --bg-secondary: #5758ff;
+  --bg-tertiary: #e9eaf0
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: roboto, verdana, sans-serif;
-  font-size: 16px;
-  background-color: #f8f8f8;
+  color: var(--text-secondary);
+  background-color: var(--bg-tertiary);
+}
+
+body::-webkit-scrollbar{
+  width: .25rem;
+}
+
+body::-webkit-scrollbar-track{
+  background: #1e1e24;
+}
+
+body::-webkit-scrollbar-thumb{
+  background: var(--bg-secondary);
+}
+
+main {
+  margin-left: 16rem;
+  padding: .5rem;
+}
+
+.navbar {
+  width: 5rem;
+  height: 100vh;
+  position: fixed;
+  background-color: var(--bg-primary);
+  transition: width 200ms ease;
+  z-index: 15;
+}
+
+.navbar-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.nav-item{
+  width: 100%;
+}
+.nav-item:last-child{
+  margin-top: auto;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  height: 5rem;
+  color: white;
+  text-decoration: none;
+  filter: grayscale(100%) opacity(0.7) ;
+  transition: var(--transition-speed);
+}
+
+.nav-link:hover {
+  filter: grayscale(0%) opacity(1);
+  /*background: var(--bg-secondary);*/
+  color: var(--bg-secondary);
+}
+
+.link-text {
+  display: none;
+  margin-left: 1rem;
+}
+
+.nav-link svg {
+  min-width: 2rem;
+  margin: 0 1.5rem;
+}
+
+.navbar:hover {
+  width: 16rem;
+}
+.navbar:hover .link-text{
+  display: block;
+}
+
+.fa-primary {
+  color: var(--bg-secondary);
+}
+
+.fa-secondary {
+  color: #FFCCCC;
+}
+
+.fa-primary,
+.fa-secondary {
+  transition: var(--transition-speed);
+}
+
+.logo {
+  font-weight: bold;
+  /*text-transform: uppercase;*/
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--text-primary);
+  /*background: var(--bg-tertiary);*/
+  font-size: 1.5rem;
+  letter-spacing: 0.3ch;
+  width: 100%;
+}
+
+.logo svg {
+  transform: rotate(0deg);
+  transition: transform var(--transition-speed);
+}
+
+.navbar:hover .logo svg {
+  transform: rotate(-360deg);
 }
 
 /* Header */
 header {
-  background-color: #f8f8f8;
+  background-color: #FFFFFF;
+  margin-left: 5rem;
   padding: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
-}
-
-#logo,
-#second-logo {
-  width: 120px;
-  height: auto;
 }
 
 /* Search Container */
@@ -29,13 +150,12 @@ header {
   height: 100px;
   justify-content: center;
   align-items: center;
-  margin: 1px 2px 100px 50px;
+  /*margin: 1px 2px 100px 50px;*/
+  margin-bottom: 100px;
   z-index: 1;
 }
 
 #search-container h2 {
-  font-size: 20px;
-  color: #333;
   text-align: left;
   margin-bottom: 10px;
   margin-left: 1px;
@@ -43,43 +163,42 @@ header {
 
 #search-box {
   position: relative;
-  width: 45%;
+  width: 60%;
   padding: 10px;
   border: 2px solid #DDDDDD8F;
   border-radius: 10px;
-  font-size: 18px;
-  background-color: #f8f8f8;
+  font-size: 1.2rem;
+  background-color: white;
   resize: both;
   height: 100px;
 }
 
 .summary {
-  background-color: #e8e8e8;
-  border: 3px solid #DDDDDD8F;
-  border-radius: 10px;
-  font-family: 'Graphik',Arial,sans-serif;
+  background-color: white;
+  /*border: 3px solid #DDDDDD8F;*/
+  /*border-radius: 10px;*/
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
   -webkit-font-smoothing: antialiased;
   position: relative;
   justify-content: center;
   align-items: center;
-  width: 80%;
+  width: 85%;
   height: auto;
-  margin: 50px 100px 1px 50px;
+  margin-bottom: 50px;
   display: flex;
   flex-wrap: wrap;
 }
 
 h2 {
-  font-size: 35px;
+  font-size: 2rem;
 }
 
 h3 {
-  font-size: 18px;
+  font-size: 1.1rem;
   padding: 10px;
 }
 
 .abstract {
-  color: #363636;
   text-align: left;
   padding: 10px;
   margin-bottom: -10px;
@@ -109,7 +228,6 @@ h3 {
   }
 
 .column-container {
-  color: #363636;
   text-align: left;
   margin-bottom: 12px;
   margin-top: 0;
@@ -117,7 +235,7 @@ h3 {
 
 /* Column */
 .column {
-  width: 85%;
+  width: 95%;
 }
 
 .column img {

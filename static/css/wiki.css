@@ -86,21 +86,22 @@ header {
   margin-left: 40px;
 }
 
+
+
+
 /* CAS_ID Sprites */
 .casID_sprite {
   max-width: 30%;
   max-height: 200px;
-  border: 1px solid #555;
-  border-radius: 5%;
+  object-fit: contain;
+  /*border: 1px solid #555;*/
+  /*border-radius: 5%;*/
 }
 
 .cas_id_container:after {
-  content: "";
-  display: table;
+  display: flex;
+  justify-content: space-between;
   margin-top: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  clear: both;
   padding: 10px;
 }
 

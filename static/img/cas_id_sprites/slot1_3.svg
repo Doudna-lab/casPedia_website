@@ -1,21 +1,162 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 205.26 331.57">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: #fff6e9;
-      }
-
-      .cls-2 {
-        font-family: Arial-BoldItalicMT, Arial;
-        font-size: 30.36px;
-        font-style: italic;
-        font-weight: 700;
-      }
-    </style>
-  </defs>
-  <g id="Layer_1-2" data-name="Layer 1">
-    <rect class="cls-1" width="205.26" height="331.57" rx="12" ry="12"/>
-    <text class="cls-2" transform="translate(16.57 173.82)"><tspan x="0" y="0">Placeholder</tspan></text>
-  </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 27.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 169.7 386.9" style="enable-background:new 0 0 169.7 386.9;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#31CAFD;}
+	.st1{fill:#AAB8F1;}
+	.st2{fill:#A2B8FF;}
+	.st3{fill:#00CEDE;}
+	.st4{fill:#FF0A00;}
+	.st5{fill:#BEBEBE;}
+	.st6{fill:#8F7F1D;}
+	.st7{fill:#A17800;}
+	.st8{fill:#FE1600;}
+	.st9{fill:#C0BCBC;}
+	.st10{fill:#CFB7BE;}
+	.st11{fill:#BFBBC9;}
+	.st12{fill:url(#);}
+	.st13{fill:#5857FF;}
+	.st14{fill:#D31159;}
+	.st15{fill:#FFAF00;}
+	.st16{fill:#A09C9A;}
+	.st17{fill:#006CDE;}
+	.st18{fill:#6A6B7A;}
+	.st19{fill:#D6BD0F;}
+	.st20{fill:#A699AB;}
+	.st21{fill:#0072BF;}
+	.st22{fill:#80674E;}
+	.st23{fill:#F2B300;}
+	.st24{fill:#4DAAB8;}
+	.st25{fill:#007B83;}
+	.st26{fill:#D02A2A;}
+	.st27{fill:#FFA5AF;}
+	.st28{fill:#FFF7EA;}
+	.st29{fill:#FFF7EB;}
+	.st30{fill:#FFF6F5;}
+	.st31{fill:#FCFCFC;}
+	.st32{fill:#8B61FF;}
+	.st33{fill:#007AFE;}
+	.st34{fill:#0081DD;}
+	.st35{fill:#65838D;}
+	.st36{fill:#00FFB7;}
+	.st37{fill:#F0DFA8;}
+	.st38{fill:#FFD8C5;}
+	.st39{fill:#89F0FF;}
+	.st40{fill:#FFF6E9;}
+	.st41{fill:none;stroke:#FFAF00;stroke-width:2.8141;stroke-miterlimit:10;}
+	.st42{opacity:0.15;}
+	.st43{fill:none;stroke:#D31159;stroke-width:2.8141;stroke-miterlimit:10;}
+	.st44{fill:none;stroke:#5857FF;stroke-width:2.8141;stroke-miterlimit:10;}
+	.st45{fill:none;stroke:#D31159;stroke-width:2.8141;stroke-linecap:round;stroke-miterlimit:10;}
+	.st46{fill:none;stroke:#5857FF;stroke-width:2.8141;stroke-linecap:round;stroke-miterlimit:10;}
+	.st47{fill:none;stroke:#D31159;stroke-width:2.8141;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st48{fill:none;stroke:#5857FF;stroke-width:2.8141;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st49{stroke:#000000;stroke-width:1.4918;stroke-miterlimit:10;}
+	.st50{fill:#FFFFFF;}
+	.st51{fill:#BDDCEB;}
+	.st52{fill:none;stroke:#FFAF00;stroke-width:2.2565;stroke-miterlimit:10;}
+	.st53{fill:none;stroke:#31CAFD;stroke-width:2.5;stroke-miterlimit:10;}
+	.st54{fill:none;stroke:#FFAF00;stroke-width:2.5;stroke-miterlimit:10;}
+	.st55{fill:none;stroke:#FF0A00;stroke-width:2.5;stroke-miterlimit:10;}
+	.st56{fill:none;stroke:#00FFB7;stroke-width:2.5;stroke-miterlimit:10;}
+	.st57{fill:none;stroke:#8B61FF;stroke-width:2.5;stroke-miterlimit:10;}
+	.st58{fill:none;stroke:#BEBEBE;stroke-width:2.5;stroke-miterlimit:10;}
+	.st59{fill:none;stroke:#FF0A00;stroke-width:4.5;stroke-miterlimit:10;}
+	.st60{fill:none;stroke:#BEBEBE;stroke-width:4.5;stroke-miterlimit:10;}
+	.st61{fill:none;stroke:#000000;stroke-width:2.5;stroke-miterlimit:10;}
+	.st62{fill:#413F40;stroke:#003953;stroke-width:5.431579e-02;stroke-miterlimit:10;}
+	.st63{fill:none;stroke:#D31159;stroke-width:2;stroke-miterlimit:10;}
+	.st64{fill:none;stroke:#5857FF;stroke-width:2;stroke-miterlimit:10;}
+	.st65{fill:none;stroke:#D31159;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;}
+	.st66{fill:none;stroke:#5857FF;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;}
+	.st67{fill:none;stroke:#D31159;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st68{fill:none;stroke:#5857FF;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st69{opacity:0.4;fill:none;stroke:#FFAF00;stroke-width:1.7161;stroke-miterlimit:10;}
+	.st70{opacity:0.5;fill:none;stroke:#FFAF00;stroke-width:2;stroke-miterlimit:10;}
+	.st71{fill:none;stroke:url(#);stroke-width:2;stroke-miterlimit:10;}
+	.st72{fill:none;stroke:url(#);stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;}
+	.st73{fill:none;stroke:url(#);stroke-width:2;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st74{opacity:0.25;}
+	.st75{fill:none;stroke:#003953;stroke-width:2;stroke-miterlimit:10;}
+	.st76{fill:none;stroke:#003953;stroke-width:2;stroke-linecap:round;stroke-miterlimit:10;}
+	.st77{font-family:'Arial-BoldMT';}
+	.st78{font-size:15px;}
+	.st79{fill:none;stroke:url(#);stroke-width:2.8141;stroke-miterlimit:10;}
+	.st80{fill:none;stroke:url(#);stroke-width:2.8141;stroke-linecap:round;stroke-miterlimit:10;}
+	.st81{fill:none;stroke:url(#);stroke-width:2.8141;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st82{fill:none;stroke:#000000;stroke-width:3;stroke-miterlimit:10;}
+	.st83{fill:none;}
+</style>
+<g class="st42">
+	<path d="M154.6,115.5H15.1c-8.3,0-15.1-6.7-15.1-15.1l0-15.3c0-8.3,6.7-15.1,15.1-15.1h139.6c8.3,0,15.1,6.7,15.1,15.1v15.3
+		C169.7,108.8,162.9,115.5,154.6,115.5z"/>
+</g>
+<g class="st42">
+	<path d="M154.6,224H15.1C6.7,224,0,217.3,0,209l0-34c0-8.3,6.7-15.1,15.1-15.1h139.6c8.3,0,15.1,6.7,15.1,15.1v34
+		C169.7,217.3,162.9,224,154.6,224z"/>
+</g>
+<g class="st42">
+	<path d="M154.6,310.1H15.1c-8.3,0-15.1-6.7-15.1-15.1l0-34c0-8.3,6.7-15.1,15.1-15.1h139.6c8.3,0,15.1,6.7,15.1,15.1v34
+		C169.7,303.4,162.9,310.1,154.6,310.1z"/>
+</g>
+<g>
+	<g>
+		<text transform="matrix(1 0 0 1 26.1201 273.4553)"><tspan x="0" y="0" class="st77 st78">trans</tspan><tspan x="-15" y="18" class="st77 st78">activity</tspan></text>
+	</g>
+	<g>
+		<text transform="matrix(1 0 0 1 54.4577 98.3327)" class="st77 st78">#</text>
+	</g>
+	<g>
+		<text transform="matrix(1 0 0 1 41.9477 186.6086)"><tspan x="0" y="0" class="st77 st78">cis</tspan><tspan x="-30.8" y="18" class="st77 st78">activity</tspan></text>
+	</g>
+</g>
+<path class="st51" d="M154.6,45.4H15.1C6.7,45.4,0,38.6,0,30.3l0-15.3C0,6.7,6.7,0,15.1,0l139.6,0c8.3,0,15.1,6.7,15.1,15.1v15.3
+	C169.7,38.6,162.9,45.4,154.6,45.4z"/>
+<g>
+	<text transform="matrix(1 0 0 1 22.7246 28.2938)" class="st77 st78">Nuclease Activity</text>
+</g>
+<g>
+	<path class="st40" d="M157.7,386.9H83.2c-6.6,0-12-5.4-12-12V67.4c0-6.6,5.4-12,12-12h74.5c6.6,0,12,5.4,12,12v307.6
+		C169.7,381.6,164.3,386.9,157.7,386.9z"/>
+	<g>
+		<g>
+			<path class="st70" d="M147.1,189.9c-2.5,0-4.5-2-4.5-4.5v-12.1l1.7-5.8c0.5-1.8,0.3-3.8-0.8-5.3c-1-1.4-2.6-2.3-4.3-2.3h0
+				c-1.7,0-3.3,0.9-4.3,2.3c-1.1,1.5-1.3,3.5-0.8,5.3l1.7,5.8v12.1c0,2.5-2,4.5-4.5,4.5h-30.6"/>
+			<g class="st42">
+				<path d="M136.7,155.1c-7.8,0-14.2,5.4-15.9,12.7c-6.2,0.6-11,5.8-11,12.1c0,6.7,5.5,12.2,12.2,12.2c4.1,0,7.8-2.1,10-5.2
+					c1.5,0.4,3.1,0.7,4.7,0.7c9,0,16.3-7.3,16.3-16.3C153,162.4,145.7,155.1,136.7,155.1z"/>
+			</g>
+		</g>
+		<g>
+			<polygon class="st62" points="110.5,194 114.6,186.8 106.3,186.8 			"/>
+			<polygon class="st62" points="130.4,209.6 126.3,216.8 134.6,216.8 			"/>
+			<g>
+				<path class="st63" d="M81,199.9h17.5l2.6-5l0,0l4.4,0"/>
+				<path class="st63" d="M115.4,194.9l24.4,0l0,0l2.6,5h17.5"/>
+				<path class="st64" d="M159.8,203.9h-17.5l-2.6,5l0,0l-4.4,0"/>
+				<path class="st64" d="M125.4,208.9l-24.4,0l0,0l-2.6-5H81"/>
+				<polyline class="st65" points="81,199.9 98.5,199.9 101.1,194.9 				"/>
+				<polyline class="st65" points="139.8,194.9 142.4,199.9 159.8,199.9 				"/>
+				<polyline class="st66" points="159.8,203.9 142.4,203.9 139.8,208.9 				"/>
+				<polyline class="st66" points="101.1,208.9 98.5,203.9 81,203.9 				"/>
+			</g>
+		</g>
+	</g>
+	<g>
+		<path class="st63" d="M81,280.8h17.5l2.6-5l0,0l14.4,0"/>
+		<path class="st63" d="M125.4,275.8l14.4,0l0,0l2.6,5h17.5"/>
+		<polyline class="st65" points="81,280.8 98.5,280.8 101.1,275.8 		"/>
+		<polyline class="st67" points="139.8,275.8 142.4,280.8 159.8,280.8 		"/>
+	</g>
+	<g>
+		<circle cx="120.4" cy="92.9" r="17.5"/>
+		<path class="st50" d="M114.9,96.7l3.1-0.4c0.1,0.8,0.4,1.4,0.8,1.8c0.4,0.4,1,0.6,1.6,0.6c0.7,0,1.2-0.3,1.7-0.8
+			c0.5-0.5,0.7-1.2,0.7-2c0-0.8-0.2-1.4-0.7-1.9s-1-0.7-1.6-0.7c-0.4,0-0.9,0.1-1.5,0.2l0.4-2.6c0.9,0,1.5-0.2,2-0.6
+			c0.5-0.4,0.7-0.9,0.7-1.6c0-0.6-0.2-1-0.5-1.3c-0.3-0.3-0.8-0.5-1.3-0.5c-0.5,0-1,0.2-1.4,0.6c-0.4,0.4-0.6,0.9-0.7,1.7l-3-0.5
+			c0.2-1,0.5-1.8,0.9-2.4c0.4-0.6,1-1.1,1.7-1.4c0.7-0.3,1.6-0.5,2.5-0.5c1.6,0,2.8,0.5,3.8,1.5c0.8,0.8,1.2,1.7,1.2,2.8
+			c0,1.5-0.8,2.6-2.4,3.5c1,0.2,1.7,0.7,2.3,1.4c0.6,0.7,0.9,1.6,0.9,2.6c0,1.5-0.5,2.7-1.6,3.8c-1.1,1-2.4,1.6-4,1.6
+			c-1.5,0-2.8-0.4-3.8-1.3C115.6,99.2,115,98.1,114.9,96.7z"/>
+	</g>
+</g>
 </svg>
