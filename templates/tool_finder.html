@@ -4,7 +4,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png">
   <meta charset="UTF-8">
-  <title>CasPedia - pre-Alpha</title>
+  <title>Tool Finder</title>
 </head>
 <body>
   <header>
@@ -22,25 +22,25 @@
   <section id="tool-finder-questions">
     <form action="/tool_finder" method="POST">
       <div id="target_type" class="tool-finder-header">
-        <h3>Target type</h3>
+        <h3>Cis Activity</h3>
         <select name="target_type" class="tool-finder-header">
           {{ targe_type|safe }}
         </select>
       </div>
       <div id="trans_activity" class="tool-finder-header">
-        <h3>Trans activity</h3>
+        <h3>Trans Activity</h3>
         <select name="trans_activity" class="tool-finder-menu">
           {{ trans_activity|safe }}
         </select>
       </div>
       <div id="targeting_requirement" class="tool-finder-header">
-        <h3>Targeting requirement</h3>
+        <h3>Targeting Requirement</h3>
         <select name="targeting_requirement" class="tool-finder-menu">
           {{ targeting_requirement|safe }}
         </select>
       </div>
       <div id="multiplex" class="tool-finder-header">
-        <h3>Multiplexability</h3>
+        <h3>gRNA Design and Multiplexability</h3>
         <select name="multiplex" class="tool-finder-menu">
           {{ multiplex|safe }}
         </select>
