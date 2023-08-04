@@ -14400,7 +14400,9 @@
       let offsetX = 0;
       let offsetY = 0;
       let isDragging = false;
-
+      
+      /*
+      // Remove Zoomable container
       svgContainer.addEventListener("wheel", function (event) {
         event.preventDefault();
         const scaleDelta = event.deltaY * -0.01;
@@ -14433,6 +14435,7 @@
         svgContainer.scrollLeft = newScrollLeft;
         svgContainer.scrollTop = newScrollTop;
       });
+			*/
 
       svgContainer.addEventListener("mousedown", function (event) {
         isDragging = true;
