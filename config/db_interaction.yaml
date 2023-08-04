@@ -21,10 +21,10 @@ unique_id_col: "Type Protein"
 # Translates the options available in the tool finder HTML to
 #  column names found in the PSQL database
 match_question_to_db:
-  "target_type": "Nuclease Activity Description"
-  "trans_activity": "Nuclease Activity Description"
-  "targeting_requirement": "Targeting Requirement Description"
-  "multiplex": "Multiplexability Description"
+  "target_type": "Nuclease_Activity"
+  "trans_activity": "Nuclease_Activity"
+  "targeting_requirement": "Targeting_Requirement"
+  "multiplex": "gRNA_Design_and_Multiplexability"
 
 wildcard_search: "Any"
 
@@ -72,6 +72,7 @@ master_to_wiki_col_format:
   "Nuclease_Activity": "Nuclease Activity"
   "Targeting_Requirement": "Targeting Requirement"
   "gRNA_Design_and_Multiplexability": "gRNA Design and Multiplexability"
+  "Class_II_Subtype": "Class II subtype"
 
 # Column name in the wiki forms that denotes raw fasta sequences
 wiki_sequence_col_name: "Sequence"

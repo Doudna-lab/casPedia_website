@@ -62,21 +62,21 @@ def coming():
     return render_template('wiki/Coming_Soon.html')
 
 
-@app.route('/philogeny_viewer.html')
+@app.route('/phylogeny_viewer.html')
 def phylo_viewer():
-    """Define route to the coming soon page"""
+    """Define route to the philogeny viewer page"""
     return render_template('casPEDIA_Phylogeny_Viewer.html')
 
 
 @app.route('/fusion_proteins.html')
-def phylo_viewer():
-    """Define route to the coming soon page"""
+def fusion_prot():
+    """Define route to the Fusion proteins page"""
     return render_template('Fusion_Proteins.html')
 
 
 @app.route('/faq.html')
-def phylo_viewer():
-    """Define route to the coming soon page"""
+def faq_page():
+    """Define route to the FAQ page"""
     return render_template('FAQ.html')
 
 
@@ -101,6 +101,11 @@ def buffet():
                            targeting_requirement=tool_finder_menu.targeting_requirement or empty_string,
                            multiplex=tool_finder_menu.multiplex or empty_string
                            )
+
+
+@app.route('/contact_us.html')
+def contactus():
+    return render_template('/Contact.html')
 
 
 @app.route('/tool_finder', methods=['POST'])
@@ -251,4 +256,3 @@ def gfg():
 
 if __name__ == '__main__':
     app.run()
-

@@ -24,6 +24,7 @@ body {
 
 body::-webkit-scrollbar{
   width: .25rem;
+  height: .35rem;
 }
 
 body::-webkit-scrollbar-track{
@@ -200,7 +201,7 @@ h3 {
 
 .abstract {
   text-align: left;
-  padding: 10px;
+  /*padding: 10px;*/
   margin-bottom: -10px;
   width: 85%;
 }

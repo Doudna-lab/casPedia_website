@@ -1,10 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <title>{{ page_name|safe }}</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}" >
+  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png" >
 </head>
-<body>
 
+<body>
+<!-- Logo -->
+  <header>
+      <!-- logo -->
+    <a href="/index.html">
+      <img id="logo" src="{{url_for('static', filename='img/ph_logo.svg')}}" alt="IGI logo">
+    </a>
+    <!-- second logo -->
+    <a href="https://innovativegenomics.org/" target="_blank">
+      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
+    </a>
+  </header>
+
+  <!-- Search Box -->
+  <div id="search-container">
+    <form action="{{ url_for("gfg")}}" method="POST">
+      <label for="search-box"></label><textarea id="search-box" name="search-box" rows="1" cols="50" placeholder="input sequence or term"></textarea>
+      <input type="submit" value="Submit" name="seq-input">
+    </form>
+  </div>
+
+<!-- Page Title -->
+  <div style="background-color: #202123;">
+  <h1><span style="color:#FFFFFF">{{ page_name|safe }}</span></h1>
+
+<!-- Essential Info -->
+  <div class="wiki-row-padding wiki-center wiki-margin-top" >
+  <div class="wiki-third" >
+    <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
+    <h2>CLASSIFICATION</h2>
+    <ul class="wiki-ul">
+      {{ classification|safe }}
+    </ul>
+    <div class="cas_id_container">
+       {{ classification_sprites|safe }}
+    </div>
+    </div>
+  </div>
+
+  <div class="wiki-third">
+    <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
+    <h2>PROPERTIES</h2>
+    <ul class="wiki-ul">
+      {{ properties|safe }}
+    </ul>
+    </div>
+  </div>
+
+  <div class="wiki-third">
+    <div class="wiki-card wiki-container" style="background-color: #f5f5f5;min-height:330px">
+    <h2>RESOURCES</h2>
+    <ul class="wiki-ul">
+        {{ resources|safe }}
+        {{ sequences|safe }}
+    </ul>
+    </div>
+  </div>
+  </div>
+  <br><br>
+  </div>
+
+  <!-- Description -->
+  <br>
+  <h2 class="section_header" style="text-align:center;font-weight:bold">DESCRIPTION</h2>
+  <div class="grid-container">
+    <div class="section">
+      {{ text_summaries|safe }}
+
+        <button onclick="myAccFunc('Delivery')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Experimental Details</span></button>
+        <div id="Delivery" class="wiki-hide wiki-black">
+            <div class="wiki-container">
+              {{ exp_details|safe }}
+            </div>
+        </div>
+      <hr>
+
+        <button onclick="myAccFunc('GeneEditing')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Gene Editing&nbsp;</span></button>
+        <div id="GeneEditing" class="wiki-hide">
+          <div class="wiki-container">
+          {{ gene_editing_human|safe }}
+          {{ gene_editing|safe }}
+          </div>
+        </div>
+      <hr>
+
+        <button onclick="myAccFunc('Tools')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Tools and Diagnostics</span></button>
+        <div id="Tools" class="wiki-hide">
+          <div class="wiki-container">
+          <!-- OBS: Some headers from the static SpyCas9a model wiki do not match the terms found in the workbook  -->
+          <!-- e.g. "Diagnostic Testing" in the model page translates to "Diagnostic" in the workbook  -->
+          {{ tools|safe }}
+          </div>
+        </div>
+      <hr>
+
+        <button onclick="myAccFunc('Variants')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Engineered Variants</span></button>
+        <div id="Variants" class="wiki-hide wiki-black">
+          <div class="wiki-container">
+          {{ variants|safe }}
+          </div>
+        </div>
+
+
+
+
+
+      <!--h5 class="section-header">EXPERIMENTAL DETAILS</h5>
+        <p class="section-content"></p>
+        <button onclick="myAccFunc('Delivery')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Delivery and Expression</span></button>
+          <div id="Delivery" class="wiki-hide wiki-black">
+          </div>
+          <hr>
+          <button onclick="myAccFunc('Guides')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Guide Design</span></button>
+          <div id="Guides" class="wiki-hide wiki-black"></div>
+        </div>
+    </div-->
+
+  <!-- Sequence -->
+  <br>
+  <h2 class="section_header" style="text-align:center;font-weight:bold">NUCLEOTIDE SEQUENCE</h2>
+  <div id="grid-container" style="padding-top: 1px;padding-bottom: 10px; height: auto"></div>
+  <script type="module">
+
+      import igv from "https://cdn.jsdelivr.net/npm/igv@2.15.8/dist/igv.esm.min.js"
+
+      const options = {
+          locus: 'NZ_LS483338.1:981357-990000',
+          reference: {
+              "id": "NZ_LS483338",
+              "name": "NZ_LS483338",
+              "fastaURL": "https://igvtest.s3.us-west-1.amazonaws.com/NZ_LS483338.fasta",
+              "indexURL": "https://igvtest.s3.us-west-1.amazonaws.com/NZ_LS483338.fasta.fai",
+              "tracks": [
+                {
+                  "name": "Refseq Genes",
+                  "url": "https://igvtest.s3.us-west-1.amazonaws.com/NZ_LS483338.gff3",
+                  "indexed": false,
+                  "format": 'gff3',
+                  "displayMode": "SQUISHED" 
+                }
+              ]
+            },
+          roi:
+              [
+                {
+                  name: "Array",
+                  color: "rgba(3,52,249,0.25)",
+                  features: [
+                          {
+                              chr: "NZ_LS483338.1",
+                              start: 983954,
+                              end: 988060
+                          },
+                          ]
+                }
+              ]
+
+      };
+      igv.createBrowser(document.getElementById('container'), options);
+  </script>
+
+  <!-- Structure -->
+  <br>
+  <h2 class="section_header" style="text-align:center;font-weight:bold">PROTEIN STRUCTURE</h2>
+  <div class="grid-container">
+    <div class="section">
+      <h3 class="section-header">DOMAINS</h3>
+      <br><br>
+      <div class="wiki-container">
+        <div class="wiki-responsive wiki-card-4">
+        <table class="wiki-table wiki-striped wiki-bordered">
+        <thead>
+        <tr class="wiki-theme">
+          <th>Type</th>
+          <th>Amino Acid Position(s)</th>
+          <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Region</td>
+          <td>1-62</td>
+          <td>RuvC-I</td>
+        </tr>
+        <tr class="wiki-white">
+          <td>Region</td>
+          <td>56-73</td>
+          <td>ARM</td>
+        </tr>
+        <tr>
+          <td>Region</td>
+          <td>56-718</td>
+          <td>Recognition lobe</td>
+        </tr>
+        <tr>
+          <td>Region</td>
+          <td>718-765</td>
+          <td>RuvC-II</td>
+        </tr>
+        <tr>
+          <td>Domain</td>
+          <td>770-921</td>
+          <td>HNH Cas9-type</td>
+        </tr>
+        <tr>
+          <td>Region</td>
+          <td>925-1102</td>
+          <td>RuvC-III</td>
+        </tr>
+        <tr>
+          <td>Region</td>
+          <td>1099-1368</td>
+          <td>PAM-interacting domain (PI)</td>
+        </tr>
+        <tr>
+          <td>Motif</td>
+          <td>1333-1335</td>
+          <td>PAM substrate-binding</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+      </div>
+      </div>
+    <br>
+    <div class="section">
+      <h3 class="section-header">PFAMS</h3>
+      <br><br>
+      <div class="wiki-container">
+        <div class="wiki-responsive wiki-card-4">
+        <table class="wiki-table wiki-striped wiki-bordered">
+        <thead>
+        <tr class="wiki-theme">
+          <th>Pfam</th>
+          <th>Short Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16593" target="_blank">PF16593</a></td>
+          <td>Cas9-BH</td>
+        </tr>
+        <tr class="wiki-white">
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16595" target="_blank">PF16595</a></td>
+          <td>Cas9_PI</td>
+        </tr>
+        <tr>
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF16592" target="_blank">PF16592</a></td>
+          <td>Cas9_REC</td>
+        </tr>
+        <tr>
+          <td><a href="https://www.ebi.ac.uk/interpro/entry/pfam/PF13395" target="_blank">PF13395</a></td>
+          <td>HNH_4</td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+      </div>
+  </div>
+  <!-- PDB Structure -->
+  <div> 
+    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>     
+    <script src="https://3Dmol.org/build/3Dmol.ui-min.js"></script>
+    <div style="height: 400px; width: 100%; position: relative;" class='viewer_3Dmoljs' data-pdb='6K4Q'
+         data-select1='chain:B' data-style1='cartoon:color=yellow'
+         data-select2='chain:A' data-style2='cartoon:color=red'
+         data-select3='chain:C' data-style3='cartoon:color=purple'
+         data-select4='chain:D' data-style4='cartoon:color=purple'>
+    </div>
+  </div>
+
+ <div class="grid-container">
+   <div class="section">
+     <button onclick="myAccFunc('Cite')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#000000;font-weight:bold;font-size:24px;">REFERENCES</span></button>
+     <div id="Cite" class="wiki-hide wiki-black">
+      {{ references|safe }}
+     </div>
+   </div>
+ </div>
+
+  <br><br>
+  <!-- footnote -->
+  <footer>
+      <!-- footnote -->
+  <footer>
+      <p><a class="footer-link" href="https://doudnalab.org/" target="_blank">Doudna Lab</a>
+        - Innovative Genomics Institute - Berkeley, California
+      </p>
+    </footer>
+  </footer>
+
+  <!-- Scripts -->
+  <!-- Script for Accordions-->
+  <script>
+
+  var mybtn = document.getElementsByClassName("testbtn")[0];
+  mybtn.click();
+
+  // Accordions
+  function myAccFunc(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("wiki-show") == -1) {
+      x.className += " wiki-show";
+    } else {
+      x.className = x.className.replace(" wiki-show", "");
+    }
+  }
+
+  // Slideshows
+  var slideIndex = 1;
+
+  function plusDivs(n) {
+    slideIndex = slideIndex + n;
+    showDivs(slideIndex);
+  }
+
+  function showDivs(n) {
+    var x = document.getElementsByClassName("mySlides");
+    if (n > x.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = x.length} ;
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    x[slideIndex-1].style.display = "block";
+  }
+
+  showDivs(1);
+
+  </script>
 </body>
 </html>
+
+
