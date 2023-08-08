@@ -90,20 +90,29 @@
   <div id="head-summary" class="summary">
   <div class="abstract">
     <h2> <b>WHAT IS CasPEDIA?</b></h2>
-    <h3>CasPedia is a web portal that compiles established uses of individual enzymes, equipping users with valuable resources to enhance future engineering and foster broader applications. All Cas enzymes in CasPedia were uniformly processed and annotated based on biochemical properties relevant to their diverse uses across biotechnology. These criteria describe the following properties central to all Class 2 Cas enzymes: <a href="#section_nuclease">nuclease activity</a>, <a href="#section_targeting">target requirement</a>, and <a href="#section_multiplx">guide RNA (gRNA) design</a> constraints. We present a formalized nomenclature to summarize these properties entitled Cas ID, an identification number comprised of three digits, one for each of the aforementioned characteristics.</h3>
+    <h3><p><p>CasPEDIA is an encyclopedia of Class II CRISPR systems, presented in wiki format. Wiki entries provide comprehensive descriptions of enzyme activities, structures and sequences, complete with a literature review covering each nuclease's discovery, experimental considerations and applications. CasPEDIA exists in tandem with <a href="https://innovativegenomics.org/crisprpedia/" target="_blank">CRISPRpedia</a>, a free resource created by The Innovative Genomics Institute that describes the principles of CRISPR technology.</p>
+
+    <p>CasPEDIA introduces CasIDs, which organize Cas enzymes by their functional properties. Inspired by the <a href="https://doi.org/10.1093/nar/28.1.304" target="_blank">ENZYME Classification (E.C.) system</a></p>, CasID nomenclature is comprised of three digits, described <a href="#section_multiplx">below</a>, that concisely describe effector properties and enable rapid identification of appropriate enzyme for a researcher's use case. CasIDs can be used to navigate the website through direct search in the search bar and using our <a href="http://caspedia.org/tool_finder.html" target="_blank">Tool Finder</a></p>
+
+    <p>Please visit the <a href="http://caspedia.org/faq.html" target="_blank">FAQ</a> section for directions on navigating CasPEDIA and information about becoming a curator.</p></h3>
   </div>
 </div>
 
   <!-- Cas ID Definitions -->
-  <div id="body-summary" class="summary">
+  <div id="cas_ids" class="summary">
   <!-- column 1 -->
   <div class="column">
     <div class="column-container">
       <div id="section_nuclease">
         <h2><b>DEFINING Cas IDs</b></h2>
+          <p>CasIDs are comprised of three digits, which represent <a href="#section_nuclease">nuclease activity</a>, <a href="#section_targeting">target requirement</a>, and <a href="#section_multiplx">guide RNA (gRNA) design</a>, respectively. Definitions for all CasID digits are provided below.</p>
+
+          <p>To demonstrate CasIDs, consider SpyCas9a, with a CasID of 1.1.1 . The Nuclease Activity for this enzyme falls under category 1, implying it has blunt double-stranded cis nuclease-activity, and no trans nuclease-activity (<sup><a href="https://doi.org/10.1016/j.molcel.2018.11.021" target="_blank">1</a></sup>. The Targeting Requirements for ShomepyCas9a fit category 1, meaning it requires a 3' protospacer-adjacent motif (PAM). Finally, the Guide RNA (gRNA) Design and Multiplexing properties for this enzyme fall under category 1, such that the Native CRISPR Array for SpyCas9a requires a CRISPR RNA (crRNA) for targeting + Trans-acting crRNA (tracrRNA) for multiplexing to the protein backbone of the effector + additional factors for processing the array into mature guides. However, as described by the CasID nomenclature, SpyCas9a can also be engineered to utilize a minimal array containing different single-guide RNAs (sgRNAs), represented as a contiguous, all-in-one crRNA+tracrRNA sequence<sup><a href="https://doi.org/10.1038/nature09886" target="_blank">2,</a></sup><sup><a href="https://doi.org/10.1146/annurev-biophys-062215-010822" target="_blank">3</a></sup>.</p>
+
+          <img src="/path/to/SpyCas9_Ex.svg" alt="SpyCas9a Example">
         <h2><b>Nuclease Activity</b></h2>
       </div>
-      <h3>Enzymes from the Class II Cas superfamily have diverse nuclease activities, both in an RNA-guided manner on a targeted sequence (in <i>cis-</i>) and sometimes on non-targeted nucleic acids upon binding (in <i>trans-</i>). The numerical annotation for nuclease activity relates to the known nucleic acid substrates for both the <i>cis-</i> and <i>trans-</i> activities of these enzymes.  Nuclease activity is reported as the first digit in the Cas ID.</h3>
+      <h3>Nuclease activity is reported as the first digit in the Cas ID. Enzymes from the Class II Cas superfamily have diverse nuclease activities, both in an RNA-guided manner on a targeted sequence (in <i>cis-</i>) and sometimes on non-targeted nucleic acids upon binding (in <i>trans-</i>). The numerical annotation for nuclease activity relates to the known nucleic acid substrates for both the <i>cis-</i> and <i>trans-</i> activities of these enzymes.</h3>
       <a href="page1.html">
         <img src="{{url_for('static', filename='img/nuc_activity.svg')}}" alt="Image 1">
       </a>
@@ -115,7 +124,7 @@
       <div id="section_targeting">
         <h2><b>Target Requirement</b></h2>
       </div>
-      <h3>Target requirement refers to the orientation of the Cas enzyme relative to its RNA-guided target substrate, as dictated by its protospacer adjacent motif (PAM), for DNA substrates, and protospacer flanking site (PFS), for RNA. The numerical annotation shows the orientation of the PAM, or PFS, relative to the protospacer and dictates the orientation of the ribonucleoprotein (RNP) relative to targeted substrate. Targeting requirement is reported as the second digit in the Cas ID.</h3>
+      <h3>Targeting requirement is reported as the second digit in the Cas ID. Target requirement refers to the orientation of the Cas enzyme relative to its RNA-guided target substrate, as dictated by its protospacer adjacent motif (PAM), for DNA substrates, and protospacer flanking site (PFS), for RNA. The numerical annotation shows the orientation of the PAM, or PFS, relative to the protospacer and dictates the orientation of the ribonucleoprotein (RNP) relative to targeted substrate.</h3>
       <a href="page2.html">
         <img src="{{url_for('static', filename='img/targeting.svg')}}" alt="Image 2">
       </a>
@@ -124,10 +133,10 @@
   <!-- column 3 -->
   <div class="column">
     <div class="column-container">
-      <div id="section_multiplx">
+      <div id="section_multiplex">
         <h2><b>Guide RNA (gRNA) design + Multiplexing</b></h2>
       </div>
-      <h3>Guide RNA (gRNA) design illustrates the process bridging CRISPR native context through synthetic gRNA scaffold design. The numerical annotation describes the relevant guide requirements in relevant several contexts: within the native CRISPR, the minimal synthetic guide design for multiplexing, and the sgRNA design for multiplexing. Multiplexability is reported as the third digit in the Cas ID.</h3>
+      <h3>Multiplexability is reported as the third digit in the Cas ID. Guide RNA (gRNA) design illustrates the process bridging CRISPR native context through synthetic gRNA scaffold design. The numerical annotation describes the relevant guide requirements in relevant several contexts: within the native CRISPR, the minimal synthetic guide design for multiplexing, and the sgRNA design for multiplexing.</h3>
       <a href="page3.html">
         <img src="{{url_for('static', filename='img/multiplex.svg')}}" alt="Image 3">
       </a>
