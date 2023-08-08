@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="50"
+   height="50"
+   viewBox="0 0 13.229166 13.229167"
+   version="1.1"
+   id="svg17424"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs17421" />
+  <g
+     id="layer1">
+    <rect
+       x="0.92284977"
+       y="3.0137579"
+       width="1.9116877"
+       height="7.646841"
+       ry="0"
+       style="fill:#e9eaf0;stroke-width:0.900041;paint-order:stroke fill markers"
+       id="rect24979" />
+    <rect
+       x="3.2161543"
+       y="3.0137579"
+       width="1.9116877"
+       height="7.646841"
+       ry="0"
+       style="fill:#e9eaf0;stroke-width:0.900041;paint-order:stroke fill markers"
+       id="rect24981" />
+    <rect
+       x="5.5103593"
+       y="3.0137579"
+       width="1.9116877"
+       height="7.646841"
+       ry="0"
+       style="fill:#e9eaf0;stroke-width:0.900041;paint-order:stroke fill markers"
+       id="rect24983" />
+    <path
+       d="M 0.92284916,10.899019 H 2.8345372 c 0,0 2e-6,0.382347 0,0.764684 -1e-6,0.382338 -1.91168804,0.382338 -1.91168804,0 z"
+       style="fill:#e9eaf0;stroke-width:0.900041;paint-order:stroke fill markers"
+       id="path24985" />
+    <path
+       d="m 3.2161542,10.899019 h 1.911688 c 0,0 2e-6,0.382347 0,0.764684 -2e-6,0.382338 -1.911688,0.382338 -1.911688,0 z"
+       style="fill:#e9eaf0;stroke-width:0.900041;paint-order:stroke fill markers"
+       id="path24987" />
+    <path
+       d="m 5.5103592,10.899019 h 1.911688 c 0,0 2e-6,0.382347 0,0.764684 -1e-6,0.382338 -1.911688,0.382338 -1.911688,0 z"
+       style="fill:#e9eaf0;stroke-width:0.900041;paint-order:stroke fill markers"
+       id="path24989" />
+    <path
+       d="m 5.5103592,2.7743469 h 1.911688 c 0,0 2e-6,-0.382347 0,-0.764684 -1e-6,-0.382338 -1.911688,-0.382338 -1.911688,0 z"
+       style="fill:#e9eaf0;stroke-width:0.900041;paint-order:stroke fill markers"
+       id="path24991" />
+    <path
+       d="m 3.2161542,2.7743469 h 1.911688 c 0,0 2e-6,-0.382347 0,-0.764684 -2e-6,-0.382338 -1.911688,-0.382338 -1.911688,0 z"
+       style="fill:#e9eaf0;stroke-width:0.900041;paint-order:stroke fill markers"
+       id="path24993" />
+    <path
+       d="M 0.92284916,2.7743469 H 2.8345372 c 0,0 10e-7,-0.382347 0,-0.764684 -2e-6,-0.382338 -1.91168804,-0.382338 -1.91168804,0 z"
+       style="fill:#e9eaf0;stroke-width:0.900041;paint-order:stroke fill markers"
+       id="path24995" />
+    <rect
+       transform="rotate(-19.777)"
+       x="6.4138427"
+       y="6.0925179"
+       width="1.9116877"
+       height="7.646841"
+       ry="0"
+       style="fill:#e9eaf0;stroke-width:0.900041;paint-order:stroke fill markers"
+       id="rect24997" />
+    <path
+       d="m 10.7648,10.982723 1.798913,-0.646842 c 0,0 0.129363,0.359792 0.258735,0.719583 0.129363,0.359792 -1.669577,1.006607 -1.798913,0.646842 C 10.894172,11.342515 10.7648,10.982723 10.7648,10.982723 Z"
+       style="fill:#e9eaf0;stroke-width:0.900041;paint-order:stroke fill markers"
+       id="path24999" />
+    <path
+       d="m 8.0160742,3.3377729 1.798913,-0.646842 c 0,0 -0.129381,-0.359792 -0.258735,-0.719583 -0.129363,-0.359792 -1.928339,0.28705 -1.798913,0.646842 0.129381,0.359791 0.258735,0.719583 0.258735,0.719583 z"
+       style="fill:#e9eaf0;stroke-width:0.900041;paint-order:stroke fill markers"
+       id="path25001" />
+  </g>
+</svg>

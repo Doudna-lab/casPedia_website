@@ -50,42 +50,47 @@ class DynamicHtmlTemplate:
         return self.internal_path
 
 
-@app.route('/index.html')
-def index():
-    """Define route to the front page"""
-    return render_template('index.html')
-
-
-@app.route('/wiki/Coming_Soon.html')
-def coming():
-    """Define route to the coming soon page"""
-    return render_template('wiki/Coming_Soon.html')
-
-
-@app.route('/phylogeny_viewer.html')
-def phylo_viewer():
-    """Define route to the philogeny viewer page"""
-    return render_template('casPEDIA_Phylogeny_Viewer.html')
-
-
-@app.route('/fusion_proteins.html')
-def fusion_prot():
-    """Define route to the Fusion proteins page"""
-    return render_template('Fusion_Proteins.html')
-
-
-@app.route('/faq.html')
-def faq_page():
-    """Define route to the FAQ page"""
-    return render_template('FAQ.html')
-
-
 # Register a custom filter to treat None as empty string
 @app.template_filter('empty_string')
 def empty_string(value):
     if value is None:
         return ''
     return value
+
+
+@app.route('/index.html')
+def index():
+    """Define route to the front page"""
+    return render_template('index.html')
+
+
+@app.route('/coming_soon.html')
+def coming():
+    """Define route to the coming soon page"""
+    return render_template('coming_soon.html')
+
+
+@app.route('/phylogeny_viewer.html')
+def phylo_viewer():
+    """Define route to the philogeny viewer page"""
+    return render_template('phylogeny_viewer.html')
+
+
+@app.route('/fusion_proteins.html')
+def fusion_prot():
+    """Define route to the Fusion proteins page"""
+    return render_template('fusion_proteins.html')
+
+
+@app.route('/faq.html')
+def faq_page():
+    """Define route to the FAQ page"""
+    return render_template('faq.html')
+
+
+@app.route('/contact_us.html')
+def contactus():
+    return render_template('/contact_us.html')
 
 
 @app.route('/tool_finder.html')
@@ -101,11 +106,6 @@ def buffet():
                            targeting_requirement=tool_finder_menu.targeting_requirement or empty_string,
                            multiplex=tool_finder_menu.multiplex or empty_string
                            )
-
-
-@app.route('/contact_us.html')
-def contactus():
-    return render_template('/Contact.html')
 
 
 @app.route('/tool_finder', methods=['POST'])

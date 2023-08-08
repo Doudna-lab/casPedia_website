@@ -17,13 +17,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/casPedia_website/background_data/2023_03_28_Cas_family_tree_Naming.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
       </map>
     </option>
   </component>
