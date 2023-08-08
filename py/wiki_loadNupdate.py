@@ -2,6 +2,7 @@
 import os
 import re
 # Installed modules
+import requests
 import yaml
 import gdown
 import pandas as pd
@@ -13,6 +14,13 @@ from sqlalchemy.schema import CreateSchema as cschema
 # Project Imports
 from db_loadNupdate import psql_connect, get_absolute_path
 # from py.db_loadNupdate import psql_connect, get_absolute_path
+
+
+def map_2D_dictionary(dict1, dict2):
+	for entry_id in dict1:
+		if entry_id in set(dict2.keys()):
+			dict1[entry_id].update(dict2[entry_id])
+	return dict1
 
 
 def sql_table_to_df(conn_string, schema_name, table_name):
@@ -156,7 +164,7 @@ def format_master_table2wiki(id_to_df_dict, master_tbl, config_db):
 	master_row_names = config_db["master_to_wiki_col_format"]
 	out_dict = id_to_df_dict
 	for entry_id in id_to_df_dict:
-		print(f"\n\n****{entry_id}****\n\n")
+		# print(f"\n\n****{entry_id}****\n\n")
 		try:
 			# Slice the master table to select the relevant columns for further processing
 			master_slice_df = master_tbl[master_tbl[master_search_col] == entry_id][list(master_row_names.keys())]
@@ -169,14 +177,14 @@ def format_master_table2wiki(id_to_df_dict, master_tbl, config_db):
 			print(master_search_col)
 			continue
 		# Process the Cas_ID sprites tables
-		print(f"PRE PROCESSING OF {entry_id}:\n\n{master_slice_df}")
+		# print(f"PRE PROCESSING OF {entry_id}:\n\n{master_slice_df}")
 		master_slice_sprites_df = parse_casID_sprites(master_slice_df,
 		                                              config_db["cas_id_col"],
 		                                              config_db['cas_id_order'])
 		master_slice_sprites_df = master_slice_sprites_df.T
 		master_slice_sprites_df = master_slice_sprites_df.reset_index()
 		master_slice_sprites_df.columns = master_col_names
-		print(f"POST PROCESSING OF {entry_id}:\n\n{master_slice_sprites_df}")
+		# print(f"POST PROCESSING OF {entry_id}:\n\n{master_slice_sprites_df}")
 		# Process the Classification (current table name) table based on the master table
 		master_df = master_slice_df.T
 		master_df = master_df.rename(index=master_row_names).reset_index()
@@ -187,15 +195,107 @@ def format_master_table2wiki(id_to_df_dict, master_tbl, config_db):
 	return out_dict
 
 
+def collect_uniprot_tables(uniprot_id):
+	# QUERY UNIPROT AS JSON
+	url = f"https://rest.uniprot.org/uniprotkb/{uniprot_id}"
+	response = requests.get(url, headers={'Accept': 'application/json'})
+	json_response = response.json()
+
+	# COLLECT PFAM DATA
+	try:
+		pfams = [x for x in json_response['uniProtKBCrossReferences'] if x['database'] == 'Pfam']
+		pfam_rows = []
+
+		# FOR EACH PFAM_ID, COLLECT ID AND DESCRIPTION
+		for pfam in pfams:
+			pfam_id = pfam['id']
+			descriptions = [y['value'] for y in [x for x in pfam['properties'] if x["key"] == 'EntryName']]
+			pfam_row = [pfam_id, ";".join(descriptions)]
+			pfam_rows.append(pfam_row)
+
+		# PFAM DF
+		pfam_df = pd.DataFrame(pfam_rows, columns=["PFAM ID", "Description"])
+	except KeyError:
+		pfam_df = pd.DataFrame()
+
+	# COLLECT FEATURES FOR WIKI "DOMAIN" SECTION
+	try:
+		all_features = json_response['features']
+	except KeyError:
+		return pd.DataFrame(), pd.DataFrame()
+	domain_table_rows = []
+
+	# FOR EACH FEATURE, PARSE: Type, coordinates (start & end), ligand (if applicable), description, citations
+	for feature in all_features:
+		# FEATURE TYPE
+		feature_type = feature['type']
+
+		# FEATURE COORDINATES
+		locations = feature['location']
+		start = locations['start']['value']
+		try:
+			end = locations['end']['value']
+		except KeyError:
+			end = ""  # Empty str for items without end coordinate
+
+		# DESCRIPTION
+		description = feature['description']
+
+		# LIGAND
+		try:
+			ligand_str = feature['ligand']
+			ligand = f"{ligand_str['name']} ({ligand_str['id']})"  # Split ligand data as "value (source)"
+		except KeyError:
+			ligand = ""  # Empty str for items without ligands
+
+		# CITATIONS
+		try:
+			all_refs = []  # Allow for multiple citation sources
+			refs = feature['evidences']
+			for ref in refs:
+				all_refs.append(f"{ref['source']}_ID:{ref['id']}")  # Prep citation str as "source:value"
+		except KeyError:
+			refs = ""  # Empty str if no citation known
+
+		# DF ROW INFO
+		domain_row = [feature_type, start, end, ligand, description, ";".join(all_refs)]
+		domain_table_rows.append(domain_row)
+
+	# DOMAIN DF
+	domain_df = pd.DataFrame(domain_table_rows,
+	                         columns=['Feature Type', 'Start', 'End', 'Ligand', 'Description', 'Citations'])
+	return pfam_df, domain_df
+
+
+def format_pfam_domains(id_to_df_dict, config_db):
+	entry_to_pfam_tables_dict = {}
+	for entry_id in id_to_df_dict:
+		try:
+			df = id_to_df_dict[entry_id][config_db['pfam_source_table']]
+			pfam_search_id = df[df[config_db["pfam_rowname_harboing_col"]] == config_db['pfam_source_rowname']].loc[:,[config_db['pfam_id_harboring_col']]].to_string(header=False, index=False)
+			clean_pfam_search_id = re.sub(r'\s*[\[\{\(].*', '', pfam_search_id).strip()
+		except KeyError:
+			clean_pfam_search_id = None
+
+		pfam_df, domain_df = collect_uniprot_tables(clean_pfam_search_id)
+
+		entry_to_pfam_tables_dict.setdefault(entry_id, {}).setdefault('PFAM_Domains', pfam_df)
+		entry_to_pfam_tables_dict.setdefault(entry_id, {}).setdefault('Protein_Regions', domain_df)
+	return entry_to_pfam_tables_dict
+
+
 # Load config_render file
 with open(get_absolute_path("db_interaction.yaml"), "r") as f:
 	config = yaml.safe_load(f)
 
 
 def main():
+	# Load PSQL communication associated variables
 	schema = config["wiki_schema_prefix"]
 	conn_string = psql_connect(config)
+	# This program will update all entries in the wiki schemas. So the old schemas will be dropped
 	purge_wiki_schemas(conn_string, schema)
+	# Load the master wiki table
 	master_table = sql_table_to_df(conn_string, config["schema"], config["default_search_table"])
 
 	# Consolidate Cloud links and identifiers
@@ -209,8 +309,12 @@ def main():
 	pre_sheets_dict = id_to_sheets_dict.copy()
 	id_to_sheets_dict_updated = format_master_table2wiki(pre_sheets_dict, master_table, config)
 
+	# Load protein domains based on the UniProtKB assigned to the entries
+	pfam_tables_dict = format_pfam_domains(id_to_sheets_dict, config)
+	id_to_sheets_dict_pfam = map_2D_dictionary(id_to_sheets_dict_updated, pfam_tables_dict)
+
 	# Load forms into the Database
-	load_wiki_tables2db(id_to_sheets_dict_updated, conn_string, schema)
+	load_wiki_tables2db(id_to_sheets_dict_pfam, conn_string, schema)
 
 
 if __name__ == "__main__":

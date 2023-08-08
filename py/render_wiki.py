@@ -16,7 +16,6 @@ from py.render_word_search import sql_table_to_df
 from py.db_loadNupdate import psql_connect, get_absolute_path
 from py.render_search_result import generate_link
 
-
 # Load config_render file
 with open(get_absolute_path("db_interaction.yaml"), "r") as f:
 	config = yaml.safe_load(f)
@@ -40,7 +39,7 @@ def wiki_format_db2html(df, format_instructions):
 				# Use column names directly from PSQL to replace the patterns written on the associated config file
 				try:
 					target_replacement = re.sub(r"{{{{ {} }}}}".format(db_column_name),
-					                             input_dict[db_column_name][db_content_idx], target_replacement)
+					                            input_dict[db_column_name][db_content_idx], target_replacement)
 				except TypeError:
 					target_replacement = re.sub(r"{{{{ {} }}}}".format(re.escape(db_column_name)),
 					                            "", target_replacement)
@@ -104,14 +103,13 @@ def resolve_fasta_seq(df, seq_col_name, entry, export_path):
 	df_formatted = df.copy()
 	additional_id_col = f'{cols_list[cols_list.index(seq_col_name) - 1]}'
 
-
-
 	# df_formatted[additional_id_col] = df_formatted[additional_id_col].apply(lambda x: re.sub(r'\W+|_', ' ', str(x)))
 
 	# Format the FASTA-related column
 	df_formatted[seq_col_name] = df_formatted[seq_col_name].apply(
 		lambda x: re.sub(r'\W+', '', str(x)))
-	df_formatted["Sequence_FASTA"] = ">" + entry + '|' + df_formatted[additional_id_col] + "\n" + df_formatted[seq_col_name]
+	df_formatted["Sequence_FASTA"] = ">" + entry + '|' + df_formatted[additional_id_col] + "\n" + df_formatted[
+		seq_col_name]
 	df_formatted["Export_FASTA"] = export_path + entry + '_' + df_formatted[additional_id_col] + ".fasta"
 
 	df_formatted["Export_FASTA"] = df_formatted["Export_FASTA"].apply(
@@ -133,7 +131,8 @@ def resolve_fasta_seq(df, seq_col_name, entry, export_path):
 
 def reference_catalog(html_string, reference_list):
 	loop_html_string = html_string
-	for reference_hit in re.findall(r'"(?:https?://)?doi\.org/(\S+)" target="_blank">\|reference_idx\|</a>', html_string):
+	for reference_hit in re.findall(r'"(?:https?://)?doi\.org/(\S+)" target="_blank">\|reference_idx\|</a>',
+	                                html_string):
 		current_reference_idx = len(reference_list) + 1
 
 		if reference_hit in set(reference_list):
@@ -274,7 +273,7 @@ def save_references(doi_to_citation_dict, config_db):
 
 
 class DynamicWiki:
-	
+
 	def __init__(self, config_db, page_path):
 		"""
 		A DynamicWiki object is a container that stores HTML formatted blocks for every
@@ -317,7 +316,8 @@ class DynamicWiki:
 				# Discard any empty rows
 				no_empty_rows_section_df = remove_empty_rows(section_df, section["n_of_index_cols"])
 				# Check if there are any dedicated FASTA sequences in the table and resolve them accordingly
-				no_empty_rows_section_df = resolve_fasta_seq(no_empty_rows_section_df, config_db['wiki_sequence_col_name'],
+				no_empty_rows_section_df = resolve_fasta_seq(no_empty_rows_section_df,
+				                                             config_db['wiki_sequence_col_name'],
 				                                             self.entry_id, config_db['raw_fasta_path'])
 				self.content_check = True
 			except ProgrammingError:
@@ -337,17 +337,23 @@ class DynamicWiki:
 				no_empty_rows_section_df = no_empty_rows_section_df[
 					no_empty_rows_section_df.loc[:, "Application_Type"] == 'Human_Clinical_Trial']
 
+			# The 2nd exception is the 'Structural' table, from which, in V1, only the 1st entry is processed
+			if re.search(r'^structure$', section_title):
+				no_empty_rows_section_df = no_empty_rows_section_df.head(1)
+
 			# Generate an HTML string following the format instructions defined in the config file
 			html_content = wiki_format_db2html(no_empty_rows_section_df, section["format"])
 
-			# The 2nd formatting exception is exp_details -> the html_content is modified
+			# The 3rd formatting exception is exp_details -> the html_content is modified
 			#  to generate a table from the pandas DF
-			if re.search(r'^exp_details$', section_title):
+			if re.search(r'^exp_details$', section_title) or \
+					re.search(r'^pfam$', section_title) or \
+					re.search(r'^domains$', section_title):
 				html_content = str(no_empty_rows_section_df.to_html(index=False))
 				# Header adjustments
 				html_content = html_content.replace('<table border="1" class="dataframe">',
-				                            f"<div class='table-wrap'>\n<table class='wiki-table'>\n"
-				                            f"\n<span class='sr-only'>\n</span></caption>")
+				                                    f"<div class='table-wrap'>\n<table class='wiki-table'>\n"
+				                                    f"\n<span class='sr-only'>\n</span></caption>")
 				html_content = html_content.replace('</table>', '</table>\n</div>')
 				# Replace &lt; with <
 				html_content = html_content.replace('&lt;', '<')
@@ -370,7 +376,7 @@ class DynamicWiki:
 def run(entry_path, psql_config):
 	"""Generate Wiki Entry Object"""
 	wiki_entry = DynamicWiki(psql_config, entry_path)
-	# wiki_entry = DynamicWiki(config, 'LbCas12g.html')
+	# wiki_entry = DynamicWiki(config, 'Cas12j2.html')
 
 	save_references(wiki_entry.doi_dict, psql_config)
 	# save_references(wiki_entry.doi_dict, config)

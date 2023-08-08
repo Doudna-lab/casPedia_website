@@ -86,7 +86,15 @@ wiki_template_path: "wiki_template.html"
 # Wiki Sheets manifest
 links_column: "Curation_Link"
 wiki_schema_prefix: "wiki"
-#
+
+
+# WIKI PFAM instructions
+#   The information used to fetch PFAM information will be extracted from the 'Resources' table
+#   based on the following row/column:
+pfam_source_table: "Resources"
+pfam_id_harboring_col: "Value"
+pfam_rowname_harboing_col: "Resource"
+pfam_source_rowname: "UniProtKB"
 
 # Wiki association of table names between PSQL and intake forms
 wiki_sections:
@@ -118,12 +126,7 @@ wiki_sections:
       n_of_index_cols: 1
   - exp_details:
       tbl_name: "Experimental_Details"
-      format: '<h5>{{ Tool_Type }}</h5>
-              <ul>
-                <li class="ul-ul"> Tool: {{ Tool }}</li>
-                <li class="ul-ul"> Is the tool applicable: {{ Is_Tool_Applicable }}</li>
-                <li class="ul-ul"> Notes: {{ Notes }} {{ Citation }}</li>
-              </ul>'
+      format: '' #Directly displayed as a table
       n_of_index_cols: 2
   - gene_editing_human:
       tbl_name: "Gene_Editing_Examples"
@@ -164,9 +167,18 @@ wiki_sections:
                 <span>{{ Description }}</span>
               </ul>'
       n_of_index_cols: 1
+  - pfam:
+      tbl_name: "PFAM_Domains"
+      format: '' #Directly displayed as a table
+      n_of_index_cols: 1
+  - domains:
+      tbl_name: "Protein_Regions"
+      format: '' #Directly displayed as a table
+      n_of_index_cols: 1
   - structure:
       tbl_name: "Structural"
-      format: '<li><span style="color: #5758ff;font-weight: bold;">{{ Resource }}</span><a href="{{ Link }}" target="_blank"> {{ Value }}</a></li>'
+      format: |
+        <div style="height: 400px; width: 100%; position: relative;" class='viewer_3Dmoljs' data-style='cartoon' data-pdb='{{ PDB_IDs }}'></div>
       n_of_index_cols: 0
 references:
   format: '<ul>

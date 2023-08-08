@@ -131,14 +131,13 @@ def wiki_page(page):
     # Infer the entry identifier from the HTML page route
     entry_id = re.sub(fr"\b.html\b", '', page)
 
-    # Get the page name associated with a given Wiki entry and set a filepath
+    # # Get the page name associated with a given Wiki entry and set a filepath
     new_wiki_path = f'{tbl_render_config["dir_root_template_path"]}{os.sep}' \
                     f'{tbl_render_config["temp_wiki_dir_path"]}{os.sep}{page}'
-
+    #
     # Check whether that wiki entry exists or not. And create a new page if necessary
-    wiki_path_obj = Path(new_wiki_path)
-    if not wiki_path_obj.is_file():
-        shutil.copy(tbl_render_config["wiki_template_path"], new_wiki_path)
+    # wiki_path_obj = Path(new_wiki_path)
+    shutil.copy(tbl_render_config["wiki_template_path"], new_wiki_path)
 
     # Get the wiki pickles path associated with a given Wiki entry and set a filepath
     pickles_path = f'{psql_config["pickles_path"]}{os.sep}{entry_id}.pkl'
@@ -171,6 +170,9 @@ def wiki_page(page):
                            tools=wiki_entry.tools or empty_string,
                            variants=wiki_entry.variants or empty_string,
                            exp_details=wiki_entry.exp_details or empty_string,
+                           pfam=wiki_entry.pfam or empty_string,
+                           domains=wiki_entry.domains or empty_string,
+                           structure=wiki_entry.structure or empty_string,
                            references=wiki_entry.formatted_references or empty_string
                            )
 
