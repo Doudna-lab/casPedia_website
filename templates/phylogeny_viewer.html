@@ -1,99 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phylogeny</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}" >
-  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png" >
-  <style>
-    .section {
-      background-color: #ffffff;
-      border-radius: 5px;
-      padding: 10px;
-      box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-      border: 1px solid #dddddd;
-    }
-    .svg-container {
-      width: 85%;
-      height: 85%;
-      border: 3px solid #cccccc;
-      overflow: hidden; 
-      cursor: grab;
-      margin: 0 auto;
-      box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) 
-    }
-    /* Styles for the hoverable popup panel */
-    .popup-panel {
-      position: absolute;
-      display: none;
-      background-color: #f1f1f1;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 10px;
-      z-index: 999;
-    }
-    .hoverable-text {
-      cursor: pointer;
-      color: transparent;
-    }
-    .popup-link {
-      color: #007bff;
-      text-decoration: underline;
-      cursor: pointer;
-    }  
-    .tab-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-      margin-bottom: 0px;
-    }
-    .tab-button {
-      background-color: #e9e9ed;
-      border: 1px solid #cccccc;
-      border-radius: 5px;
-      padding: 10px 20px;
-      cursor: pointer;
-      transition: box-shadow 0.3s;
-      box-shadow: 0 0 0 rgba(0, 0, 0, 0); /* Start with no shadow */
-    }
-    .tab-button:hover {
-      background-color: #dddddd;
-      box-shadow: 0 12px 12px rgba(0, 0, 0.5, 0.5);
-    }
-    .tab-content {
-      display: none;
-      padding: 20px;
-    }
-    .tab-content.active {
-      display: block;
-    }
-  </style>
-</head>
-<body>
-  <!-- Logo -->
-  <header>
-    <!-- logo -->
-    <a href="/index.html">
-      <img id="logo" src="{{url_for('static', filename='img/ph_logo.svg')}}" alt="IGI logo">
-    </a>
-    <!-- second logo -->
-    <a href="https://innovativegenomics.org/" target="_blank">
-      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
-    </a>
-  </header>
+  {% extends "layout.html" %}
 
-  <!-- Search Box -->
-  <div id="search-container">
-    <form action='{{ url_for("gfg")}}' method="POST">
-      <label for="search-box"></label><textarea id="search-box" name="search-box" rows="1" cols="50" placeholder="input sequence or term"></textarea>
-      <input type="submit" value="Submit" name="seq-input">
-    </form>
-  </div>
+  {% block content %}
 
   <!-- Page Title -->
-  <div style="background-color:#202123">
-    <h1><span style="color:#FFFFFF">PHYLOGENY</span></h1>
+  <div class="abstract">
+    <h2>Phylogeny</h2>
   </div>
   <!-- Hoverable popup panel -->
   <div class="popup-panel" id="popupPanel">
@@ -109,22 +20,21 @@
 
   <!-- Tab Content: Type II -->
   <div class="tab-content active" id="TypeII">
+  	<div class="summary">
     <!-- Page Title -->
-    <div style="background-color:#202123;display:flex;width:95%;justify-content:center;align-items:center;margin:auto">
-      <h2 style="display:flex;text-align:center;font-size:42px;justify-content:center;align-items:center;margin:auto"><span style="color:#FFFFFF">TYPE II </span></h2>
-    </div>
+		<div class="abstract">
+		  <h2>Type II</h2>
+	<!-- Text Summaries -->
+			<h2>Summary</h2>
+			<div class="grid-container">
+				<p>Cas9 is the most widely used gene editor of the CRISPR family and the first CRISPR nuclease with demonstrated programmable RNA-guided activity <sup><a href="https://doi.org/10.1126/science.1225829" target="_blank">1</a></sup>. The conventional classification divides type II CRISPR-Cas, or Cas9, systems into subtypes II-A, II-B, and II-C, and is based on multiple criteria. However, the basis of this classification is the presence of signature proteins in the CRISPR-Cas9 locus and the locus organization <sup><a href="https://doi.org/10.1038/nrmicro2577" target="_blank">2,</a></sup><sup><a href="https://doi.org/10.4161/rna.24321" target="_blank">3,</a></sup><sup><a href="https://doi.org/10.4161/rna.24022" target="_blank">4,</a></sup><sup><a href="https://doi.org/10.1093/nar/gkt1074" target="_blank">5,</a></sup><sup><a href="https://doi.org/10.1038/nrmicro3569" target="_blank">6</a></sup>. A finer division of type II proteins into clades I-X based on Cas9 phylogeny which reproduces the subtypes II-A,B,C separation into groups of clades was made in <sup><a href="https://doi.org/10.1038/s41467-020-19344-1" target="_blank">7</a></sup>. Finally, recent studies have reported functional characterization and gene editing ability of compact RNA-guided ancestors of Cas9 proteins, which are referred to as IscBs and HEAROs. In addition, a new subtype II-D that includes compact Cas9s homologous to these ancestors has been proposed <sup><a href="https://doi.org/10.1126/science.abj6856" target="_blank">8,</a></sup><sup><a href="https://doi.org/10.1038/s41467-022-35257-7" target="_blank">9,</a></sup><sup><a href="https://doi.org/10.1021/acs.biochem.3c00159" target="_blank">10</a></sup>.</p>
 
-    <!-- Text Summaries -->
-    <h2 class="section_header" style="text-align:center;font-weight:bold">SUMMARY</h2>
-    <div class="grid-container">
-      <div class="section">
-        <p>Cas9 is the most widely used gene editor of the CRISPR family and the first CRISPR nuclease with demonstrated programmable RNA-guided activity <sup><a href="https://doi.org/10.1126/science.1225829" target="_blank">1</a></sup>. The conventional classification divides type II CRISPR-Cas, or Cas9, systems into subtypes II-A, II-B, and II-C, and is based on multiple criteria. However, the basis of this classification is the presence of signature proteins in the CRISPR-Cas9 locus and the locus organization <sup><a href="https://doi.org/10.1038/nrmicro2577" target="_blank">2,</a></sup><sup><a href="https://doi.org/10.4161/rna.24321" target="_blank">3,</a></sup><sup><a href="https://doi.org/10.4161/rna.24022" target="_blank">4,</a></sup><sup><a href="https://doi.org/10.1093/nar/gkt1074" target="_blank">5,</a></sup><sup><a href="https://doi.org/10.1038/nrmicro3569" target="_blank">6</a></sup>. A finer division of type II proteins into clades I-X based on Cas9 phylogeny which reproduces the subtypes II-A,B,C separation into groups of clades was made in <sup><a href="https://doi.org/10.1038/s41467-020-19344-1" target="_blank">7</a></sup>. Finally, recent studies have reported functional characterization and gene editing ability of compact RNA-guided ancestors of Cas9 proteins, which are referred to as IscBs and HEAROs. In addition, a new subtype II-D that includes compact Cas9s homologous to these ancestors has been proposed <sup><a href="https://doi.org/10.1126/science.abj6856" target="_blank">8,</a></sup><sup><a href="https://doi.org/10.1038/s41467-022-35257-7" target="_blank">9,</a></sup><sup><a href="https://doi.org/10.1021/acs.biochem.3c00159" target="_blank">10</a></sup>.</p>
+						<p>For convenience, Caspedia phylogenetic tree integrates two classifications of Cas9 according to subtypes A,B,C, and to phylogenetic clades I-X, and in addition, includes clade U with type II-D, and IscB, HEARO RNA-guided nucleases.</p>
 
-				<p>For convenience, Caspedia phylogenetic tree integrates two classifications of Cas9 according to subtypes A,B,C, and to phylogenetic clades I-X, and in addition, includes clade U with type II-D, and IscB, HEARO RNA-guided nucleases.</p>
-
-				<p>The phylogenetic tree was generated with Cas9 sequences acquired from (Gasiunas et al. 2020) with minor modifications, sequences from public databases, from selected studies with in vivo editing data <sup><a href="https://doi.org/10.1038/nature14299" target="_blank">11,</a></sup><sup><a href="https://doi.org/10.1038/mt.2015.218" target="_blank">12,</a></sup><sup><a href="https://doi.org/10.1038/s41467-017-01408-4" target="_blank">13,</a></sup><sup><a href="https://doi.org/10.1016/S2213-8587(17)30239-5" target="_blank">14,</a></sup><sup><a href="https://doi.org/10.1073/pnas.1818461116" target="_blank">15,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2018.12.003" target="_blank">16,</a></sup><sup><a href="https://doi.org/10.1371/journal.pbio.3000686" target="_blank">17,</a></sup><sup><a href="https://doi.org/10.1038/s41467-021-24454-5" target="_blank">18,</a></sup><sup><a href="https://doi.org/10.1093/nar/gkab148" target="_blank">19,</a></sup><sup><a href="https://doi.org/10.1126/science.abj6856" target="_blank">8,</a></sup><sup><a href="https://doi.org/10.1038/s41467-022-35257-7" target="_blank">9</a></sup>, and from the literature on published Cas9 and IscB structures <sup><a href="https://doi.org/10.1126/science.1247997" target="_blank">20,</a></sup><sup><a href="https://doi.org/10.1126/science.aab1452" target="_blank">21,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2015.08.007" target="_blank">22,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2019.09.012" target="_blank">23,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2017.02.007" target="_blank">24,</a></sup><sup><a href="https://doi.org/10.1038/s41467-019-09741-6" target="_blank">25,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2019.09.025" target="_blank">26,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2016.01.039" target="_blank">27,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2016.01.039" target="_blank">27,</a></sup><sup><a href="https://doi.org/10.1126/science.abq7220" target="_blank">28,</a></sup><sup><a href="https://doi.org/10.1038/s41467-022-34378-3" target="_blank">29</a></sup>.</p>
-      </div>
-    </div>
+						<p>The phylogenetic tree was generated with Cas9 sequences acquired from (Gasiunas et al. 2020) with minor modifications, sequences from public databases, from selected studies with in vivo editing data <sup><a href="https://doi.org/10.1038/nature14299" target="_blank">11,</a></sup><sup><a href="https://doi.org/10.1038/mt.2015.218" target="_blank">12,</a></sup><sup><a href="https://doi.org/10.1038/s41467-017-01408-4" target="_blank">13,</a></sup><sup><a href="https://doi.org/10.1016/S2213-8587(17)30239-5" target="_blank">14,</a></sup><sup><a href="https://doi.org/10.1073/pnas.1818461116" target="_blank">15,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2018.12.003" target="_blank">16,</a></sup><sup><a href="https://doi.org/10.1371/journal.pbio.3000686" target="_blank">17,</a></sup><sup><a href="https://doi.org/10.1038/s41467-021-24454-5" target="_blank">18,</a></sup><sup><a href="https://doi.org/10.1093/nar/gkab148" target="_blank">19,</a></sup><sup><a href="https://doi.org/10.1126/science.abj6856" target="_blank">8,</a></sup><sup><a href="https://doi.org/10.1038/s41467-022-35257-7" target="_blank">9</a></sup>, and from the literature on published Cas9 and IscB structures <sup><a href="https://doi.org/10.1126/science.1247997" target="_blank">20,</a></sup><sup><a href="https://doi.org/10.1126/science.aab1452" target="_blank">21,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2015.08.007" target="_blank">22,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2019.09.012" target="_blank">23,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2017.02.007" target="_blank">24,</a></sup><sup><a href="https://doi.org/10.1038/s41467-019-09741-6" target="_blank">25,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2019.09.025" target="_blank">26,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2016.01.039" target="_blank">27,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2016.01.039" target="_blank">27,</a></sup><sup><a href="https://doi.org/10.1126/science.abq7220" target="_blank">28,</a></sup><sup><a href="https://doi.org/10.1038/s41467-022-34378-3" target="_blank">29</a></sup>.</p>
+			</div>
+		</div>
+	</div>
     <br>
 
     <!-- Hoverable SVG content -->
@@ -158,7 +68,7 @@
 				.sta21{fill:#999999;stroke:#999999;stroke-width:0.8716;stroke-linecap:square;stroke-miterlimit:8.7165;}
 				.sta22{fill:#EEEEBB;stroke:#EEEEBB;stroke-width:0.8716;stroke-linecap:square;stroke-miterlimit:8.7165;}
 				.sta23{fill:#F0E6FF;stroke:#F0E6FF;stroke-width:0.8716;stroke-linecap:square;stroke-miterlimit:8.7165;}
-				
+
 					.sta24{fill:none;stroke:#AAAAAA;stroke-width:0.2615;stroke-linecap:round;stroke-miterlimit:8.7165;stroke-dasharray:4.3582,8.7165;stroke-dashoffset:8;}
 				.sta25{font-size:6.9732px;}
 				.sta26{fill:none;stroke:#000000;stroke-width:2.6149;stroke-linecap:round;stroke-miterlimit:8.7165;}
@@ -7904,17 +7814,17 @@
 				</g>
 			</g>
 			<g id="Layer_3">
-				<path class="hoverable-text" data-content="Example Enzyme: SpyCas9a wiki" data-link="http://caspedia.org/wiki/SpyCas9a.html"  d="M1650.9,1260.3l-392.5,1080.9c-192.3-69.8-362.6-189.8-493.1-347.3s-216.7-347.2-249.5-549.2L1650.9,1260.3z" fill="transparent"/>
-				<path class="hoverable-text" data-content="III"  d="M1651.4,1260.4l729.2,889.2c-205.6,168.6-463.4,260.8-729.2,260.8c-126.5,0-252.2-20.9-372-61.8L1651.4,1260.4z" data-link="http://caspedia.org/wiki/Coming_Soon.html" fill="transparent"/>
-				<path class="hoverable-text" data-content="II"  d="M1652.1,1261.3l785.8,839.7c-6.7,6.3-13.6,12.5-20.4,18.7s-13.9,12.2-20.9,18.2L1652.1,1261.3z" data-link="http://caspedia.org/wiki/Coming_Soon.html" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: FnCas9b wiki" data-link="http://caspedia.org/wiki/FnCas9b.html"  d="M1650.9,1260.3l914.9,696.7c-17.5,23-35.9,45.4-55.1,67c-19.2,21.6-39.2,42.5-60,62.6L1650.9,1260.3z" fill="transparent"/>
-				<path class="hoverable-text" data-content="V"  d="M1652,1260.4l1145.1-106.2c3.3,35.3,4.9,70.7,4.9,106.2c0,245.9-78.9,485.4-224.9,683.2L1652,1260.4z" data-link="http://caspedia.org/wiki/Coming_Soon.html" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: Nme2Cas9c wiki" data-link="http://caspedia.org/wiki/Nme2Cas9c.html"  d="M1650.9,1260.4l455.2-1056.1c184.7,79.6,345.3,206.3,465.7,367.3s196.6,350.9,220.7,550.6L1650.9,1260.4z" fill="transparent"/>
-				<path class="hoverable-text" data-content="VII"  d="M1651.6,1260.3l400.1-1078.2c6.4,2.4,12.8,4.8,19.2,7.3s12.7,5.1,19.1,7.7L1651.6,1260.3z" data-link="http://caspedia.org/wiki/Coming_Soon.html" fill="transparent"/>
-				<path class="hoverable-text" data-content="X"  d="M1651.8,1260.3L1218.1,195.2c137.7-56.1,285-84.9,433.7-84.9c131,0,261,22.4,384.4,66.1L1651.8,1260.3z" data-link="http://caspedia.org/wiki/Coming_Soon.html" fill="transparent"/>
-				<path class="hoverable-text" data-content="VIII"  d="M1650.9,1260.3l-586.7-989.1c22-13.1,44.4-25.4,67.3-36.9s46-22.3,69.6-32.4L1650.9,1260.3z" data-link="http://caspedia.org/wiki/Coming_Soon.html" fill="transparent"/>
-				<path class="hoverable-text" data-content="IX"  d="M1650.9,1260.4L543.2,951.6c38.6-138.6,103-268.8,189.6-383.7c86.7-114.9,194.1-212.5,316.8-287.8L1650.9,1260.4z" data-link="http://caspedia.org/wiki/Coming_Soon.html" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: HEARO wiki" data-link="http://caspedia.org/wiki/HEARO.html"  d="M1647.5,1274.8l-1151-7.6c0.3-51,4.1-102,11.2-152.5c7.1-50.5,17.6-100.6,31.3-149.7L1647.5,1274.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: SpyCas9a wiki" data-link="http://caspedia.org/wiki/SpyCas9a.html"  d="M1650.9,1260.3l-392.5,1080.9c-192.3-69.8-362.6-189.8-493.1-347.3s-216.7-347.2-249.5-549.2L1650.9,1260.3z" fill="transparent"/>
+				<path class="hoverable-text" data-content="III"  d="M1651.4,1260.4l729.2,889.2c-205.6,168.6-463.4,260.8-729.2,260.8c-126.5,0-252.2-20.9-372-61.8L1651.4,1260.4z" data-link="http://caspedia.org/coming_soon.html" fill="transparent"/>
+				<path class="hoverable-text" data-content="II"  d="M1652.1,1261.3l785.8,839.7c-6.7,6.3-13.6,12.5-20.4,18.7s-13.9,12.2-20.9,18.2L1652.1,1261.3z" data-link="http://caspedia.org/coming_soon.html" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: FnCas9b wiki" data-link="http://caspedia.org/wiki/FnCas9b.html"  d="M1650.9,1260.3l914.9,696.7c-17.5,23-35.9,45.4-55.1,67c-19.2,21.6-39.2,42.5-60,62.6L1650.9,1260.3z" fill="transparent"/>
+				<path class="hoverable-text" data-content="V"  d="M1652,1260.4l1145.1-106.2c3.3,35.3,4.9,70.7,4.9,106.2c0,245.9-78.9,485.4-224.9,683.2L1652,1260.4z" data-link="http://caspedia.org/coming_soon.html" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: Nme2Cas9c wiki" data-link="http://caspedia.org/wiki/Nme2Cas9c.html"  d="M1650.9,1260.4l455.2-1056.1c184.7,79.6,345.3,206.3,465.7,367.3s196.6,350.9,220.7,550.6L1650.9,1260.4z" fill="transparent"/>
+				<path class="hoverable-text" data-content="VII"  d="M1651.6,1260.3l400.1-1078.2c6.4,2.4,12.8,4.8,19.2,7.3s12.7,5.1,19.1,7.7L1651.6,1260.3z" data-link="http://caspedia.org/coming_soon.html" fill="transparent"/>
+				<path class="hoverable-text" data-content="X"  d="M1651.8,1260.3L1218.1,195.2c137.7-56.1,285-84.9,433.7-84.9c131,0,261,22.4,384.4,66.1L1651.8,1260.3z" data-link="http://caspedia.org/coming_soon.html" fill="transparent"/>
+				<path class="hoverable-text" data-content="VIII"  d="M1650.9,1260.3l-586.7-989.1c22-13.1,44.4-25.4,67.3-36.9s46-22.3,69.6-32.4L1650.9,1260.3z" data-link="http://caspedia.org/coming_soon.html" fill="transparent"/>
+				<path class="hoverable-text" data-content="IX"  d="M1650.9,1260.4L543.2,951.6c38.6-138.6,103-268.8,189.6-383.7c86.7-114.9,194.1-212.5,316.8-287.8L1650.9,1260.4z" data-link="http://caspedia.org/coming_soon.html" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: HEARO wiki" data-link="http://caspedia.org/wiki/HEARO.html"  d="M1647.5,1274.8l-1151-7.6c0.3-51,4.1-102,11.2-152.5c7.1-50.5,17.6-100.6,31.3-149.7L1647.5,1274.8z" fill="transparent"/>
 			</g>
 			</svg>
 
@@ -7923,29 +7833,27 @@
     <div class="popup-panel" id="popupPanel">
       <!-- Add content to the popup panel -->
       <a class="popup-link" id="popupLink" href="#" target="_blank">Content to show in the popup panel.</a>
-    </div>    
+    </div>
   </div>
 
   <div class="tab-content" id="TypeV">
-
-      <!--Title -->
-      <div style="background-color:#202123;display:flex;width:95%;justify-content:center;align-items:center;margin:auto">
-        <h2 style="display:flex;text-align:center;font-size:42px;justify-content:center;align-items:center;margin:auto"><span style="color:#FFFFFF">TYPE V</span></h2>
-      </div>
-
-      <!-- Text Summaries -->
-      <h2 class="section_header" style="text-align:center;font-weight:bold">SUMMARY</h2>
-      <div class="grid-container">
-        <div class="section">
-        <p>Cas12 enzymes are RNA-guided nucleases and are the defining component of Type V CRISPR systems <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30</a></sup>. These enzymes appear to have evolved from TnpB proteins encoded within IS200/IS605 family mobile genetic elements, potentially on multiple occasions <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30,</a></sup><sup><a href="https://doi.org/10.1038/s41586-021-04058-1" target="_blank">31,</a></sup><sup><a href="https://doi.org/10.1126/science.abj6856" target="_blank">8</a></sup>. Of the Class 2 CRISPR enzymes, Cas12 proteins appear to be the most biochemically diverse by Cas enzymatic classification and thus suited for a wide variety of applications including, but also beyond, gene editing <sup><a href="https://doi.org/10.1126/science.aar6245" target="_blank">32,</a></sup><sup><a href="https://doi.org/10.1126/science.aav7271" target="_blank">33,</a></sup><sup><a href="https://doi.org/10.1126/science.aax9181" target="_blank">34</a></sup>. With the notable exception of Cas12k which directs transposition of a Tn7 transposase, the activity of these enzymes tends to be self-contained and not reliant on additional proteins <sup><a href="https://doi.org/10.1126/science.aax9181" target="_blank">34</a></sup>. In addition to being a biochemically diverse family, they exhibit great genetic diversity, with some subtypes forming polyphyletic clades (ex. Cas12f) <sup><a href="https://doi.org/10.1126/science.aav4294" target="_blank">35</a></sup>. As within-subfamily clades continue to be characterized biochemically, researchers have (and will likely continue to) find divisions of enzymatic activity, such as recently reported with Cas12c2 and Cas12a2 <sup><a href="https://doi.org/10.1016/j.molcel.2022.04.020" target="_blank">36,</a></sup><sup><a href="https://doi.org/10.1038/s41586-022-05559-3" target="_blank">37,</a></sup><sup><a href="https://doi.org/10.1038/s41586-022-05560-w" target="_blank">38</a></sup>.</p>
+		<div class="summary">
+    <!-- Page Title -->
+		<div class="abstract">
+		  <h2>Type V</h2>
+	<!-- Text Summaries -->
+			<h2>Summary</h2>
+			<div class="grid-container">
+				         <p>Cas12 enzymes are RNA-guided nucleases and are the defining component of Type V CRISPR systems <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30</a></sup>. These enzymes appear to have evolved from TnpB proteins encoded within IS200/IS605 family mobile genetic elements, potentially on multiple occasions <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30,</a></sup><sup><a href="https://doi.org/10.1038/s41586-021-04058-1" target="_blank">31,</a></sup><sup><a href="https://doi.org/10.1126/science.abj6856" target="_blank">8</a></sup>. Of the Class 2 CRISPR enzymes, Cas12 proteins appear to be the most biochemically diverse by Cas enzymatic classification and thus suited for a wide variety of applications including, but also beyond, gene editing <sup><a href="https://doi.org/10.1126/science.aar6245" target="_blank">32,</a></sup><sup><a href="https://doi.org/10.1126/science.aav7271" target="_blank">33,</a></sup><sup><a href="https://doi.org/10.1126/science.aax9181" target="_blank">34</a></sup>. With the notable exception of Cas12k which directs transposition of a Tn7 transposase, the activity of these enzymes tends to be self-contained and not reliant on additional proteins <sup><a href="https://doi.org/10.1126/science.aax9181" target="_blank">34</a></sup>. In addition to being a biochemically diverse family, they exhibit great genetic diversity, with some subtypes forming polyphyletic clades (ex. Cas12f) <sup><a href="https://doi.org/10.1126/science.aav4294" target="_blank">35</a></sup>. As within-subfamily clades continue to be characterized biochemically, researchers have (and will likely continue to) find divisions of enzymatic activity, such as recently reported with Cas12c2 and Cas12a2 <sup><a href="https://doi.org/10.1016/j.molcel.2022.04.020" target="_blank">36,</a></sup><sup><a href="https://doi.org/10.1038/s41586-022-05559-3" target="_blank">37,</a></sup><sup><a href="https://doi.org/10.1038/s41586-022-05560-w" target="_blank">38</a></sup>.</p>
 
 				<p>The above tree was produced using data from the most recent phylogenetic analysis of Cas12 proteins <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30</a></sup>as well as recent reports of Cas12 enzymes since then including Cas12j (previously known as Casphi), CasLambda and Cas12L <sup><a href="https://doi.org/10.1126/science.abb1400" target="_blank">39,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2022.10.020" target="_blank">40,</a></sup><sup><a href="https://doi.org/10.15252/embr.202255481" target="_blank">41</a></sup>and Cas12 ancestor, TnpB <sup><a href="https://doi.org/10.1038/s41586-021-04058-1" target="_blank">31</a></sup>. In general Cas12 proteins are labeled a to n in order of discovery/characterization with the exception of CasPhi and CasLambda owing to their viral origin <sup><a href="https://doi.org/10.1126/science.abb1400" target="_blank">39,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2022.10.020" target="_blank">40</a></sup>. Some Cas12 proteins without known function appear widespread and have only recently been characterized: Cas12k (Cas12 U5), Cas12m (Cas12 U1), and Cas12n (Cas12 U4) <sup><a href="https://doi.org/10.1126/science.aax9181" target="_blank">34,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2022.11.003" target="_blank">42,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2023.06.014" target="_blank">43</a></sup>. Two remaining Cas12 families are to-date uncharacterized, Cas12 U2 and Cas12 U3. Only complete Cas12 sequences (using non-truncated RuvC domains) were used. From these sequences, Cas12 proteins were aligned using MUSCLE, trees constructed with IQ-TREE, rooted against TnpB, and visualized with iTOL <sup><a href="https://doi.org/10.1093/nar/gkh340" target="_blank">44,</a></sup><sup><a href="https://doi.org/10.1093/molbev/msu300" target="_blank">45,</a></sup><sup><a href="https://doi.org/10.1093/nar/gkab301" target="_blank">46</a></sup>. Trees were manually curated by pruning errant Cas12 leaves.</p>
-        </div>
-      </div>
+			</div>
+		</div>
+	</div>
       <br>
 
       <!-- Hoverable SVG content -->
-			      <div class="svg-container" id="svgContainer">
+	  <div class="svg-container" id="svgContainer">
 			        <?xml version="1.0" encoding="utf-8"?>
 			<!-- Generator: Adobe Illustrator 27.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 			<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -12067,32 +11975,32 @@
 				<text transform="matrix(1 0 0 1 1712.1249 1219.3392)" class="stb44 stb76">k</text>
 			</g>
 			<g id="Layer_3">
-				<path class="hoverable-text" data-content="Example Enzyme: AsCas12a wiki" data-link="http://caspedia.org/wiki/AsCas12a.html"  d="M1109.7,782.8l-426.6,555c-69.5-53.4-128.4-119.5-173.5-194.7s-75.7-158.2-90.2-244.7L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: SuCas12a2 wiki" data-link="http://caspedia.org/wiki/SuCas12a2.html"  d="M1109.7,782.8l-353,604.5c-11.5-6.7-22.8-13.8-33.9-21.1s-22-15-32.6-23L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: UnCas12c2 wiki" data-link="http://caspedia.org/wiki/UnCas12c2.html"  d="M1109.7,782.8l-206,669c-24.1-7.4-47.7-16.1-70.8-26.1s-45.7-21.1-67.6-33.5L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: Cas12c1 wiki" data-link="http://caspedia.org/wiki/Cas12c1.html"  d="M1109.7,782.8l-178.1,677c-3.1-0.8-6.2-1.7-9.3-2.5c-3.1-0.9-6.2-1.7-9.3-2.6L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: UnCas12c2 wiki" data-link="http://caspedia.org/wiki/UnCas12c2.html"  d="M1109.7,782.8l-154.5,682.7c-2.1-0.5-4.2-1-6.3-1.5s-4.2-1-6.3-1.5L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: Cas12d wiki" data-link="http://caspedia.org/wiki/Cas12d.html"  d="M1109.7,782.8L1005.5,1475c-6.6-1-13.2-2.1-19.8-3.3c-6.6-1.2-13.2-2.5-19.7-3.8L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="CasLambda"  d="M1109.7,782.8l2.7,700c-0.9,0-1.8,0-2.7,0c-31.4,0-62.8-2.1-93.9-6.3L1109.7,782.8z" data-link="http://caspedia.org/wiki/Coming_Soon.html" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: PlmCas12e wiki" data-link="http://caspedia.org/wiki/PlmCas12e.html"  d="M1109.7,782.8l34.6,699.1c-3.3,0.2-6.6,0.3-9.9,0.4s-6.6,0.2-9.9,0.3L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: UnCas12f1 wiki" data-link="http://caspedia.org/wiki/UnCas12f1.html"  d="M1109.7,782.8l226.5,662.3c-29.3,10-59.3,18.1-89.7,24.2s-61.2,10.1-92.1,12.1L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: ShCas12k wiki" data-link="http://caspedia.org/wiki/ShCas12k.html"  d="M1109.7,782.8l699.7,21.4c-4.3,140.7-50.9,276.8-133.7,390.6c-82.8,113.8-198,200-330.6,247.3L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: Asp2Cas12L wiki" data-link="http://caspedia.org/wiki/Asp2Cas12L.html"  d="M1109.7,782.8l699.8-17.4c0.1,5.8,0.2,11.6,0.2,17.4c0,4.5,0,9-0.1,13.5L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: Cas12i1 wiki" data-link="http://caspedia.org/wiki/Cas12i1.html"  d="M1109.7,782.8l697.6-57.6c0.4,5.2,0.8,10.3,1.1,15.5c0.3,5.2,0.6,10.4,0.8,15.5L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: Cas12U3 wiki" data-link="http://caspedia.org/wiki/Cas12U3.html"  d="M1109.7,782.8l591.1-375c29.5,46.5,53.4,96.3,71.2,148.3c17.8,52.1,29.4,106.1,34.6,160.9L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: UnCas12f1 wiki" data-link="http://caspedia.org/wiki/UnCas12f1.html"  d="M1109.7,782.8l562.8-416.2c4.1,5.5,8,11,11.9,16.6s7.7,11.3,11.4,17L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: Cas12U3 wiki" data-link="http://caspedia.org/wiki/Cas12U3.html"  d="M1109.7,782.8l357.2-602c38.6,22.9,74.9,49.5,108.5,79.3s64.1,62.9,91.3,98.6L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Cas12b"  d="M1109.7,782.8L1265,100.3c34,7.7,67.3,18,99.7,30.7s63.9,27.8,94.1,45.1L1109.7,782.8z" data-link="http://caspedia.org/wiki/Coming_Soon.html" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: LbCas12g wiki" data-link="http://caspedia.org/wiki/LbCas12g.html"  d="M1109.7,782.8l101.2-692.6c7.5,1.1,14.9,2.3,22.4,3.6c7.4,1.3,14.8,2.8,22.2,4.4L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: Cas12h1 wiki" data-link="http://caspedia.org/wiki/Cas12h1.html"  d="M1109.7,782.8l81.9-695.2c1.6,0.2,3.2,0.4,4.7,0.6c1.6,0.2,3.2,0.4,4.7,0.6L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: UnCas12f1 wiki" data-link="http://caspedia.org/wiki/UnCas12f1.html"  d="M1109.7,782.8L1087,83.2c7.6-0.2,15.1-0.4,22.7-0.4c24.1,0,48.1,1.2,72.1,3.7L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: Cas12j2 wiki" data-link="http://caspedia.org/wiki/Cas12j2.html"  d="M1109.7,782.8L999.8,91.5c12.8-2,25.7-3.7,38.7-5c12.9-1.3,25.9-2.3,38.9-2.9L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: MmCas12m wiki" data-link="http://caspedia.org/wiki/MmCas12m.html"  d="M1109.7,782.8L854.3,131.1c21.6-8.5,43.6-15.8,66-22.1c22.3-6.3,45-11.4,67.8-15.5L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: UnCas12f1 wiki" data-link="http://caspedia.org/wiki/UnCas12f1.html"  d="M1109.7,782.8L809.4,150.5c5.9-2.8,11.8-5.5,17.7-8.1s11.9-5.2,18-7.6L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: Cas12U2 wiki" data-link="http://caspedia.org/wiki/Cas12U2.html"  d="M1109.7,782.8l-403.5-572c14.9-10.5,30.1-20.4,45.7-29.7c15.6-9.3,31.6-18,47.9-26L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Cas12n"  d="M1109.7,782.8L435.3,594.9c21-75.5,54.6-146.9,99.3-211.2s99.8-120.8,163.2-166.9L1109.7,782.8z" data-link="http://caspedia.org/wiki/Coming_Soon.html" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: UnCas12f1 wiki" data-link="http://caspedia.org/wiki/UnCas12f1.html"  d="M1109.7,782.8l-699.9-13.2c0.5-27.8,2.7-55.6,6.5-83.2s9.3-54.9,16.4-81.9L1109.7,782.8z" fill="transparent"/>
-				<path class="hoverable-text" data-content="Example Enzyme: TnpB wiki" data-link="http://caspedia.org/wiki/TnpB.html"  d="M1109.8,782.8l-700,5.2c0-1.7,0-3.5,0-5.2c0-1.2,0-2.4,0-3.6L1109.8,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: AsCas12a wiki" data-link="http://caspedia.org/wiki/AsCas12a.html"  d="M1109.7,782.8l-426.6,555c-69.5-53.4-128.4-119.5-173.5-194.7s-75.7-158.2-90.2-244.7L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: SuCas12a2 wiki" data-link="http://caspedia.org/wiki/SuCas12a2.html"  d="M1109.7,782.8l-353,604.5c-11.5-6.7-22.8-13.8-33.9-21.1s-22-15-32.6-23L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: UnCas12c2 wiki" data-link="http://caspedia.org/wiki/UnCas12c2.html"  d="M1109.7,782.8l-206,669c-24.1-7.4-47.7-16.1-70.8-26.1s-45.7-21.1-67.6-33.5L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: Cas12c1 wiki" data-link="http://caspedia.org/wiki/Cas12c1.html"  d="M1109.7,782.8l-178.1,677c-3.1-0.8-6.2-1.7-9.3-2.5c-3.1-0.9-6.2-1.7-9.3-2.6L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: UnCas12c2 wiki" data-link="http://caspedia.org/wiki/UnCas12c2.html"  d="M1109.7,782.8l-154.5,682.7c-2.1-0.5-4.2-1-6.3-1.5s-4.2-1-6.3-1.5L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: Cas12d wiki" data-link="http://caspedia.org/wiki/Cas12d.html"  d="M1109.7,782.8L1005.5,1475c-6.6-1-13.2-2.1-19.8-3.3c-6.6-1.2-13.2-2.5-19.7-3.8L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="CasLambda"  d="M1109.7,782.8l2.7,700c-0.9,0-1.8,0-2.7,0c-31.4,0-62.8-2.1-93.9-6.3L1109.7,782.8z" data-link="http://caspedia.org/coming_soon.html" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: PlmCas12e wiki" data-link="http://caspedia.org/wiki/PlmCas12e.html"  d="M1109.7,782.8l34.6,699.1c-3.3,0.2-6.6,0.3-9.9,0.4s-6.6,0.2-9.9,0.3L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: UnCas12f1 wiki" data-link="http://caspedia.org/wiki/UnCas12f1.html"  d="M1109.7,782.8l226.5,662.3c-29.3,10-59.3,18.1-89.7,24.2s-61.2,10.1-92.1,12.1L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: ShCas12k wiki" data-link="http://caspedia.org/wiki/ShCas12k.html"  d="M1109.7,782.8l699.7,21.4c-4.3,140.7-50.9,276.8-133.7,390.6c-82.8,113.8-198,200-330.6,247.3L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: Asp2Cas12L wiki" data-link="http://caspedia.org/wiki/Asp2Cas12L.html"  d="M1109.7,782.8l699.8-17.4c0.1,5.8,0.2,11.6,0.2,17.4c0,4.5,0,9-0.1,13.5L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: Cas12i1 wiki" data-link="http://caspedia.org/wiki/Cas12i1.html"  d="M1109.7,782.8l697.6-57.6c0.4,5.2,0.8,10.3,1.1,15.5c0.3,5.2,0.6,10.4,0.8,15.5L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: Cas12U3 wiki" data-link="http://caspedia.org/wiki/Cas12U3.html"  d="M1109.7,782.8l591.1-375c29.5,46.5,53.4,96.3,71.2,148.3c17.8,52.1,29.4,106.1,34.6,160.9L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: UnCas12f1 wiki" data-link="http://caspedia.org/wiki/UnCas12f1.html"  d="M1109.7,782.8l562.8-416.2c4.1,5.5,8,11,11.9,16.6s7.7,11.3,11.4,17L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: Cas12U3 wiki" data-link="http://caspedia.org/wiki/Cas12U3.html"  d="M1109.7,782.8l357.2-602c38.6,22.9,74.9,49.5,108.5,79.3s64.1,62.9,91.3,98.6L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Cas12b"  d="M1109.7,782.8L1265,100.3c34,7.7,67.3,18,99.7,30.7s63.9,27.8,94.1,45.1L1109.7,782.8z" data-link="http://caspedia.org/coming_soon.html" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: LbCas12g wiki" data-link="http://caspedia.org/wiki/LbCas12g.html"  d="M1109.7,782.8l101.2-692.6c7.5,1.1,14.9,2.3,22.4,3.6c7.4,1.3,14.8,2.8,22.2,4.4L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: Cas12h1 wiki" data-link="http://caspedia.org/wiki/Cas12h1.html"  d="M1109.7,782.8l81.9-695.2c1.6,0.2,3.2,0.4,4.7,0.6c1.6,0.2,3.2,0.4,4.7,0.6L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: UnCas12f1 wiki" data-link="http://caspedia.org/wiki/UnCas12f1.html"  d="M1109.7,782.8L1087,83.2c7.6-0.2,15.1-0.4,22.7-0.4c24.1,0,48.1,1.2,72.1,3.7L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: Cas12j2 wiki" data-link="http://caspedia.org/wiki/Cas12j2.html"  d="M1109.7,782.8L999.8,91.5c12.8-2,25.7-3.7,38.7-5c12.9-1.3,25.9-2.3,38.9-2.9L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: MmCas12m wiki" data-link="http://caspedia.org/wiki/MmCas12m.html"  d="M1109.7,782.8L854.3,131.1c21.6-8.5,43.6-15.8,66-22.1c22.3-6.3,45-11.4,67.8-15.5L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: UnCas12f1 wiki" data-link="http://caspedia.org/wiki/UnCas12f1.html"  d="M1109.7,782.8L809.4,150.5c5.9-2.8,11.8-5.5,17.7-8.1s11.9-5.2,18-7.6L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: Cas12U2 wiki" data-link="http://caspedia.org/wiki/Cas12U2.html"  d="M1109.7,782.8l-403.5-572c14.9-10.5,30.1-20.4,45.7-29.7c15.6-9.3,31.6-18,47.9-26L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Cas12n"  d="M1109.7,782.8L435.3,594.9c21-75.5,54.6-146.9,99.3-211.2s99.8-120.8,163.2-166.9L1109.7,782.8z" data-link="http://caspedia.org/coming_soon.html" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: UnCas12f1 wiki" data-link="http://caspedia.org/wiki/UnCas12f1.html"  d="M1109.7,782.8l-699.9-13.2c0.5-27.8,2.7-55.6,6.5-83.2s9.3-54.9,16.4-81.9L1109.7,782.8z" fill="transparent"/>
+				<path class="hoverable-text" data-content="Representative Protein: TnpB wiki" data-link="http://caspedia.org/wiki/TnpB.html"  d="M1109.8,782.8l-700,5.2c0-1.7,0-3.5,0-5.2c0-1.2,0-2.4,0-3.6L1109.8,782.8z" fill="transparent"/>
 			</g>
 			</svg>
 
@@ -12100,20 +12008,20 @@
     </div>
 
   <div class="tab-content" id="TypeVI">
-      <!--Title -->
-      <div style="background-color:#202123;display:flex;width:95%;justify-content:center;align-items:center;margin:auto">
-        <h2 style="display:flex;text-align:center;font-size:42px;justify-content:center;align-items:center;margin:auto"><span style="color:#FFFFFF">TYPE VI</span></h2>
-      </div>
-
-      <!-- Text Summaries -->
-      <h2 class="section_header" style="text-align:center;font-weight:bold">SUMMARY</h2>
-      <div class="grid-container">
-        <div class="section">
-          <p>All known Cas13 enzymes are RNA-guided RNA endonucleases and are the defining component of Type VI CRISPR systems <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30</a></sup>. In contrast to Cas9 and Cas12, the primary activity of Cas13 proteins appears to be due to its trans-RNAse activity conferred by HEPN domains <sup><a href="https://doi.org/10.1126/science.aaf5573" target="_blank">47,</a></sup><sup><a href="https://doi.org/10.1038/nature19802" target="_blank">48</a></sup>. These enzymes vary by the extent and bias of HEPN activity, having a strong influence on how they are used in diverse applications ranging from RNA-targeting to RNA diagnostics <sup><a href="https://doi.org/10.1126/science.aaq0179" target="_blank">49,</a></sup><sup><a href="https://doi.org/10.1126/science.aas8836" target="_blank">50,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2018.02.033" target="_blank">51,</a></sup><sup><a href="https://doi.org/10.1016/j.jmb.2018.06.029" target="_blank">52</a></sup>. Unlike Cas9 and Cas12 enzymes, the evolutionary origins of Cas13 enzymes remains unclear <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30</a></sup>. These enzymes are organized into 4 subtypes, Cas13a-Cas13d, where characterization of Cas13c remains unknown (although assumed to target RNA). While these enzymes are generally capable of processing their own CRISPR array and function as standalone enzymes, they occasionally co-occur with additional proteins that appear co-functional <sup><a href="https://doi.org/10.1016/j.molcel.2016.12.023" target="_blank">53,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2018.02.028" target="_blank">54,</a></sup><sup><a href="https://doi.org/10.1126/science.abm1184" target="_blank">55</a></sup>.</p>
+	<div class="summary">
+    <!-- Page Title -->
+		<div class="abstract">
+		  <h2>Type VI</h2>
+	<!-- Text Summaries -->
+			<h2>Summary</h2>
+			<div class="grid-container">
+				          <p>All known Cas13 enzymes are RNA-guided RNA endonucleases and are the defining component of Type VI CRISPR systems <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30</a></sup>. In contrast to Cas9 and Cas12, the primary activity of Cas13 proteins appears to be due to its trans-RNAse activity conferred by HEPN domains <sup><a href="https://doi.org/10.1126/science.aaf5573" target="_blank">47,</a></sup><sup><a href="https://doi.org/10.1038/nature19802" target="_blank">48</a></sup>. These enzymes vary by the extent and bias of HEPN activity, having a strong influence on how they are used in diverse applications ranging from RNA-targeting to RNA diagnostics <sup><a href="https://doi.org/10.1126/science.aaq0179" target="_blank">49,</a></sup><sup><a href="https://doi.org/10.1126/science.aas8836" target="_blank">50,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2018.02.033" target="_blank">51,</a></sup><sup><a href="https://doi.org/10.1016/j.jmb.2018.06.029" target="_blank">52</a></sup>. Unlike Cas9 and Cas12 enzymes, the evolutionary origins of Cas13 enzymes remains unclear <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30</a></sup>. These enzymes are organized into 4 subtypes, Cas13a-Cas13d, where characterization of Cas13c remains unknown (although assumed to target RNA). While these enzymes are generally capable of processing their own CRISPR array and function as standalone enzymes, they occasionally co-occur with additional proteins that appear co-functional <sup><a href="https://doi.org/10.1016/j.molcel.2016.12.023" target="_blank">53,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2018.02.028" target="_blank">54,</a></sup><sup><a href="https://doi.org/10.1126/science.abm1184" target="_blank">55</a></sup>.</p>
 
 				<p>The reported Cas13 tree was recreated from a recent report on Cas13 phylogeny <sup><a href="https://doi.org/10.1038/s41564-022-01258-x" target="_blank">56</a></sup>. Briefly Cas13-annotated sequences from subtypes a-d were gathered from NCBI and GTDB r95 <sup><a href="https://doi.org/10.1093/nar/gkab776" target="_blank">57</a></sup>using Hidden Markov Models. Sequences lacking two R/Q/N/K/H****H sequence motifs were assumed to be truncated proteins and removed. Sequences were clustered with CD-HIT v4.8.1 with length and sequence similarity cutoffs of 0.9 <sup><a href="https://doi.org/10.1093/bioinformatics/bts565" target="_blank">58</a></sup>. Sequences were aligned with MUSCLE v3.8.31, tree built with IQ-TREE v1.6.12, and visualized with iTOL <sup><a href="https://doi.org/10.1093/nar/gkh340" target="_blank">44,</a></sup><sup><a href="https://doi.org/10.1093/molbev/msu300" target="_blank">45,</a></sup><sup><a href="https://doi.org/10.1093/nar/gkab301" target="_blank">46</a></sup>. Trees were manually curated by pruning errant Cas13 leaves.</p>
-        </div>
-      </div>
+
+			</div>
+		</div>
+	</div>
       <br>
 
       <!-- Hoverable SVG content -->
@@ -14235,10 +14143,10 @@
 	<text transform="matrix(1 0 0 1 1341.0002 1468.5752)" class="stc10 stc19">Cas13b</text>
 </g>
 <g id="Layer_3">
-	<path class="hoverable-text" data-content="Cas13b"  d="M1072.1,762.2l543.1-441.6c101.4,124.8,156.9,280.8,156.9,441.6c0,384-316,700-700,700c-342.3,0-636.9-251.1-691.2-589.1L1072.1,762.2z" data-link="http://caspedia.org/wiki/Coming_Soon.html" fill="transparent"/>
-	<path class="hoverable-text" data-content="Example Enzyme: LbuCas13a wiki" data-link="http://caspedia.org/wiki/LbuCas13a.html"  d="M1072.1,762.2L516.3,336.7C648.7,163.8,854.4,62.2,1072.1,62.2c204.6,0,399.2,89.7,532.1,245.2L1072.1,762.2z" fill="transparent"/>
-	<path class="hoverable-text" data-content="Cas13c"  d="M1072.1,762.2L408.6,539.1c11.2-33.2,24.8-65.5,40.8-96.7s34.3-61.1,54.8-89.5L1072.1,762.2z" data-link="http://caspedia.org/wiki/Coming_Soon.html" fill="transparent"/>
-	<path class="hoverable-text" data-content="Example Enzyme: RfxCas13d wiki" data-link="http://caspedia.org/wiki/RfxCas13d.html"  d="M1072.1,762.2l-699.9,12.6c-0.1-4.2-0.1-8.4-0.1-12.6c0-69.8,10.4-139.1,30.9-205.8L1072.1,762.2z" fill="transparent"/>
+	<path class="hoverable-text" data-content="Cas13b"  d="M1072.1,762.2l543.1-441.6c101.4,124.8,156.9,280.8,156.9,441.6c0,384-316,700-700,700c-342.3,0-636.9-251.1-691.2-589.1L1072.1,762.2z" data-link="http://caspedia.org/coming_soon.html" fill="transparent"/>
+	<path class="hoverable-text" data-content="Representative Protein: LbuCas13a wiki" data-link="http://caspedia.org/wiki/LbuCas13a.html"  d="M1072.1,762.2L516.3,336.7C648.7,163.8,854.4,62.2,1072.1,62.2c204.6,0,399.2,89.7,532.1,245.2L1072.1,762.2z" fill="transparent"/>
+	<path class="hoverable-text" data-content="Cas13c"  d="M1072.1,762.2L408.6,539.1c11.2-33.2,24.8-65.5,40.8-96.7s34.3-61.1,54.8-89.5L1072.1,762.2z" data-link="http://caspedia.org/coming_soon.html" fill="transparent"/>
+	<path class="hoverable-text" data-content="Representative Protein: RfxCas13d wiki" data-link="http://caspedia.org/wiki/RfxCas13d.html"  d="M1072.1,762.2l-699.9,12.6c-0.1-4.2-0.1-8.4-0.1-12.6c0-69.8,10.4-139.1,30.9-205.8L1072.1,762.2z" fill="transparent"/>
 </g>
 </svg>
 
@@ -14475,5 +14383,5 @@
       }
     }
   </script>
-</body>
-</html>
+
+  {% endblock %}
