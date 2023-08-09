@@ -252,7 +252,7 @@ h1{font-size:64px;text-align:center;font-weight:bold}h2{font-size:34px;font-weig
 h1,h2,h3,h4,h5,h6{font-family:"Segoe UI",Arial,sans-serif;font-weight:400;margin:1px 0}.wiki-wide{letter-spacing:4px}
 hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .wiki-image{max-width:100%;height:auto}img{vertical-align:middle}a{color:inherit}
-.wiki-table,.wiki-table-all{border-collapse:collapse;border-spacing:0;width:100%;display:table}.wiki-table-all{border:1px solid #ccc}
+.wiki-table,.wiki-table-all{table-layout: fixed; word-wrap: break-word;;border-collapse:collapse;border-spacing:0;width:100%;display:table}.wiki-table-all{border:1px solid #ccc}
 .wiki-bordered tr,.wiki-table-all tr{border-bottom:1px solid #ddd}.wiki-striped tbody tr:nth-child(even){background-color:#f1f1f1}
 .wiki-table-all tr:nth-child(odd){background-color:#fff}.wiki-table-all tr:nth-child(even){background-color:#f1f1f1}
 .wiki-hoverable tbody tr:hover,.wiki-ul.wiki-hoverable li:hover{background-color:#ccc}.wiki-centered tr th,.wiki-centered tr td{text-align:center}
