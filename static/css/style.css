@@ -1,12 +1,23 @@
 :root {
   font-size: 14px;
   font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
   --transition-speed: 500ms;
   --text-primary: #b6b6b6;
   --text-secondary: #464a57;
   --bg-primary: #282a31;
   --bg-secondary: #5758ff;
-  --bg-tertiary: #e9eaf0
+  --bg-tertiary: #e9eaf0;
+  --box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+}
+
+a {
+  text-decoration: none; /* Remove default underline */
+  color: var(--text-secondary)
+}
+
+header {
+  max-width: 100%;
 }
 
 body {
@@ -32,6 +43,7 @@ body::-webkit-scrollbar-thumb{
 main {
   margin-left: 16rem;
   padding: .5rem;
+  max-width: 80%;
 }
 
 .navbar {
@@ -139,8 +151,8 @@ header {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
 
-.top-logo img{
-  width: 120px;
+.top-logo img {
+  width: 122px;
   height: auto;
 }
 
@@ -178,12 +190,11 @@ header {
   background-color: white;
   /*border: 3px solid #DDDDDD8F;*/
   /*border-radius: 10px;*/
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+  box-shadow: var(--box-shadow);
   -webkit-font-smoothing: antialiased;
   position: relative;
   justify-content: center;
   align-items: center;
-  width: 85%;
   height: auto;
   margin-bottom: 50px;
   display: flex;
@@ -192,18 +203,22 @@ header {
 
 h2 {
   font-size: 2rem;
+  padding: 2px;
 }
 
 h3 {
   font-size: 1.1rem;
-  padding: 10px;
+}
+
+p {
+  font-size: 1.1rem;
 }
 
 .abstract {
   text-align: left;
   /*padding: 10px;*/
-  margin-bottom: -10px;
-  width: 85%;
+  /*margin-bottom: -10px;*/
+  width: 90%;
 }
 
 .abstract a {
@@ -211,8 +226,6 @@ h3 {
     color: inherit;
     position: relative;
   }
-
-
 
 .abstract a::after {
     content: "";
@@ -230,18 +243,7 @@ h3 {
     opacity: 2;
   }
 
-.column-container {
-  text-align: left;
-  margin-bottom: 12px;
-  margin-top: 0;
-}
-
-/* Column */
-.column {
-  width: 95%;
-}
-
-.column img {
+.abstract img {
   align-content: center;
   display: block;
   padding: 25px;
@@ -250,9 +252,14 @@ h3 {
   margin-bottom: 30px;
 }
 
-.column img:hover {
+.abstract img:hover {
   transform: scale(1.02);
   transition: transform 0.7s ease-in-out;
+}
+
+/* Column */
+.column {
+  width: 95%;
 }
 
 /* Accessibility */
@@ -299,14 +306,31 @@ table.wiki-table td {
 /* Table Sorting */
 /* Set a max-width for the table to fit the screen */
 table.sortable {
-  max-width: 100%;
+  max-width: 95%;
   border-collapse: collapse;
+  word-wrap: break-word;
 }
 
 /* Add horizontal scroll if the table content overflows */
 table.sortable {
   overflow-x: auto;
 }
+
+table.sortable tr a::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #363636;
+    opacity: .25;
+    transition: opacity 0.3s;
+  }
+
+table.sortable tr a:hover::after {
+    opacity: 2;
+  }
 
 table.sortable td,
 table.sortable th {
@@ -405,11 +429,77 @@ table.sortable th:not([aria-sort]) button:hover span::after {
 }
 
 
+/* Phylogeny Viewer*/
+.section {
+      background-color: #ffffff;
+      border-radius: 5px;
+      padding: 10px;
+      box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+      border: 1px solid #dddddd;
+    }
+.svg-container {
+  /*width: 85%;*/
+  height: 85%;
+  /*border: 3px solid #cccccc;*/
+  overflow: hidden;
+  cursor: grab;
+  margin: 0 auto;
+  box-shadow: var(--box-shadow)
+}
+/* Styles for the hoverable popup panel */
+.popup-panel {
+  position: absolute;
+  display: none;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 999;
+}
+.hoverable-text {
+  cursor: pointer;
+  color: transparent;
+}
+.popup-link {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.tab-container {
+  display: flex;
+  justify-content: left;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  gap: 1rem
+}
+.tab-button {
+  background-color: var(--bg-tertiary);
+  border: 2px solid var(--bg-primary);
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0); /* Start with no shadow */
+}
+.tab-button:hover {
+  color: var(--bg-secondary);
+  box-shadow: 0 2px 5px rgba(0, 0, 0.5, 0.5);
+}
+.tab-content {
+  display: none;
+  /*padding: 20px;*/
+}
+.tab-content.active {
+  display: block;
+}
+
+
 /* Footer */
 footer {
   background-color: #f8f8f8;
   padding: 10px;
   text-align: center;
+  font-weight: lighter;
 }
 
 .footer-link {

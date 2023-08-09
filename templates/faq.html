@@ -1,35 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>FAQ</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png" >
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}">
-  <!--link rel="stylesheet" href="/Users/marenatrinidad/Code/Caspedia_Testing/wiki.css"-->
-</head>
+  {% extends "alt_layout.html" %}
 
-<body>
-<!-- Logo -->
-  <header>
-      <!-- logo -->
-    <a href="http://caspedia.org/" class="top-logo">
-      <img id="logo" src="{{url_for('static', filename='img/ph_logo.svg')}}" alt="IGI logo">
-    </a>
-    <!-- second logo -->
-    <a href="https://innovativegenomics.org/" target="_blank" class="top-logo">
-      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
-    </a>
-  </header>
-
-  <!-- Search Box -->
-  <div id="search-container">
-    <form action="{{ url_for("gfg")}}" method="POST">
-      <label for="search-box"></label><textarea id="search-box" name="search-box" rows="1" cols="50" placeholder="input sequence or term"></textarea>
-      <input type="submit" value="Submit" name="seq-input">
-    </form>
-  </div>
-
+  {% block content %}
 <!-- Page Title -->
   <div style="background-color: #202123;">
     <h1><span style="color:#FFFFFF">FAQ</span></h1>
@@ -44,8 +15,8 @@
         <button onclick="myAccFunc('Info1')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">What is CasPEDIA?&nbsp;</span></button>
           <div id="Info1" class="wiki-hide">
             <p class="section-content"><p>CasPEDIA is a community project that organizes Class II CRISPR-associated proteins by their functional properties. As an encyclopedia of single-enzyme effectors, CasPEDIA provides comprehensive descriptions of enzyme activities, structures and sequences, complete with a literature review covering each nuclease's discovery, experimental considerations and applications. Information presented in CasPEDIA includes citations for further research. Additionally, CasPEDIA exists in tandem with <a href="https://innovativegenomics.org/crisprpedia/" target="_blank">CRISPRpedia</a>, a free resource created by The Innnovative Genomics Institute that describes the principles of CRISPR technology.</p>
- 
-            <p>CasPEDIA is a living database and construction is ongoing! If you would like to contribute to CasPEDIA (i.e. moderate or update content, create new entries, etc.), please see the FAQ section entitled "Contribute to CasPEDIA" or the Contact page of the website for details.</p> 
+
+            <p>CasPEDIA is a living database and construction is ongoing! If you would like to contribute to CasPEDIA (i.e. moderate or update content, create new entries, etc.), please see the FAQ section entitled "Contribute to CasPEDIA" or the Contact page of the website for details.</p>
             </p>
           </div>
         <hr>
@@ -95,7 +66,7 @@
         <hr>
         <button onclick="myAccFunc('CasID2')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">How do I interpret a CasID?&nbsp;</span></button>
           <div id="CasID2" class="wiki-hide">
-            <p class="section-content"><p>CasIDs can be interpreted using the lookup table on the <a href="http://caspedia.org/" target="_blank">homepage of the website </a>. Assessing the three constituent digits of an ID, reveals the nuclease's function. The first integer describes the Nuclease Activity of the enzyme, of which there are 9 distinct types, covering both cis and trans properties. The second value indicates the Targeting Requirements of the RNA-guided enzyme, spanning 7 different types. The third digit summarizes 5 unique classes of Guide RNA (gRNA) Design and Multiplexing properties for Class II systems.</p> 
+            <p class="section-content"><p>CasIDs can be interpreted using the lookup table on the <a href="http://caspedia.org/" target="_blank">homepage of the website </a>. Assessing the three constituent digits of an ID, reveals the nuclease's function. The first integer describes the Nuclease Activity of the enzyme, of which there are 9 distinct types, covering both cis and trans properties. The second value indicates the Targeting Requirements of the RNA-guided enzyme, spanning 7 different types. The third digit summarizes 5 unique classes of Guide RNA (gRNA) Design and Multiplexing properties for Class II systems.</p>
 
             <p>To better understand CasIDs, consider SpyCas9a, with a CasID of 1.1.1 . The Nuclease Activity for this enzyme falls under category 1, implying it has blunt double-stranded cis nuclease-activity, and no trans nuclease-activity ((https://doi.org/10.1016/j.molcel.2018.11.021)). The Targeting Requirements for ShomepyCas9a fit category 1, meaning it requires a 3' protospacer-adjacent motif (PAM). Finally, the Guide RNA (gRNA) Design and Multiplexing properties for this enzyme fall under category 1, such that the Native CRISPR Array for SpyCas9a requires a CRISPR RNA (crRNA) for targeting + Trans-acting crRNA (tracrRNA) for multiplexing to the protein backbone of the effector + additional factors for processing the array into mature guides. However, as described by the CasID nomenclature, SpyCas9a can also be engineered to utilize a minimal array containing different single-guide RNAs (sgRNAs), represented as a contiguous, all-in-one crRNA+tracrRNA sequence ((10.1038/nature09886; https://doi.org/10.1146/annurev-biophys-062215-010822)).</p>
           </p>
@@ -121,7 +92,7 @@
 
         <button onclick="myAccFunc('Search2')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Term Search: Can I search a Cas enzyme by name?</span></button>
           <div id="Search2" class="wiki-hide">
-            <p class="section-content"><p>The CasPEDIA search bar can be used to search for cas enzymes by name (e.g. SpySas9a, Cas9, Cas13, etc.) or RefSeq Protein ID (e.g. WP_010922251.1). Searches are not case-sensitive, but typos are discouraged for accurate results. Additionally, only one enzyme name can be searched at a time.</p> 
+            <p class="section-content"><p>The CasPEDIA search bar can be used to search for cas enzymes by name (e.g. SpySas9a, Cas9, Cas13, etc.) or RefSeq Protein ID (e.g. WP_010922251.1). Searches are not case-sensitive, but typos are discouraged for accurate results. Additionally, only one enzyme name can be searched at a time.</p>
 
             <p>For instance, typing "SpyCas9a" into the search bar and clicking "Search" (Note: "Enter" is not a keyboard shortcut), returns a results table containing SpyCas9a and 7 columns of metadata including: Type Protein, CasID, Type Protein Accession (RefSeq protein ID, when available), Nuclease Activity, Targeting Requirement, gRNA Design and Multiplexability, and PAM. Click the text under the "Type Protein" column(i.e. SpyCas9a) to redirect to the wiki page. Broad and ambiguous searches, like "Cas13" are also allowed, and will return a results table with the 7 aforementioned columns, but multiple type proteins, in different rows, for the user to choose from.</p>
 
@@ -147,7 +118,7 @@
             </p>
           </div>
         <hr>
-    
+
         <button onclick="myAccFunc('Search3')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">BLAST Search: Can I search a Cas enzyme by Sequence?</span></button>
           <div id="Search3" class="wiki-hide wiki-black">
             <p class="section-content"><p>The CasPEDIA search bar can be used to search for cas enzymes by protein sequence (e.g. SpySas9a, Cas9, Cas13, etc.), using an underlying DELTA-BLAST function that queries against all sequences deposited in CasPEDIA. All sequence-searches most follow fasta syntax (i.e. > sequenceName\n seqeuncestr)Searches are not case-sensitive, and, aside from the that must proceed each sequence, search strings should exclude special characters (e.g. *, white space, line-breaks and punctuation marks). Currently, only one sequence can be inputted at a single time. Currently, the DELTA-BLAST parameters for the search tool are fixed (cannot be edited during runtime) and set to the tool's default settings. If you would like to perform extended BLAST searches, all protein sequences in CasPEDIA can be [[downloaded here]] for external searches.</p>
@@ -182,9 +153,9 @@
       <h3 class="section-header">CURATION AND FUTURE DEVELOPMENTS: New entries and becoming a curator</h3>
         <button onclick="myAccFunc('Future1')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Contribute to CasPEDIA</span></button>
           <div id="Future1" class="wiki-hide wiki-black">
-            <p class="section-content"><p>We are grateful for your interest--CasPEDIA is a community resource and your participation is welcome! If you would like to contribute to CasPEDIA (i.e. moderate/update content, suggest new entries and features, etc.), please visit the "Contact Us" page of the website for detailed information.</p> 
+            <p class="section-content"><p>We are grateful for your interest--CasPEDIA is a community resource and your participation is welcome! If you would like to contribute to CasPEDIA (i.e. moderate/update content, suggest new entries and features, etc.), please visit the "Contact Us" page of the website for detailed information.</p>
 
-            <p>Briefly, anyone can contribute to the database. CasPEDIA content is managed through a series of forms, which are shared amongst curators/moderators for completion. All information in CasPEDIA must be citable through peer-reviewed publications and/or external databases with rigorous curation standards.</p> 
+            <p>Briefly, anyone can contribute to the database. CasPEDIA content is managed through a series of forms, which are shared amongst curators/moderators for completion. All information in CasPEDIA must be citable through peer-reviewed publications and/or external databases with rigorous curation standards.</p>
 
             <p>If you would like to suggest a new CasPEDIA entry, contact caspediaAdmins[at]gmail.com with the subject line "Request for new CasPEDIA Entry: <New Entry Name>." Novel cas nucleases will be considered for the wiki if its function has been described in 1 or more peer-reviewed publications and there is sufficient information to complete the webpage. We are also happy to work with CRISPR pioneers with papers under submission/revision and are willing to contribute to the curation process themselves. If you are unable to curate content for the entry you suggest, please identify a minimum of 5 scientist who'd be able to assist with the entry. The CasPEDIA Consortium will review all potential wiki content to maintain the database's curation standards.</p>
 
@@ -210,12 +181,6 @@
 
 
   <br><br>
-  <!-- footnote -->
-  <footer>
-    <p>Copyright © 2023
-      <a href="https://www.example.com">Example</a>
-    </p>
-  </footer>
 
   <!-- Scripts -->
 <!-- Script for Accordions-->
@@ -229,7 +194,7 @@ function myAccFunc(id) {
   var x = document.getElementById(id);
   if (x.className.indexOf("wiki-show") == -1) {
     x.className += " wiki-show";
-  } else { 
+  } else {
     x.className = x.className.replace(" wiki-show", "");
   }
 }
@@ -244,19 +209,16 @@ function plusDivs(n) {
 
 function showDivs(n) {
   var x = document.getElementsByClassName("mySlides");
-  if (n > x.length) {slideIndex = 1}    
+  if (n > x.length) {slideIndex = 1}
   if (n < 1) {slideIndex = x.length} ;
   for (i = 0; i < x.length; i++) {
-    x[i].style.display = "none";  
+    x[i].style.display = "none";
   }
-  x[slideIndex-1].style.display = "block";  
+  x[slideIndex-1].style.display = "block";
 }
 
 showDivs(1);
 
 </script>
-</body>
 
-</html>
-
-
+{% endblock %}

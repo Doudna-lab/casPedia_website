@@ -1,25 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png">
-  <meta charset="UTF-8">
-  <title>CasPedia - pre-Alpha</title>
-</head>
-<body>
-  <header>
-      <!-- logo -->
-    <a href="http://caspedia.org/" class="top-logo">
-      <img id="logo" src="{{url_for('static', filename='img/ph_logo.svg')}}" alt="IGI logo">
-    </a>
-    <!-- second logo -->
-    <a href="https://innovativegenomics.org/" target="_blank" class="top-logo">
-      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
-    </a>
-  </header>
+  {% extends "layout.html" %}
 
-    <!-- Main Content -->
-  <main>
+  {% block content %}
+
   <!-- Tool Finder -->
   <section id="tool-finder-questions">
     <form action="/tool_finder" method="POST">
@@ -51,13 +33,4 @@
     </form>
   </section>
 
-  </main>
-  <!-- footnote -->
-  <footer>
-    <p>
-      <a class="footer-link" href="https://doudnalab.org/" target="_blank">Doudna Lab</a>
-      - Innovative Genomics Institute - Berkeley, California
-    </p>
-  </footer>
-</body>
-</html>
+  {% endblock %}

@@ -1,33 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>{{ page_name|safe }}</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}" >
-<!--  <script src="{{ url_for('static', filename='js/casID_sprites.js') }}"></script>-->
-  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png" >
-</head>
+  {% extends "alt_layout.html" %}
 
-<body>
-<!-- Logo -->
-  <header>
-      <!-- logo -->
-    <a href="http://caspedia.org/" class="top-logo">
-      <img id="logo" src="{{url_for('static', filename='img/ph_logo.svg')}}" alt="IGI logo">
-    </a>
-    <!-- second logo -->
-    <a href="https://innovativegenomics.org/" target="_blank" class="top-logo">
-      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
-    </a>
-  </header>
-  <!-- Search Box -->
-  <div id="search-container">
-    <form action="{{ url_for("gfg")}}" method="POST">
-      <label for="search-box"></label><textarea id="search-box" name="search-box" rows="1" cols="50" placeholder="input sequence or term"></textarea>
-      <input type="submit" value="Submit" name="seq-input">
-    </form>
-  </div>
+  {% block content %}
 
 <!-- Page Title -->
   <div style="background-color: #202123;">
@@ -68,7 +41,6 @@
   </div>
   <br><br>
   </div>
-
   <!-- Description -->
   <br>
   <h2 class="section_header" style="text-align:center;font-weight:bold">DESCRIPTION</h2>
@@ -76,6 +48,7 @@
     <div class="section">
       {{ text_summaries|safe }}
 
+    <br>
         <button onclick="myAccFunc('Delivery')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Experimental Details</span></button>
         <div id="Delivery" class="wiki-hide wiki-black">
             <div class="wiki-container">
@@ -109,23 +82,9 @@
           {{ variants|safe }}
           </div>
         </div>
-      <hr>
+    </div>
+  </div>
 
-    <button onclick="myAccFunc('PFAM')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">PFAM Annotation</span></button>
-      <div id="PFAM" class="wiki-hide wiki-black">
-          <div class="wiki-container">
-            {{ pfam|safe }}
-          </div>
-      </div>
-    <hr>
-
-    <button onclick="myAccFunc('Domains')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Domains</span></button>
-      <div id="Domains" class="wiki-hide wiki-black">
-          <div class="wiki-container">
-            {{ domains|safe }}
-          </div>
-      </div>
-    <hr>
 <!-- Sequence -->
 <!--  <br>-->
 <!--  <h2 class="section_header" style="text-align:center;font-weight:bold">NUCLEOTIDE SEQUENCE</h2>-->
@@ -269,23 +228,39 @@
 <!--      </div>-->
 <!--  </div>-->
   <!-- PDB Structure -->
-  <button onclick="myAccFunc('Protein_Structure')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Protein Structure</span></button>
-    <div id="Protein_Structure" class="wiki-hide wiki-black">
-        <div class="wiki-container">
-          <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
-          <script src="https://3Dmol.org/build/3Dmol.ui-min.js"></script>
-          {{ structure|safe }}
+<br>
+  <h2 class="section_header" style="text-align:center;font-weight:bold">PROTEIN STRUCTURE</h2>
+  <div class="grid-container">
+    <div class="section">
+
+    <button onclick="myAccFunc('PFAM')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">PFAM Annotation</span></button>
+        <div id="PFAM" class="wiki-hide wiki-black">
+          <div class="wiki-container">
+            {{ pfam|safe }}
+          </div>
+        </div>
+    <hr>
+
+    <button onclick="myAccFunc('Domains')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Domains</span></button>
+        <div id="Domains" class="wiki-hide wiki-black">
+            <div class="wiki-container">
+            {{ domains|safe }}
+            </div>
+        </div>
+    <hr>
+
+      <button onclick="myAccFunc('Protein_Structure')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Protein Structure</span></button>
+        <div id="Protein_Structure" class="wiki-hide wiki-black">
+            <div class="wiki-container">
+              <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+              <script src="https://3Dmol.org/build/3Dmol.ui-min.js"></script>
+              {{ structure|safe }}
+            </div>
         </div>
     </div>
+  </div>
 
-<!--  <div class="section">-->
-<!--    <h3 class="section-header">PROTEIN STRUCTURE</h3>-->
-<!--    <br>-->
-<!--    <script src="https://3Dmol.org/build/3Dmol-min.js"></script>     -->
-<!--    <script src="https://3Dmol.org/build/3Dmol.ui-min.js"></script>-->
-<!--    {{ structure|safe }}-->
-<!--  </div>-->
-
+  <br>
  <div class="grid-container">
    <div class="section">
      <button onclick="myAccFunc('Cite')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#000000;font-weight:bold;font-size:24px;">REFERENCES</span></button>
@@ -296,15 +271,6 @@
  </div>
 
   <br><br>
-  <!-- footnote -->
-  <footer>
-      <!-- footnote -->
-  <footer>
-      <p><a class="footer-link" href="https://doudnalab.org/" target="_blank">Doudna Lab</a>
-        - Innovative Genomics Institute - Berkeley, California
-      </p>
-    </footer>
-  </footer>
 
   <!-- Scripts -->
   <!-- Script for Accordions-->
@@ -344,7 +310,5 @@
   showDivs(1);
 
   </script>
-</body>
-</html>
 
-
+    {% endblock %}

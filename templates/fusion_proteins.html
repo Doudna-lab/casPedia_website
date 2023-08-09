@@ -1,77 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Fusion Proteins</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}" >
-  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png" >
-  <style>
-    .section {
-      background-color: #ffffff;
-      border-radius: 5px;
-      padding: 10px;
-      box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
-      border: 1px solid #dddddd;
-    }
-    .svg-container {
-      width: 85%;
-      height: 85%;
-      border: 3px solid #cccccc;
-      overflow: hidden; 
-      cursor: grab;
-      margin: 0 auto;
-      box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) 
-    }
-    /* Styles for the hoverable popup panel */
-    .popup-panel {
-      position: absolute;
-      display: none;
-      background-color: #f1f1f1;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 10px;
-      z-index: 999;
-    }
-    /* Styles for the hoverable text */
-    .hoverable-text {
-      cursor: pointer;
-      color: transparent;
-    }
+  {% extends "alt_layout.html" %}
 
-    /* Style for the link inside the popup panel */
-    .popup-link {
-      color: #007bff;
-      text-decoration: underline;
-      cursor: pointer;
-    }
-  </style>
-</head>
-<body>
-  <!-- Logo -->
-  <header>
-      <!-- logo -->
-    <a href="http://caspedia.org/" class="top-logo">
-      <img id="logo" src="{{url_for('static', filename='img/ph_logo.svg')}}" alt="IGI logo">
-    </a>
-    <!-- second logo -->
-    <a href="https://innovativegenomics.org/" target="_blank" class="top-logo">
-      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
-    </a>
-  </header>
-
-  <!-- Search Box -->
-  <div id="search-container">
-    <form action='{{ url_for("gfg")}}' method="POST">
-      <label for="search-box"></label><textarea id="search-box" name="search-box" rows="1" cols="50" placeholder="input sequence or term"></textarea>
-      <input type="submit" value="Submit" name="seq-input">
-    </form>
-  </div>
+  {% block content %}
 
   <!-- Page Title -->
   <div style="background-color: #202123;">
-    <h1><span style="color:#FFFFFF">GLOSSARY OF FUSION PROTEINS AND TOOLS</span></h1>
+    <h1><span style="color:#FFFFFF; font-size: 3rem">GLOSSARY OF FUSION PROTEINS AND TOOLS</span></h1>
   </div>
+  <br>
 
   <!-- Summary -->
   <h2 class="section_header" style="text-align:center;font-weight:bold">SUMMARY</h2>
@@ -86,7 +21,7 @@
   <h2 class="section_header" style="text-align:center;font-weight:bold">TYPES OF FUSIONS</h2>
   <div class="grid-container">
     <div class="section">
-      <table border="1" class="dataframe wiki-table wiki-striped wiki-border">
+      <table class="dataframe wiki-table wiki-striped wiki-border">
   <thead>
     <tr style="text-align: right;">
       <th>Fusion Name</th>
@@ -178,7 +113,7 @@
   <h2 class="section_header" style="text-align:center;font-weight:bold">TOOLS</h2>
   <div class="grid-container">
     <div class="section">
-      <table border="1" class="dataframe wiki-table wiki-striped wiki-border">
+      <table class="dataframe wiki-table wiki-striped wiki-border">
   <thead>
     <tr style="text-align: right;">
       <th>Enzyme</th>
@@ -695,5 +630,5 @@
       }
     }
   </script>
-</body>
-</html>
+
+  {% endblock %}

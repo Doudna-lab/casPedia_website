@@ -93,6 +93,11 @@ def contactus():
     return render_template('/contact_us.html')
 
 
+@app.route('/example.html')
+def example():
+    return render_template('/SpyCas9a_backup.html')
+
+
 @app.route('/tool_finder.html')
 def buffet():
     """Define route to tool_finder.html"""
@@ -154,7 +159,7 @@ def wiki_page(page):
             wiki_entry = pickle.load(wiki_pickle)
     # In case there's no content for a given entry render an error page
     if not wiki_entry.content_check:
-        return render_template('wiki/ERROR_MESSAGE.html')
+        return render_template('wiki/error.html')
 
     # Render the Wiki page and apply the empty_string filter to avoid ugly 'None's in the page
     return render_template(f'wiki/{page}',
@@ -165,7 +170,7 @@ def wiki_page(page):
                            resources=wiki_entry.resources or empty_string,
                            sequences=wiki_entry.sequences or empty_string,
                            text_summaries=wiki_entry.text_summaries or empty_string,
-                           gene_editing_human=wiki_entry.gene_editing_human or empty_string,
+                           # gene_editing_human=wiki_entry.gene_editing_human or empty_string,
                            gene_editing=wiki_entry.gene_editing or empty_string,
                            tools=wiki_entry.tools or empty_string,
                            variants=wiki_entry.variants or empty_string,
