@@ -329,13 +329,13 @@ class DynamicWiki:
 				setattr(self, str(section_title), None)
 				continue
 			# The gene_editing section of the wiki is the 1st exception in the PSQL->HTML processing
-			if re.search(r'^gene_editing$', section_title):
-				no_empty_rows_section_df = no_empty_rows_section_df[
-					no_empty_rows_section_df.loc[:, "Application_Type"] != 'Human_Clinical_Trial']
-				self.df_example = no_empty_rows_section_df
-			if re.search(r'^gene_editing_human$', section_title):
-				no_empty_rows_section_df = no_empty_rows_section_df[
-					no_empty_rows_section_df.loc[:, "Application_Type"] == 'Human_Clinical_Trial']
+			# if re.search(r'^gene_editing$', section_title):
+			# 	no_empty_rows_section_df = no_empty_rows_section_df[
+			# 		no_empty_rows_section_df.loc[:, "Application_Type"] != 'Human_Clinical_Trial']
+			# 	self.df_example = no_empty_rows_section_df
+			# if re.search(r'^gene_editing_human$', section_title):
+			# 	no_empty_rows_section_df = no_empty_rows_section_df[
+			# 		no_empty_rows_section_df.loc[:, "Application_Type"] == 'Human_Clinical_Trial']
 
 			# The 2nd exception is the 'Structural' table, from which, in V1, only the 1st entry is processed
 			if re.search(r'^structure$', section_title):
@@ -346,13 +346,17 @@ class DynamicWiki:
 
 			# The 3rd formatting exception is exp_details -> the html_content is modified
 			#  to generate a table from the pandas DF
-			if re.search(r'^exp_details$', section_title) or \
-					re.search(r'^pfam$', section_title) or \
-					re.search(r'^domains$', section_title):
+			if (re.search(r'^exp_details$', section_title) or
+					re.search(r'^pfam$', section_title) or
+					re.search(r'^domains$', section_title) or
+					re.search(r'^gene_editing$', section_title) or
+					re.search(r'^gene_editing_human$', section_title) or
+					re.search(r'^variants$', section_title) or
+					re.search(r'^tools$', section_title)):
 				html_content = str(no_empty_rows_section_df.to_html(index=False))
 				# Header adjustments
 				html_content = html_content.replace('<table border="1" class="dataframe">',
-				                                    f"<div class='table-wrap'>\n<table class='wiki-table'>\n"
+				                                    f"<div class='table-wrap'>\n<table class='wiki-table wiki-striped wiki-bordered'>\n"
 				                                    f"\n<span class='sr-only'>\n</span></caption>")
 				html_content = html_content.replace('</table>', '</table>\n</div>')
 				# Replace &lt; with <
