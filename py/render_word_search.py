@@ -21,6 +21,7 @@ def remove_special_chars(string):
 	clean_string = re.sub(r"\W+", '', string)
 	return clean_string
 
+
 def sql_table_to_df(conn_string, schema_name, table_name):
 	"""
 	Retrieves one table in the database and
@@ -82,7 +83,6 @@ def run(user_raw_input, config_render, config_db):
 	message_to_user = f"{config_render['word_search_message']} {user_raw_input}"
 
 	display_cols = config_render['wordsearch_display_cols']
-	display_cols.append('HTML_ID')
 
 	# Establish database connection
 	conn = psql_connect(config_db)
@@ -91,7 +91,7 @@ def run(user_raw_input, config_render, config_db):
 
 	# Perform regex search across all columns
 	search_result_df = search_df_cols(default_search_df, user_raw_input)
-	search_result_df['HTML_ID'] = search_result_df[config_db['unique_id_col']].apply(lambda x: re.sub(r'\W+', '', x))
+	# search_result_df['HTML_ID'] = search_result_df[config_db['unique_id_col']].apply(lambda x: re.sub(r'\W+', '', x))
 
 	# Select columns to display on page and
 	#   create HTML links to the target page based on protein name
@@ -103,6 +103,7 @@ def run(user_raw_input, config_render, config_db):
 	pre_format_search_df[config_db['unique_id_col']] = pre_format_search_df[config_db['unique_id_col']].apply(
 		lambda x: re.sub(r'page\=\'(\S+).html\'', lambda match: f"page='{remove_special_chars(match.group(1))}.html'", x)
 	)
+
 
 	# Convert pandas dataframe to HTML markup and
 	#   format final page based on the search template page
