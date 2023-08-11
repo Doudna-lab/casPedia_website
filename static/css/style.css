@@ -316,9 +316,21 @@ table.sortable {
   overflow-x: auto;
 }
 
-table.sortable tr a::after {
+
+.sortable a {
+  color: var(--bg-primary);
+  text-decoration: underline;
+}
+
+.sortable a:hover {
+  color: var(--bg-secondary);
+  text-decoration: underline;
+  position: relative;
+}
+
+.sortable a::after {
     content: "";
-    position: absolute;
+    position: relative;
     bottom: -2px;
     left: 0;
     width: 100%;
@@ -328,7 +340,7 @@ table.sortable tr a::after {
     transition: opacity 0.3s;
   }
 
-table.sortable tr a:hover::after {
+.sortable a:hover::after {
     opacity: 2;
   }
 
