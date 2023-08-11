@@ -7,16 +7,19 @@ from urllib.parse import quote as encode
 import sqlalchemy as sa
 # Project modules
 from py.db_loadNupdate import psql_connect
-from py.render_search_result import dynamic_blastout_html
+from py.render_search_result import dynamic_blastout_html, generate_link
 # Supress Pandas warning
 pd.set_option('mode.chained_assignment', None)
 
+# def generate_link(row, linked_column, referenced_column, app_function):
+#     """Generates an HTML href pointer to a template associated with the search result"""
+#     link = f"<a href='{{{{ url_for('{app_function}', page=\'{row[linked_column]}.html\') }}}}'>{row[referenced_column]}</a>"
+#     return link
 
-def generate_link(row, linked_column, referenced_column, app_function):
-    """Generates an HTML href pointer to a template associated with the search result"""
-    link = f"<a href='{{{{ url_for('{app_function}', page=\'{row[linked_column]}.html\') }}}}'>{row[referenced_column]}</a>"
-    return link
 
+def remove_special_chars(string):
+	clean_string = re.sub(r"\W+", '', string)
+	return clean_string
 
 def sql_table_to_df(conn_string, schema_name, table_name):
 	"""
@@ -45,12 +48,12 @@ def search_df_cols(df, search_pattern):
 	return result_df
 
 
-def pre_format_df_to_html(df, display_cols, url_cols, reference_col):
+def pre_format_df_to_html(df, display_cols, url_cols):
 	# Select columns to display on page
 	df_display = df[display_cols]
 	# Create HTML links to the target page based on protein name
-	df_display.loc[:, reference_col] = df_display.apply(
-		lambda row: generate_link(row, url_cols, reference_col, 'wiki_page'), axis=1)
+	df_display.loc[:, url_cols] = df_display.apply(
+		lambda row: generate_link(row, url_cols, 'wiki_page'), axis=1)
 
 	return df_display
 
@@ -71,14 +74,13 @@ def format_search_page(pre_format_df, template_path, custom_message):
 #
 # with open("config/render_result.yaml", "r") as f:
 # 	config_render = yaml.safe_load(f)
-# user_raw_input = 'hearo'
+# user_raw_input = 'cas13'
 
 
 def run(user_raw_input, config_render, config_db):
 	# Set the user-directed message for the user
 	message_to_user = f"{config_render['word_search_message']} {user_raw_input}"
 
-	display_cols = []
 	display_cols = config_render['wordsearch_display_cols']
 	display_cols.append('HTML_ID')
 
@@ -95,8 +97,12 @@ def run(user_raw_input, config_render, config_db):
 	#   create HTML links to the target page based on protein name
 	pre_format_search_df = pre_format_df_to_html(search_result_df,
 	                                             display_cols,
-	                                             'HTML_ID',
 	                                             config_db['unique_id_col'])
+
+	pre_format_search_df[config_db['unique_id_col']] = pre_format_search_df[config_db['unique_id_col']].apply(
+		lambda x: re.sub(r'page\=\'(\S+).html\'', lambda match: f"page='{remove_special_chars(match.group(1))}.html'", x)
+	)
+
 	# Convert pandas dataframe to HTML markup and
 	#   format final page based on the search template page
 	wordsearch_html_template = format_search_page(pre_format_search_df,
