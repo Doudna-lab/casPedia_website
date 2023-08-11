@@ -2,6 +2,7 @@
 import pickle
 import os
 import sys
+import re
 # Installed modules
 import yaml
 # Adjust script's directory to import project modules
@@ -37,6 +38,8 @@ def main():
 		# Save references on the PSQL Database
 		save_references(wiki_entry.doi_dict, psql_config)
 
+		# Pickles are saved without any special characters in their filenames
+		entry = re.sub(r'\W+', '', entry)
 		# Set the currrent wiki pickle path
 		pickle_path = f"{pickle_dir}{os.sep}{entry}.pkl"
 
