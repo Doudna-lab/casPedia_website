@@ -32,16 +32,24 @@
   <div class="abstract">
     <div class="column-container">
       <div id="section_nuclease">
-        <h2><b>DEFINING Cas IDs</b></h2>
+        <h2><b>DEFINING CasIDs</b></h2>
         <h3>
           <p>CasIDs are comprised of three digits, which represent <a href="#section_nuclease">nuclease activity</a>, <a href="#section_targeting">target requirement</a>, and <a href="#section_multiplx">guide RNA (gRNA) design</a>, respectively. Definitions for all CasID digits are provided below.</p>
 
-          <p>To demonstrate CasIDs, consider SpyCas9a, with a CasID of 1.1.1 . The Nuclease Activity for this enzyme falls under category 1, implying it has blunt double-stranded cis nuclease-activity, and no trans nuclease-activity (<sup><a href="https://doi.org/10.1016/j.molcel.2018.11.021" target="_blank">1</a></sup>. The Targeting Requirements for ShomepyCas9a fit category 1, meaning it requires a 3' protospacer-adjacent motif (PAM). Finally, the Guide RNA (gRNA) Design and Multiplexing properties for this enzyme fall under category 1, such that the Native CRISPR Array for SpyCas9a requires a CRISPR RNA (crRNA) for targeting + Trans-acting crRNA (tracrRNA) for multiplexing to the protein backbone of the effector + additional factors for processing the array into mature guides. However, as described by the CasID nomenclature, SpyCas9a can also be engineered to utilize a minimal array containing different single-guide RNAs (sgRNAs), represented as a contiguous, all-in-one crRNA+tracrRNA sequence<sup><a href="https://doi.org/10.1038/nature09886" target="_blank">2,</a></sup><sup><a href="https://doi.org/10.1146/annurev-biophys-062215-010822" target="_blank">3</a></sup>.</p>
+          <p>To demonstrate CasIDs, consider SpyCas9a, with a CasID of 1.1.1 . 
+
+            <ul class="ul-ul">
+              <li>The Nuclease Activity for this enzyme falls under category 1, implying it has blunt double-strand cis nuclease-activity, and no trans nuclease-activity.<sup><a href="https://doi.org/10.1016/j.molcel.2018.11.021" target="_blank">1</a></sup>.</li>
+              <li>The Targeting Requirements for SpyCas9a fit category 1, meaning it requires a 3' protospacer-adjacent motif (PAM)</li>
+              <li>Finally, the Guide RNA (gRNA) Design and Multiplexing properties for this enzyme fall under category 1, such that the native CRISPR array for SpyCas9a requires a CRISPR RNA (crRNA) for targeting + a trans-acting crRNA (tracrRNA) for multiplexing to the protein backbone of the effector + additional factors for processing the array into mature guides. SpyCas9a can also be engineered to utilize a minimal array containing different single-guide RNAs (sgRNAs), represented as a contiguous, all-in-one crRNA + tracrRNA sequence.<sup><a href="https://doi.org/10.1038/nature09886" target="_blank">2,</a></sup><sup><a href="https://doi.org/10.1146/annurev-biophys-062215-010822" target="_blank">3</a></sup>.</li>
+            </ul>  
+          </p>
         </h3>
           <img src="/path/to/SpyCas9_Ex.svg" alt="SpyCas9a Example">
-        <h2><b>Nuclease Activity</b></h2>
+        <h2><b>Primary Nuclease Activity</b></h2>
+        <hr>
       </div>
-      <h3>Nuclease activity is reported as the first digit in the Cas ID. Enzymes from the Class II Cas superfamily have diverse nuclease activities, both in an RNA-guided manner on a targeted sequence (in <i>cis-</i>) and sometimes on non-targeted nucleic acids upon binding (in <i>trans-</i>). The numerical annotation for nuclease activity relates to the known nucleic acid substrates for both the <i>cis-</i> and <i>trans-</i> activities of these enzymes.</h3>
+        <h3>Nuclease activity is reported as the first digit in the Cas ID. Enzymes from the Class II Cas superfamily have diverse nuclease activities, both in an RNA-guided manner on a targeted sequence (in cis-) and sometimes on non-targeted nucleic acids upon binding (in trans-). The numerical annotation for nuclease activity relates to the known nucleic acid substrates for both the cis- and trans- activities of these enzymes. DNA sequences are shown in red and blue. RNA sequences (non-gRNA) are shown in green. Cleavage sites are shown with black triangles. RNA guided Cas enzymes are shown in a fixed orientation to the nucleic acid substrate and not the value inferred by Target Requirement.</h3>
         <img src="{{url_for('static', filename='img/nuc_activity.svg')}}" alt="Image 1">
     </div>
   </div>
@@ -50,8 +58,9 @@
     <div class="column-container">
       <div id="section_targeting">
         <h2><b>Target Requirement</b></h2>
+        <hr>
       </div>
-      <h3>Targeting requirement is reported as the second digit in the Cas ID. Target requirement refers to the orientation of the Cas enzyme relative to its RNA-guided target substrate, as dictated by its protospacer adjacent motif (PAM), for DNA substrates, and protospacer flanking site (PFS), for RNA. The numerical annotation shows the orientation of the PAM, or PFS, relative to the protospacer and dictates the orientation of the ribonucleoprotein (RNP) relative to targeted substrate.</h3>
+        <h3>Targeting requirement is reported as the second digit in the Cas ID. Target requirement refers to the orientation of the Cas enzyme relative to its RNA-guided target substrate, as dictated by its protospacer adjacent motif (PAM), for DNA substrates, and protospacer flanking site (PFS), for RNA. The numerical annotation shows the orientation of the PAM, or PFS, relative to the protospacer and dictates the orientation of the ribonucleoprotein (RNP) relative to targeted substrate. DNA sequences are shown in red and blue. RNA sequences (non-gRNA) are shown in green. PAMs (required adjacent sequences) are shown with a star and PFSs (excluded adjacent sequences) are shown with an X.</h3>
         <img src="{{url_for('static', filename='img/targeting.svg')}}" alt="Image 2">
     </div>
   </div>
@@ -60,8 +69,9 @@
     <div class="column-container">
       <div id="section_multiplex">
         <h2><b>Guide RNA (gRNA) design + Multiplexing</b></h2>
+        <hr>
       </div>
-      <h3>Multiplexability is reported as the third digit in the Cas ID. Guide RNA (gRNA) design illustrates the process bridging CRISPR native context through synthetic gRNA scaffold design. The numerical annotation describes the relevant guide requirements in relevant several contexts: within the native CRISPR, the minimal synthetic guide design for multiplexing, and the sgRNA design for multiplexing.</h3>
+        <h3>Guide RNA (gRNA) design and multiplexing ability is reported as the third digit in the Cas ID. Guide RNA (gRNA) design illustrates the process bridging CRISPR native context through synthetic gRNA scaffold design. The numerical annotation describes the relevant guide requirements in relevant several contexts: within the native CRISPR (top), the minimal synthetic guide design for multiplexing (middle), and the sgRNA design for multiplexing (bottom). Spacers are represented by purple, green, and blue lines. CRISPR repeats that are incorporated in mature gRNAs are colored in orange and black if they’re lost during crRNA processing. Trans-acting RNAs (tracrs) are colored in red. Synthetically-added sequences (ie tetraloops) are shown in gray. </h3>
         <img src="{{url_for('static', filename='img/multiplex.svg')}}" alt="Image 3">
     </div>
   </div>
