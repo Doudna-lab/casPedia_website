@@ -7,6 +7,8 @@ from pathlib import Path
 # External modules
 from flask import Flask, request, render_template, send_from_directory
 import yaml
+from urllib.parse import quote as encode
+from urllib.parse import unquote as decode
 # Project modules
 import py.seq_search as seq_search
 from py.render_search_result import run as render_blastout_table
@@ -162,6 +164,7 @@ def wiki_page(page):
         return render_template('wiki/error.html')
 
     # Render the Wiki page and apply the empty_string filter to avoid ugly 'None's in the page
+    # encoded_page = encode.quote(page)
     return render_template(f'wiki/{page}',
                            page_name=wiki_entry.entry_id or empty_string,
                            classification=wiki_entry.classification or empty_string,
@@ -175,6 +178,7 @@ def wiki_page(page):
                            tools=wiki_entry.tools or empty_string,
                            variants=wiki_entry.variants or empty_string,
                            exp_details=wiki_entry.exp_details or empty_string,
+                           sequence_browser=wiki_entry.sequence_browser or empty_string,
                            pfam=wiki_entry.pfam or empty_string,
                            domains=wiki_entry.domains or empty_string,
                            structure=wiki_entry.structure or empty_string,

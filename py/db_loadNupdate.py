@@ -13,10 +13,10 @@ from psycopg2 import errors
 
 
 def get_absolute_path(name):
-    for root, dirs, files in os.walk(Path.home()):
-        for item in dirs + files:
-            if re.search(fr"\b{name}\b", item):
-                return os.path.abspath(os.path.join(root, item))
+	for root, dirs, files in os.walk(Path.home()):
+		for item in dirs + files:
+			if re.search(fr"\b{name}\b", item):
+				return os.path.abspath(os.path.join(root, item))
 
 
 def psql_connect(config_handle):
@@ -35,12 +35,15 @@ def psql_connect(config_handle):
 
 def import_csv_list(file_list, name_list):
 	dict_imported = {}
-	file_dict = {file_list[index]: name_list[index] for index in range(0, (len(file_list)))}
+	print(file_list)
+	print(len(file_list))
+	file_dict = {file_list[index - 1]: name_list[index - 1] for index in range(0, (len(file_list)))}
 	print(f"Importing data: {file_dict}")
 	for csv_file in file_dict:
 		csv_path = get_absolute_path(csv_file)
 		try:
 			df_loop = pd.read_csv(csv_path,
+			                      # quoting=3,
 			                      skiprows=lambda x: re.match(r'^\s*#', str(x)),
 			                      comment='#',
 			                      low_memory=False)
@@ -69,26 +72,48 @@ def import_csv_list(file_list, name_list):
 	return dict_imported
 
 
+# def merge_master(df_dict, root_column):
+# 	loop_df = pd.DataFrame()
+# 	for table_name in df_dict:
+# 		current_df = df_dict[table_name][0]
+# 		if len(loop_df.columns) >= 1:
+# 			try:
+# 				loop_df = loop_df.merge(current_df, how='inner', on=root_column)
+# 			except KeyError:
+# 				print(f'Table {current_df} does not include the root column {root_column}')
+# 				pass
+# 		elif len(loop_df.columns) == 0:
+# 			loop_df = df_dict[table_name][0].copy()
+# 	# This gets rid of any single-quote escaping that Pandas might have done
+# 	# replace_single_quotes = lambda x: re.sub(r"\\'", "'", x) if isinstance(x, str) else x
+# 	# string_columns = loop_df.select_dtypes(include=['object']).columns
+# 	# loop_df[string_columns] = loop_df[string_columns].applymap(replace_single_quotes)
+# 	return loop_df
+
+
 def load_table2db(df_dict, conn_string, schema_name):
 	print("Create DB engine")
 	db_engine = create_engine(conn_string, echo=True)
 	db_connection = db_engine.connect()
 	print("Connection established with the DB")
-	for df in df_dict:
+	for df_name in df_dict:
 		print("Looping through tables and adding to {} schema".format(schema_name))
 		try:
 			if not db_connection.dialect.has_schema(db_connection, schema_name):
 				db_connection.execute(cschema(schema_name))
 
+			# Remove any 'unnamed' columns from the DF
+			df = df_dict[df_name][0]
+			clean_df = df.loc[:, ~df.columns.str.contains(r'unnamed', case=False)]
 			# Guess data types before loading the df into DB
-			df2 = df_dict[df][0].convert_dtypes().infer_objects()
-			df2.update(df2.select_dtypes('object').astype(str))
-
+			clean_df = clean_df.convert_dtypes().infer_objects()
+			clean_df.update(clean_df.select_dtypes('object').astype(str))
+			print(clean_df)
 			# Load df into the relevant schema
-			df2.to_sql(df_dict[df][1], db_engine,
-			                      schema=schema_name,
-			                      if_exists='replace',
-			                      index=False)
+			clean_df.to_sql(df_dict[df_name][1], db_engine,
+			           schema=schema_name,
+			           if_exists='replace',
+			           index=False)
 
 		except psycopg2.errors.InFailedSqlTransaction:
 			print("Could not add table to schema")
@@ -106,10 +131,14 @@ with open(get_absolute_path('db_interaction.yaml'), "r") as f:
 
 def main():
 	source_metadata_list = config["source_metadata_path"]
-	source_tag_list = config["metadata_file_tags"]
+	source_tag_list = [config['default_search_table'], config['genomic_table_name']]
+	# root_column_name = config['unique_id_col']
 	schema = config["schema"]
 
 	tables_dict = import_csv_list(source_metadata_list, source_tag_list)
+
+	# merged_master = merge_master(tables_dict, root_column_name)
+
 	conn_string = psql_connect(config)
 	load_table2db(tables_dict, conn_string, schema)
 

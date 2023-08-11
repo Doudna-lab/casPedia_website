@@ -181,7 +181,7 @@ wiki_sections:
         <script type="module">
               import igv from "https://cdn.jsdelivr.net/npm/igv@2.15.8/dist/igv.esm.min.js"
               const options = {{ Browser_Command }};
-              igv.createBrowser(document.getElementById('container'), options);
+              igv.createBrowser(document.getElementById("container"), options);
           </script>
       n_of_index_cols: 0
   - pfam:

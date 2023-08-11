@@ -174,7 +174,9 @@ def format_master_table2wiki(id_to_df_dict, master_tbl, config_db):
 				continue
 		except KeyError:
 			print(f"Entry {entry_id} does not have one or more of the required columns in its form {master_search_col}")
-			print(master_search_col)
+			# print("ENTRY \n", entry_id)
+			# print("COLUNAS \n", master_tbl.columns)
+			# print("PROCURA \n", master_row_names.keys())
 			continue
 		# Process the Cas_ID sprites tables
 		# print(f"PRE PROCESSING OF {entry_id}:\n\n{master_slice_df}")
@@ -284,6 +286,15 @@ def format_pfam_domains(id_to_df_dict, config_db):
 	return entry_to_pfam_tables_dict
 
 
+def format_single_column_table(id_to_df_dict, table, id_containing_col, target_column, db_table_label):
+	entry_to_tables_dict = {}
+	for entry_id in id_to_df_dict:
+		df = pd.DataFrame({target_column: table[table[id_containing_col] == entry_id][target_column]})
+		# df = id_to_df_dict[entry_id][target_column]
+		entry_to_tables_dict.setdefault(entry_id, {}).setdefault(db_table_label, df)
+	return entry_to_tables_dict
+
+
 # Load config_render file
 with open(get_absolute_path("db_interaction.yaml"), "r") as f:
 	config = yaml.safe_load(f)
@@ -297,6 +308,16 @@ def main():
 	purge_wiki_schemas(conn_string, schema)
 	# Load the master wiki table
 	master_table = sql_table_to_df(conn_string, config["schema"], config["default_search_table"])
+	genomic_table = sql_table_to_df(conn_string, config['schema'], config['genomic_table_name'])
+
+	# Change start/end parameters from string to integers
+	genomic_table[config['genomic_browser_col']] = genomic_table[config['genomic_browser_col']].apply(
+		lambda x: re.sub(rf'(start):\"(\d+)\"', r"\1:\2", x))
+	genomic_table[config['genomic_browser_col']] = genomic_table[config['genomic_browser_col']].apply(
+		lambda x: re.sub(r'(end):\"(\d+)\"', r"\1:\2", x))
+	genomic_table[config['genomic_browser_col']] = genomic_table[config['genomic_browser_col']].apply(
+		lambda x: re.sub(r'\"(indexed)\":\"(\w+)\"', r"\1:\2", x))
+
 
 	# Consolidate Cloud links and identifiers
 	wiki_links_list = get_col_as_list(config["wiki_manifest_path"], config["links_column"])
@@ -305,16 +326,23 @@ def main():
 	# Download forms from Google-drive
 	id_to_sheets_dict = get_excel_from_google_drive(wiki_links_list, uniq_id_list)
 
-	# Account for master table addition to wiki schemas
+	# Integrate master table to wiki schemas
 	pre_sheets_dict = id_to_sheets_dict.copy()
 	id_to_sheets_dict_updated = format_master_table2wiki(pre_sheets_dict, master_table, config)
 
 	# Load protein domains based on the UniProtKB assigned to the entries
 	pfam_tables_dict = format_pfam_domains(id_to_sheets_dict, config)
 	id_to_sheets_dict_pfam = map_2D_dictionary(id_to_sheets_dict_updated, pfam_tables_dict)
+	# Integrate with genomic browser script as a table to wiki schemas
+	genbrowser_tables_dict = format_single_column_table(id_to_sheets_dict_pfam,
+	                                                    genomic_table,
+	                                                    config["unique_id_col"],
+	                                                    config['genomic_browser_col'],
+	                                                    config['genomic_db_table_name'])
 
+	id_to_sheets_dict_genbrowser = map_2D_dictionary(id_to_sheets_dict_pfam, genbrowser_tables_dict)
 	# Load forms into the Database
-	load_wiki_tables2db(id_to_sheets_dict_pfam, conn_string, schema)
+	load_wiki_tables2db(id_to_sheets_dict_genbrowser, conn_string, schema)
 
 
 if __name__ == "__main__":
