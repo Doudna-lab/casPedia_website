@@ -6,8 +6,8 @@ database_name: "caspedia"
 port: 5432
 
 # ********* GLOBAL CONFIGURATION *********
-# Master table
-source_metadata_path: ['2023_03_28_Cas_family_tree_Naming.csv']
+# Master table and Genomic context data table
+source_metadata_path: ['2023_03_28_Cas_family_tree_Naming.csv', 'genomic_context_data.csv']
 # Wiki manifest containing URL for each and every wiki intake forms
 wiki_manifest_path: "background_data/wiki_manifest.csv"
 
@@ -16,6 +16,17 @@ doi_table_name: 'doi_citation'
 
 # Column in the main database that contains unique protein identifiers
 unique_id_col: "Type Protein"
+# Column in the main database that contains unique protein identifiers
+genomic_browser_col: "Browser_Command"
+
+# Sets the name of the sequence browser table name in the PSQL Database
+genomic_db_table_name: 'Sequence_Browser'
+
+# Main database table for user input search
+default_search_table: "master"
+# Genomic context table
+genomic_table_name: "genomic"
+
 
 # ********* TOOL FINDER CONFIGURATION *********
 # Translates the options available in the tool finder HTML to
@@ -24,7 +35,7 @@ match_question_to_db:
   "target_type": "Nuclease_Activity"
   "trans_activity": "Nuclease_Activity"
   "targeting_requirement": "Targeting_Requirement"
-  "multiplex": "gRNA_Design_and_Multiplexability"
+  "multiplex": "gRNA_and_Multiplexability"
 
 wildcard_search: "Any"
 
@@ -48,10 +59,7 @@ tool_finder_sections:
 
 # ********* MASTER TABLE CONFIGURATION *********
 # In-Database names of source tables
-metadata_file_tags: ['master']
 schema: "root"
-# Main database table for user input search
-default_search_table: "master"
 # Column in the master table that contains the CAS ID
 cas_id_col: "Number"
 # Column in the master table that contains aa sequence
@@ -59,7 +67,7 @@ master_sequence_col: "Protein sequence"
 # The column names for the newly imported master table in the PSQL wiki schemas
 master_to_wiki_col_names: ["Property", "Info"]
 # CasID name order
-cas_id_order: ['Nuclease Activity', 'Targeting Requirement', 'Multiplexability']
+cas_id_order: ['Nuclease Activity', 'Targeting Requirement', 'gRNA and Multiplexability']
 
 # ********* WIKI CONFIGURATION *********
 # The master table is sliced and formatted as an additional table in
@@ -71,7 +79,7 @@ master_to_wiki_col_format:
   "Number": "Cas ID"
   "Nuclease_Activity": "Nuclease Activity"
   "Targeting_Requirement": "Targeting Requirement"
-  "gRNA_Design_and_Multiplexability": "gRNA Design and Multiplexability"
+  "gRNA_and_Multiplexability": "gRNA and Multiplexability"
   "Class_II_Subtype": "Class II subtype"
 
 # Column name in the wiki forms that denotes raw fasta sequences
@@ -167,6 +175,15 @@ wiki_sections:
                 <span>{{ Description }}</span>
               </ul>'
       n_of_index_cols: 1
+  - sequence_browser:
+      tbl_name: "Sequence_Browser"
+      format: |
+        <script type="module">
+              import igv from "https://cdn.jsdelivr.net/npm/igv@2.15.8/dist/igv.esm.min.js"
+              const options = {{ Browser_Command }};
+              igv.createBrowser(document.getElementById('container'), options);
+          </script>
+      n_of_index_cols: 0
   - pfam:
       tbl_name: "PFAM_Domains"
       format: '' #Directly displayed as a table
