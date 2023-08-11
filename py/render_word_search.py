@@ -99,6 +99,7 @@ def run(user_raw_input, config_render, config_db):
 	                                             display_cols,
 	                                             config_db['unique_id_col'])
 
+	# Accommodate special characters on the incoming search by removing them from the HTML path
 	pre_format_search_df[config_db['unique_id_col']] = pre_format_search_df[config_db['unique_id_col']].apply(
 		lambda x: re.sub(r'page\=\'(\S+).html\'', lambda match: f"page='{remove_special_chars(match.group(1))}.html'", x)
 	)
