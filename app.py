@@ -5,7 +5,7 @@ import shutil
 import pickle
 from pathlib import Path
 # External modules
-from flask import Flask, request, render_template, send_from_directory
+from flask import Flask, request, render_template, send_from_directory, send_file
 import yaml
 from urllib.parse import quote as encode
 from urllib.parse import unquote as decode
@@ -190,7 +190,6 @@ def wiki_page(page):
 def render_file(filename):
     # Get the absolute path of the file in the /fasta/ folder
     file_path = os.path.join('static/fasta', filename)
-
     # Check if the file exists
     if os.path.exists(file_path):
         # Send the file as download
@@ -200,6 +199,18 @@ def render_file(filename):
     else:
         # File not found, return an error response
         return f"File not found: {filename}", 404
+
+
+@app.route('/background_data/caspedia_entry_list.csv')
+def download_csv():
+    # Get the absolute path of the file in the /fasta/ folder
+    file_path = os.path.join('background_data/caspedia_entry_list.csv')
+    # Check if the file exists
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        # File not found, return an error response
+        return f"File not found", 404
 
 
 @app.route('/', methods=["POST", "GET"])
