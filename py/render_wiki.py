@@ -103,8 +103,6 @@ def resolve_fasta_seq(df, seq_col_name, entry, export_path):
 	df_formatted = df.copy()
 	additional_id_col = f'{cols_list[cols_list.index(seq_col_name) - 1]}'
 
-	# df_formatted[additional_id_col] = df_formatted[additional_id_col].apply(lambda x: re.sub(r'\W+|_', ' ', str(x)))
-
 	# Format the FASTA-related column
 	df_formatted[seq_col_name] = df_formatted[seq_col_name].apply(
 		lambda x: re.sub(r'\W+', '', str(x)))

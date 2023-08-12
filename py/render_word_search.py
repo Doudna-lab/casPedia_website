@@ -1,20 +1,13 @@
 # Native modules
 import re
-import pandas as pd
 # Installed modules
-# import psycopg2
-from urllib.parse import quote as encode
+import pandas as pd
 import sqlalchemy as sa
 # Project modules
 from py.db_loadNupdate import psql_connect
 from py.render_search_result import dynamic_blastout_html, generate_link
 # Supress Pandas warning
 pd.set_option('mode.chained_assignment', None)
-
-# def generate_link(row, linked_column, referenced_column, app_function):
-#     """Generates an HTML href pointer to a template associated with the search result"""
-#     link = f"<a href='{{{{ url_for('{app_function}', page=\'{row[linked_column]}.html\') }}}}'>{row[referenced_column]}</a>"
-#     return link
 
 
 def remove_special_chars(string):
@@ -81,17 +74,16 @@ def format_search_page(pre_format_df, template_path, custom_message):
 def run(user_raw_input, config_render, config_db):
 	# Set the user-directed message for the user
 	message_to_user = f"{config_render['word_search_message']} {user_raw_input}"
-
+	# Get column names to be displayed on HTML
 	display_cols = config_render['wordsearch_display_cols']
 
 	# Establish database connection
 	conn = psql_connect(config_db)
-
+	# Fetch master table
 	default_search_df = sql_table_to_df(conn, config_db["schema"], config_db['default_search_table'])
 
 	# Perform regex search across all columns
 	search_result_df = search_df_cols(default_search_df, user_raw_input)
-	# search_result_df['HTML_ID'] = search_result_df[config_db['unique_id_col']].apply(lambda x: re.sub(r'\W+', '', x))
 
 	# Select columns to display on page and
 	#   create HTML links to the target page based on protein name
@@ -103,7 +95,6 @@ def run(user_raw_input, config_render, config_db):
 	pre_format_search_df[config_db['unique_id_col']] = pre_format_search_df[config_db['unique_id_col']].apply(
 		lambda x: re.sub(r'page\=\'(\S+).html\'', lambda match: f"page='{remove_special_chars(match.group(1))}.html'", x)
 	)
-
 
 	# Convert pandas dataframe to HTML markup and
 	#   format final page based on the search template page
