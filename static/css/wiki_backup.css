@@ -7,7 +7,7 @@
 }
 
 main {
-  margin-left: 16rem;
+  margin-left: 12rem;
   padding: .5rem;
   max-width: 80%;
 }
@@ -168,10 +168,17 @@ header {
   height: auto;
 }
 
+.wiki-title-box{
+  background-color: var(--bg-primary);
+  border-radius: 25px;
+  box-shadow:0 2px 5px 0 var(--text-primary)
+}
+
 /* CAS_ID Sprites */
 .casID_sprite {
   /*max-width: 30%;*/
-  max-height: 200px;
+  max-height: 500px;
+  margin: .5rem
   /*object-fit: contain;*/
   /*border: 1px solid #555;*/
   /*border-radius: 5%;*/
@@ -183,9 +190,8 @@ header {
 
 .cas_id_container:after {
   display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  padding: 10px;
+  /*justify-content: space-between;*/
+  margin: 1rem;
 }
 
 /* Wiki Containers*/
@@ -224,6 +230,36 @@ header {
   margin-left: 40px;
 }
 
+.wiki-bottom-left {
+  float: left;
+  width: 65%;
+  /*height: 200px;*/
+  margin: .5rem;
+  padding: 0;
+}
+
+.wiki-bottom-right {
+  float: right;
+  width: 32%;
+  /*max-height: 24%;*/
+  margin: .5rem;
+  padding: 0;
+}
+
+.wiki-top-right {
+  float: right;
+  width: 32%;
+  padding: 0;
+  /*min-height: 325px;*/
+  margin: .5rem;
+}
+
+.wiki-top-left {
+  float: left;
+  width: 65%;
+  min-height: 325px;
+  margin: .5rem;
+}
 
 /* Style Template */
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
@@ -295,7 +331,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .wiki-col.s1{width:8.33333%}.wiki-col.s2{width:16.66666%}.wiki-col.s3{width:24.99999%}.wiki-col.s4{width:33.33333%}
 .wiki-col.s5{width:41.66666%}.wiki-col.s6{width:49.99999%}.wiki-col.s7{width:58.33333%}.wiki-col.s8{width:66.66666%}
 .wiki-col.s9{width:74.99999%}.wiki-col.s10{width:83.33333%}.wiki-col.s11{width:91.66666%}.wiki-col.s12{width:99.99999%}
-@media (min-width:601px){.wiki-col.m1{width:8.33333%}.wiki-col.m2{width:16.66666%}.wiki-col.m3,.wiki-quarter{width:24.99999%}.wiki-col.m4,.wiki-third{width:33.33333%}
+@media (min-width:601px){.wiki-col.m1{width:8.33333%}.wiki-col.m2{width:16.66666%}.wiki-col.m3,.wiki-quarter{width:24.99999%}.wiki-col.m4,.wiki-third{width:33.33333%}.wiki-top-half{width:33.33333%; height: 40%}
 .wiki-col.m5{width:41.66666%}.wiki-col.m6,.wiki-half{width:49.99999%}.wiki-col.m7{width:58.33333%}.wiki-col.m8,.wiki-twothird{width:66.66666%}
 .wiki-col.m9,.wiki-threequarter{width:74.99999%}.wiki-col.m10{width:83.33333%}.wiki-col.m11{width:91.66666%}.wiki-col.m12{width:99.99999%}}
 @media (min-width:993px){.wiki-col.l1{width:8.33333%}.wiki-col.l2{width:16.66666%}.wiki-col.l3{width:24.99999%}.wiki-col.l4{width:33.33333%}

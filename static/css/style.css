@@ -41,7 +41,7 @@ body::-webkit-scrollbar-thumb{
 }
 
 main {
-  margin-left: 16rem;
+  margin-left: 12rem;
   padding: .5rem;
   max-width: 80%;
 }
