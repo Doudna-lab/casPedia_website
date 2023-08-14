@@ -14,9 +14,9 @@
       <h3 class="section-header">GENERAL INFORMATION</h3>
         <button onclick="myAccFunc('Info1')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">What is CasPEDIA?&nbsp;</span></button>
           <div id="Info1" class="wiki-hide">
-            <p class="section-content"><p>CasPEDIA is a community project that organizes Class II CRISPR-associated proteins by their functional properties. As an encyclopedia of single-enzyme effectors, CasPEDIA provides comprehensive descriptions of enzyme activities, structures and sequences, complete with a literature review covering each nuclease's discovery, experimental considerations and applications. Information presented in CasPEDIA includes citations for further research. Additionally, CasPEDIA exists in tandem with <a href="https://innovativegenomics.org/crisprpedia/" target="_blank">CRISPRpedia</a>, a free resource created by The Innnovative Genomics Institute that describes the principles of CRISPR technology.</p>
-
-            <p>CasPEDIA is a living database and construction is ongoing! If you would like to contribute to CasPEDIA (i.e. moderate or update content, create new entries, etc.), please see the FAQ section entitled "Contribute to CasPEDIA" or the Contact page of the website for details.</p>
+            <p class="section-content"><p>CasPEDIA is a community project that organizes Class II CRISPR-associated proteins by their functional properties. As an encyclopedia of single-enzyme effectors, CasPEDIA provides comprehensive descriptions of enzyme activities, structures, and sequences, complete with a literature review covering each nuclease's discovery, experimental considerations, and applications. Information presented in CasPEDIA includes citations for further research.</p>
+ 
+            <p>If you would like to contribute to CasPEDIA (e.g., moderate or update content, create new entries, etc.), please see the FAQ section entitled "Contribute to CasPEDIA" or the Contact page of the website for details.</p> 
             </p>
           </div>
         <hr>
@@ -27,16 +27,22 @@
         <hr>
         <button onclick="myAccFunc('Info3')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">What data is organized in CasPEDIA?&nbsp;</span></button>
           <div id="Info3" class="wiki-hide">
-            <p class="section-content"><p>As a centralized repository of Class II Cas systems, CasPEDIA is organized in wiki format, with detailed summaries of each nuclease. Additional resources exist, such as "Advanced Tool Search" and DELTA-BLAST sequence search (default parameters), to assist users in searching for enzymes relevant to their experimental and discovery needs. The website also details the phylogenetic classifications of Class II systems, complimenting similar efforts in the CRISPR community. When information is available, wiki entries contain the following sections:</p>
+          <p>As a centralized repository of Class II Cas systems, CasPEDIA is organized in wiki format, with detailed summaries of each nuclease. Additional resources exist, such as "Advanced Tool Search" and DELTA-BLAST sequence search (default parameters), to assist users in searching for enzymes relevant to their experimental and discovery needs. The website also details the phylogenetic classifications of Class II systems, complimenting similar efforts in the CRISPR community. When information is available, wiki entries contain the following sections:</p>
+          <ul>
+          <li><b>Quick Links:</b> Three summary panels are available at the top of the website to enable rapid access to information about the nuclease. The three panels include: Classification (CasID information), Properties (essential details, including: protospacer length, PAM/PFS sequence, CDS Length, Number of Amino acids, etc.) and Resources (external links to: RefSeq Genome Assembly for the species of origin, RefSeq Gene ID, RefSeq Protein ID, UniProtKB ID, Conserved Domains Database ID(s), etc.)</p></li>
 
-            <p>- Quick Links: Three summary panels are available at the top of the website to enable rapid access to information about the nuclease. The three panels include: Classification (CasID information), Properties (Essential details, including: protospacer length, PAM/PFS sequence, CDS Length, Number of Amino acids, etc.) and Resources (External links to: RefSeq Genome Assembly for the species of origin, RefSeq Gene ID, RefSeq Protein ID, UniProtKB ID, Conserved Domains Database ID(s), etc.)</p>
-            <p>- Summary: Brief summary of the nuclease, Including: its species of origin, context of its discovery, common uses, novel properties, etc.</p>
-            <p>- Applications: Description of how the cas nuclease is utilized by scientists. This section contains literature reviews and subheaders for Gene Editing, Tools and Diagnostics, and Engineered Variants, associated with the effector.</p>
-            <p>- Experimental Considerations: A high-level introduction on how to perform and design experiments with a specific Cas system. This section contains subheadings for "Delivery" (i.e. How to deliver a cas nuclease into a system or model organism using different modalities.) and "Design" (i.e. How to design guides against a target sequence with established rules or algorithms, create an expression construct for the nuclease, and other relevant notes to kickstart experimentation.).</p>
-            <p>- Nucleotide Sequence: A genome-browser view of the nuclease's sequence and architecture of its CRISPR Array. Both the nucleotide sequence and genomic coordinates are available for download.</p>
-            <p>- Protein Structure: A summary of domain and residue information from UNIPROT and Pfam, with structures from PDB or generated with AlphaFold2.</p>
-            <p>- Citations: Information in CasPEDIA is cited. The citations for each wiki are indexed at the bottom of the page in APA style.</p>
-            </p>
+          <li><b>Summary:</b>Brief summary of the nuclease, including its species of origin, context of its discovery, common uses, novel properties, etc.</li>
+
+          <li><b>Applications: </b>Description of how the Cas nuclease is utilized by scientists. This section contains literature reviews and subheaders for Gene Editing, Tools and Diagnostics, and Engineered Variants, associated with the effector.</li>
+
+          <li><b>Experimental Considerations:</b> A high-level introduction on how to perform and design experiments with a specific Cas system. This section contains subheadings for "Delivery" (how to deliver a cas nuclease into a system or model organism using different modalities.) and "Design" (now to design guides against a target sequence with established rules or algorithms, create an expression construct for the nuclease, and other relevant notes to kickstart experimentation.).</li>
+
+          <li><b>Nucleotide Sequence:</b> A genome-browser view of the nuclease's sequence and architecture of its CRISPR array. Both the nucleotide sequence and genomic coordinates are available for download.</li>
+
+          <li>P<b>rotein Structure:</b> A summary of domain and residue information from UNIPROT and Pfam, with structures from PDB or generated with AlphaFold2.</li>
+
+          <li><b>References:</b> All information in CasPEDIA should be accompanied by a citation. The citations for each wiki are indexed at the bottom of the page in APA style.</li>
+          </ul>
           </div>
         <hr>
         <button onclick="myAccFunc('Info3')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">How was data collected for CasPEDIA?&nbsp;</span></button>
@@ -51,7 +57,7 @@
         <hr>
         <button onclick="myAccFunc('Info3')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">How do I cite CasPEDIA?&nbsp;</span></button>
           <div id="Info3" class="wiki-hide">
-            <p class="section-content">The CasPEDIA manuscript is currently under review at NAR. We hope the paper is released in the January 2024 NAR Database issue. (Citation/DOI pending)</p>
+            <p class="section-content">The CasPEDIA is in beta and the manuscript is currently under review.(Citation/DOI pending)</p>
           </div>
         <hr>
     <br>
@@ -68,8 +74,12 @@
           <div id="CasID2" class="wiki-hide">
             <p class="section-content"><p>CasIDs can be interpreted using the lookup table on the <a href="http://caspedia.org/" target="_blank">homepage of the website </a>. Assessing the three constituent digits of an ID, reveals the nuclease's function. The first integer describes the Nuclease Activity of the enzyme, of which there are 9 distinct types, covering both cis and trans properties. The second value indicates the Targeting Requirements of the RNA-guided enzyme, spanning 7 different types. The third digit summarizes 5 unique classes of Guide RNA (gRNA) Design and Multiplexing properties for Class II systems.</p>
 
-            <p>To better understand CasIDs, consider SpyCas9a, with a CasID of 1.1.1 . The Nuclease Activity for this enzyme falls under category 1, implying it has blunt double-stranded cis nuclease-activity, and no trans nuclease-activity ((https://doi.org/10.1016/j.molcel.2018.11.021)). The Targeting Requirements for ShomepyCas9a fit category 1, meaning it requires a 3' protospacer-adjacent motif (PAM). Finally, the Guide RNA (gRNA) Design and Multiplexing properties for this enzyme fall under category 1, such that the Native CRISPR Array for SpyCas9a requires a CRISPR RNA (crRNA) for targeting + Trans-acting crRNA (tracrRNA) for multiplexing to the protein backbone of the effector + additional factors for processing the array into mature guides. However, as described by the CasID nomenclature, SpyCas9a can also be engineered to utilize a minimal array containing different single-guide RNAs (sgRNAs), represented as a contiguous, all-in-one crRNA+tracrRNA sequence ((10.1038/nature09886; https://doi.org/10.1146/annurev-biophys-062215-010822)).</p>
-          </p>
+            <p>To better understand CasIDs, consider SpyCas9a, with a CasID of 1.1.1.</p>
+            <ul class="ul-ul">
+              <li>The Nuclease Activity for this enzyme falls under category 1, implying it has blunt double-strand cis nuclease-activity, and no trans nuclease-activity.<sup><a href="https://doi.org/10.1016/j.molcel.2018.11.021" target="_blank">1</a></sup>.</li>
+              <li>The Targeting Requirements for SpyCas9a fit category 1, meaning it requires a 3' protospacer-adjacent motif (PAM)</li>
+              <li>Finally, the Guide RNA (gRNA) Design and Multiplexing properties for this enzyme fall under category 1, such that the native CRISPR array for SpyCas9a requires a CRISPR RNA (crRNA) for targeting + a trans-acting crRNA (tracrRNA) for multiplexing to the protein backbone of the effector + additional factors for processing the array into mature guides. SpyCas9a can also be engineered to utilize a minimal array containing different single-guide RNAs (sgRNAs), represented as a contiguous, all-in-one crRNA + tracrRNA sequence.<sup><a href="https://doi.org/10.1038/nature09886" target="_blank">2,</a></sup><sup><a href="https://doi.org/10.1146/annurev-biophys-062215-010822" target="_blank">3</a></sup>.</li>
+            </ul> 
           </div>
         <hr>
         <button onclick="myAccFunc('CasID3')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">How do I construct a CasID?&nbsp;</span></button>
