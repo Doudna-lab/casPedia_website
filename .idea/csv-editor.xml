@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/background_data/caspedia_entry_list.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/background_data/genomic_context_data.csv">
           <value>
             <Attribute>
@@ -18,20 +25,6 @@
           </value>
         </entry>
         <entry key="/background_data/wiki_manifest.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="&lt;fd4b4539-ba0e-40f7-9b32-176c40ac58e3&gt;/casPedia_website/background_data/2023_03_28_Cas_family_tree_Naming.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="&lt;fd4b4539-ba0e-40f7-9b32-176c40ac58e3&gt;/casPedia_website/background_data/wiki_manifest.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
