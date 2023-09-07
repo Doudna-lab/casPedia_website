@@ -201,6 +201,7 @@ def render_file(filename):
         return f"File not found: {filename}", 404
 
 
+# Downloads
 @app.route('/background_data/caspedia_entry_list.csv')
 def download_csv():
     # Get the absolute path of the file in the /fasta/ folder
@@ -211,6 +212,20 @@ def download_csv():
     else:
         # File not found, return an error response
         return f"File not found", 404
+
+
+@app.route('/static/phylogeny', methods=['GET'])
+def download_phylo():
+    # Get the 'type' value from the request's query parameters
+    type = request.args.get('type')
+    # Get the absolute path of the file in the /fasta/ folder
+    file_path = os.path.join(f'static/nwk/phylogeny_{type}.nwk')
+    # Check if the file exists
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        # File not found, return an error response
+        return f"File not found.", 404
 
 
 @app.route('/', methods=["POST", "GET"])
