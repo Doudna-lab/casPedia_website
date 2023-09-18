@@ -1,0 +1,6 @@
+@article{adler2023caspedia,
+  title={CasPEDIA Database: A Functional Classification System for Class 2 CRISPR-Cas Enzymes},
+  author={Adler, Benjamin A and Trinidad, Marena I and Bellieny-Rabelo, Daniel and Zhang, Elaine and Karp, Hannah M and Skopintsev, Petr and Thornton, Brittney and Weissman, Rachel F and Yoon, Peter H and Chen, Linxing and others},
+  year={2023},
+  publisher={EcoEvoRxiv}
+}

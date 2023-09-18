@@ -227,6 +227,27 @@ def download_phylo():
         # File not found, return an error response
         return f"File not found.", 404
 
+@app.route('/background_data/endnote_citation.enw')
+def download_endnote():
+    # Get the absolute path of the file
+    file_path = os.path.join('background_data/endnote_citation.enw')
+    # Check if the file exists
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        # File not found, return an error response
+        return f"File not found", 404
+
+@app.route('/background_data/bibtex_citation.txt')
+def download_bibtex():
+    # Get the absolute path of the file
+    file_path = os.path.join('background_data/bibtex_citation.txt')
+    # Check if the file exists
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        # File not found, return an error response
+        return f"File not found", 404
 
 @app.route('/', methods=["POST", "GET"])
 def gfg():
