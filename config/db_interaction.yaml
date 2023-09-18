@@ -195,6 +195,7 @@ wiki_sections:
   - structure:
       tbl_name: "Structural"
       format: |
+        <h4> PDB ID: {{ PDB_IDs }}</h4>
         <div style="height: 400px; width: 100%; position: relative;" class='viewer_3Dmoljs' data-style='cartoon' data-pdb='{{ PDB_IDs }}'></div>
       n_of_index_cols: 0
 references:
