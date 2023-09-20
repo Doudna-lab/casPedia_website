@@ -9,6 +9,9 @@ numeric_columns_blast: ["Query_length", "Hit_length",
                         "Query_positives_cov_%",
                         "E-value"]
 
+# Columns in the Master table that'll be appended to the Blast search result
+columns_from_master: ["Type Protein", "Number", "PAM_or_PFS", "Class_II_Subtype"]
+
 # WORD-SEARCH SPECIFIC CONFIGS
 wordsearch_display_cols: ['Type Protein', 'Number',
                           'Protein_Accession', 'Nuclease_Activity',

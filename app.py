@@ -282,7 +282,8 @@ def gfg():
             # Create sequence search output page
             html_blastout_tbl = render_blastout_table(
                 blastout_report_dict,
-                tbl_render_config
+                tbl_render_config,
+                psql_config
             )
             # Export blastP search output page
             html_template_path = dynamic_html_toolbox.export_html_template(html_blastout_tbl)

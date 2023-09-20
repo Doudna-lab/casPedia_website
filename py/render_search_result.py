@@ -2,6 +2,28 @@
 import pandas as pd
 import re
 import os
+# Installed modules
+import sqlalchemy as sa
+# Project modules
+from py.db_loadNupdate import psql_connect
+
+
+def sql_table_to_df(conn_string, schema_name, table_name):
+	"""
+	Retrieves one table in the database and
+	returns its converted pandas dataframe
+	:param table_name:
+	:param conn_string:
+	:param schema_name:
+	"""
+	engine = sa.create_engine(conn_string, echo=True)
+	conn = engine.connect()
+	sql_query = pd.read_sql_query('''
+	SELECT
+	*
+	FROM "{}"."{}"
+	'''.format(schema_name, table_name), conn).convert_dtypes().infer_objects()
+	return sql_query
 
 
 # Define a function to generate HTML links
@@ -115,11 +137,25 @@ def dynamic_blastout_html(blastout_df_html, html_template_path, message_to_user)
 # import yaml
 # with open("config_render/render_result.yaml", "r") as f:
 #     config_render = yaml.load(f, Loader=yaml.FullLoader)
-def run(blastout_dict, config_render):
+def run(blastout_dict, config_render, config_db):
+    # Establish database connection
+    conn = psql_connect(config_db)
+    # Fetch master table and process the relevant columns
+    default_search_df = sql_table_to_df(conn, config_db["schema"], config_db['default_search_table'])
+    default_search_df = default_search_df[config_render["columns_from_master"]]
+    default_search_df.index = default_search_df[config_render["linked_column_word_search"]]
+    default_search_df.drop(columns=config_render["linked_column_word_search"], axis=1, inplace=True)
+
     # Grab input sequence ID
     message_to_user = f"{config_render['sequence_search_message']} {list(blastout_dict.keys())[0]}"
     # Import blastout parsed dictionary into pandas dataframe
     df = pd.DataFrame.from_dict(blastout_dict[list(blastout_dict.keys())[0]], orient='index')
+
+    # Merge master table columns to blastout table
+    df = pd.merge(df, default_search_df, left_index=True, right_index=True)
+
+    # Adjust master table column names for display
+    df = df.rename(columns=config_db["master_to_wiki_col_format"])
 
     # Create a column for hit IDs
     df[config_render["linked_column_sequence_search"]] = df.index
