@@ -3,6 +3,12 @@
 linked_column_sequence_search: "Hit_name"
 linked_column_word_search: "Type Protein"
 
+# Columns in the Blast result to be assigned as numeric
+numeric_columns_blast: ["Query_length", "Hit_length",
+                        "Blastp_alignment_length",
+                        "Query_positives_cov_%",
+                        "E-value"]
+
 # WORD-SEARCH SPECIFIC CONFIGS
 wordsearch_display_cols: ['Type Protein', 'Number',
                           'Protein_Accession', 'Nuclease_Activity',

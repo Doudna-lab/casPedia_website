@@ -11,6 +11,14 @@ def generate_link(row, linked_column, app_function):
     return link
 
 
+def try_numeric_conversion(value):
+    # Function to attempt numeric conversion of dataframe columns
+    try:
+        return pd.to_numeric(value)
+    except (ValueError, TypeError):
+        return value  # Return the original value if conversion fails
+
+
 def last_df_col_to_first(df):
     """Brings a pandas dataframe last column to the first position"""
     # Get the column names and pop the last column
@@ -24,19 +32,48 @@ def last_df_col_to_first(df):
     return df_out
 
 
+# def replace_func(match):
+#     """Adds a "class='num'" tag to integers or floats in a string replacement operation"""
+#     group1 = match.group(1)
+#     numeric_type_bool = True
+#     try:
+#         int(group1)
+#     except ValueError:
+#         try:
+#             float(group1)
+#         except ValueError:
+#             return group1  # No replacement, return the original match
+#     if numeric_type_bool:
+#         return f"<td class=\"num\">{group1}</td>\n"
+
+
 def replace_func(match):
     """Adds a "class='num'" tag to integers or floats in a string replacement operation"""
     group1 = match.group(1)
-    numeric_type_bool = True
+
     try:
-        int(group1)
+        # Try to convert to an integer
+        int_value = int(group1)
+        return f"<td class=\"num\">{int_value}</td>\n"
     except ValueError:
         try:
-            float(group1)
+            # Try to convert to a float
+            float_value = float(group1)
+            return f"<td class=\"num\">{float_value}</td>\n"
         except ValueError:
-            return group1  # No replacement, return the original match
-    if numeric_type_bool:
-        return f"<td class=\"num\">{group1}</td>\n"
+            return f"<td>{group1}</td>\n"  # No replacement, return the original match
+
+
+# Define a function to add classes to specific headers
+def add_classes_to_headers(blastout_df_html, target_cols, column_class):
+    lines = blastout_df_html.split('\n')
+    for col in target_cols:
+        header_line = f'<th>{col}</th>'
+        header_found = next((re.search(header_line, item) for item in lines if re.search(header_line, item)), None)
+        if header_found:
+            index = lines.index(header_found.string)
+            lines[index] = f'<th class="{column_class}">{col}</th>'
+    return '\n'.join(lines)
 
 
 def dynamic_blastout_html(blastout_df_html, html_template_path, message_to_user):
@@ -63,8 +100,8 @@ def dynamic_blastout_html(blastout_df_html, html_template_path, message_to_user)
     template = template.replace('<tbody>', '<tbody id="tbody">')
 
     # Adjust table headers to include buttons
-    template = re.sub(r"<th>(.*?)<\/?th>\n",
-                      r"<th>\n\t<button>\n\t\t\1\n"
+    template = re.sub(r"<th(.*?)>(.*?)<\/?th>\n",
+                      r"<th\1>\n\t<button>\n\t\t\2\n"
                       r"\t\t<span aria-hidden='true'></span>\n"
                       r"\t\t</button>\n\t</th>\n", template)
 
@@ -92,10 +129,22 @@ def run(blastout_dict, config_render):
     df[config_render["linked_column_sequence_search"]] = df.apply(lambda row: generate_link(
         row, config_render["linked_column_sequence_search"], 'wiki_page'), axis=1)
 
+    # Loop through columns and attempt to convert to numeric datatype
+    for col in df.columns:
+        df[col] = df[col].apply(try_numeric_conversion)
+
     # Convert the DataFrame to HTML table
     df_blastout_html = df.to_html(escape=False, index=False)
 
-    # Create and save a modified template to a new file
-    blastout_html_template = dynamic_blastout_html(df_blastout_html, config_render["search_template_path"], message_to_user)
+    # Add HTML class "num" to table headers.
+    #   The set of columns to be labelled as numeric is defined in the render_result.yaml config file
+    blastout_html_class = add_classes_to_headers(df_blastout_html,
+                                                          config_render["numeric_columns_blast"],
+                                                          "num")
 
-    return blastout_html_template
+    # Create and save a modified template to a new file
+    blastout_html_template_class = dynamic_blastout_html(blastout_html_class,
+                                                   config_render["search_template_path"],
+                                                   message_to_user)
+
+    return blastout_html_template_class
