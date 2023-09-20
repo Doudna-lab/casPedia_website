@@ -1,47 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title >Contact</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/wiki.css') }}" >
-  <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}" type="image/png" >
-  <style>
-    .grid-container object {
-      max-width: 100%;
-      max-height: 100%;
-    }
-    .grid-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      max-width: 100%;
-      max-height: 100%;
-    }
-  </style>
-</head>
-<body>
-  <!-- Logo -->
-  <header>
-      <!-- logo -->
-    <a href="http://caspedia.org/" class="top-logo">
-      <img id="logo" src="{{url_for('static', filename='img/ph_logo.svg')}}" alt="IGI logo">
-    </a>
-    <!-- second logo -->
-    <a href="https://innovativegenomics.org/" target="_blank" class="top-logo">
-      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
-    </a>
-  </header>
+  {% extends "alt_layout.html" %}
 
-  <!-- Search Box -->
-  <br>
-  <div id="search-container">
-    <form action='{{ url_for("gfg")}}' method="POST">
-      <label for="search-box"></label><textarea id="search-box" name="search-box" rows="1" cols="50" placeholder="input sequence or term"></textarea>
-      <input type="submit" value="Submit" name="seq-input">
-    </form>
-  </div>
-
+  {% block content %}
   <!-- Page Title -->
   <div style="background-color: #202123;">
     <h1><span style="color:#FFFFFF">Contact</span></h1>
@@ -51,9 +10,8 @@
   <div class="grid-container">
     <div class="section">
       <br>
-      <h2 class="section-header"> Have questions or want to contribute to CasPEDIA?</h2>
-      <h3>Please follow the directions below to ensure your request is processed as efficiently as possible. Additional information is available in the FAQ section.</h3>
-      <br>
+      <h2 class="section-header">HAVE QUESTIONS OR WANT TO CONTRIBUTE TO CasPEDIA?</h2>
+      <p>Please follow the directions below to ensure your request is processed as efficiently as possible. Additional information is available in the FAQ section.</p>
       <h2 class="section-header">BECOME A CURATOR</h2>
       <p>CasPEDIA is a community resource and your participation is welcome. Anyone can contribute to the database. If you would like to become a curator (i.e. create and edit wiki content), send a message to caspedia.contact&#64;gmail&#46;com with the subject header "Request to Become General Curator" and a small summary of your research and/or CRISPR experience. Our team will follow up with next steps on how to formalize the process.</p>
       <h2 class="section-header">REQUEST A NEW ENTRY</h2>
@@ -64,5 +22,5 @@
       <p>A complete inventory of all entries is <a href="http://caspedia.org/background_data/caspedia_entry_list.csv">provided</a>. If additional data is required, please contact caspedia.contact&#64;gmail&#46;com.</p>
     </div>
   </div>
-</body>
-</html>
+
+{% endblock %}
