@@ -228,6 +228,19 @@ def download_phylo():
         return f"File not found.", 404
 
 
+@app.route('/static/msa', methods=['GET'])
+def download_msa():
+    # Get the 'type' value from the request's query parameters
+    type = request.args.get('type')
+    # Get the absolute path of the file in the /fasta/ folder
+    file_path = os.path.join(f'static/msa/phylogeny_{type}.fasta')
+    # Check if the file exists
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        # File not found, return an error response
+        return f"File not found.", 404
+
 @app.route('/background_data/endnote_citation.enw')
 def download_endnote():
     # Get the absolute path of the file
