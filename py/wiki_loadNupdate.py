@@ -197,6 +197,23 @@ def format_master_table2wiki(id_to_df_dict, master_tbl, config_db):
 	return out_dict
 
 
+def generate_uniprot_links(row, target_column, instruction_dict):
+	"""Generates an HTML href pointer to a template associated with the search result"""
+	joined_links = ""
+	split_cell = row[target_column].split(";")
+	for field in split_cell:
+		for instr in instruction_dict:
+			if re.search(instr, field):
+				field_id = field.split(":")
+				url = f"{instruction_dict[instr]}{field_id[1]}"
+				link = f"<a href='{url}' target='blank' >{field}</a>"
+				joined_links += f"{link};"
+				break
+
+	joined_links = joined_links.rstrip(";")
+	return joined_links
+
+
 def collect_uniprot_tables(uniprot_id):
 	# QUERY UNIPROT AS JSON
 	url = f"https://rest.uniprot.org/uniprotkb/{uniprot_id}"
@@ -266,6 +283,11 @@ def collect_uniprot_tables(uniprot_id):
 	# DOMAIN DF
 	domain_df = pd.DataFrame(domain_table_rows,
 	                         columns=['Feature Type', 'Start', 'End', 'Ligand', 'Description', 'Citations'])
+
+	# Generate URLs for each Pubmed or PDB ids in the Uniprot Table
+	domain_df[config["uniprot_url_colname"]] = domain_df.apply(lambda row: generate_uniprot_links(
+		row, config["uniprot_url_colname"], config["uniprot_url_instructions"]), axis=1)
+
 	return pfam_df, domain_df
 
 
@@ -317,7 +339,6 @@ def main():
 		lambda x: re.sub(r'(end):\"(\d+)\"', r"\1:\2", x))
 	genomic_table[config['genomic_browser_col']] = genomic_table[config['genomic_browser_col']].apply(
 		lambda x: re.sub(r'\"(indexed)\":\"(\w+)\"', r"\1:\2", x))
-
 
 	# Consolidate Cloud links and identifiers
 	wiki_links_list = get_col_as_list(config["wiki_manifest_path"], config["links_column"])

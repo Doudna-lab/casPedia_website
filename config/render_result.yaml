@@ -15,7 +15,8 @@ columns_from_master: ["Type Protein", "Number", "PAM_or_PFS", "Class_II_Subtype"
 # WORD-SEARCH SPECIFIC CONFIGS
 wordsearch_display_cols: ['Type Protein', 'Number',
                           'Protein_Accession', 'Nuclease_Activity',
-                          'Targeting_Requirement', 'gRNA_and_Multiplexability', 'PAM_or_PFS']
+                          'Targeting_Requirement', 'gRNA_and_Multiplexability',
+                          'PAM_or_PFS', "Class_II_Subtype"]
 
 # GENERAL RESULTS PAGE CONFIGS
 # Temporary blastout table path
