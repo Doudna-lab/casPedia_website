@@ -6,16 +6,17 @@
   <div class="abstract">
     <h2>Phylogeny</h2>
   </div>
-  <!-- Hoverable popup panel -->
-  <div class="popup-panel" id="popupPanel">
-    <!-- Add content to the popup panel -->
-    <a class="popup-link" id="popupLink" href="#" target="_blank">Content to show in the popup panel.</a>
-  </div>
   <!-- Tabs -->
   <div class="tab-container">
     <button class="tab-button" onclick="openTab('TypeII')">Type II</button>
     <button class="tab-button" onclick="openTab('TypeV')">Type V</button>
     <button class="tab-button" onclick="openTab('TypeVI')">Type VI</button>
+  </div>
+
+  <!-- Hoverable popup panel -->
+  <div class="popup-panel" id="popupPanel">
+    <!-- Add content to the popup panel -->
+    <a class="popup-link" id="popupLink" href="#" target="_blank">Content to show in the popup panel.</a>
   </div>
 
   <!-- Tab Content: Type II -->
@@ -48,7 +49,13 @@
     <br>
 
     <!-- Hoverable SVG content -->
-    <div class="svg-container" id="svgContainer">
+    <div class="summary">
+    	<div class="grid-container">
+    	<button id="reload-button1" style="width: 5%;">Rescale Tree</button>
+    </div>
+    <br>
+    <br>
+    <div class="svg-container" id="svgContainer" style="width: 85%;">
       <?xml version="1.0" encoding="utf-8"?>
 			<!-- Generator: Adobe Illustrator 27.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 			<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -7837,8 +7844,9 @@
 				<path class="hoverable-text" data-content="Representative Protein: HEARO wiki" data-link="http://caspedia.org/wiki/IscBHEARO.html"  d="M1647.5,1274.8l-1151-7.6c0.3-51,4.1-102,11.2-152.5c7.1-50.5,17.6-100.6,31.3-149.7L1647.5,1274.8z" fill="transparent"/>
 			</g>
 			</svg>
-
     </div>
+  </div>
+
     <!-- Hoverable popup panel -->
     <div class="popup-panel" id="popupPanel">
       <!-- Add content to the popup panel -->
@@ -7856,7 +7864,7 @@
 			<div class="grid-container">
 				         <p>Cas12 enzymes are RNA-guided nucleases and are the defining component of Type V CRISPR systems <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30</a></sup>. These enzymes appear to have evolved from TnpB proteins encoded within IS200/IS605 family mobile genetic elements, potentially on multiple occasions <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30,</a></sup><sup><a href="https://doi.org/10.1038/s41586-021-04058-1" target="_blank">31,</a></sup><sup><a href="https://doi.org/10.1126/science.abj6856" target="_blank">8</a></sup>. Of the Class 2 CRISPR enzymes, Cas12 proteins appear to be the most biochemically diverse by Cas enzymatic classification and thus suited for a wide variety of applications including, but also beyond, gene editing <sup><a href="https://doi.org/10.1126/science.aar6245" target="_blank">32,</a></sup><sup><a href="https://doi.org/10.1126/science.aav7271" target="_blank">33,</a></sup><sup><a href="https://doi.org/10.1126/science.aax9181" target="_blank">34</a></sup>. With the notable exception of Cas12k which directs transposition of a Tn7 transposase, the activity of these enzymes tends to be self-contained and not reliant on additional proteins <sup><a href="https://doi.org/10.1126/science.aax9181" target="_blank">34</a></sup>. In addition to being a biochemically diverse family, they exhibit great genetic diversity, with some subtypes forming polyphyletic clades (ex. Cas12f) <sup><a href="https://doi.org/10.1126/science.aav4294" target="_blank">35</a></sup>. As within-subfamily clades continue to be characterized biochemically, researchers have (and will likely continue to) find divisions of enzymatic activity, such as recently reported with Cas12c2 and Cas12a2 <sup><a href="https://doi.org/10.1016/j.molcel.2022.04.020" target="_blank">36,</a></sup><sup><a href="https://doi.org/10.1038/s41586-022-05559-3" target="_blank">37,</a></sup><sup><a href="https://doi.org/10.1038/s41586-022-05560-w" target="_blank">38</a></sup>.</p>
 
-				<p>The above tree was produced using data from the most recent phylogenetic analysis of Cas12 proteins <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30</a></sup>as well as recent reports of Cas12 enzymes since then including Cas12j (previously known as CasPhi), CasLambda and Cas12L <sup><a href="https://doi.org/10.1126/science.abb1400" target="_blank">39,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2022.10.020" target="_blank">40,</a></sup><sup><a href="https://doi.org/10.15252/embr.202255481" target="_blank">41</a></sup>and Cas12 ancestor, TnpB <sup><a href="https://doi.org/10.1038/s41586-021-04058-1" target="_blank">31</a></sup>. In general Cas12 proteins are labeled a to n in order of discovery/characterization except for CasPhi and CasLambda owing to their viral origin <sup><a href="https://doi.org/10.1126/science.abb1400" target="_blank">39,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2022.10.020" target="_blank">40</a></sup>. Some Cas12 proteins without known function appear widespread and have only recently been characterized: Cas12k (Cas12 U5), Cas12m (Cas12 U1), and Cas12n (Cas12 U4) <sup><a href="https://doi.org/10.1126/science.aax9181" target="_blank">34,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2022.11.003" target="_blank">42,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2023.06.014" target="_blank">43</a></sup>. Two remaining Cas12 families are to-date uncharacterized, Cas12 U2 and Cas12 U3. Only complete Cas12 sequences (using non-truncated RuvC domains) were used. From these sequences, Cas12 proteins were aligned using MUSCLE, trees constructed with IQ-TREE, rooted against TnpB, and visualized with iTOL <sup><a href="https://doi.org/10.1093/nar/gkh340" target="_blank">44,</a></sup><sup><a href="https://doi.org/10.1093/molbev/msu300" target="_blank">45,</a></sup><sup><a href="https://doi.org/10.1093/nar/gkab301" target="_blank">46</a></sup>. Trees were manually curated by pruning errant Cas12 leaves.</p>
+				         <p>The above tree was produced using data from the most recent phylogenetic analysis of Cas12 proteins <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30</a></sup>as well as recent reports of Cas12 enzymes since then including Cas12j (previously known as CasPhi), CasLambda and Cas12L <sup><a href="https://doi.org/10.1126/science.abb1400" target="_blank">39,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2022.10.020" target="_blank">40,</a></sup><sup><a href="https://doi.org/10.15252/embr.202255481" target="_blank">41</a></sup>and Cas12 ancestor, TnpB <sup><a href="https://doi.org/10.1038/s41586-021-04058-1" target="_blank">31</a></sup>. In general Cas12 proteins are labeled a to n in order of discovery/characterization except for CasPhi and CasLambda owing to their viral origin <sup><a href="https://doi.org/10.1126/science.abb1400" target="_blank">39,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2022.10.020" target="_blank">40</a></sup>. Some Cas12 proteins without known function appear widespread and have only recently been characterized: Cas12k (Cas12 U5), Cas12m (Cas12 U1), and Cas12n (Cas12 U4) <sup><a href="https://doi.org/10.1126/science.aax9181" target="_blank">34,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2022.11.003" target="_blank">42,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2023.06.014" target="_blank">43</a></sup>. Two remaining Cas12 families are to-date uncharacterized, Cas12 U2 and Cas12 U3. Only complete Cas12 sequences (using non-truncated RuvC domains) were used. From these sequences, Cas12 proteins were aligned using MUSCLE, trees constructed with IQ-TREE, rooted against TnpB, and visualized with iTOL <sup><a href="https://doi.org/10.1093/nar/gkh340" target="_blank">44,</a></sup><sup><a href="https://doi.org/10.1093/molbev/msu300" target="_blank">45,</a></sup><sup><a href="https://doi.org/10.1093/nar/gkab301" target="_blank">46</a></sup>. Trees were manually curated by pruning errant Cas12 leaves.</p>
 
 				<h2>Phylogeny Download</h2>
       				<p>Download the phylogenetic reconstruction source of Type V members</p>
@@ -7871,12 +7879,17 @@
     				</form>
 			</div>
 		</div>
-	</div>
-  <br>
+		</div>
 
-    <!-- Hoverable SVG content -->
-	  <div class="svg-container" id="svgContainer">
-			        <?xml version="1.0" encoding="utf-8"?>
+   	<!-- Hoverable SVG content -->
+   	<div class="summary">
+    	<div class="grid-container">
+    	<button id="reload-button2" style="width: 5%;">Rescale Tree</button>
+    </div>
+    <br>
+    <br>
+		<div class="svg-container" id="svgContainer" style="width: 85%;">
+			<?xml version="1.0" encoding="utf-8"?>
 			<!-- Generator: Adobe Illustrator 27.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 			<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
 				 viewBox="0 0 1894.9 1558" style="enable-background:new 0 0 1894.9 1558;" xml:space="preserve">
@@ -12025,9 +12038,9 @@
 				<path class="hoverable-text" data-content="Representative Protein: TnpB wiki" data-link="http://caspedia.org/wiki/TnpB.html"  d="M1109.8,782.8l-700,5.2c0-1.7,0-3.5,0-5.2c0-1.2,0-2.4,0-3.6L1109.8,782.8z" fill="transparent"/>
 			</g>
 			</svg>
-
-      </div>
+			</div>
     </div>
+  </div>
 
   <div class="tab-content" id="TypeVI">
 	<div class="summary">
@@ -12039,7 +12052,7 @@
 			<div class="grid-container">
 				          <p>All known Cas13 enzymes are RNA-guided RNA endonucleases and are the defining component of Type VI CRISPR systems <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30</a></sup>. In contrast to Cas9 and Cas12, the primary activity of Cas13 proteins appears to be due to its trans-RNAse activity conferred by HEPN domains <sup><a href="https://doi.org/10.1126/science.aaf5573" target="_blank">47,</a></sup><sup><a href="https://doi.org/10.1038/nature19802" target="_blank">48</a></sup>. These enzymes vary by the extent and bias of HEPN activity, having a strong influence on how they are used in diverse applications ranging from RNA-targeting to RNA diagnostics <sup><a href="https://doi.org/10.1126/science.aaq0179" target="_blank">49,</a></sup><sup><a href="https://doi.org/10.1126/science.aas8836" target="_blank">50,</a></sup><sup><a href="https://doi.org/10.1016/j.cell.2018.02.033" target="_blank">51,</a></sup><sup><a href="https://doi.org/10.1016/j.jmb.2018.06.029" target="_blank">52</a></sup>. Unlike Cas9 and Cas12 enzymes, the evolutionary origins of Cas13 enzymes remains unclear <sup><a href="https://doi.org/10.1038/s41579-019-0299-x" target="_blank">30</a></sup>. These enzymes are organized into 4 subtypes, Cas13a-Cas13d, where characterization of Cas13c remains unknown (although assumed to target RNA). While these enzymes are generally capable of processing their own CRISPR array and function as standalone enzymes, they occasionally co-occur with additional proteins that appear co-functional <sup><a href="https://doi.org/10.1016/j.molcel.2016.12.023" target="_blank">53,</a></sup><sup><a href="https://doi.org/10.1016/j.molcel.2018.02.028" target="_blank">54,</a></sup><sup><a href="https://doi.org/10.1126/science.abm1184" target="_blank">55</a></sup>.</p>
 
-				<p>The reported Cas13 tree was recreated from a recent report on Cas13 phylogeny <sup><a href="https://doi.org/10.1038/s41564-022-01258-x" target="_blank">56</a></sup>. Briefly Cas13-annotated sequences from subtypes a-d were gathered from NCBI and GTDB r95 <sup><a href="https://doi.org/10.1093/nar/gkab776" target="_blank">57</a></sup>using Hidden Markov Models. Sequences lacking two R/Q/N/K/H****H sequence motifs were assumed to be truncated proteins and removed. Sequences were clustered with CD-HIT v4.8.1 with length and sequence similarity cutoffs of 0.9 <sup><a href="https://doi.org/10.1093/bioinformatics/bts565" target="_blank">58</a></sup>. Sequences were aligned with MUSCLE v3.8.31, tree built with IQ-TREE v1.6.12, and visualized with iTOL <sup><a href="https://doi.org/10.1093/nar/gkh340" target="_blank">44,</a></sup><sup><a href="https://doi.org/10.1093/molbev/msu300" target="_blank">45,</a></sup><sup><a href="https://doi.org/10.1093/nar/gkab301" target="_blank">46</a></sup>. Trees were manually curated by pruning errant Cas13 leaves.</p>
+				          <p>The reported Cas13 tree was recreated from a recent report on Cas13 phylogeny <sup><a href="https://doi.org/10.1038/s41564-022-01258-x" target="_blank">56</a></sup>. Briefly Cas13-annotated sequences from subtypes a-d were gathered from NCBI and GTDB r95 <sup><a href="https://doi.org/10.1093/nar/gkab776" target="_blank">57</a></sup>using Hidden Markov Models. Sequences lacking two R/Q/N/K/H****H sequence motifs were assumed to be truncated proteins and removed. Sequences were clustered with CD-HIT v4.8.1 with length and sequence similarity cutoffs of 0.9 <sup><a href="https://doi.org/10.1093/bioinformatics/bts565" target="_blank">58</a></sup>. Sequences were aligned with MUSCLE v3.8.31, tree built with IQ-TREE v1.6.12, and visualized with iTOL <sup><a href="https://doi.org/10.1093/nar/gkh340" target="_blank">44,</a></sup><sup><a href="https://doi.org/10.1093/molbev/msu300" target="_blank">45,</a></sup><sup><a href="https://doi.org/10.1093/nar/gkab301" target="_blank">46</a></sup>. Trees were manually curated by pruning errant Cas13 leaves.</p>
 
 				<h2>Phylogeny Download</h2>
       				<p>Download the phylogenetic reconstruction source of Type VI members</p>
@@ -12056,10 +12069,15 @@
 			</div>
 		</div>
 	</div>
-	<br>
 
-      <!-- Hoverable SVG content -->
-      <div class="svg-container" id="svgContainer">
+   <!-- Hoverable SVG content -->
+  <div class="summary">
+    	<div class="grid-container">
+    	<button id="reload-button3" style="width: 5%;">Rescale Tree</button>
+    	</div>
+   <br>
+   <br>
+   <div class="svg-container" id="svgContainer" style="width: 85%;">
         <?xml version="1.0" encoding="utf-8"?>
 				<!-- Generator: Adobe Illustrator 27.2.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 				<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -14183,21 +14201,20 @@
 					<path class="hoverable-text" data-content="Representative Protein: RfxCas13d wiki" data-link="http://caspedia.org/wiki/RfxCas13d.html"  d="M1072.1,762.2l-699.9,12.6c-0.1-4.2-0.1-8.4-0.1-12.6c0-69.8,10.4-139.1,30.9-205.8L1072.1,762.2z" fill="transparent"/>
 				</g>
 				</svg>
-
-      </div>
-      <!-- Hoverable popup panel -->
-      <div class="popup-panel" id="popupPanel">
-        <!-- Add content to the popup panel -->
-        <a class="popup-link" id="popupLink" href="#" target="_blank">Content to show in the popup panel.</a>
-      </div>
+   </div>
+ </div>
+   <!-- Hoverable popup panel -->
+   <div class="popup-panel" id="popupPanel">
+     <!-- Add content to the popup panel -->
+     <a class="popup-link" id="popupLink" href="#" target="_blank">Content to show in the popup panel.</a>
+   </div>
   </div>
 
   <!-- References -->
-   <div class="grid-container">
-     <div class="section">
-       <button onclick="myAccFunc('Cite')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#000000;font-weight:bold;font-size:24px;">REFERENCES</span></button>
-       <div id="Cite" class="wiki-hide wiki-black">
-          <hr>
+  	<div class="summary" style="width=95%">
+  	<h2>REFERENCES</h2>
+     <div class="grid-container" style="font-size: 16px;font-family: 'Open Sans', sans-serif;font-weight: normal !important;">
+     	<hr2/>
           <ul><li>1. Jinek, M., Chylinski, K., Fonfara, I., Hauer, M., Doudna, J. A., & Charpentier, E. (2012). A Programmable Dual-RNA–Guided DNA Endonuclease in Adaptive Bacterial Immunity. Science, 337(6096), 816–821. https://doi.org/10.1126/science.1225829
 					</li><li>2. Makarova, K. S., Haft, D. H., Barrangou, R., Brouns, S. J. J., Charpentier, E., Horvath, P., Moineau, S., Mojica, F. J. M., Wolf, Y. I., Yakunin, A. F., van der Oost, J., & Koonin, E. V. (2011). Evolution and classification of the CRISPR–Cas systems. Nature Reviews Microbiology, 9(6), 467–477. https://doi.org/10.1038/nrmicro2577
 					</li><li>3. Chylinski, K., Le Rhun, A., & Charpentier, E. (2013). The tracrRNA and Cas9 families of type II CRISPR-Cas immunity systems. RNA Biology, 10(5), 726–737. https://doi.org/10.4161/rna.24321
@@ -14212,8 +14229,7 @@
 					</li><li>12. Müller, M., Lee, C. M., Gasiunas, G., Davis, T. H., Cradick, T. J., Siksnys, V., Bao, G., Cathomen, T., & Mussolino, C. (2016). Streptococcus thermophilus CRISPR-Cas9 Systems Enable Specific Editing of the Human Genome. Molecular Therapy, 24(3), 636–644. https://doi.org/10.1038/mt.2015.218
 					</li><li>13. Harrington, L. B., Paez-Espino, D., Staahl, B. T., Chen, J. S., Ma, E., Kyrpides, N. C., & Doudna, J. A. (2017). A thermostable Cas9 with increased lifetime in human plasma. Nature Communications, 8(1). https://doi.org/10.1038/s41467-017-01408-4
 					</li><li>14. Chatterjee, S., Davies, M. J., Heller, S., Speight, J., Snoek, F. J., & Khunti, K. (2018). Diabetes structured self-management education programmes: a narrative review and current innovations. The Lancet Diabetes &amp; Endocrinology, 6(2), 130–142. https://doi.org/10.1016/s2213-8587(17)30239-5
-					</li><li>15. Acharya, S., Mishra, A., Paul, D., Ansari, A. H., Azhar, Mohd., Kumar, M., Rauthan, R., Sharma, N., Aich, M., Sinha, D., Sharma, S., Jain, S., Ray, A., Jain, S., Ramalingam, S., Maiti, S., & Chakraborty, D. (2019). Francisella novicida
-					            Cas9 interrogates genomic DNA with very high specificity and can be used for mammalian genome editing. Proceedings of the National Academy of Sciences, 116(42), 20959–20968. https://doi.org/10.1073/pnas.1818461116
+					</li><li>15. Acharya, S., Mishra, A., Paul, D., Ansari, A. H., Azhar, Mohd., Kumar, M., Rauthan, R., Sharma, N., Aich, M., Sinha, D., Sharma, S., Jain, S., Ray, A., Jain, S., Ramalingam, S., Maiti, S., & Chakraborty, D. (2019). Francisella novicida Cas9 interrogates genomic DNA with very high specificity and can be used for mammalian genome editing. Proceedings of the National Academy of Sciences, 116(42), 20959–20968. https://doi.org/10.1073/pnas.1818461116
 					</li><li>16. Edraki, A., Mir, A., Ibraheim, R., Gainetdinov, I., Yoon, Y., Song, C.-Q., Cao, Y., Gallant, J., Xue, W., Rivera-Pérez, J. A., & Sontheimer, E. J. (2019). A Compact, High-Accuracy Cas9 with a Dinucleotide PAM for In Vivo Genome Editing. Molecular Cell, 73(4), 714-726.e4. https://doi.org/10.1016/j.molcel.2018.12.003
 					</li><li>17. Hu, Z., Wang, S., Zhang, C., Gao, N., Li, M., Wang, D., Wang, D., Liu, D., Liu, H., Ong, S.-G., Wang, H., & Wang, Y. (2020). A compact Cas9 ortholog from Staphylococcus Auricularis (SauriCas9) expands the DNA targeting scope. PLOS Biology, 18(3), e3000686. https://doi.org/10.1371/journal.pbio.3000686
 					</li><li>18. Schmidt, M. J., Gupta, A., Bednarski, C., Gehrig-Giannini, S., Richter, F., Pitzler, C., Gamalinda, M., Galonska, C., Takeuchi, R., Wang, K., Reiss, C., Dehne, K., Lukason, M. J., Noma, A., Park-Windhol, C., Allocca, M., Kantardzhieva, A., Sane, S., Kosakowska, K., … Coco, W. M. (2021). Improved CRISPR genome editing using small highly active and specific engineered RNA-guided nucleases. Nature Communications, 12(1). https://doi.org/10.1038/s41467-021-24454-5
@@ -14260,11 +14276,11 @@
 					</li></ul>
        </div>
      </div>
-   </div>
 
 
   <!-- Scripts -->
   <script>
+
     // Function to open a specific tab and show its content
     function openTab(tabName) {
       // Get all elements with class "tab-content" and hide them
@@ -14333,85 +14349,164 @@
     window.onload = function () {
       initHoverablePopups();
 
-      const svgContainer = document.getElementById("svgContainer");
-      let scaleFactor = 1;
-      let offsetX = 0;
-      let offsetY = 0;
-      let isDragging = false;
-      
-      /*
-      // Remove Zoomable container
-      svgContainer.addEventListener("wheel", function (event) {
-        event.preventDefault();
-        const scaleDelta = event.deltaY * -0.01;
+    // SVG Zoom
+ 		const svgContainers = document.querySelectorAll(".svg-container");
 
-        // Calculate the new scale factor while keeping the container's aspect ratio
-        scaleFactor = Math.min(Math.max(0.2, scaleFactor + scaleDelta), 5);
+      svgContainers.forEach((svgContainer) => {
+        let scaleFactor = 1;
+        let offsetX = 0;
+        let offsetY = 0;
+        let isDragging = false;
 
-        // Apply the scale transformation to the svg content
-        svgContainer.querySelector("svg").style.transform = `scale(${scaleFactor})`;
+        svgContainer.addEventListener("wheel", function (event) {
+          event.preventDefault();
+          const scaleDelta = event.deltaY * -0.0025;
 
-        // Get the container size and the svg content size
-        const containerWidth = svgContainer.clientWidth;
-        const containerHeight = svgContainer.clientHeight;
-        const svgContentWidth = svgContainer.scrollWidth;
-        const svgContentHeight = svgContainer.scrollHeight;
+          // Calculate the new scale factor while keeping the container's aspect ratio
+          scaleFactor = Math.min(Math.max(0.2, scaleFactor + scaleDelta), 5);
 
-        // Calculate the difference in size between the container and the svg content
-        const widthDiff = svgContentWidth - containerWidth;
-        const heightDiff = svgContentHeight - containerHeight;
+          // Apply the scale transformation to the svg content
+          svgContainer.querySelector("svg").style.transform = `scale(${scaleFactor})`;
 
-        // Get the mouse position relative to the container
-        const mouseX = event.clientX - svgContainer.getBoundingClientRect().left;
-        const mouseY = event.clientY - svgContainer.getBoundingClientRect().top;
+          // Get the container size and the svg content size
+          const containerWidth = svgContainer.clientWidth;
+          const containerHeight = svgContainer.clientHeight;
+          const svgContentWidth = svgContainer.scrollWidth;
+          const svgContentHeight = svgContainer.scrollHeight;
 
-        // Calculate the new scroll position based on the mouse position
-        const newScrollLeft = svgContainer.scrollLeft + mouseX * (widthDiff / svgContentWidth);
-        const newScrollTop = svgContainer.scrollTop + mouseY * (heightDiff / svgContentHeight);
+          // Calculate the difference in size between the container and the svg content
+          const widthDiff = svgContentWidth - containerWidth;
+          const heightDiff = svgContentHeight - containerHeight;
 
-        // Adjust the scroll position to zoom from the mouse position
-        svgContainer.scrollLeft = newScrollLeft;
-        svgContainer.scrollTop = newScrollTop;
-      });
-			*/
+          // Get the mouse position relative to the container
+          const mouseX = event.clientX - svgContainer.getBoundingClientRect().left;
+          const mouseY = event.clientY - svgContainer.getBoundingClientRect().top;
 
-      svgContainer.addEventListener("mousedown", function (event) {
-        isDragging = true;
-        offsetX = event.clientX - svgContainer.getBoundingClientRect().left;
-        offsetY = event.clientY - svgContainer.getBoundingClientRect().top;
-        svgContainer.style.cursor = "grabbing";
-      });
+          // Calculate the new scroll position based on the mouse position
+          const newScrollLeft = svgContainer.scrollLeft + mouseX * (widthDiff / svgContentWidth);
+          const newScrollTop = svgContainer.scrollTop + mouseY * (heightDiff / svgContentHeight);
 
-      svgContainer.addEventListener("mouseup", function () {
-        isDragging = false;
-        svgContainer.style.cursor = "grab";
-      });
+          // Adjust the scroll position to zoom from the mouse position
+          svgContainer.scrollLeft = newScrollLeft;
+          svgContainer.scrollTop = newScrollTop;
+        });
 
-      svgContainer.addEventListener("mousemove", function (event) {
-        if (isDragging) {
-          const currentX = event.clientX - svgContainer.getBoundingClientRect().left;
-          const currentY = event.clientY - svgContainer.getBoundingClientRect().top;
+        svgContainer.addEventListener("mousedown", function (event) {
+          isDragging = true;
+          offsetX = event.clientX - svgContainer.getBoundingClientRect().left;
+          offsetY = event.clientY - svgContainer.getBoundingClientRect().top;
+          svgContainer.style.cursor = "grabbing";
+        });
 
-          const deltaX = currentX - offsetX;
-          const deltaY = currentY - offsetY;
+        svgContainer.addEventListener("mouseup", function () {
+          isDragging = false;
+          svgContainer.style.cursor = "grab";
+        });
 
-          offsetX = currentX;
-          offsetY = currentY;
+        svgContainer.addEventListener("mousemove", function (event) {
+          if (isDragging) {
+            const currentX = event.clientX - svgContainer.getBoundingClientRect().left;
+            const currentY = event.clientY - svgContainer.getBoundingClientRect().top;
 
-          svgContainer.scrollLeft += deltaX;
-          svgContainer.scrollTop += deltaY;
-        }
+            const deltaX = currentX - offsetX;
+            const deltaY = currentY - offsetY;
+
+            offsetX = currentX;
+            offsetY = currentY;
+
+            svgContainer.scrollLeft += deltaX;
+            svgContainer.scrollTop += deltaY;
+          }
+        });
       });
     };
-    // Accordions
-    function myAccFunc(id) {
-      var x = document.getElementById(id);
-      if (x.className.indexOf("wiki-show") == -1) {
-        x.className += " wiki-show";
-      } else { 
-        x.className = x.className.replace(" wiki-show", "");
-      }
-    }
-  </script>
 
-  {% endblock %}
+    // Rescale SVG
+const svgContainers = document.querySelectorAll(".svg-container");
+
+svgContainers.forEach((svgContainer) => {
+  let scaleFactor = 1;
+  let offsetX = 0;
+  let offsetY = 0;
+  let isDragging = false;
+
+  // Reset button click event
+  const rescaleButton1 = document.getElementById("reload-button1");
+  rescaleButton1.addEventListener("click", function () {
+    // Reset the scale factor to 1 (original size)
+    scaleFactor = 1;
+
+    // Apply the scale transformation to the svg content
+    svgContainer.querySelector("svg").style.transform = `scale(${scaleFactor})`;
+
+    // Reset the scroll position to the top-left corner
+    svgContainer.scrollLeft = 0;
+    svgContainer.scrollTop = 0;
+
+    // Restore the original styling (height: 80%, etc.)
+    svgContainer.style.height = "85%";
+    svgContainer.style.border = "3px solid #cccccc;";
+    svgContainer.style.outline = "3px solid white";
+    svgContainer.style.overflow = "hidden";
+    svgContainer.style.cursor = "grab";
+    svgContainer.style.margin = "auto";
+    svgContainer.style.padding = "30px";
+    svgContainer.style.backgroundColor = "white";
+    svgContainer.style.boxShadow = "var(--box-shadow)";
+  });
+
+  // Rescale button 1 click event
+  const rescaleButton2 = document.getElementById("reload-button2");
+  rescaleButton2.addEventListener("click", function () {
+    // Reset the scale factor to 1 (original size)
+    scaleFactor = 1;
+
+    // Apply the scale transformation to the svg content
+    svgContainer.querySelector("svg").style.transform = `scale(${scaleFactor})`;
+
+    // Reset the scroll position to the top-left corner
+    svgContainer.scrollLeft = 0;
+    svgContainer.scrollTop = 0;
+
+    // Restore the original styling (height: 80%, etc.)
+    svgContainer.style.height = "85%";
+    svgContainer.style.border = "3px solid #cccccc;";
+    svgContainer.style.outline = "3px solid white";
+    svgContainer.style.overflow = "hidden";
+    svgContainer.style.cursor = "grab";
+    svgContainer.style.margin = "auto";
+    svgContainer.style.padding = "30px";
+    svgContainer.style.backgroundColor = "white";
+    svgContainer.style.boxShadow = "var(--box-shadow)";
+  });
+
+  // Rescale button 2 click event
+  const rescaleButton3 = document.getElementById("reload-button3");
+  rescaleButton3.addEventListener("click", function () {
+    // Reset the scale factor to 1 (original size)
+    scaleFactor = 1;
+
+    // Apply the scale transformation to the svg content
+    svgContainer.querySelector("svg").style.transform = `scale(${scaleFactor})`;
+
+    // Reset the scroll position to the top-left corner
+    svgContainer.scrollLeft = 0;
+    svgContainer.scrollTop = 0;
+
+    // Restore the original styling (height: 80%, etc.)
+    svgContainer.style.height = "85%";
+    svgContainer.style.border = "3px solid #cccccc;";
+    svgContainer.style.outline = "3px solid white";
+    svgContainer.style.overflow = "hidden";
+    svgContainer.style.cursor = "grab";
+    svgContainer.style.margin = "auto";
+    svgContainer.style.padding = "30px";
+    svgContainer.style.backgroundColor = "white";
+    svgContainer.style.boxShadow = "var(--box-shadow)";
+  	});
+	});
+
+
+  </script>
+</body>
+</html>
