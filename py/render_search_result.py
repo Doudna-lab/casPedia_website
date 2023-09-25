@@ -2,6 +2,28 @@
 import pandas as pd
 import re
 import os
+# Installed modules
+import sqlalchemy as sa
+# Project modules
+from py.db_loadNupdate import psql_connect
+
+
+def sql_table_to_df(conn_string, schema_name, table_name):
+	"""
+	Retrieves one table in the database and
+	returns its converted pandas dataframe
+	:param table_name:
+	:param conn_string:
+	:param schema_name:
+	"""
+	engine = sa.create_engine(conn_string, echo=True)
+	conn = engine.connect()
+	sql_query = pd.read_sql_query('''
+	SELECT
+	*
+	FROM "{}"."{}"
+	'''.format(schema_name, table_name), conn).convert_dtypes().infer_objects()
+	return sql_query
 
 
 # Define a function to generate HTML links
@@ -9,6 +31,14 @@ def generate_link(row, linked_column, app_function):
     """Generates an HTML href pointer to a template associated with the search result"""
     link = f"<a href='{{{{ url_for('{app_function}', page=\'{row[linked_column]}.html\') }}}}'>{row[linked_column]}</a>"
     return link
+
+
+def try_numeric_conversion(value):
+    # Function to attempt numeric conversion of dataframe columns
+    try:
+        return pd.to_numeric(value)
+    except (ValueError, TypeError):
+        return value  # Return the original value if conversion fails
 
 
 def last_df_col_to_first(df):
@@ -24,19 +54,48 @@ def last_df_col_to_first(df):
     return df_out
 
 
+# def replace_func(match):
+#     """Adds a "class='num'" tag to integers or floats in a string replacement operation"""
+#     group1 = match.group(1)
+#     numeric_type_bool = True
+#     try:
+#         int(group1)
+#     except ValueError:
+#         try:
+#             float(group1)
+#         except ValueError:
+#             return group1  # No replacement, return the original match
+#     if numeric_type_bool:
+#         return f"<td class=\"num\">{group1}</td>\n"
+
+
 def replace_func(match):
     """Adds a "class='num'" tag to integers or floats in a string replacement operation"""
     group1 = match.group(1)
-    numeric_type_bool = True
+
     try:
-        int(group1)
+        # Try to convert to an integer
+        int_value = int(group1)
+        return f"<td class=\"num\">{int_value}</td>\n"
     except ValueError:
         try:
-            float(group1)
+            # Try to convert to a float
+            float_value = float(group1)
+            return f"<td class=\"num\">{float_value}</td>\n"
         except ValueError:
-            return group1  # No replacement, return the original match
-    if numeric_type_bool:
-        return f"<td class=\"num\">{group1}</td>\n"
+            return f"<td>{group1}</td>\n"  # No replacement, return the original match
+
+
+# Define a function to add classes to specific headers
+def add_classes_to_headers(blastout_df_html, target_cols, column_class):
+    lines = blastout_df_html.split('\n')
+    for col in target_cols:
+        header_line = f'<th>{col}</th>'
+        header_found = next((re.search(header_line, item) for item in lines if re.search(header_line, item)), None)
+        if header_found:
+            index = lines.index(header_found.string)
+            lines[index] = f'<th class="{column_class}">{col}</th>'
+    return '\n'.join(lines)
 
 
 def dynamic_blastout_html(blastout_df_html, html_template_path, message_to_user):
@@ -63,8 +122,8 @@ def dynamic_blastout_html(blastout_df_html, html_template_path, message_to_user)
     template = template.replace('<tbody>', '<tbody id="tbody">')
 
     # Adjust table headers to include buttons
-    template = re.sub(r"<th>(.*?)<\/?th>\n",
-                      r"<th>\n\t<button>\n\t\t\1\n"
+    template = re.sub(r"<th(.*?)>(.*?)<\/?th>\n",
+                      r"<th\1>\n\t<button>\n\t\t\2\n"
                       r"\t\t<span aria-hidden='true'></span>\n"
                       r"\t\t</button>\n\t</th>\n", template)
 
@@ -78,11 +137,25 @@ def dynamic_blastout_html(blastout_df_html, html_template_path, message_to_user)
 # import yaml
 # with open("config_render/render_result.yaml", "r") as f:
 #     config_render = yaml.load(f, Loader=yaml.FullLoader)
-def run(blastout_dict, config_render):
+def run(blastout_dict, config_render, config_db):
+    # Establish database connection
+    conn = psql_connect(config_db)
+    # Fetch master table and process the relevant columns
+    default_search_df = sql_table_to_df(conn, config_db["schema"], config_db['default_search_table'])
+    default_search_df = default_search_df[config_render["columns_from_master"]]
+    default_search_df.index = default_search_df[config_render["linked_column_word_search"]]
+    default_search_df.drop(columns=config_render["linked_column_word_search"], axis=1, inplace=True)
+
     # Grab input sequence ID
     message_to_user = f"{config_render['sequence_search_message']} {list(blastout_dict.keys())[0]}"
     # Import blastout parsed dictionary into pandas dataframe
     df = pd.DataFrame.from_dict(blastout_dict[list(blastout_dict.keys())[0]], orient='index')
+
+    # Merge master table columns to blastout table
+    df = pd.merge(df, default_search_df, left_index=True, right_index=True)
+
+    # Adjust master table column names for display
+    df = df.rename(columns=config_db["master_to_wiki_col_format"])
 
     # Create a column for hit IDs
     df[config_render["linked_column_sequence_search"]] = df.index
@@ -92,10 +165,22 @@ def run(blastout_dict, config_render):
     df[config_render["linked_column_sequence_search"]] = df.apply(lambda row: generate_link(
         row, config_render["linked_column_sequence_search"], 'wiki_page'), axis=1)
 
+    # Loop through columns and attempt to convert to numeric datatype
+    for col in df.columns:
+        df[col] = df[col].apply(try_numeric_conversion)
+
     # Convert the DataFrame to HTML table
     df_blastout_html = df.to_html(escape=False, index=False)
 
-    # Create and save a modified template to a new file
-    blastout_html_template = dynamic_blastout_html(df_blastout_html, config_render["search_template_path"], message_to_user)
+    # Add HTML class "num" to table headers.
+    #   The set of columns to be labelled as numeric is defined in the render_result.yaml config file
+    blastout_html_class = add_classes_to_headers(df_blastout_html,
+                                                          config_render["numeric_columns_blast"],
+                                                          "num")
 
-    return blastout_html_template
+    # Create and save a modified template to a new file
+    blastout_html_template_class = dynamic_blastout_html(blastout_html_class,
+                                                   config_render["search_template_path"],
+                                                   message_to_user)
+
+    return blastout_html_template_class

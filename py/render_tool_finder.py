@@ -11,6 +11,8 @@ from py.render_wiki import list2string
 
 def tf_format_db2html(input_dict, tf_section_instructions):
 	content_population_list = []
+	# Duplicates checkpoint
+	duplicate_entries_check = []
 	# Loop through the Database content and format the HTML block
 
 	for content_header in input_dict:
@@ -39,7 +41,11 @@ def tf_format_db2html(input_dict, tf_section_instructions):
 			# Skip empty options
 			if re.search('<option value=""></option>', target_replacement):
 				continue
+			# Skip duplicate categories in the biochemical classification
+			if content in set(duplicate_entries_check):
+				continue
 
+			duplicate_entries_check.append(content)
 			content_population_list.append(target_replacement)
 
 	# Convert the parsed content into a string

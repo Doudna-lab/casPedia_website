@@ -82,7 +82,7 @@ def run(user_raw_input, config_render, config_db):
 	# Fetch master table
 	default_search_df = sql_table_to_df(conn, config_db["schema"], config_db['default_search_table'])
 
-	# Perform regex search across all columns
+	# Perform regex search across all columns and try to find what was requested by the user
 	search_result_df = search_df_cols(default_search_df, user_raw_input)
 
 	# Select columns to display on page and
@@ -90,6 +90,9 @@ def run(user_raw_input, config_render, config_db):
 	pre_format_search_df = pre_format_df_to_html(search_result_df,
 	                                             display_cols,
 	                                             config_db['unique_id_col'])
+
+	# Adjust master table column names for display
+	pre_format_search_df = pre_format_search_df.rename(columns=config_db["master_to_wiki_col_format"])
 
 	# Accommodate special characters on the incoming search by removing them from the HTML path
 	pre_format_search_df[config_db['unique_id_col']] = pre_format_search_df[config_db['unique_id_col']].apply(

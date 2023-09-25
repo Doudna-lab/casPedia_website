@@ -201,10 +201,62 @@ def render_file(filename):
         return f"File not found: {filename}", 404
 
 
+# Downloads
 @app.route('/background_data/caspedia_entry_list.csv')
 def download_csv():
     # Get the absolute path of the file in the /fasta/ folder
     file_path = os.path.join('background_data/caspedia_entry_list.csv')
+    # Check if the file exists
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        # File not found, return an error response
+        return f"File not found", 404
+
+
+@app.route('/static/phylogeny', methods=['GET'])
+def download_phylo():
+    # Get the 'type' value from the request's query parameters
+    type = request.args.get('type')
+    # Get the absolute path of the file in the /fasta/ folder
+    file_path = os.path.join(f'static/nwk/phylogeny_{type}.nwk')
+    # Check if the file exists
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        # File not found, return an error response
+        return f"File not found.", 404
+
+
+@app.route('/static/msa', methods=['GET'])
+def download_msa():
+    # Get the 'type' value from the request's query parameters
+    type = request.args.get('type')
+    # Get the absolute path of the file in the /fasta/ folder
+    file_path = os.path.join(f'static/msa/phylogeny_{type}.fasta')
+    # Check if the file exists
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        # File not found, return an error response
+        return f"File not found.", 404
+
+@app.route('/background_data/endnote_citation.enw')
+def download_endnote():
+    # Get the absolute path of the file
+    file_path = os.path.join('background_data/endnote_citation.enw')
+    # Check if the file exists
+    if os.path.exists(file_path):
+        return send_file(file_path, as_attachment=True)
+    else:
+        # File not found, return an error response
+        return f"File not found", 404
+
+
+@app.route('/background_data/bibtex_citation.txt')
+def download_bibtex():
+    # Get the absolute path of the file
+    file_path = os.path.join('background_data/bibtex_citation.txt')
     # Check if the file exists
     if os.path.exists(file_path):
         return send_file(file_path, as_attachment=True)
@@ -243,7 +295,8 @@ def gfg():
             # Create sequence search output page
             html_blastout_tbl = render_blastout_table(
                 blastout_report_dict,
-                tbl_render_config
+                tbl_render_config,
+                psql_config
             )
             # Export blastP search output page
             html_template_path = dynamic_html_toolbox.export_html_template(html_blastout_tbl)

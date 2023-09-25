@@ -1,4 +1,3 @@
-
 # Database login instructions
 username: "bellieny"
 hostname: "localhost"
@@ -80,7 +79,8 @@ master_to_wiki_col_format:
   "Nuclease_Activity": "Nuclease Activity"
   "Targeting_Requirement": "Targeting Requirement"
   "gRNA_and_Multiplexability": "gRNA and Multiplexability"
-  "Class_II_Subtype": "Class II subtype"
+  "Class_II_Subtype": "Class 2 subtype"
+  "PAM_or_PFS": "PAM or PFS"
 
 # Column name in the wiki forms that denotes raw fasta sequences
 wiki_sequence_col_name: "Sequence"
@@ -95,7 +95,6 @@ wiki_template_path: "wiki_template.html"
 links_column: "Curation_Link"
 wiki_schema_prefix: "wiki"
 
-
 # WIKI PFAM instructions
 #   The information used to fetch PFAM information will be extracted from the 'Resources' table
 #   based on the following row/column:
@@ -103,6 +102,12 @@ pfam_source_table: "Resources"
 pfam_id_harboring_col: "Value"
 pfam_rowname_harboing_col: "Resource"
 pfam_source_rowname: "UniProtKB"
+
+# Defines how the pmid and pdb URLs will be formatted in the Uniprot table
+uniprot_url_instructions:
+  "PubMed_ID": "https://pubmed.ncbi.nlm.nih.gov/"
+  "PDB_ID": "https://www.rcsb.org/structure/"
+uniprot_url_colname: "Citations"
 
 # Wiki association of table names between PSQL and intake forms
 wiki_sections:
@@ -195,6 +200,7 @@ wiki_sections:
   - structure:
       tbl_name: "Structural"
       format: |
+        <h4> PDB ID: {{ PDB_IDs }}</h4>
         <div style="height: 400px; width: 100%; position: relative;" class='viewer_3Dmoljs' data-style='cartoon' data-pdb='{{ PDB_IDs }}'></div>
       n_of_index_cols: 0
 references:
