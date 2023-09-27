@@ -342,13 +342,14 @@ class DynamicWiki:
 			# Generate an HTML string following the format instructions defined in the config file
 			html_content = wiki_format_db2html(no_empty_rows_section_df, section["format"])
 
-			# The 3rd formatting exception is exp_details -> the html_content is modified
-			#  to generate a table from the pandas DF
+			# The 3rd formatting exception consist of all the section directly displayed as tables:
+			#   the html_content is modified to generate a table from the pandas DF
 			if (re.search(r'^exp_details$', section_title) or
 					re.search(r'^pfam$', section_title) or
 					re.search(r'^domains$', section_title) or
 					re.search(r'^gene_editing$', section_title) or
 					re.search(r'^gene_editing_human$', section_title) or
+					re.search(r'^active_site$', section_title) or
 					re.search(r'^variants$', section_title) or
 					re.search(r'^tools$', section_title)):
 				html_content = str(no_empty_rows_section_df.to_html(index=False))

@@ -182,6 +182,7 @@ def wiki_page(page):
                            pfam=wiki_entry.pfam or empty_string,
                            domains=wiki_entry.domains or empty_string,
                            structure=wiki_entry.structure or empty_string,
+                           active_site=wiki_entry.active_site or empty_string,
                            references=wiki_entry.formatted_references or empty_string
                            )
 
@@ -240,6 +241,7 @@ def download_msa():
     else:
         # File not found, return an error response
         return f"File not found.", 404
+
 
 @app.route('/background_data/endnote_citation.enw')
 def download_endnote():

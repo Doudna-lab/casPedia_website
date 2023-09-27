@@ -200,8 +200,12 @@ wiki_sections:
   - structure:
       tbl_name: "Structural"
       format: |
-        <h4> PDB ID: {{ PDB_IDs }}</h4>
+        <h4>PDB ID: <a href="https://www.rcsb.org/structure/{{ PDB_IDs }}">{{ PDB_IDs }}</a></h4>
         <div style="height: 400px; width: 100%; position: relative;" class='viewer_3Dmoljs' data-style='cartoon' data-pdb='{{ PDB_IDs }}'></div>
+      n_of_index_cols: 0
+  - active_site:
+      tbl_name: "Active_Site"
+      format: '' #Directly displayed as a table
       n_of_index_cols: 0
 references:
   format: '<ul>

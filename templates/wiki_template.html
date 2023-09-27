@@ -118,6 +118,14 @@
         </div>
         <hr>
 
+        <button onclick="myAccFunc('Active_Site')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Active Site</span></button>
+        <div id="Active_Site" class="wiki-hide wiki-black">
+            <div class="wiki-container">
+                {{ active_site|safe }}
+            </div>
+        </div>
+        <hr>
+
         <button onclick="myAccFunc('Protein_Structure')" class="wiki-padding-16 wiki-theme wiki-button wiki-block wiki-left-align"><span style="color:#5A5A5A;font-weight:bold;font-size:18px;">Protein Structure</span></button>
         <div id="Protein_Structure" class="wiki-hide wiki-black">
             <div class="wiki-container">

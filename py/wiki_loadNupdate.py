@@ -326,7 +326,7 @@ def main():
 	# Load PSQL communication associated variables
 	schema = config["wiki_schema_prefix"]
 	conn_string = psql_connect(config)
-	# This program will update all entries in the wiki schemas. So the old schemas will be dropped
+	# This program will aggressively update all entries in the wiki schemas. So the old schemas will be dropped
 	purge_wiki_schemas(conn_string, schema)
 	# Load the master wiki table
 	master_table = sql_table_to_df(conn_string, config["schema"], config["default_search_table"])
