@@ -71,26 +71,73 @@
 </head>
 
 <body>
+  <!-- Page Menu -->
+  <nav class="navbar">
+    <ul class="navbar-nav">
+      <li class="nav-logo">
+        <a href="/index.html" class="nav-link">
+          <span class="link-text">CasPEDIA</span>
+          <img src="{{url_for('static', filename='img/nav_icons/menu.svg')}}" alt="No figure">
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a href="/index.html" class="nav-link">
+          <img src="{{url_for('static', filename='img/nav_icons/home_search.svg')}}" alt="No figure">
+          <span class="link-text">Home</span>
+        </a>
+        </li>
+        <li class="nav-item">
+        <a href="/tool_finder.html" class="nav-link">
+          <img src="{{url_for('static', filename='img/nav_icons/tool_finder.svg')}}" alt="No figure">
+          <span class="link-text">Tool Finder</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/phylogeny_viewer.html" class="nav-link">
+          <img src="{{url_for('static', filename='img/nav_icons/phylo.svg')}}" alt="No figure">
+          <span class="link-text">Cas Phylogeny</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/fusion_proteins.html" class="nav-link">
+          <img src="{{url_for('static', filename='img/nav_icons/glossary.svg')}}" alt="No figure">
+          <span class="link-text">Tool Glossary</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/contact_us.html" class="nav-link">
+          <img src="{{url_for('static', filename='img/nav_icons/contact.svg')}}" alt="No figure">
+          <span class="link-text">Contact us</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/faq.html" class="nav-link">
+            <img src="{{url_for('static', filename='img/nav_icons/faq.svg')}}" alt="No figure">
+          <span class="link-text">FAQ</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
   <!-- Logo -->
   <header>
-    <!-- logo -->
-    <a href="/index.html">
-      <img id="logo" src="{{url_for('static', filename='img/ph_logo.svg')}}" alt="IGI logo">
+      <!-- logo -->
+    <a href="/">
+      <div class="top-logo">
+        <img id="logo" src="{{url_for('static', filename='img/ph_logo.png')}}" alt="CasPEDIA">
+      </div>
     </a>
     <!-- second logo -->
     <a href="https://innovativegenomics.org/" target="_blank">
-      <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="Second logo">
+      <div class="top-logo">
+        <img id="second-logo" src="{{url_for('static', filename='img/ph_logo_igi.png')}}" alt="IGI">
+      </div>
     </a>
   </header>
 
-  <!-- Search Box -->
-  <div id="search-container">
-    <form action='{{ url_for("gfg")}}' method="POST">
-      <label for="search-box"></label><textarea id="search-box" name="search-box" rows="1" cols="50" placeholder="input sequence or term"></textarea>
-      <input type="submit" value="Submit" name="seq-input">
-    </form>
-  </div>
-
+<!-- Main Content -->
+<main>
   <!-- Tabs -->
   <div class="tab-container">
     <button class="tab-button" onclick="openTab('TypeII')">Type II</button>
@@ -14507,10 +14554,9 @@
 				</li></ul>
      </div>
     </div>
-
-
+</main>
   <!-- Scripts -->
-  <script>
+<script>
   	// TABS
     // Function to open a specific tab and show its content
     function openTab(tabName) {
