@@ -86,7 +86,7 @@ class DynamicTF:
 			# Add wildcard item to the menu
 			wildcard_item = re.sub(r"{{{{ {} }}}}".format(section_title),
 			                            config_db['wildcard_search'], section_dict['format'].replace("'", ""))
-			html_formatted_block += f'{wildcard_item}'
+			html_formatted_block = f'{wildcard_item}' + html_formatted_block
 
 			setattr(self, str(section_title), html_formatted_block)
 # DEBUG
