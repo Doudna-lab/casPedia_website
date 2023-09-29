@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/background_data/Loci_Browser_Data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/background_data/caspedia_entry_list.csv">
           <value>
             <Attribute>
