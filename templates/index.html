@@ -26,7 +26,8 @@
 
     <h2><b>CITATION</b></h2>
     <h3>Currently, in preprint</h3>
-    <p><b>CasPEDIA Database: A Functional Classification System for Class 2 CRISPR-Cas Enzymes</b><br><i> Adler, B. A., Trinidad, M. I., Bellieny-Rabelo, D., Zhang, E., Karp, H. M., Skopintsev, P., ... & Doudna, J. A. (2023). doi: 10.32942/X2C31F</i><br>
+    <p><b>CasPEDIA Database: A Functional Classification System for Class 2 CRISPR-Cas Enzymes</b><br><i> Adler, B. A.*, Trinidad, M. I.*, Bellieny-Rabelo, D., Zhang, E., Karp, H. M., Skopintsev, P., ... & Doudna, J. A. (2023). doi: 10.32942/X2C31F</i><br>
+      <i><b>*</b> Authors contributed equally</i><br>
       Cite with
       <a href="{{ url_for('download_endnote') }}">EndNote</a> or
       <a href="{{ url_for('download_bibtex') }}">BibTeX</a>
@@ -63,8 +64,8 @@
         <h2><b>Target Requirement</b></h2>
         <hr>
       </div>
-        <h3>Target requirement is reported as the second digit in the CasID. Target requirement refers to the orientation of the Cas enzyme relative to its RNA-guided target substrate, as dictated by its protospacer adjacent motif (PAM), for DNA substrates, and protospacer flanking site (PFS), for RNA. The numerical annotation shows the orientation of the PAM, or PFS, relative to the protospacer and dictates the orientation of the ribonucleoprotein (RNP) relative to its targeted substrate. DNA sequences are shown in red and blue. RNA sequences (non-gRNA) are shown in green. PAMs (required adjacent sequences) are shown with a star (★) and PFSs (excluded adjacent sequences) are shown with an X.</h3>
-        <img src="{{url_for('static', filename='img/targeting.svg')}}" alt="Image 2">
+        <h3>Target requirement is reported as the second digit in the CasID. Target requirement refers to the orientation of the Cas enzyme relative to its RNA-guided target substrate, as dictated by its protospacer adjacent motif (PAM), for DNA substrates, and protospacer flanking site (PFS), for RNA. Briefly, a PAM is an adjacent sequence required for targeting DNA and a PFS is a neighboring sequence that suppresses targeting activity. The numerical annotation shows the orientation of the PAM, or PFS, relative to the protospacer and dictates the orientation of the ribonucleoprotein (RNP) relative to its targeted substrate. DNA sequences are shown in red and blue. RNA sequences (non-gRNA) are shown in green. PAMs (required adjacent sequences) are shown with a star (★) and PFSs (excluded adjacent sequences) are shown with an X.</h3>
+        <img src="{{url_for('static', filename='img/targeting.png')}}" alt="Image 2">
     </div>
   </div>
   <!-- column 3 -->
@@ -75,7 +76,7 @@
         <hr>
       </div>
         <h3>Guide RNA (gRNA) design and multiplexing ability is reported as the third digit in the CasID. Guide RNA (gRNA) design illustrates how the properties of the native CRISPR array inform the creation of a synthetic gRNA scaffold. The numerical annotation describes the relevant guide requirements in several contexts: within the native CRISPR (top), the minimal synthetic guide design for multiplexing (middle), and the sgRNA design for multiplexing (bottom). Spacers are represented by purple, green, and blue lines. CRISPR repeats that are incorporated in mature gRNAs are colored in orange and black if they’re lost during crRNA processing. Trans-acting RNAs (tracrRNA) are colored in red. Synthetically-added sequences (i.e. tetraloops) are shown in gray. </h3>
-        <img src="{{url_for('static', filename='img/multiplex.svg')}}" alt="Image 3">
+        <img src="{{url_for('static', filename='img/multiplex.png')}}" alt="Image 3">
     </div>
   </div>
 </div>
