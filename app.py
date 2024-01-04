@@ -63,36 +63,36 @@ def empty_string(value):
 @app.route('/index.html')
 def index():
     """Define route to the front page"""
-    return render_template('index.html')
+    return render_template('index.html', title="Home")
 
 
 @app.route('/coming_soon.html')
 def coming():
     """Define route to the coming soon page"""
-    return render_template('coming_soon.html')
+    return render_template('coming_soon.html', title="Coming Soon")
 
 
 @app.route('/phylogeny_viewer.html')
 def phylo_viewer():
     """Define route to the philogeny viewer page"""
-    return render_template('phylogeny_viewer.html')
+    return render_template('phylogeny_viewer.html', title="Phylogeny Viewer")
 
 
 @app.route('/fusion_proteins.html')
 def fusion_prot():
     """Define route to the Fusion proteins page"""
-    return render_template('fusion_proteins.html')
+    return render_template('fusion_proteins.html', title="Fusion")
 
 
 @app.route('/faq.html')
 def faq_page():
     """Define route to the FAQ page"""
-    return render_template('faq.html')
+    return render_template('faq.html', title="FAQ")
 
 
 @app.route('/contact_us.html')
 def contactus():
-    return render_template('/contact_us.html')
+    return render_template('/contact_us.html', title="Contact")
 
 
 @app.route('/example.html')
@@ -107,7 +107,7 @@ def buffet():
     # Load tool finder options from PSQL Database
     tool_finder_menu = load_tool_finder(psql_config)
     # Render the Wiki page and apply the empty_string filter to avoid ugly 'None's in the page
-    return render_template(f'tool_finder.html',
+    return render_template(f'tool_finder.html', title="Tool Finder",
                            targe_type=tool_finder_menu.target_type or empty_string,
                            trans_activity=tool_finder_menu.trans_activity or empty_string,
                            targeting_requirement=tool_finder_menu.targeting_requirement or empty_string,
@@ -129,7 +129,7 @@ def process_choices():
     # Export and render word search output page
     html_template_path = dynamic_html_toolbox.export_html_template(html_word_search_tbl)
     # Render page
-    return render_template(html_template_path)
+    return render_template(html_template_path, title="Tool Finder")
     # Process the choices as needed
 
 
@@ -161,11 +161,12 @@ def wiki_page(page):
             wiki_entry = pickle.load(wiki_pickle)
     # In case there's no content for a given entry render an error page
     if not wiki_entry.content_check:
-        return render_template('wiki/error.html')
+        return render_template('wiki/error.html', title="Error")
 
     # Render the Wiki page and apply the empty_string filter to avoid ugly 'None's in the page
     # encoded_page = encode.quote(page)
     return render_template(f'wiki/{page}',
+                           title=wiki_entry.entry_id or empty_string,
                            page_name=wiki_entry.entry_id or empty_string,
                            classification=wiki_entry.classification or empty_string,
                            classification_sprites=wiki_entry.classification_sprites or empty_string,
@@ -304,7 +305,7 @@ def gfg():
             html_template_path = dynamic_html_toolbox.export_html_template(html_blastout_tbl)
             # Render page
             print("Render blastout HTML result")
-            return render_template(html_template_path)
+            return render_template(html_template_path, title="Blast Search")
 
         # SCENARIO 2: User input IS NOT a sequence:
         #   Deliver word search output result
@@ -314,7 +315,7 @@ def gfg():
             #   Validated FASTAs with no report means: The sequence yielded no results
             if format_check:
                 print("BlastP yielded no results")
-                return render_template("search_out_page.html")
+                return render_template("search_out_page.html", title="Blast Search")
 
             print("Format word search")
             # Create word search output page
@@ -325,10 +326,10 @@ def gfg():
             # Export and render word search output page
             html_template_path = dynamic_html_toolbox.export_html_template(html_word_search_tbl)
             # Render page
-            return render_template(html_template_path)
+            return render_template(html_template_path, title="Word Search")
 
     else:
-        return render_template("index.html")
+        return render_template("index.html", title="Home")
 
 
 if __name__ == '__main__':
