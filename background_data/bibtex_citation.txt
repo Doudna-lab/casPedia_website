@@ -1,6 +1,18 @@
-@article{adler2023caspedia,
-  title={CasPEDIA Database: A Functional Classification System for Class 2 CRISPR-Cas Enzymes},
-  author={Adler, Benjamin A and Trinidad, Marena I and Bellieny-Rabelo, Daniel and Zhang, Elaine and Karp, Hannah M and Skopintsev, Petr and Thornton, Brittney and Weissman, Rachel F and Yoon, Peter H and Chen, Linxing and others},
-  year={2023},
-  publisher={EcoEvoRxiv}
+@article{10.1093/nar/gkad890,
+    author = {Adler, Benjamin A and Trinidad, Marena I and Bellieny-Rabelo, Daniel and Zhang, Elaine and Karp, Hannah M and Skopintsev, Petr and Thornton, Brittney W and Weissman, Rachel F and Yoon, Peter H and Chen, LinXing and Hessler, Tomas and Eggers, Amy R and Colognori, David and Boger, Ron and Doherty, Erin E and Tsuchida, Connor A and Tran, Ryan V and Hofman, Laura and Shi, Honglue and Wasko, Kevin M and Zhou, Zehan and Xia, Chenglong and Al-Shimary, Muntathar J and Patel, Jaymin R and Thomas, Vienna C J X and Pattali, Rithu and Kan, Matthew J and Vardapetyan, Anna and Yang, Alana and Lahiri, Arushi and Maxwell, Micaela F and Murdock, Andrew G and Ramit, Glenn C and Henderson, Hope R and Calvert, Roland W and Bamert, Rebecca S and Knott, Gavin J and Lapinaite, Audrone and Pausch, Patrick and Cofsky, Joshua C and Sontheimer, Erik J and Wiedenheft, Blake and Fineran, Peter C and Brouns, Stan J J and Sashital, Dipali G and Thomas, Brian C and Brown, Christopher T and Goltsman, Daniela S A and Barrangou, Rodolphe and Siksnys, Virginius and Banfield, Jillian F and Savage, David F and Doudna, Jennifer A},
+    title = "{CasPEDIA Database: a functional classification system for class 2 CRISPR-Cas enzymes}",
+    journal = {Nucleic Acids Research},
+    volume = {52},
+    number = {D1},
+    pages = {D590-D596},
+    year = {2023},
+    month = {10},
+    abstract = "{CRISPR-Cas enzymes enable RNA-guided bacterial immunity and are widely used for biotechnological applications including genome editing. In particular, the Class 2 CRISPR-associated enzymes (Cas9, Cas12 and Cas13 families), have been deployed for numerous research, clinical and agricultural applications. However, the immense genetic and biochemical diversity of these proteins in the public domain poses a barrier for researchers seeking to leverage their activities. We present CasPEDIA (http://caspedia.org), the Cas Protein Effector Database of Information and Assessment, a curated encyclopedia that integrates enzymatic classification for hundreds of different Cas enzymes across 27 phylogenetic groups spanning the Cas9, Cas12 and Cas13 families, as well as evolutionarily related IscB and TnpB proteins. All enzymes in CasPEDIA were annotated with a standard workflow based on their primary nuclease activity, target requirements and guide-RNA design constraints. Our functional classification scheme, CasID, is described alongside current phylogenetic classification, allowing users to search related orthologs by enzymatic function and sequence similarity. CasPEDIA is a comprehensive data portal that summarizes and contextualizes enzymatic properties of widely used Cas enzymes, equipping users with valuable resources to foster biotechnological development. CasPEDIA complements phylogenetic Cas nomenclature and enables researchers to leverage the multi-faceted nucleic-acid targeting rules of diverse Class 2 Cas enzymes.}",
+    issn = {0305-1048},
+    doi = {10.1093/nar/gkad890},
+    url = {https://doi.org/10.1093/nar/gkad890},
+    eprint = {https://academic.oup.com/nar/article-pdf/52/D1/D590/55039756/gkad890.pdf},
 }
+
+
+
