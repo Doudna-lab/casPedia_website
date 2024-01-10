@@ -28,6 +28,33 @@ def list2string(items_list):
 	return string
 
 
+def replace_last(pattern, replacement, string):
+	matches = list(re.finditer(pattern, string))
+	if matches:
+		last_match = matches[-1]
+		start, end = last_match.start(), last_match.end()
+		replaced_string = string[:start] + re.sub(pattern, replacement, string[start:end]) + string[end:]
+		replaced_string = re.sub(pattern, "", replaced_string)
+		return replaced_string
+
+	return string
+
+
+def resolve_addgene_link(entry_id):
+	addgene_template = str('<a href=" https://www.addgene.org/search/all/?q={{ ENTRY }}" target="_blank">'
+	                       '<img src="/static/img/Addgene_Logo.png" alt="addgene_link" style="width: 8vw;">'
+	                       '</a>')
+	resolved_addgene = re.sub(r"\{\{ ENTRY \}\}", str(entry_id), addgene_template)
+	return resolved_addgene
+
+
+def set_psql_variables(config_file):
+	print("Create DB engine")
+	conn_string = psql_connect(config_file)
+	db_engine = create_engine(conn_string, echo=True)
+	return conn_string, db_engine
+
+
 def wiki_format_db2html(df, format_instructions):
 	input_dict = df.to_dict()
 	content_population_list = []
@@ -127,6 +154,12 @@ def resolve_fasta_seq(df, seq_col_name, entry, export_path):
 	return df_formatted
 
 
+def addgene_integration(config_db):
+	schema_name = f'{config_db["wiki_schema_prefix"]}.{config_db["addgene_schema"]}'
+	table_name = f'{config_db["addgene_table_name"]}'
+	return schema_name, table_name
+
+
 def reference_catalog(html_string, reference_list):
 	loop_html_string = html_string
 	for reference_hit in re.findall(r'"(?:https?://)?doi\.org/(\S+)" target="_blank">\|reference_idx\|</a>',
@@ -138,6 +171,7 @@ def reference_catalog(html_string, reference_list):
 		if reference_hit not in set(reference_list):
 			reference_list.append(reference_hit)
 
+		# Modify the HTML block to accomodate numerical index for references
 		try:
 			loop_html_string = re.sub(
 				r'"(?:https?://)?doi\.org/{}" target="_blank">(\|reference_idx\|)</a>'.format(reference_hit),
@@ -170,13 +204,28 @@ def format_references(reference_list, config_db):
 		doi = re.sub(r'https?://doi.org/', '', doi)
 
 		# Create a DB connection to query the DOIs presence
-		print("Create DB engine")
-		conn_string = psql_connect(config_db)
-		db_engine = create_engine(conn_string, echo=True)
+		conn_string, db_engine = set_psql_variables(config_db)
 		schema_name = config_db['schema']
 		table_name = config_db['doi_table_name']
 		# Create an inspector object
 		inspector = inspect(db_engine)
+
+		# == Addgene integration ==
+		#  -- Sets up the addgene table-associated variables
+		addgene_schema, addgene_table_name = addgene_integration(config_db)
+		#  -- Checks if the addgene table was properly added to the PSQL DB
+		addgene_table_exists = inspector.has_table(str(addgene_table_name), schema=str(addgene_schema))
+		#  -- Proceeds with retrieving addgene links
+		if addgene_table_exists:
+			addgene_table = sql_table_to_df(conn_string, addgene_schema, addgene_table_name)
+			# If Addgene integration is warranted, set up relevant variables
+			if doi in set(addgene_table['doi'].tolist()):
+				target_replacement = config_db['addgene_references']['format']
+				addgene_link = addgene_table.loc[addgene_table['doi'] == doi, 'Addgene_link'].to_string(index=False)
+				try:
+					target_replacement = re.sub(r"\{\{ Addgene_link \}\}", addgene_link, target_replacement)
+				except TypeError:
+					target_replacement = re.sub(r"\{\{ Addgene_link \}\}", "", target_replacement)
 
 		# Check if the DOIs already exist in the database
 		table_exists = inspector.has_table(str(table_name), schema=str(schema_name))
@@ -364,6 +413,10 @@ class DynamicWiki:
 				html_content = html_content.replace('&gt;', '>')
 
 			(formatted_html_content, self.references_list) = reference_catalog(html_content, self.references_list)
+
+			# Resolve AddGene entry link at the Experimental Details section
+			addgene_block = resolve_addgene_link(self.entry_id)
+			formatted_html_content = replace_last(r"\{\{ ADDGENE_ENTRY \}\}", addgene_block, formatted_html_content)
 
 			setattr(self, str(section_title), formatted_html_content)
 			setattr(self, str(section_title), formatted_html_content)

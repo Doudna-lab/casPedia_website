@@ -12,6 +12,9 @@ wiki_manifest_path: "background_data/wiki_manifest.csv"
 
 # DOI Internal database information
 doi_table_name: 'doi_citation'
+# AddGene Integration table
+addgene_schema: 'AddGene'
+addgene_table_name: 'summary'
 
 # Column in the main database that contains unique protein identifiers
 unique_id_col: "Type Protein"
@@ -134,8 +137,10 @@ wiki_sections:
       n_of_index_cols: 1
   - text_summaries:
       tbl_name: "Text_Summaries"
-      format: '<h3 class="section-header">{{ SECTION }}</h3>
-    <p>{{ CONTENT }}</p>'
+      format: |
+        '<h3 class="section-header">{{ SECTION }}</h3>
+        <p>{{ CONTENT }}</p>'
+        {{ ADDGENE_ENTRY }}
       n_of_index_cols: 1
   - exp_details:
       tbl_name: "Experimental_Details"
@@ -212,3 +217,15 @@ references:
   <li class="ul-ul">{{ Reference }}</li>
   </ul>'
   n_of_index_cols: 1
+addgene_references:
+  format: | 
+    <ul> 
+      <li class="ul-ul">{{ Reference }} 
+        <a href="{{ Addgene_link }}" target="_blank">
+          <img src="/static/img/Addgene_Logo_plasmid.png" alt="addgene_link" style="width: 2vw;">
+        </a>
+      </li> 
+    </ul>
+  n_of_index_cols: 1
+
+# <img src="/static/img/Addgene_Logo_plasmid.png" alt="addgene_link">
