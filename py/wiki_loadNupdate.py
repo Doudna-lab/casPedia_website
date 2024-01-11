@@ -1,6 +1,7 @@
 # Native modules
 import os
 import re
+from zipfile import BadZipFile
 # Installed modules
 import requests
 import yaml
@@ -78,13 +79,21 @@ def get_excel_from_google_drive(url_list, id_list, start_tab_index=1):
 	for idx in range(len(url_list)):
 		sheets_dict = {}
 		url = url_list[idx]
+		file_id = id_list[idx]
 		output_dir = get_absolute_path("jobs")
 		output_file = f'{output_dir}temp.xlsx'
+		clean_id = re.sub(r'(\S+) \S+', r'\1', id_list[idx])
 
-		gdown.download(url, output_file, quiet=False, fuzzy=True)  # Download the file using gdown
+		print(f"Downloading {url}")
+		try:
+			gdown.download(url, output_file, quiet=False, fuzzy=True)  # Download the file using gdown
+		except AttributeError:
+			print(f"Unresolved {clean_id}")
+			continue
 		xl = pd.read_excel(output_file, sheet_name=None, engine='openpyxl')
-		sheet_names = list(xl.keys())[start_tab_index:]
 
+
+		sheet_names = list(xl.keys())[start_tab_index:]
 		for sheet_name in sheet_names:
 			cut_sheet_name = re.sub('_table', '', sheet_name, flags=re.IGNORECASE)
 			sheet_split = re.split('_', cut_sheet_name)
@@ -103,7 +112,7 @@ def get_excel_from_google_drive(url_list, id_list, start_tab_index=1):
 		# Remove Temps
 		os.remove(output_file)
 
-		clean_id = re.sub(r'(\S+) \S+', r'\1', id_list[idx])
+
 		print(clean_id)
 		association_dict[clean_id] = sheets_dict
 	# Return the dictionary
