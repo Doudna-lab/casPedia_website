@@ -47,7 +47,7 @@ def resolve_addgene_link(entry_id):
 	                       '</a>')
 	"""
 	addgene_template = str('<div style="text-align: center;">'
-						   '<a style="text-decoration: none; color: #676774; font-weight: bold; display: block; margin-bottom: 1 px;">Search Constructs on AddGene</a>'
+						   '<a style="text-decoration: none; color: #676774; font-weight: bold; display: block; margin-bottom: 1 px;">Search Constructs on Addgene</a>'
         				   '<a href=" https://www.addgene.org/search/all/?q={{ ENTRY }}" target="_blank">'
 						   '<img src="/static/img/Addgene_Logo.png" alt="addgene_link" style="width: 8vw; border: 1.5px solid #676774; display: block; margin: 0 auto; padding:10px; border-radius: 10px;">'
         				   '</a>'
