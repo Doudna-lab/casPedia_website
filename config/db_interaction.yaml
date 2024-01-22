@@ -222,7 +222,7 @@ addgene_references:
     <ul> 
       <li class="ul-ul">{{ Reference }} 
         <a href="{{ Addgene_link }}" target="_blank">
-          <img src="/static/img/Addgene_Logo_plasmid.png" alt="addgene_link" style="width: 2vw;">
+          <img src="/static/img/Addgene_Logo_plasmid.png" alt="addgene_link" style="border: 1.5px solid #676774; border-radius: 10px; width: 2vw;">
         </a>
       </li> 
     </ul>
