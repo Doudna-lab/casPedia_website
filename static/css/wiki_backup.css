@@ -152,7 +152,21 @@ main {
 }
 
 /*Navigation Bar for Small screens*/
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 1000px) {
+  .wiki-table {
+    font-size: 1.5vw !important;
+  }
+  .wiki-top-left, .wiki-top-right, .wiki-bottom-left, .wiki-bottom-right {
+    width: 98% !important;
+    float: none !important;
+    font-size: 3vw !important;
+  }
+  .cas_id_container {
+    font-size: 5%;
+    padding: 2%;
+    margin: 2%;
+    width: 90%;
+  }
   .navbar {
     bottom: 0;
     width: 100vw;
@@ -174,12 +188,12 @@ main {
   main {
     margin-left: 2vw;
     padding: .2rem;
-    max-width: 95%;
+    max-width: 98%;
   }
 }
 
 /*Navigation Bar for Large screens*/
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 1000px) {
   header {
     margin-left: 5rem;
   }
