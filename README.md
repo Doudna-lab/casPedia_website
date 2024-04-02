@@ -27,9 +27,6 @@ CasPEDIA main parts are:
   
   - renders the web pages based on the data stored by the python scripts
 
-```
-python py/db_loadNupdate.py
-```
   </details>
 </details>
 
