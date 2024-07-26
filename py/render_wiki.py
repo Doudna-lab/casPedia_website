@@ -399,6 +399,7 @@ class DynamicWiki:
 				if re.search(r'https\:', no_empty_rows_section_df.loc[0, 'PDB_IDs']):
 					section['format'] = re.sub(r"https:.*structure\/", "", section['format'])
 					section['format'] = re.sub("data-pdb", "data-href", section['format'])
+					section['format'] = re.sub("PDB ID\:", "PDB File:", section['format'])
 			# Generate an HTML string following the format instructions defined in the config file
 			html_content = wiki_format_db2html(no_empty_rows_section_df, section["format"])
 
