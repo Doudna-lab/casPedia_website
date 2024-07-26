@@ -395,7 +395,10 @@ class DynamicWiki:
 			# The 2nd exception is the 'Structural' table, from which, in V1, only the 1st entry is processed
 			if re.search(r'^structure$', section_title):
 				no_empty_rows_section_df = no_empty_rows_section_df.head(1)
-
+				# This is an exception for non-PDB structures provided via AWS S3 URLs
+				if re.search(r'https\:', no_empty_rows_section_df.loc[0, 'PDB_IDs']):
+					section['format'] = re.sub(r"https:.*structure\/", "", section['format'])
+					section['format'] = re.sub("data-pdb", "data-href", section['format'])
 			# Generate an HTML string following the format instructions defined in the config file
 			html_content = wiki_format_db2html(no_empty_rows_section_df, section["format"])
 
