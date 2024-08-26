@@ -6,7 +6,7 @@ port: 5432
 
 # ********* GLOBAL CONFIGURATION *********
 # Master table and Genomic context data table
-source_metadata_path: ['2023_03_28_Cas_family_tree_Naming.csv', 'genomic_context_data.csv']
+source_metadata_path: ['caspedia_entry_list.csv', 'genomic_context_data.csv']
 # Wiki manifest containing URL for each and every wiki intake forms
 wiki_manifest_path: "background_data/wiki_manifest.csv"
 
