@@ -130,15 +130,28 @@ with open(get_absolute_path('db_interaction.yaml'), "r") as f:
 
 
 def main():
+	column_consistency_check = True
 	source_metadata_list = config["source_metadata_path"]
+	master_search_col = config["unique_id_col"]
 	source_tag_list = [config['default_search_table'], config['genomic_table_name']]
 	# root_column_name = config['unique_id_col']
 	schema = config["schema"]
 
 	tables_dict = import_csv_list(source_metadata_list, source_tag_list)
 
-	# merged_master = merge_master(tables_dict, root_column_name)
+	# Validate main column on Master Table
+	print(f"Validate main column <{master_search_col}> on Master Table")
+	for table_data in tables_dict.values():
+		if master_search_col not in set(table_data[0].columns.tolist()):
+			column_consistency_check = False
 
+	if not column_consistency_check:
+		print("Column consistency check was completed successfully")
+		print(f"Please ensure that {master_search_col} is present in the Master table")
+		print(f"The current configuration determines that one the following should be the master table: {source_metadata_list}")
+		exit(0)
+	# Proceed if all the requirements were met
+	print("Loading Master Table and additional Metadata to the database")
 	conn_string = psql_connect(config)
 	load_table2db(tables_dict, conn_string, schema)
 
