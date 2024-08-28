@@ -82,7 +82,12 @@ def get_excel_from_google_drive(url_list, id_list, start_tab_index=1):
 		file_id = id_list[idx]
 		output_dir = get_absolute_path("jobs")
 		output_file = f'{output_dir}temp.xlsx'
-		clean_id = re.sub(r'(\S+) \S+', r'\1', id_list[idx])
+		try:
+			clean_id = re.sub(r'(\S+) \S+', r'\1', id_list[idx])
+		except TypeError:
+			print(f"Not possible to regex query: {id_list[idx]}")
+			print(f"Skipping...")
+			continue
 
 		print(f"Downloading {url}")
 		try:
@@ -183,10 +188,11 @@ def format_master_table2wiki(id_to_df_dict, master_tbl, config_db):
 				continue
 		except KeyError:
 			print(f"Entry {entry_id} does not have one or more of the required columns in its form {master_search_col}")
+			print("Exiting application")
+			exit(0)
 			# print("ENTRY \n", entry_id)
 			# print("COLUNAS \n", master_tbl.columns)
 			# print("PROCURA \n", master_row_names.keys())
-			continue
 		# Process the Cas_ID sprites tables
 		# print(f"PRE PROCESSING OF {entry_id}:\n\n{master_slice_df}")
 		master_slice_sprites_df = parse_casID_sprites(master_slice_df,

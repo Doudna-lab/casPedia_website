@@ -146,7 +146,7 @@ def main():
 			column_consistency_check = False
 
 	if not column_consistency_check:
-		print("Column consistency check was completed successfully")
+		print("Column consistency check was not completed successfully")
 		print(f"Please ensure that {master_search_col} is present in the Master table")
 		print(f"The current configuration determines that one the following should be the master table: {source_metadata_list}")
 		exit(0)

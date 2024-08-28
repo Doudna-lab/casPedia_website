@@ -55,10 +55,14 @@ def pre_format_df_to_html(df, display_cols, url_cols):
 def format_search_page(pre_format_df, template_path, custom_message):
 	# Convert pandas dataframe to HTML markup
 	pre_format_df_html = pre_format_df.to_html(escape=False, index=False)
+	html_template = ''
 	# Format final page based on the search template page
-	html_template = dynamic_blastout_html(pre_format_df_html,
-	                                      template_path,
-	                                      custom_message)
+	try:
+		html_template = dynamic_blastout_html(pre_format_df_html,
+											  template_path,
+											  custom_message)
+	except KeyError:
+		print("Pre-formatting of search result page failed.")
 	return html_template
 
 # #DEBUG INPUTS

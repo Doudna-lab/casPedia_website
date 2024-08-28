@@ -83,7 +83,7 @@ master_to_wiki_col_format:
   "Targeting_Requirement": "Targeting Requirement"
   "gRNA_and_Multiplexability": "gRNA and Multiplexability"
   "Class_II_Subtype": "Class 2 subtype"
-  "PAM_or_PFS": "PAM or PFS"
+  "PAM": "PAM"
 
 # Column name in the wiki forms that denotes raw fasta sequences
 wiki_sequence_col_name: "Sequence"
