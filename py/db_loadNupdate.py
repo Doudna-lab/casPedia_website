@@ -124,12 +124,11 @@ def load_table2db(df_dict, conn_string, schema_name):
 	print("Commited changes to DB")
 
 
-# Load config_render file
-with open(get_absolute_path('db_interaction.yaml'), "r") as f:
-	config = yaml.safe_load(f)
-
-
 def main():
+	# Load config_render file
+	with open(get_absolute_path('db_interaction.yaml'), "r") as f:
+		config = yaml.safe_load(f)
+
 	column_consistency_check = True
 	source_metadata_list = config["source_metadata_path"]
 	master_search_col = config["unique_id_col"]
