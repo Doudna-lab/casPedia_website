@@ -15,6 +15,8 @@ doi_table_name: 'doi_citation'
 # AddGene Integration table
 addgene_schema: 'AddGene'
 addgene_table_name: 'summary'
+# Sequence Internal Database information
+seqrecord_pickle_filename: 'seqrecord_dict'
 
 # Column in the main database that contains unique protein identifiers
 unique_id_col: "Type Protein"
@@ -146,18 +148,6 @@ wiki_sections:
       tbl_name: "Experimental_Details"
       format: '' #Directly displayed as a table
       n_of_index_cols: 2
-#  - gene_editing_human:
-#      tbl_name: "Gene_Editing_Examples"
-#      format: '<h5>{{ Application_Type }}</h5>
-#               <ul>
-#                 <li class="ul-ul"> <i>In vivo</i> or <i>Ex vivo</i> Editing: <i>{{ In_Vivo_or_Ex_Vivo_Editing }}</i></li>
-#                 <li class="ul-ul"> Pharmaceutical or Product Name: {{ Pharmaceutical_or_Product_Name }}</li>
-#                 <li class="ul-ul"> NCT: {{ NCT }}</li>
-#                 <li class="ul-ul"> Responsible Party: {{ Responsible_Party }}</li>
-#                 <li class="ul-ul"> Description:</li>
-#                 <span>{{ Description }} {{ Citation_or_Publications }}</span>
-#             </ul>'
-#      n_of_index_cols: 1
   - gene_editing:
       tbl_name: "Gene_Editing_Examples"
       format: '<h5>{{ Application_Type }}</h5>

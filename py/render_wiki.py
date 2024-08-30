@@ -1,6 +1,9 @@
 # Native modules
 import re
+import pickle
+from pathlib import Path
 # Installed modules
+from Bio import SeqIO, SeqUtils
 import pandas as pd
 import yaml
 import numpy as np
@@ -11,13 +14,14 @@ from sqlalchemy.schema import CreateSchema as cschema
 from sqlalchemy import create_engine, inspect
 from requests.exceptions import HTTPError
 from sqlalchemy.exc import ProgrammingError
+from io import StringIO
 # Project Modules
 from py.render_word_search import sql_table_to_df
 from py.db_loadNupdate import psql_connect, get_absolute_path
 from py.render_search_result import generate_link
 
 # Load config_render file
-with open(get_absolute_path("db_interaction.yaml"), "r") as f:
+with open("/home/ubuntu/casPedia_website/config/db_interaction.yaml", "r") as f:
 	config = yaml.safe_load(f)
 
 
@@ -43,15 +47,15 @@ def replace_last(pattern, replacement, string):
 def resolve_addgene_link(entry_id):
 	"""
 	addgene_template = str('<a href=" https://www.addgene.org/search/all/?q={{ ENTRY }}" target="_blank">'
-	                       '<img src="/static/img/Addgene_Logo.png" alt="addgene_link" style="width: 8vw; border: 2px solid #676774;">'
-	                       '</a>')
+						   '<img src="/static/img/Addgene_Logo.png" alt="addgene_link" style="width: 8vw; border: 2px solid #676774;">'
+						   '</a>')
 	"""
 	addgene_template = str('<div style="text-align: center;">'
 						   '<a style="text-decoration: none; color: #676774; font-weight: bold; display: block; margin-bottom: 1 px;">Search Constructs on Addgene</a>'
-        				   '<a href=" https://www.addgene.org/search/all/?q={{ ENTRY }}" target="_blank">'
+						   '<a href=" https://www.addgene.org/search/all/?q={{ ENTRY }}" target="_blank">'
 						   '<img src="/static/img/Addgene_Logo.png" alt="addgene_link" style="width: 10rem; border: 1.5px solid #676774; display: block; margin: 0 auto; padding:1rem; border-radius: 10px;">'
-        				   '</a>'
-    					   '</div>')
+						   '</a>'
+						   '</div>')
 	resolved_addgene = re.sub(r"\{\{ ENTRY \}\}", str(entry_id), addgene_template)
 	return resolved_addgene
 
@@ -74,10 +78,10 @@ def wiki_format_db2html(df, format_instructions):
 				# Use column names directly from PSQL to replace the patterns written on the associated config file
 				try:
 					target_replacement = re.sub(r"{{{{ {} }}}}".format(db_column_name),
-					                            input_dict[db_column_name][db_content_idx], target_replacement)
+												input_dict[db_column_name][db_content_idx], target_replacement)
 				except TypeError:
 					target_replacement = re.sub(r"{{{{ {} }}}}".format(re.escape(db_column_name)),
-					                            "", target_replacement)
+												"", target_replacement)
 			#  Remove any href tags with empty links
 			content_population_list.append(target_replacement.replace(' href="" target="_blank"', ''))
 		break
@@ -112,7 +116,7 @@ def resolve_citation_link(df):
 		# Add the href tag to the doi reference
 		df[column] = df[column].apply(
 			lambda x: re.sub(r'(\(\(([^)]+)\)\))', r'<a href="https://doi.org/\2" target="_blank">|reference_idx|</a>',
-			                 str(x)))
+							 str(x)))
 		# Add href tag to external database links
 		df[column] = df[column].apply(
 			lambda x: re.sub(r'\[\[([^]]+)\]\]', r'<a href="\1" target="_blank"><sup>link</sup></a>', str(x)))
@@ -171,7 +175,7 @@ def addgene_integration(config_db):
 def reference_catalog(html_string, reference_list):
 	loop_html_string = html_string
 	for reference_hit in re.findall(r'"(?:https?://)?doi\.org/(\S+)" target="_blank">\|reference_idx\|</a>',
-	                                html_string):
+									html_string):
 		current_reference_idx = len(reference_list) + 1
 
 		if reference_hit in set(reference_list):
@@ -192,6 +196,20 @@ def reference_catalog(html_string, reference_list):
 
 	# print(loop_html_string)
 	return loop_html_string, reference_list
+
+
+def retrieve_wiki_section(db_connection, schema_name, section_to_retrieve, config_db):
+	no_empty_rows_section_df = pd.DataFrame()
+	section_name = ''
+	for section_idx in range(len(config_db["wiki_sections"])):
+		section_title = list(config_db["wiki_sections"][section_idx].keys())[0]
+		section = config_db["wiki_sections"][section_idx][section_title]
+		if re.search(rf'^{section_to_retrieve}$', section_title):
+			section_name = section['tbl_name']
+			section_df = sql_table_to_df(db_connection, schema_name, section["tbl_name"])
+			# Discard any empty rows
+			no_empty_rows_section_df = remove_empty_rows(section_df, section["n_of_index_cols"])
+	return no_empty_rows_section_df, section_name
 
 
 def format_references(reference_list, config_db):
@@ -301,10 +319,10 @@ def save_references(doi_to_citation_dict, config_db):
 		if not table_exists:
 			# Append or create the table in the database
 			df_doi.to_sql(str(table_name),
-			              db_engine,
-			              schema=schema_name,
-			              index=False
-			              )
+						  db_engine,
+						  schema=schema_name,
+						  index=False
+						  )
 		# Filter the DataFrame to exclude existing rows in the database table
 		if table_exists:
 			existing_rows = pd.read_sql_query(f'SELECT doi FROM {schema_name}.{table_name}', db_engine)
@@ -312,10 +330,10 @@ def save_references(doi_to_citation_dict, config_db):
 
 			# Append only the new rows to the database table
 			df.to_sql(str(table_name),
-			          db_engine,
-			          schema=schema_name,
-			          if_exists='append',
-			          index=False)
+					  db_engine,
+					  schema=schema_name,
+					  if_exists='append',
+					  index=False)
 
 		# Commit the new entries
 		db_connection = psycopg2.connect(conn_string)
@@ -325,6 +343,36 @@ def save_references(doi_to_citation_dict, config_db):
 	except psycopg2.errors.InFailedSqlTransaction:
 		print("Could not add table to schema")
 		return
+
+
+def store_sequences(seqrecords_dict, config_db):
+	pickle_filepath = f"{config_db['pickles_path']}/{config_db['seqrecord_pickle_filename']}"
+	file_path = Path(pickle_filepath)
+	if file_path.exists():
+		with open(pickle_filepath, 'rb') as f:
+			old_dict = pickle.load(f)
+			old_dict.update(seqrecords_dict)
+			with open(pickle_filepath, 'wb') as f:
+				pickle.dump(old_dict, f)
+	if not file_path.exists():
+		with open(pickle_filepath, 'wb') as f:
+			pickle.dump(seqrecords_dict, f)
+	return
+
+
+def get_fasta_data(url):
+	try:
+		response = requests.get(url)
+		if response.ok and response.text.strip():  # Check if response is successful and not empty
+			fasta_data = response.text
+			fasta_io = StringIO(fasta_data)
+			seq_record = SeqIO.read(fasta_io, "fasta")
+			return seq_record
+		else:
+			raise ValueError("Empty response or failed request")
+	except Exception as e:
+		print(f"Error: {e}")
+		return None
 
 
 class DynamicWiki:
@@ -344,6 +392,8 @@ class DynamicWiki:
 		self.schema_name = f'{config_db["wiki_schema_prefix"]}.{self.entry_id}'
 		self.references_list = []
 		self.content_check = False
+		self.doi_dict = {}
+		self.seqrecord_dict = {}
 		self.formatted_references = ''
 		self.classification = None
 		self.properties = None
@@ -372,8 +422,8 @@ class DynamicWiki:
 				no_empty_rows_section_df = remove_empty_rows(section_df, section["n_of_index_cols"])
 				# Check if there are any dedicated FASTA sequences in the table and resolve them accordingly
 				no_empty_rows_section_df = resolve_fasta_seq(no_empty_rows_section_df,
-				                                             config_db['wiki_sequence_col_name'],
-				                                             self.entry_id, config_db['raw_fasta_path'])
+															 config_db['wiki_sequence_col_name'],
+															 self.entry_id, config_db['raw_fasta_path'])
 				self.content_check = True
 			except ProgrammingError:
 				# If the entry does not exist in the PSQL Database, generate an empty dataframe
@@ -383,16 +433,64 @@ class DynamicWiki:
 			if len(no_empty_rows_section_df.index) == 0:
 				setattr(self, str(section_title), None)
 				continue
-			# The gene_editing section of the wiki is the 1st exception in the PSQL->HTML processing
-			# if re.search(r'^gene_editing$', section_title):
-			# 	no_empty_rows_section_df = no_empty_rows_section_df[
-			# 		no_empty_rows_section_df.loc[:, "Application_Type"] != 'Human_Clinical_Trial']
-			# 	self.df_example = no_empty_rows_section_df
-			# if re.search(r'^gene_editing_human$', section_title):
-			# 	no_empty_rows_section_df = no_empty_rows_section_df[
-			# 		no_empty_rows_section_df.loc[:, "Application_Type"] == 'Human_Clinical_Trial']
 
-			# The 2nd exception is the 'Structural' table, from which, in V1, only the 1st entry is processed
+			# The 2nd exception is the Properties table where specific values must be cross-referenced with the Sequence table
+			if (re.search(r'^properties$', section_title)):
+				print(f"OPERATING PROPERTIES LINKS - SECTION TITLE: {section_title}")
+				original_content_info_list = no_empty_rows_section_df.loc[:, 'Info'].to_list()
+				original_content_prop_list = no_empty_rows_section_df.loc[:, 'Property'].to_list()
+				print(f"COLUMN 'PROPERTY': {original_content_prop_list}")
+				(sequences_content_df, sequences_table_name) = retrieve_wiki_section(self.db_conn, self.schema_name, 'sequences', config_db)
+				(resources_content_df, resources_table_name) = retrieve_wiki_section(self.db_conn, self.schema_name, 'resources', config_db)
+				print(f"RESOURCES TABLE NAME CHECK: {resources_table_name}")
+				for item_index in range(len(original_content_info_list)):
+					# The first option is to link the content to 'Resources'
+					# == This leads to processing the reference protein sequence
+					print(f"LOOPING ITEM {item_index}: INFO->{original_content_info_list[item_index]}\nPROPERTY: {original_content_prop_list[item_index]}")
+					try:
+						if re.search(rf"{resources_table_name}", original_content_info_list[item_index]):
+							crossreference_label = original_content_info_list[item_index].split(":")[1].strip()
+							print(f"CONTENT LABEL: {crossreference_label}")
+							raw_crossreference_content = resources_content_df[resources_content_df['Resource'] == crossreference_label]['Value'].to_string(index=False)
+							crossreference_content = raw_crossreference_content.split("[")[0].strip()
+							print(f"EXTRACTED REFERENCE: {crossreference_content}")
+							# Check the existence of content in the table cell where the crossreference instruction should exist
+							if crossreference_content is not None:
+								# URL of the FASTA file
+								ncbi_url = f"https://www.ncbi.nlm.nih.gov/sviewer/viewer.cgi?db=protein&id={crossreference_content}&report=fasta&retmode=text"
+								# Retrieve the data from the URL
+								# Attempt to retrieve and parse the FASTA data
+								seq_record = get_fasta_data(ncbi_url)
+
+								# If the first attempt fails (returns None), try a different URL
+								if seq_record is None:
+									uniprot_url = f"https://rest.uniprot.org/uniprotkb/{crossreference_content}.fasta"
+									seq_record = get_fasta_data(uniprot_url)
+									if seq_record is None:
+										print(f'THE FOLLOWING ENTRY DOES NOT EXIST IN NCBI OR UNIPROTKB: {crossreference_content}')
+										print(f"Both {uniprot_url} and {ncbi_url} FAILED")
+										original_content_info_list[item_index] = ''
+										continue
+
+								# Store SeqRecord data
+								print(f"STORE RECORD: {seq_record}")
+								self.seqrecord_dict.setdefault(crossreference_content, seq_record)
+
+								# Get Molecular Weight Measure
+								if original_content_prop_list[item_index].strip() == "Protein Weight (KDa)":
+									original_content_info_list[item_index] = "%0.2f" % SeqUtils.molecular_weight(str(seq_record.seq), seq_type='protein')
+								elif original_content_prop_list[item_index].strip() == "CDS Length (nt)":
+									original_content_info_list[item_index] = len(seq_record.seq) * 3
+								elif original_content_prop_list[item_index].strip() == "Number Amino Acids":
+									original_content_info_list[item_index] = len(seq_record.seq)
+					except TypeError:
+						continue
+
+				print(f"PUT THE ADJUSTED DATA BACK INTO 'INFO' : {original_content_info_list}")
+				no_empty_rows_section_df['Info'] = original_content_info_list
+				# if re.search(rf"{sequences_table_name}", original_content_info_list[item_index]):
+
+			# The 3rd exception is the 'Structural' table, from which, in V1, only the 1st entry is processed
 			if re.search(r'^structure$', section_title):
 				no_empty_rows_section_df = no_empty_rows_section_df.head(1)
 				# This is an exception for non-PDB structures provided via AWS S3 URLs
@@ -403,7 +501,7 @@ class DynamicWiki:
 			# Generate an HTML string following the format instructions defined in the config file
 			html_content = wiki_format_db2html(no_empty_rows_section_df, section["format"])
 
-			# The 3rd formatting exception consist of all the section directly displayed as tables:
+			# The 4th formatting exception consist of all the section directly displayed as tables:
 			#   the html_content is modified to generate a table from the pandas DF
 			if (re.search(r'^exp_details$', section_title) or
 					re.search(r'^pfam$', section_title) or
@@ -416,8 +514,8 @@ class DynamicWiki:
 				html_content = str(no_empty_rows_section_df.to_html(index=False))
 				# Header adjustments
 				html_content = html_content.replace('<table border="1" class="dataframe">',
-				                                    f"<div class='table-wrap'>\n<table class='wiki-table wiki-striped wiki-bordered'>\n"
-				                                    f"\n<span class='sr-only'>\n</span></caption>")
+													f"<div class='table-wrap'>\n<table class='wiki-table wiki-striped wiki-bordered'>\n"
+													f"\n<span class='sr-only'>\n</span></caption>")
 				html_content = html_content.replace('</table>', '</table>\n</div>')
 				# Replace &lt; with <
 				html_content = html_content.replace('&lt;', '<')
@@ -447,5 +545,6 @@ def run(entry_path, psql_config):
 	# wiki_entry = DynamicWiki(config, 'Cas12j2.html')
 
 	save_references(wiki_entry.doi_dict, psql_config)
+	store_sequences(wiki_entry.seqrecord_dict, psql_config)
 	# save_references(wiki_entry.doi_dict, config)
 	return wiki_entry
