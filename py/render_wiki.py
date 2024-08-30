@@ -478,11 +478,11 @@ class DynamicWiki:
 
 								# Get Molecular Weight Measure
 								if original_content_prop_list[item_index].strip() == "Protein Weight (KDa)":
-									original_content_info_list[item_index] = "%0.2f" % SeqUtils.molecular_weight(str(seq_record.seq), seq_type='protein')
+									original_content_info_list[item_index] = "%0.2f" % (SeqUtils.molecular_weight(str(seq_record.seq), seq_type='protein') / 1000)
 								elif original_content_prop_list[item_index].strip() == "CDS Length (nt)":
-									original_content_info_list[item_index] = len(seq_record.seq) * 3
+									original_content_info_list[item_index] = str(len(seq_record.seq) * 3)
 								elif original_content_prop_list[item_index].strip() == "Number Amino Acids":
-									original_content_info_list[item_index] = len(seq_record.seq)
+									original_content_info_list[item_index] = str(len(seq_record.seq))
 					except TypeError:
 						continue
 
