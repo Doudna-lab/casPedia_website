@@ -87,6 +87,9 @@ master_to_wiki_col_format:
   "Class_II_Subtype": "Class 2 subtype"
   "PAM": "PAM"
 
+# The unified message for empty items to be displayed on the wiki page
+empty_message: "Not applicable"
+
 # Column name in the wiki forms that denotes raw fasta sequences
 wiki_sequence_col_name: "Sequence"
 # Path where raw FASTA files will be stored

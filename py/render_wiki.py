@@ -361,18 +361,21 @@ def store_sequences(seqrecords_dict, config_db):
 
 
 def get_fasta_data(url):
-	try:
-		response = requests.get(url)
-		if response.ok and response.text.strip():  # Check if response is successful and not empty
-			fasta_data = response.text
-			fasta_io = StringIO(fasta_data)
-			seq_record = SeqIO.read(fasta_io, "fasta")
-			return seq_record
-		else:
-			raise ValueError("Empty response or failed request")
-	except Exception as e:
-		print(f"Error: {e}")
-		return None
+	keep_trying = 11
+	for tries in range(keep_trying):
+		try:
+			response = requests.get(url)
+			if response.ok and response.text.strip():  # Check if response is successful and not empty
+				fasta_data = response.text
+				fasta_io = StringIO(fasta_data)
+				seq_record = SeqIO.read(fasta_io, "fasta")
+				print(f"Found on try number {tries}")
+				return seq_record
+			else:
+				raise ValueError(f"Empty response or failed request. Try number {tries}")
+		except Exception as e:
+			print(f"Error: {e}")
+	return None
 
 
 class DynamicWiki:
@@ -447,12 +450,14 @@ class DynamicWiki:
 					# The first option is to link the content to 'Resources'
 					# == This leads to processing the reference protein sequence
 					print(f"LOOPING ITEM {item_index}: INFO->{original_content_info_list[item_index]}\nPROPERTY: {original_content_prop_list[item_index]}")
+
+					# Format Crossreference between Properties->Resources
 					try:
 						if re.search(rf"{resources_table_name}", original_content_info_list[item_index]):
 							crossreference_label = original_content_info_list[item_index].split(":")[1].strip()
 							print(f"CONTENT LABEL: {crossreference_label}")
-							raw_crossreference_content = resources_content_df[resources_content_df['Resource'] == crossreference_label]['Value'].to_string(index=False)
-							crossreference_content = raw_crossreference_content.split("[")[0].strip()
+							raw_crossreference_content = resources_content_df[resources_content_df['Resource'].str.contains(crossreference_label, regex=True)]['Value'].to_string(index=False)
+							crossreference_content = str(raw_crossreference_content).split("[")[0].strip()
 							print(f"EXTRACTED REFERENCE: {crossreference_content}")
 							# Check the existence of content in the table cell where the crossreference instruction should exist
 							if crossreference_content is not None:
@@ -469,7 +474,7 @@ class DynamicWiki:
 									if seq_record is None:
 										print(f'THE FOLLOWING ENTRY DOES NOT EXIST IN NCBI OR UNIPROTKB: {crossreference_content}')
 										print(f"Both {uniprot_url} and {ncbi_url} FAILED")
-										original_content_info_list[item_index] = ''
+										original_content_info_list[item_index] = config_db['empty_message']
 										continue
 
 								# Store SeqRecord data
@@ -483,6 +488,28 @@ class DynamicWiki:
 									original_content_info_list[item_index] = str(len(seq_record.seq) * 3)
 								elif original_content_prop_list[item_index].strip() == "Number Amino Acids":
 									original_content_info_list[item_index] = str(len(seq_record.seq))
+					except TypeError:
+						continue
+					# Format Crossreference between Properties->Sequences
+					try:
+						if re.search(rf"{sequences_table_name}", original_content_info_list[item_index]):
+							crossreference_label = original_content_info_list[item_index].split(":")[1].strip()
+							print(f"CONTENT LABEL: {crossreference_label}")
+							crossreference_content = sequences_content_df[sequences_content_df['Property'].str.contains(crossreference_label, regex=True)]['Sequence']
+							print(f"EXTRACTED REFERENCE: {crossreference_content}")
+							# Check the existence of content in the table cell where the crossreference instruction should exist
+							if len(crossreference_content) > 0:
+								crossreference_content = sequences_content_df[
+									sequences_content_df['Property'].str.contains(crossreference_label, regex=True)][
+									'Sequence'].to_string(index=False)
+								seq_record = str(crossreference_content)
+								# Get Molecular Weight Measure
+								if original_content_prop_list[item_index].strip() == "tracrRNA Length (nt)":
+									original_content_info_list[item_index] = str(len(seq_record))
+								elif original_content_prop_list[item_index].strip() == "sgRNA/crRNA Length (nt)":
+									original_content_info_list[item_index] = str(len(seq_record))
+							else:
+								original_content_info_list[item_index] = config_db['empty_message']
 					except TypeError:
 						continue
 
