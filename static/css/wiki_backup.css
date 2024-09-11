@@ -344,11 +344,11 @@ h1{font-size:64px;text-align:center;font-weight:bold}h2{font-size:34px;font-weig
 h1,h2,h3,h4,h5,h6{font-family:"Segoe UI",Arial,sans-serif;font-weight:400;margin:1px 0}.wiki-wide{letter-spacing:4px}
 hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .wiki-image{max-width:100%;height:auto}img{vertical-align:middle}a{color:inherit}
-.wiki-table,.wiki-table-all{table-layout: fixed; word-wrap: break-word;;border-collapse:collapse;border-spacing:0;width:100%;display:table}.wiki-table-all{border:1px solid #ccc}
+.wiki-table,.wiki-table-all{table-layout: fixed; word-wrap: break-word;;border-collapse:collapse;border-spacing:0;width:100%;display:block;overflow:auto}.wiki-table-all{border:1px solid #ccc}
 .wiki-bordered tr,.wiki-table-all tr{border-bottom:1px solid #ddd}.wiki-striped tbody tr:nth-child(even){background-color:#f1f1f1}
 .wiki-table-all tr:nth-child(odd){background-color:#fff}.wiki-table-all tr:nth-child(even){background-color:#f1f1f1}
 .wiki-hoverable tbody tr:hover,.wiki-ul.wiki-hoverable li:hover{background-color:#ccc}.wiki-centered tr th,.wiki-centered tr td{text-align:center}
-.wiki-table td,.wiki-table th,.wiki-table-all td,.wiki-table-all th{padding:8px 8px;display:table-cell;text-align:left;vertical-align:top}
+.wiki-table td,.wiki-table th,.wiki-table-all td,.wiki-table-all th{padding:8px 8px;display:table-cell;text-align:left;vertical-align:middle}
 .wiki-table th:first-child,.wiki-table td:first-child,.wiki-table-all th:first-child,.wiki-table-all td:first-child{padding-left:16px}
 .wiki-btn,.wiki-button{border:none;display:inline-block;padding:8px 16px;vertical-align:middle;overflow:hidden;text-decoration:none;color:inherit;background-color:inherit;text-align:center;cursor:pointer;white-space:nowrap}
 .wiki-btn:hover{box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)}
