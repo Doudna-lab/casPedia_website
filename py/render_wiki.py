@@ -124,6 +124,28 @@ def resolve_citation_link(df):
 	return df
 
 
+def resolve_ortholog_link(df, entry_list, target_column):
+	try:
+		list_of_names = df[target_column].tolist()
+	except KeyError:
+		return df
+	# Iterate over columns and rows of the DataFrame
+	print(f"ANALYZING ENTRY LIST: {entry_list}")
+	print(f"AGAINST LIST OF NAMES: {list_of_names}")
+	print(f"FULL DATAFRAME: {df}")
+	for entry in entry_list:
+		for name in list_of_names:
+			if re.search(name, entry):
+				list_of_names[list_of_names.index(name)] = re.sub(name,
+					rf'<a href="http://caspedia.org/wiki/{entry}.html" target="_blank">{name}</a>',
+												 name)
+				print(f"FOUND!!! REPLACED NAME: {name}")
+				print(f"LIST UPDATED: {list_of_names}")
+
+	df[target_column] = list_of_names
+	return df
+
+
 def export_fasta_from_df(row):
 	filename = row["Export_FASTA"]
 	fastq_seq = row["Sequence_FASTA"]
@@ -380,7 +402,7 @@ def get_fasta_data(url):
 
 class DynamicWiki:
 
-	def __init__(self, config_db, page_path):
+	def __init__(self, config_db, page_path, full_entry_list):
 		"""
 		A DynamicWiki object is a container that stores HTML formatted blocks for every
 		entry in casPEDIA that is ultimately rendered to the web pages. The class parses
@@ -405,6 +427,7 @@ class DynamicWiki:
 		self.structure = None
 		self.text_summaries = None
 		self.tools = None
+		self.orthologs = None
 		self.gene_editing = None
 		self.gene_editing_human = None
 		self.exp_details = None
@@ -419,6 +442,8 @@ class DynamicWiki:
 				# Import table from PSQL and resolve citation links
 				section_df = resolve_citation_link(
 					sql_table_to_df(self.db_conn, self.schema_name, section["tbl_name"]))
+
+				section_df = resolve_ortholog_link(section_df, full_entry_list, config_db['orthologs_name'])
 				# Remove any 'unnamed' columns from the DF
 				section_df = section_df.loc[:, ~section_df.columns.str.contains(r'unnamed', case=False)]
 				# Discard any empty rows
@@ -537,7 +562,8 @@ class DynamicWiki:
 					re.search(r'^gene_editing_human$', section_title) or
 					re.search(r'^active_site$', section_title) or
 					re.search(r'^variants$', section_title) or
-					re.search(r'^tools$', section_title)):
+					re.search(r'^tools$', section_title) or
+					re.search(r'^orthologs$', section_title)):
 				html_content = str(no_empty_rows_section_df.to_html(index=False))
 				# Header adjustments
 				html_content = html_content.replace('<table border="1" class="dataframe">',
@@ -548,7 +574,6 @@ class DynamicWiki:
 				html_content = html_content.replace('&lt;', '<')
 				# Replace &gt; with >
 				html_content = html_content.replace('&gt;', '>')
-
 			(formatted_html_content, self.references_list) = reference_catalog(html_content, self.references_list)
 
 			# Resolve AddGene entry link at the Experimental Details section
@@ -566,12 +591,13 @@ class DynamicWiki:
 			self.content_check = False
 
 
-def run(entry_path, psql_config):
+def run(entry_path, psql_config, full_entry_list):
 	"""Generate Wiki Entry Object"""
-	wiki_entry = DynamicWiki(psql_config, entry_path)
+	wiki_entry = DynamicWiki(psql_config, entry_path, full_entry_list)
 	# wiki_entry = DynamicWiki(config, 'Cas12j2.html')
 
 	save_references(wiki_entry.doi_dict, psql_config)
 	store_sequences(wiki_entry.seqrecord_dict, psql_config)
 	# save_references(wiki_entry.doi_dict, config)
 	return wiki_entry
+

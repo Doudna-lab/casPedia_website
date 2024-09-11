@@ -31,10 +31,11 @@ def main():
 	df_master = sql_table_to_df(db_conn,
 	                            schema_name,
 	                            psql_config['default_search_table'])
+	full_entry_list = list(df_master[psql_config['unique_id_col']])
 	# Loop through all entries in the database
-	for entry in list(df_master[psql_config['unique_id_col']]):
+	for entry in full_entry_list:
 		# Generate DynamicWiki object
-		wiki_entry = dw(psql_config, entry)
+		wiki_entry = dw(psql_config, entry, full_entry_list)
 		# Save references on the PSQL Database
 		save_references(wiki_entry.doi_dict, psql_config)
 

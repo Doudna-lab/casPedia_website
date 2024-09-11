@@ -155,7 +155,8 @@ def wiki_page(page):
     # This is leveraged to create a DynamicWiki object
     #   Within this object all the information is formatted to be incorporated into the wiki HTML template
     if not pickle_path_obj.is_file():
-        wiki_entry = load_wiki_data(page, psql_config)
+        # wiki_entry = load_wiki_data(page, psql_config)
+        return render_template('wiki/error.html', title="Entry Not Found")
     if pickle_path_obj.is_file():
         with open(pickles_path, "rb") as wiki_pickle:
             wiki_entry = pickle.load(wiki_pickle)
@@ -178,6 +179,7 @@ def wiki_page(page):
                            gene_editing=wiki_entry.gene_editing or empty_string,
                            tools=wiki_entry.tools or empty_string,
                            variants=wiki_entry.variants or empty_string,
+                           orthologs=wiki_entry.orthologs or empty_string,
                            exp_details=wiki_entry.exp_details or empty_string,
                            sequence_browser=wiki_entry.sequence_browser or empty_string,
                            pfam=wiki_entry.pfam or empty_string,

@@ -22,6 +22,8 @@ seqrecord_pickle_filename: 'seqrecord_dict'
 unique_id_col: "Type Protein"
 # Column in the main database that contains unique protein identifiers
 genomic_browser_col: "Browser_Command"
+# Column in the Orthologs table holding names of the orthologs
+orthologs_name : "Ortholog_Name"
 
 # Sets the name of the sequence browser table name in the PSQL Database
 genomic_db_table_name: 'Sequence_Browser'
@@ -170,6 +172,10 @@ wiki_sections:
                 </ul>
               </ul>'
       n_of_index_cols: 1
+  - orthologs:
+      tbl_name: "Orthologs"
+      format: '' # This section's format is a table directly taken from the DB
+      n_of_index_cols: 0
   - variants:
       tbl_name: "Engineered_Variants"
       format: '<h5>{{ Variant_Name }}</h5>
